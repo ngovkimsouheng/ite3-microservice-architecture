@@ -20,6 +20,7 @@
 
 package kh.edu.istad.platform.customer.persistence.adapter;
 
+import kh.edu.istad.common.domain.valueobject.CustomerId;
 import kh.edu.istad.platform.customer.domain.entity.Customer;
 import kh.edu.istad.platform.customer.domain.port.out.CustomerRepository;
 import kh.edu.istad.platform.customer.persistence.entity.CustomerEntity;
@@ -27,6 +28,8 @@ import kh.edu.istad.platform.customer.persistence.repository.CustomerJpaReposito
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -70,6 +73,23 @@ public class CustomerRepositoryAdapter implements CustomerRepository {
         customerJpaRepository.save(customerEntity);
 
         return customer;
+    }
+
+    @Override
+    public Optional<Customer> findById(CustomerId customerId) {
+
+        return customerJpaRepository.findById(customerId.value())
+                .map(entity ->
+                        Customer.Builder.builder()
+                                .id(new CustomerId(entity.getCustomerId()))
+                                .username(entity.getUsername())
+                                .familyName(entity.getFamilyName())
+                                .givenName(entity.getGivenName())
+                                .email(entity.getEmail())
+                                .phoneNumber(entity.getPhoneNumber())
+                                .status(entity.getStatus())
+                                .build()
+                );
     }
 }
 
