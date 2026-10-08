@@ -8,7 +8,7 @@ import kh.edu.istad.platform.customer.domain.event.CustomerUpdatedEvent;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-public class DomainServiceImpl implements CustomerDomainService {
+public class CustomerDomainServiceImpl implements CustomerDomainService {
     @Override
     public CustomerInitiatedEvent initiateCustomer(Customer customer) {
 
