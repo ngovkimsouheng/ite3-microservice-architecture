@@ -5,4 +5,6 @@ dependencies {
     api 'kh.edu.istad:customer-application-service' //must have common-domain dependency to use common-domain module
     //dependencies for jpa
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'org.postgresql:postgresql'
 }
