@@ -1,0 +1,6 @@
+plugins {
+    id 'java-common-conventions'
+}
+dependencies {
+    api 'kh.edu.istad:istad-common-domain' //must have common-domain dependency to use common-domain module
+}

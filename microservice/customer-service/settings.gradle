@@ -1,0 +1,23 @@
+pluginManagement {
+    includeBuild('../../build-logic')
+
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'customer-service'
+
+
+include 'customer-service-domain:customer-domain-core'
+include 'customer-service-domain:customer-application-service'
+include 'customer-service-persistence' //adapter
+include 'customer-service-message' //adapter
+include 'customer-service-restapi' //adapter
+include 'customer-service-main' //chea entry point kleng for include dependancy

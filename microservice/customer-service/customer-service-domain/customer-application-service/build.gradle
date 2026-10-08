@@ -1,0 +1,6 @@
+plugins {
+    id 'spring-common-conventions'
+}
+dependencies {
+    api 'kh.edu.istad:customer-domain-core' //must have common-domain dependency to use common-domain module
+}

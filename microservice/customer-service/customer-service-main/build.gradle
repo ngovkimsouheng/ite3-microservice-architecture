@@ -1,0 +1,26 @@
+plugins {
+    id 'springboot-common-conventions'
+}
+dependencies {
+//    api 'kh.edu.istad:customer-application-service'
+//    api 'kh.edu.istad:customer-domain-core'
+//    api 'kh.edu.istad:customer-service-persistence'
+//    api 'kh.edu.istad:customer-service-restapi'
+//    api 'kh.edu.istad:customer-service-message'
+//    implementation 'kh.edu.istad:customer-service-domain'
+//    implementation 'kh.edu.istad:customer-application-service'
+//    implementation 'kh.edu.istad:customer-service-persistence'
+//    implementation 'kh.edu.istad:customer-service-restapi'
+//    implementation 'kh.edu.istad:customer-service-message'
+//
+//    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+//    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+//    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'kh.edu.istad:customer-domain-core'
+    implementation 'kh.edu.istad:customer-application-service'
+    implementation 'kh.edu.istad:customer-service-message'
+    implementation 'kh.edu.istad:customer-service-persistence'
+    implementation 'kh.edu.istad:customer-service-restapi'
+
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+}
