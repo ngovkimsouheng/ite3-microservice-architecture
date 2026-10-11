@@ -8,48 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/istad-common/istad-common-domain/src/main/java/kh/edu/istad/common/domain/valueobject/BusinessId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/dto/CreateOrderCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/dto/CreateOrderResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/dto/OrderItemCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/port/out/OrderRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/usecase/CreateOrderUseCase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/entity/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/entity/OrderCreatedEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/entity/OrderItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/entity/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/event/OrderCreatedEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/exception/OrderDomainException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/service/OrderDomainService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/service/OrderDomainServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/valueobject/OrderId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/valueobject/OrderItemId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/valueobject/OrderStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/valueobject/ProductId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/valueobject/StreetAddress.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/valueobject/TrackingId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/OrderApplicationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/bean/BeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/adapter/OrderRepositoryAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/OrderEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/OrderItemEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/repository/OrderJpaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/controller/OrderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/dto/OrderCreateRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/dto/OrderCreateResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/dto/OrderItemRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/mapper/OrderWebMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/istad-common/istad-common-domain/src/main/java/kh/edu/istad/common/domain/valueobject/Money.java" beforeDir="false" afterPath="$PROJECT_DIR$/istad-common/istad-common-domain/src/main/java/kh/edu/istad/common/domain/valueobject/Money.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/usecase/CancelOrderUseCase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/usecase/PayOrderUseCase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/event/OrderCancelledEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/event/OrderPaidEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/entity/OrderCreatedEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/service/OrderDomainService.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/service/OrderDomainService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/service/OrderDomainServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/service/OrderDomainServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/controller/OrderController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +172,7 @@
     "Spring Boot.OrderApplication.executor": "Run",
     "Spring Boot.OrderApplicationService.executor": "Run",
     "copilot.chat.legacySessionMetadata.migrated": "true",
-    "git-widget-placeholder": "433c8040",
+    "git-widget-placeholder": "ASS02",
     "kotlin-language-version-configured": "true",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
@@ -242,7 +210,7 @@
             <map>
               <entry key="BusinessApplicationService" value="STOPPED" />
               <entry key="CustomerApplicationServicee" value="STOPPED" />
-              <entry key="OrderApplicationService" value="FAILED" />
+              <entry key="OrderApplicationService" value="STOPPED" />
             </map>
           </value>
         </entry>
@@ -366,7 +334,7 @@
       <workItem from="1791704705983" duration="1419000" />
       <workItem from="1791706146746" duration="135000" />
       <workItem from="1791706299489" duration="307000" />
-      <workItem from="1791706639928" duration="8626000" />
+      <workItem from="1791706639928" duration="9999000" />
     </task>
     <servers />
   </component>
