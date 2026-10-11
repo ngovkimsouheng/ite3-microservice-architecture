@@ -1,0 +1,12 @@
+plugins {
+    id 'springboot-common-conventions'
+}
+
+dependencies {
+    implementation project(':order-service-domain:order-domain-core')
+    implementation project(':order-service-domain:order-application-service')
+    implementation project(':order-service-persistence')
+    implementation project(':order-service-restapi')
+
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+}

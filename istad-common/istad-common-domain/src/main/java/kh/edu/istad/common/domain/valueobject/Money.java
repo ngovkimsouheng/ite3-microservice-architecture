@@ -6,11 +6,12 @@ public record Money(
         BigDecimal amount
 ) {
 
-    public void isGreaterThanZero() {
+    public boolean isGreaterThanZero() {
 
         if (!(amount.compareTo(BigDecimal.ZERO) > 0)) {
             System.out.println("Money is not greater than zero");
             throw new RuntimeException("Money is not greater than zero");
         }
+        return false;
     }
 }

@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="auto" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/istad-common/istad-common-domain/src/main/java/kh/edu/istad/common/domain/valueobject/BusinessId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/dto/CreateOrderCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/dto/CreateOrderResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/dto/OrderItemCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/port/out/OrderRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/usecase/CreateOrderUseCase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/entity/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/entity/OrderCreatedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/entity/OrderItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/entity/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/event/OrderCreatedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/exception/OrderDomainException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/service/OrderDomainService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/service/OrderDomainServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/valueobject/OrderId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/valueobject/OrderItemId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/valueobject/OrderStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/valueobject/ProductId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/valueobject/StreetAddress.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/src/main/java/kh/edu/istad/platform/order/domain/valueobject/TrackingId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/OrderApplicationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/bean/BeanConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/adapter/OrderRepositoryAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/OrderEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/OrderItemEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/repository/OrderJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/controller/OrderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/dto/OrderCreateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/dto/OrderCreateResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/dto/OrderItemRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/mapper/OrderWebMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/istad-common/istad-common-domain/src/main/java/kh/edu/istad/common/domain/valueobject/Money.java" beforeDir="false" afterPath="$PROJECT_DIR$/istad-common/istad-common-domain/src/main/java/kh/edu/istad/common/domain/valueobject/Money.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotChats">
+    <option name="panelChat">
+      <chat>
+        <option name="activeSessionId" value="6374bba1-16c4-4d39-8523-9c8ff00d73f7" />
+        <option name="sessions">
+          <session>
+            <option name="chatType" value="PANEL" />
+            <option name="id" value="6374bba1-16c4-4d39-8523-9c8ff00d73f7" />
+            <option name="modeId" value="Ask" />
+            <option name="modelType" value="builtin_family" />
+            <option name="modelValue" value="auto" />
+            <option name="targetType" value="LOCAL" />
+          </session>
+        </option>
+        <option name="type" value="PANEL" />
+      </chat>
+    </option>
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/TUF/Desktop/istad-ite-project" value="3K5ZhTjXnqoogpaXQV3yPXottPe" />
+    </persistenceIdMap>
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/istad-common">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/microservice/order-service">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/microservices/order-service">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/istad-common">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/microservice/customer-service">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="istad-common" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="istad-ite-project" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Record" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ngovkimsouheng&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ngovkimsouheng/ite3-microservice-architecture.git&quot;,
+    &quot;accountId&quot;: &quot;84c967e8-877d-410e-a198-3dfecc5ed5ab&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3K5ZhTjXnqoogpaXQV3yPXottPe" />
+  <component name="ProjectSessionTemplates">
+    <option name="panelTemplate">
+      <template>
+        <option name="modeId" value="Agent" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+        <option name="worktreeMode" value="WORKSPACE" />
+      </template>
+    </option>
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BusinessApplicationService.executor": "Run",
+    "Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment.executor": "Run",
+    "Docker.mongodb/docker-compose.yaml: Compose Deployment.executor": "Run",
+    "Gradle.Build istad-common.executor": "Run",
+    "Gradle.Build istad-ite-project.executor": "Run",
+    "Gradle.Build order-service.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.customer-service [dependencies].executor": "Run",
+    "Gradle.istad-ite-project [:microservice:business-service:kh.edu.istad.platform.business.BusinessApplicationService.main()].executor": "Run",
+    "Gradle.istad-ite-project.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.BusinessApplicationService.executor": "Run",
+    "Spring Boot.CustomerApplicationService (1).executor": "Run",
+    "Spring Boot.CustomerApplicationService.executor": "Run",
+    "Spring Boot.CustomerApplicationServicee.executor": "Run",
+    "Spring Boot.OrderApplication.executor": "Run",
+    "Spring Boot.OrderApplicationService.executor": "Run",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "git-widget-placeholder": "433c8040",
+    "kotlin-language-version-configured": "true",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\order-service" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+    <option name="configurationStatuses">
+      <map>
+        <entry key="SpringBootApplicationConfigurationType">
+          <value>
+            <map>
+              <entry key="BusinessApplicationService" value="STOPPED" />
+              <entry key="CustomerApplicationServicee" value="STOPPED" />
+              <entry key="OrderApplicationService" value="FAILED" />
+            </map>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.OrderApplicationService">
+    <configuration name="BusinessApplicationService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="business-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.business.BusinessApplicationService" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kh.edu.istad.platform.business.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CustomerApplicationServicee" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="customer-service.customer-service-main.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.customer.CustomerApplicationServicee" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kh.edu.istad.platform.customer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderApplicationService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="order-service.order-service-main.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.order.OrderApplicationService" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="mongodb/docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="deployment/mongodb/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="mongodb/docker-compose.yaml.mongodb: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="mongodb" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="deployment/mongodb/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment" />
+      <item itemvalue="Docker.mongodb/docker-compose.yaml: Compose Deployment" />
+      <item itemvalue="Spring Boot.OrderApplicationService" />
+      <item itemvalue="Spring Boot.BusinessApplicationService" />
+      <item itemvalue="Spring Boot.CustomerApplicationServicee" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.CustomerApplicationServicee" />
+        <item itemvalue="Spring Boot.BusinessApplicationService" />
+        <item itemvalue="Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment" />
+        <item itemvalue="Docker.mongodb/docker-compose.yaml: Compose Deployment" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.33514.17" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.33514.17" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="" />
+      <created>1790849520588</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1790849520588</updated>
+      <workItem from="1790849522504" duration="2115000" />
+      <workItem from="1790921981893" duration="190000" />
+      <workItem from="1790922815558" duration="282000" />
+      <workItem from="1790923181285" duration="19000" />
+      <workItem from="1790923594046" duration="5774000" />
+      <workItem from="1790929484644" duration="421000" />
+      <workItem from="1790929936809" duration="295000" />
+      <workItem from="1790930244343" duration="3088000" />
+      <workItem from="1791039899774" duration="48000" />
+      <workItem from="1791357498450" duration="8334000" />
+      <workItem from="1791441369760" duration="13421000" />
+      <workItem from="1791457770812" duration="3831000" />
+      <workItem from="1791461634937" duration="5275000" />
+      <workItem from="1791470039485" duration="9003000" />
+      <workItem from="1791527975057" duration="8872000" />
+      <workItem from="1791646992887" duration="4345000" />
+      <workItem from="1791657802221" duration="3845000" />
+      <workItem from="1791661676304" duration="1309000" />
+      <workItem from="1791663007310" duration="12000" />
+      <workItem from="1791704705983" duration="1419000" />
+      <workItem from="1791706146746" duration="135000" />
+      <workItem from="1791706299489" duration="307000" />
+      <workItem from="1791706639928" duration="8626000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>
