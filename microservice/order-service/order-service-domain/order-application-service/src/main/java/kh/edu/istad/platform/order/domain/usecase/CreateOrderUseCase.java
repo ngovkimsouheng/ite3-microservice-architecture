@@ -5,10 +5,15 @@ import kh.edu.istad.common.domain.valueobject.CustomerId;
 import kh.edu.istad.common.domain.valueobject.Money;
 import kh.edu.istad.platform.order.domain.dto.CreateOrderCommand;
 import kh.edu.istad.platform.order.domain.dto.CreateOrderResult;
+import kh.edu.istad.platform.order.domain.entity.Business;
+import kh.edu.istad.platform.order.domain.entity.Customer;
 import kh.edu.istad.platform.order.domain.entity.Order;
 import kh.edu.istad.platform.order.domain.entity.OrderItem;
 import kh.edu.istad.platform.order.domain.entity.Product;
 import kh.edu.istad.platform.order.domain.event.OrderCreatedEvent;
+import kh.edu.istad.platform.order.domain.exception.OrderDomainException;
+import kh.edu.istad.platform.order.domain.port.out.BusinessRepository;
+import kh.edu.istad.platform.order.domain.port.out.CustomerRepository;
 import kh.edu.istad.platform.order.domain.port.out.OrderRepository;
 import kh.edu.istad.platform.order.domain.service.OrderDomainService;
 import kh.edu.istad.platform.order.domain.valueobject.ProductId;
@@ -18,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -27,9 +33,14 @@ public class CreateOrderUseCase {
 
     private final OrderDomainService orderDomainService;
     private final OrderRepository orderRepository;
+    private final CustomerRepository customerRepository;
+    private final BusinessRepository businessRepository;
 
     public CreateOrderResult execute(CreateOrderCommand command) {
         log.info("CreateOrderUseCase.execute: command = {}", command);
+
+        checkCustomer(command.customerId());
+        Business business = checkBusiness(command);
 
         List<OrderItem> orderItems = command.items().stream()
                 .map(item -> OrderItem.Builder.builder()
@@ -55,7 +66,7 @@ public class CreateOrderUseCase {
                 .items(orderItems)
                 .build();
 
-        OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order);
+        OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order, business);
 
         Order savedOrder = orderRepository.save(orderCreatedEvent.order());
         log.info("Order saved with ID: {}", savedOrder.getId().value());
@@ -65,5 +76,29 @@ public class CreateOrderUseCase {
                 savedOrder.getOrderStatus(),
                 "Order created successfully"
         );
+    }
+
+    private void checkCustomer(UUID customerId) {
+        Optional<Customer> customer = customerRepository.findCustomer(new CustomerId(customerId));
+        if (customer.isEmpty()) {
+            log.warn("Could not find customer with id: {}", customerId);
+            throw new OrderDomainException("Could not find customer with id: " + customerId);
+        }
+    }
+
+    private Business checkBusiness(CreateOrderCommand command) {
+        Business business = Business.builder()
+                .businessId(new BusinessId(command.businessId()))
+                .products(command.items().stream()
+                        .map(item -> new Product(new ProductId(item.productId())))
+                        .toList())
+                .build();
+
+        Optional<Business> businessInformation = businessRepository.findBusinessInformation(business);
+        if (businessInformation.isEmpty()) {
+            log.warn("Could not find business with id: {}", command.businessId());
+            throw new OrderDomainException("Could not find business with id: " + command.businessId());
+        }
+        return businessInformation.get();
     }
 }

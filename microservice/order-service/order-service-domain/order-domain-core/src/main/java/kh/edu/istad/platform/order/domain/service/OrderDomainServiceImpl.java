@@ -1,9 +1,12 @@
 package kh.edu.istad.platform.order.domain.service;
 
+import kh.edu.istad.platform.order.domain.entity.Business;
 import kh.edu.istad.platform.order.domain.entity.Order;
+import kh.edu.istad.platform.order.domain.entity.Product;
 import kh.edu.istad.platform.order.domain.event.OrderCancelledEvent;
 import kh.edu.istad.platform.order.domain.event.OrderCreatedEvent;
 import kh.edu.istad.platform.order.domain.event.OrderPaidEvent;
+import kh.edu.istad.platform.order.domain.exception.OrderDomainException;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -14,10 +17,27 @@ public class OrderDomainServiceImpl implements OrderDomainService {
     private static final String UTC = "UTC";
 
     @Override
-    public OrderCreatedEvent validateAndInitiateOrder(Order order) {
+    public OrderCreatedEvent validateAndInitiateOrder(Order order, Business business) {
+        validateBusiness(business);
+        setOrderProductInformation(order, business);
         order.validateOrder();
         order.initializeOrder();
         return new OrderCreatedEvent(order, ZonedDateTime.now(ZoneId.of(UTC)));
+    }
+
+    private void validateBusiness(Business business) {
+        if (!business.isActive()) {
+            throw new OrderDomainException("Business with id " + business.getId().value() + " is currently not active!");
+        }
+    }
+
+    private void setOrderProductInformation(Order order, Business business) {
+        order.getItems().forEach(orderItem -> business.getProducts().forEach(businessProduct -> {
+            Product currentProduct = orderItem.getProduct();
+            if (currentProduct.equals(businessProduct)) {
+                currentProduct.updateWithConfirmedNameAndPrice(businessProduct.getName(), businessProduct.getPrice());
+            }
+        }));
     }
 
     @Override
