@@ -52,10 +52,22 @@
                   <project path="$PROJECT_DIR$/microservice/order-service/order-service-restapi" />
                 </projects>
               </build>
+              <build path="$PROJECT_DIR$/microservice/payment-service" name="payment-service">
+                <projects>
+                  <project path="$PROJECT_DIR$/microservice/payment-service" />
+                  <project path="$PROJECT_DIR$/microservice/payment-service/payment-service-domain" />
+                  <project path="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-application-service" />
+                  <project path="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-domain-core" />
+                  <project path="$PROJECT_DIR$/microservice/payment-service/payment-service-main" />
+                  <project path="$PROJECT_DIR$/microservice/payment-service/payment-service-persistence" />
+                  <project path="$PROJECT_DIR$/microservice/payment-service/payment-service-restapi" />
+                </projects>
+              </build>
             </builds>
           </compositeBuild>
         </compositeConfiguration>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="21 (2)" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -80,6 +92,13 @@
             <option value="$PROJECT_DIR$/microservice/order-service/order-service-main" />
             <option value="$PROJECT_DIR$/microservice/order-service/order-service-persistence" />
             <option value="$PROJECT_DIR$/microservice/order-service/order-service-restapi" />
+            <option value="$PROJECT_DIR$/microservice/payment-service" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-domain" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-application-service" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-domain-core" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-main" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-persistence" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-restapi" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -142,6 +161,47 @@
             <option value="$PROJECT_DIR$/microservice/order-service/order-service-restapi" />
           </set>
         </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/build-logic" name="build-logic">
+                <projects>
+                  <project path="$PROJECT_DIR$/build-logic" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/istad-common" name="istad-common">
+                <projects>
+                  <project path="$PROJECT_DIR$/istad-common" />
+                  <project path="$PROJECT_DIR$/istad-common/istad-common-domain" />
+                  <project path="$PROJECT_DIR$/istad-common/istad-common-restapi" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/microservice/payment-service" />
+        <option name="gradleJvm" value="21 (2)" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/build-logic" />
+            <option value="$PROJECT_DIR$/istad-common" />
+            <option value="$PROJECT_DIR$/istad-common/istad-common-domain" />
+            <option value="$PROJECT_DIR$/istad-common/istad-common-restapi" />
+            <option value="$PROJECT_DIR$/microservice/payment-service" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-domain" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-application-service" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-domain-core" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-main" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-persistence" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-restapi" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-application-service" />
+        <option name="gradleJvm" value="21 (2)" />
       </GradleProjectSettings>
     </option>
   </component>

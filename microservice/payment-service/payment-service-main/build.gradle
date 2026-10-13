@@ -1,0 +1,12 @@
+plugins {
+    id 'springboot-common-conventions'
+}
+
+dependencies {
+    implementation project(':payment-service-domain:payment-domain-core')
+    implementation project(':payment-service-domain:payment-application-service')
+    implementation project(':payment-service-persistence')
+    implementation project(':payment-service-restapi')
+
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+}
