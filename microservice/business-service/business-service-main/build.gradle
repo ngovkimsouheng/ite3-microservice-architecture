@@ -1,0 +1,11 @@
+plugins {
+    id 'springboot-common-conventions'
+}
+
+dependencies {
+    implementation project(':business-service-domain:business-domain-core')
+    implementation project(':business-service-domain:business-application-service')
+    implementation project(':business-service-persistence')
+    implementation project(':business-service-restapi')
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+}

@@ -1,19 +1,5 @@
-//pluginManagement {
-//    includeBuild('../build-logic') //common will use build-logic project as a plugin but we dont know which convention it will use
-//
-//    repositories {
-//        gradlePluginPortal()
-//        mavenCentral()
-//    }
-//}
-//dependencyResolutionManagement {
-//    repositories {
-//        mavenCentral()
-//    }
-//}
 rootProject.name = 'microservice'
 includeBuild 'business-service'
 includeBuild 'customer-service'
 includeBuild 'order-service'
 includeBuild 'payment-service'
-

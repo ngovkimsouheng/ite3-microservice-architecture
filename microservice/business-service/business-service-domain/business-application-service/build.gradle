@@ -1,0 +1,10 @@
+plugins {
+    id 'spring-common-conventions'
+}
+
+dependencies {
+    implementation project(':business-service-domain:business-domain-core')
+    implementation 'io.projectreactor:reactor-core'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}

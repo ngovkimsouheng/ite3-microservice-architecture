@@ -1,0 +1,13 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: business-service
+  mongodb:
+    uri: mongodb://mongod:mongod@localhost:2026/business_db?authSource=admin
+    uuid-representation: standard
+  data:
+    mongodb:
+      uri: mongodb://mongod:mongod@localhost:2026/business_db?authSource=admin
+      uuid-representation: standard
