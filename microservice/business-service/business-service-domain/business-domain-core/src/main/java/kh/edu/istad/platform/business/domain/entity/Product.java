@@ -10,12 +10,14 @@ import java.util.UUID;
 public class Product extends BaseEntity<UUID> {
     private final String name;
     private final Money price;
+    private final int quantity;
     private final boolean available;
 
-    public Product(UUID id, String name, Money price, Boolean available) {
+    public Product(UUID id, String name, Money price, int quantity, Boolean available) {
         super.setId(id != null ? id : UUID.randomUUID());
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
         this.available = available != null ? available : true;
         validate();
     }
@@ -27,17 +29,13 @@ public class Product extends BaseEntity<UUID> {
         if (price == null || price.amount() == null || price.amount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new BusinessDomainException("Product price must be greater than zero");
         }
+        if (quantity < 0) {
+            throw new BusinessDomainException("Product quantity cannot be negative");
+        }
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Money getPrice() {
-        return price;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
+    public String getName() { return name; }
+    public Money getPrice() { return price; }
+    public int getQuantity() { return quantity; }
+    public boolean isAvailable() { return available; }
 }

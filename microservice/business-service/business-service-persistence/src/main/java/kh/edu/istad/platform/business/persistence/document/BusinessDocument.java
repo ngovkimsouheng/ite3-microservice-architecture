@@ -20,7 +20,11 @@ public class BusinessDocument {
     private UUID id;
 
     @Indexed(unique = true)
-    private String name;
+    private String legalName;
+    private String displayName;
+
+    private String email;
+    private String phoneNumber;
 
     private boolean active;
     private List<ProductDocument> products;
@@ -34,6 +38,7 @@ public class BusinessDocument {
         private UUID id;
         private String name;
         private BigDecimal price;
+        private int quantity;
         private boolean available;
     }
 }

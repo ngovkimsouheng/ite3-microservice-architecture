@@ -5,16 +5,18 @@ import java.util.List;
 import java.util.UUID;
 
 public record CreateBusinessResult(
-    UUID businessId,
-    String name,
-    boolean active,
-    List<ProductItemResult> products,
-    String message
+        UUID businessId,
+        String legalName,
+        String displayName,
+        boolean active,
+        List<ProductItemResult> products,
+        String message
 ) {
     public record ProductItemResult(
-        UUID id,
-        String name,
-        BigDecimal price,
-        boolean available
+            UUID id,
+            String name,
+            BigDecimal price,
+            int quantity,
+            boolean available
     ) {}
 }

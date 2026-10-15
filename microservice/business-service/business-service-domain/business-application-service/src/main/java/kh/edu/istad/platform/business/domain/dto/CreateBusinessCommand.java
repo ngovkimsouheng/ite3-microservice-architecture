@@ -5,14 +5,18 @@ import java.util.List;
 import java.util.UUID;
 
 public record CreateBusinessCommand(
-    String name,
-    Boolean active,
-    List<ProductItem> products
+        String legalName,
+        String displayName,
+        String email,
+        String phoneNumber,
+        Boolean active,
+        List<ProductItem> products
 ) {
     public record ProductItem(
-        UUID id,
-        String name,
-        BigDecimal price,
-        Boolean available
+            UUID id,
+            String name,
+            BigDecimal price,
+            Integer quantity,
+            Boolean available
     ) {}
 }

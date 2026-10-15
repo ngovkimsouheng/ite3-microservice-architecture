@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface BusinessReactiveMongoRepository extends ReactiveMongoRepository<BusinessDocument, UUID> {
-    Mono<Boolean> existsByName(String name);
+    Mono<Boolean> existsByLegalName(String legalName);
 }
