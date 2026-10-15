@@ -7,7 +7,9 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="" />
+    <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -344,7 +346,7 @@
       <workItem from="1791810813873" duration="1143000" />
       <workItem from="1791874834856" duration="9037000" />
       <workItem from="1791894694949" duration="12653000" />
-      <workItem from="1792044384259" duration="3794000" />
+      <workItem from="1792044384259" duration="4834000" />
     </task>
     <servers />
   </component>
