@@ -12,16 +12,16 @@ public class DeactivateCustomerUseCase {
 
     private final CustomerRepository customerRepository;
 
-    public Customer execute(CustomerId customerId) {
-
-        Customer customer = customerRepository
-                .findById(customerId)
-                .orElseThrow(() ->
-                        new RuntimeException("Customer not found")
-                );
-
-        customer.deactivateCustomer();
-
-        return customerRepository.save(customer);
-    }
+//    public Customer execute(CustomerId customerId) {
+//
+//        Customer customer = customerRepository
+//                .findById(customerId)
+//                .orElseThrow(() ->
+//                        new RuntimeException("Customer not found")
+//                );
+//
+//        customer.deactivateCustomer();
+//
+//        return customerRepository.save(customer);
+//    }
 }

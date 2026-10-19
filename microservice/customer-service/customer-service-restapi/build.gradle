@@ -5,6 +5,7 @@ dependencies {
     api 'kh.edu.istad:customer-application-service' //must have common-domain dependency to use common-domain module
 
     //spring boot starter webmvc
-    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-    implementation 'kh.edu.istad:istad-common-restapi'
+//    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+//    implementation 'kh.edu.istad:istad-common-restapi'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }

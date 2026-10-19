@@ -13,19 +13,19 @@ public class UpdateCustomerUseCase {
 
     private final CustomerRepository customerRepository;
 
-    public Customer execute(UpdateCustomerCommand command) {
-
-        Customer customer = customerRepository
-                .findById(command.customerId())
-                .orElseThrow(() ->
-                        new RuntimeException("Customer not found")
-                );
-
-        customer.updateCustomer(
-                command.familyName(),
-                command.givenName()
-        );
-
-        return customerRepository.save(customer);
-    }
+//    public Customer execute(UpdateCustomerCommand command) {
+//
+//        Customer customer = customerRepository
+//                .findById(command.customerId())
+//                .orElseThrow(() ->
+//                        new RuntimeException("Customer not found")
+//                );
+//
+//        customer.updateCustomer(
+//                command.familyName(),
+//                command.givenName()
+//        );
+//
+//        return customerRepository.save(customer);
+//    }
 }

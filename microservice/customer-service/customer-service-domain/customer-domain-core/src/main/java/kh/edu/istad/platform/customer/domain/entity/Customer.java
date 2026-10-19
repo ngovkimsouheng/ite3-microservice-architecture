@@ -4,62 +4,75 @@ import kh.edu.istad.common.domain.entity.AggregateRoot;
 import kh.edu.istad.common.domain.valueobject.CustomerId;
 import kh.edu.istad.platform.customer.domain.exception.CustomerDomainException;
 import kh.edu.istad.platform.customer.domain.valueobject.CustomerStatus;
+import kh.edu.istad.platform.customer.domain.valueobject.Email;
+import kh.edu.istad.platform.customer.domain.valueobject.PhoneNumber;
 
 import java.util.UUID;
 
-public class Customer extends AggregateRoot<CustomerId> {
 
+public class Customer extends AggregateRoot<CustomerId> {
     private final String username;
     private String familyName;
     private String givenName;
-    private final String email;
-    private final String phoneNumber;
+    private final Email email;
+    private final PhoneNumber phoneNumber;
     private CustomerStatus status;
 
-
-    //state transaction domain logic
-
+    // Domain Critical Logic
     public void initiateCustomer() {
         validateCustomer();
-
-
         super.setId(new CustomerId(UUID.randomUUID()));
         status = CustomerStatus.ACTIVE;
     }
 
-
     private void validateCustomer() {
-
         if (super.getId() != null) {
-
             throw new CustomerDomainException("Customer id must be null");
         }
-
         if (status != null) {
             throw new CustomerDomainException("Customer status must be null");
         }
-
     }
-
 
     public void updateCustomer(String familyName, String givenName) {
         if (familyName == null || givenName == null) {
-            throw new CustomerDomainException("Family name and given name must not be null");
-
+            throw new CustomerDomainException("familyName and givenName must not be null");
         }
         this.familyName = familyName;
         this.givenName = givenName;
-
     }
-
 
     public void deactivateCustomer() {
         if (status != CustomerStatus.ACTIVE) {
-            throw new CustomerDomainException("Could not deactivate customer because the status is not ACTIVE");
+            throw new CustomerDomainException("Could not deactivate because customer status is not active");
         }
         status = CustomerStatus.INACTIVE;
     }
 
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    public String getGivenName() {
+        return givenName;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public PhoneNumber getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public CustomerStatus getStatus() {
+        return status;
+    }
 
     private Customer(Builder builder) {
         super.setId(builder.id);
@@ -71,20 +84,21 @@ public class Customer extends AggregateRoot<CustomerId> {
         status = builder.status;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
+
     public static final class Builder {
         private CustomerId id;
         private String username;
         private String familyName;
         private String givenName;
-        private String email;
-        private String phoneNumber;
+        private Email email;
+        private PhoneNumber phoneNumber;
         private CustomerStatus status;
 
         private Builder() {
-        }
-
-        public static Builder builder() {
-            return new Builder();
         }
 
         public Builder id(CustomerId val) {
@@ -107,12 +121,12 @@ public class Customer extends AggregateRoot<CustomerId> {
             return this;
         }
 
-        public Builder email(String val) {
+        public Builder email(Email val) {
             email = val;
             return this;
         }
 
-        public Builder phoneNumber(String val) {
+        public Builder phoneNumber(PhoneNumber val) {
             phoneNumber = val;
             return this;
         }
@@ -125,29 +139,5 @@ public class Customer extends AggregateRoot<CustomerId> {
         public Customer build() {
             return new Customer(this);
         }
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getFamilyName() {
-        return familyName;
-    }
-
-    public String getGivenName() {
-        return givenName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public CustomerStatus getStatus() {
-        return status;
     }
 }

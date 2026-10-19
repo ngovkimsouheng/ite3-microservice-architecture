@@ -2,11 +2,13 @@ plugins {
     id 'spring-common-conventions'
 }
 dependencies {
-    api 'kh.edu.istad:customer-application-service' //must have common-domain dependency to use common-domain module
+    api 'kh.edu.istad:customer-application-service'
     //dependencies for jpa
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+//    testImplementation 'io.projectreactor:reactor-test'
+//    runtimeOnly 'org.postgresql:postgresql'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     testImplementation 'io.projectreactor:reactor-test'
-    runtimeOnly 'org.postgresql:postgresql'
 }

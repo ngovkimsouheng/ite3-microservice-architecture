@@ -1,18 +1,12 @@
 server:
   port: 9091
 
-
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: qwer
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-
+  mongodb:
+    host: localhost
+    port: 2026
+    username: mongod
+    password: mongod
+    database: db_customer
+    authentication-database: admin
+    uuid-representation: standard
