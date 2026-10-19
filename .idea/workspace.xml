@@ -8,33 +8,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerReactiveRepositoryAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/config/MongoConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/convert/CustomerReadConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/convert/CustomerWriteConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/document/CustomerDocument.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/mapper/CustomerPersistenceMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/repository/CustomerMongoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7ec51cb9-1088-402f-b343-9a64360f36c4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7ec51cb9-1088-402f-b343-9a64360f36c4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7ec51cb9-1088-402f-b343-9a64360f36c4/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7ec51cb9-1088-402f-b343-9a64360f36c4/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/db-forest-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/db-forest-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/usecase/QueryCustomerUseCase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/config/AuditorAwareConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/convert/EmailReadConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/convert/EmailwriteConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/dto/InitiateCustomerResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/dto/InitiateCustomerResult.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/port/out/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/port/out/CustomerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/usecase/DeactivateCustomerUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/usecase/DeactivateCustomerUseCase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/usecase/InitiateCustomerUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/usecase/InitiateCustomerUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/usecase/UpdateCustomerUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/usecase/UpdateCustomerUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-domain-core/src/main/java/kh/edu/istad/platform/customer/domain/entity/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-domain-core/src/main/java/kh/edu/istad/platform/customer/domain/entity/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerRepositoryAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/entity/CustomerEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/entity/CustomerEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/repository/CustomerJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/repository/CustomerJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerReactiveRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerReactiveRepositoryAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/config/MongoConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/config/MongoConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/convert/CustomerReadConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/convert/CustomerIdReadConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/convert/CustomerWriteConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/convert/CustomerIdWriteConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/document/CustomerDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/document/CustomerDocument.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/repository/CustomerMongoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/repository/CustomerMongoRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/mapper/CustomerWebMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/mapper/CustomerWebMapper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,9 +125,9 @@
     &quot;accountId&quot;: &quot;84c967e8-877d-410e-a198-3dfecc5ed5ab&quot;
   }
 }</component>
-  <component name="HttpClientOnboardingState"><![CDATA[{
-  "isOnboardingCommentShown": true
-}]]></component>
+  <component name="HttpClientOnboardingState">{
+  &quot;isOnboardingCommentShown&quot;: true
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -180,6 +169,12 @@
     "Gradle.istad-ite-project [:microservice:business-service:kh.edu.istad.platform.business.BusinessApplicationService.main()].executor": "Run",
     "Gradle.istad-ite-project.executor": "Run",
     "HTTP Request.generated-requests | #1.executor": "Run",
+    "HTTP Request.generated-requests | #2.executor": "Run",
+    "HTTP Request.generated-requests | #3.executor": "Run",
+    "HTTP Request.generated-requests | #4.executor": "Run",
+    "HTTP Request.generated-requests | #5.executor": "Run",
+    "HTTP Request.generated-requests | #6.executor": "Run",
+    "HTTP Request.generated-requests | #7.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -199,7 +194,7 @@
     "Spring Boot.PaymentApplicationService.executor": "Run",
     "copilot.chat.legacySessionMetadata.migrated": "true",
     "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "assignment__01",
+    "git-widget-placeholder": "practice",
     "kotlin-language-version-configured": "true",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
@@ -235,20 +230,41 @@
     </option>
     <option name="configurationStatuses">
       <map>
+        <entry key="HttpClient.HttpRequestRunConfigurationType">
+          <value>
+            <map>
+              <entry key="generated-requests | #4" value="STOPPED" />
+              <entry key="generated-requests | #5" value="STOPPED" />
+              <entry key="generated-requests | #6" value="STOPPED" />
+              <entry key="generated-requests | #7" value="STOPPED" />
+            </map>
+          </value>
+        </entry>
         <entry key="SpringBootApplicationConfigurationType">
           <value>
             <map>
               <entry key="BusinessApplication" value="STOPPED" />
               <entry key="CustomerApplicationService" value="STOPPED" />
               <entry key="OrderApplicationService" value="STOPPED" />
-              <entry key="PaymentApplicationService" value="STOPPED" />
             </map>
           </value>
         </entry>
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment">
+  <component name="RunManager" selected="HTTP Request.generated-requests | #7">
+    <configuration name="generated-requests | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#4" index="4" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #5" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#5" index="5" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #6" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#6" index="6" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #7" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#7" index="7" runType="Run single request">
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="istad-common.main" />
       <method v="2">
@@ -287,60 +303,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PaymentApplicationService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="payment-service.payment-service-main.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.payment.PaymentApplicationService" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="kh.edu.istad.platform.payment.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="mongodb/docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="sourceFilePath" value="deployment/mongodb/docker-compose.yaml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="mongodb/docker-compose.yaml.mongodb: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="services">
-            <list>
-              <option value="mongodb" />
-            </list>
-          </option>
-          <option name="sourceFilePath" value="deployment/mongodb/docker-compose.yaml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment" />
-      <item itemvalue="Docker.mongodb/docker-compose.yaml: Compose Deployment" />
+      <item itemvalue="HTTP Request.generated-requests | #4" />
+      <item itemvalue="HTTP Request.generated-requests | #5" />
+      <item itemvalue="HTTP Request.generated-requests | #6" />
+      <item itemvalue="HTTP Request.generated-requests | #7" />
       <item itemvalue="Spring Boot.BusinessApplication" />
       <item itemvalue="Spring Boot.OrderApplicationService" />
       <item itemvalue="Spring Boot.CustomerApplicationService" />
-      <item itemvalue="Spring Boot.PaymentApplicationService" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.generated-requests | #7" />
         <item itemvalue="Spring Boot.CustomerApplicationService" />
-        <item itemvalue="Spring Boot.PaymentApplicationService" />
-        <item itemvalue="Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment" />
-        <item itemvalue="Docker.mongodb/docker-compose.yaml: Compose Deployment" />
+        <item itemvalue="HTTP Request.generated-requests | #6" />
+        <item itemvalue="HTTP Request.generated-requests | #5" />
+        <item itemvalue="HTTP Request.generated-requests | #4" />
       </list>
     </recent_temporary>
   </component>
@@ -393,7 +377,8 @@
       <workItem from="1791874834856" duration="9037000" />
       <workItem from="1791894694949" duration="12653000" />
       <workItem from="1792044384259" duration="6058000" />
-      <workItem from="1792392492587" duration="16177000" />
+      <workItem from="1792392492587" duration="19719000" />
+      <workItem from="1792426296569" duration="6155000" />
     </task>
     <servers />
   </component>

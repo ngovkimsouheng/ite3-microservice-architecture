@@ -41,7 +41,13 @@ public class InitiateCustomerUseCase {
 
         return customerRepository.save(customer)
                 .map(savedCustomer ->
-                        new InitiateCustomerResult(savedCustomer.getId().value())
+                        new InitiateCustomerResult(savedCustomer.getId().value(),
+                                savedCustomer.getUsername(),
+                                savedCustomer.getFamilyName(),
+                                savedCustomer.getGivenName(),
+                                savedCustomer.getEmail().value(),
+                                savedCustomer.getPhoneNumber().value(),
+                                savedCustomer.getStatus())
                 );
     }
 }

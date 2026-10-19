@@ -6,7 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.WritingConverter;
 
 @WritingConverter
-public class CustomerWriteConverter implements Converter<CustomerId, Document> {
+public class CustomerIdWriteConverter implements Converter<CustomerId, Document> {
 
     @Override
     public Document convert(CustomerId source) {

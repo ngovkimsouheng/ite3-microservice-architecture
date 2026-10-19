@@ -1,8 +1,11 @@
 package kh.edu.istad.platform.customer.restapi.controller;
 
 import jakarta.validation.Valid;
+import kh.edu.istad.platform.customer.domain.entity.Customer;
+import kh.edu.istad.platform.customer.domain.port.out.CustomerRepository;
 import kh.edu.istad.platform.customer.domain.usecase.DeactivateCustomerUseCase;
 import kh.edu.istad.platform.customer.domain.usecase.InitiateCustomerUseCase;
+import kh.edu.istad.platform.customer.domain.usecase.QueryCustomerUseCase;
 import kh.edu.istad.platform.customer.domain.usecase.UpdateCustomerUseCase;
 import kh.edu.istad.platform.customer.restapi.dto.CustomerInitiateRequest;
 import kh.edu.istad.platform.customer.restapi.dto.CustomerInitiateResponse;
@@ -10,6 +13,7 @@ import kh.edu.istad.platform.customer.restapi.mapper.CustomerWebMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -21,6 +25,17 @@ public class CustomerController {
     private final UpdateCustomerUseCase updateCustomerUseCase;
     private final DeactivateCustomerUseCase deactivateCustomerUseCase;
     private final CustomerWebMapper customerWebMapper;
+    private final QueryCustomerUseCase queryCustomerUseCase;
+
+    @GetMapping
+    public Flux<Customer> findAll() {
+        return queryCustomerUseCase.findAll();
+    }
+    @GetMapping("/query")
+    public Flux<Customer> query() {
+        return queryCustomerUseCase.query();
+    }
+
 
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -32,4 +47,5 @@ public class CustomerController {
                 .execute(customerWebMapper.toCommand(request))
                 .map(customerWebMapper::toResponse);
     }
+
 }

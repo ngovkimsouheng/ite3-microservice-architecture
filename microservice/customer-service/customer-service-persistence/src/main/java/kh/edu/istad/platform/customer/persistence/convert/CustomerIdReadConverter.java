@@ -10,7 +10,7 @@ import org.springframework.data.convert.ReadingConverter;
 import java.util.UUID;
 
 @ReadingConverter
-public class CustomerReadConverter implements Converter<Document, CustomerId> {
+public class CustomerIdReadConverter implements Converter<Document, CustomerId> {
 
     @Override
     public CustomerId convert(Document source) {
