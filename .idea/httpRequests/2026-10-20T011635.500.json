@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-10-19T18:16:35.467Z",
+  "status": 500,
+  "error": "Internal Server Error",
+  "path": "/api/customers/15771ea0-4407-4cda-b08f-559038d13f21/deactivate"
+}

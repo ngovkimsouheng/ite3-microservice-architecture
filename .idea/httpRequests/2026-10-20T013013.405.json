@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-10-19T18:30:13.856Z",
+  "status": 405,
+  "error": "Method Not Allowed",
+  "path": "/api/customers/592dd71b-4d6e-4673-a4d9-84a20dc910bb"
+}

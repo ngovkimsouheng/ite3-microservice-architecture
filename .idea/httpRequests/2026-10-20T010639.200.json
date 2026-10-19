@@ -1,0 +1,15 @@
+{
+  "email": {
+    "value": "kimkong@gmail.com"
+  },
+  "familyName": "kong",
+  "givenName": "long",
+  "id": {
+    "value": "15771ea0-4407-4cda-b08f-559038d13f21"
+  },
+  "phoneNumber": {
+    "value": "0123456789"
+  },
+  "status": "ACTIVE",
+  "username": "kim"
+}

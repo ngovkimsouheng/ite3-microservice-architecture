@@ -10,14 +10,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Document(collection = "customerDocument")
-public class CustomerDocument implements Persistable<String> {
+public class CustomerDocument {
 
     @Id
     private String id;
@@ -39,10 +38,5 @@ public class CustomerDocument implements Persistable<String> {
     private String modifiedBy;
 
     @LastModifiedDate
-    private String modifiedAt;
-
-    @Override
-    public boolean isNew() {
-        return createdAt == null;
-    }
+    private Instant modifiedAt;
 }

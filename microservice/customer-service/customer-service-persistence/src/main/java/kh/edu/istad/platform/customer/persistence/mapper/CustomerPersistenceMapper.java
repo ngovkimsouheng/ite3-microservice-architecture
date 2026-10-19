@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
-@Mapper (componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CustomerPersistenceMapper {
 
     @Mapping(source = "id.value", target = "id")
@@ -17,5 +17,5 @@ public interface CustomerPersistenceMapper {
     @Mapping(source = "id", target = "id.value")
     @Mapping(source = "email", target = "email.value")
     @Mapping(source = "phoneNumber", target = "phoneNumber.value")
-    Customer toDomain (CustomerDocument customerDocument);
+    Customer toDomain(CustomerDocument customerDocument);
 }

@@ -1,0 +1,15 @@
+{
+  "email": {
+    "value": "longbin@gmail.con"
+  },
+  "familyName": "bin",
+  "givenName": "bin",
+  "id": {
+    "value": "592dd71b-4d6e-4673-a4d9-84a20dc910bb"
+  },
+  "phoneNumber": {
+    "value": "012345678"
+  },
+  "status": "INACTIVE",
+  "username": "long"
+}
