@@ -12,6 +12,16 @@ dependencyResolutionManagement {
     }
 }
 
+includeBuild('../../istad-common') {
+    dependencySubstitution {
+        substitute(module('kh.edu.istad:istad-common-domain'))
+                .using(project(':istad-common-domain'))
+
+        substitute(module('kh.edu.istad:istad-common-restapi'))
+                .using(project(':istad-common-restapi'))
+    }
+}
+
 rootProject.name = 'customer-service'
 
 

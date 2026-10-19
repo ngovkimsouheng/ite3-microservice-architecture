@@ -13,6 +13,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 
 @RequiredArgsConstructor
@@ -64,4 +67,49 @@ public class CustomerReactiveRepositoryAdapter implements CustomerRepository {
                 customerPersistenceMapper::toDomain
         );
     }
-}
+
+    @Override
+    public Flux<Customer> filter(
+            String username,
+            String status,
+            String givenName,
+            String familyName,
+            int page,
+            int size
+    ) {
+        List<Criteria> criteriaList = new ArrayList<>();
+
+        if (username != null && !username.isBlank()) {
+            criteriaList.add(Criteria.where("username")
+                    .regex(Pattern.quote(username.trim()), "i"));
+        }
+
+        if (status != null && !status.isBlank()) {
+            criteriaList.add(Criteria.where("status")
+                    .is(status.trim().toUpperCase()));
+        }
+
+        if (givenName != null && !givenName.isBlank()) {
+            criteriaList.add(Criteria.where("givenName")
+                    .regex(Pattern.quote(givenName.trim()), "i"));
+        }
+
+        if (familyName != null && !familyName.isBlank()) {
+            criteriaList.add(Criteria.where("familyName")
+                    .regex(Pattern.quote(familyName.trim()), "i"));
+        }
+
+        Query query = new Query();
+
+        if (!criteriaList.isEmpty()) {
+            query.addCriteria(new Criteria().andOperator(
+                    criteriaList.toArray(new Criteria[0])
+            ));
+        }
+
+        query.skip((long) page * size);
+        query.limit(size);
+
+        return reactiveMongoTemplate.find(query, CustomerDocument.class)
+                .map(customerPersistenceMapper::toDomain);
+    }}

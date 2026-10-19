@@ -27,6 +27,7 @@ public class CustomerController {
     private final CustomerWebMapper customerWebMapper;
     private final QueryCustomerUseCase queryCustomerUseCase;
     private final DeleteCustomerUseCase deleteCustomerUseCase;
+    private final FilterCustomersUseCase filterCustomersUseCase;
 
     @GetMapping
     public Flux<Customer> findAll() {
@@ -79,4 +80,17 @@ public class CustomerController {
         return deleteCustomerUseCase.execute(new CustomerId(id));
     }
 
-}
+
+    @GetMapping("/filter")
+    public Flux<Customer> filterCustomers(
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String givenName,
+            @RequestParam(required = false) String familyName,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return filterCustomersUseCase.execute(
+                username, status, givenName, familyName, page, size
+        );
+    }}

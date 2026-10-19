@@ -2,5 +2,5 @@ plugins {
     id 'spring-common-conventions'
 }
 dependencies {
-    api 'kh.edu.istad:customer-application-service' //must have common-domain dependency to use common-domain module
+    api project(':customer-service-domain:customer-application-service') //must have common-domain dependency to use common-domain module
 }
