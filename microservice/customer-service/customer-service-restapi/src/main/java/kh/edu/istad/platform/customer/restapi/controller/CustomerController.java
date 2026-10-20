@@ -6,6 +6,7 @@ import kh.edu.istad.platform.customer.domain.entity.Customer;
 import kh.edu.istad.platform.customer.domain.usecase.*;
 import kh.edu.istad.platform.customer.restapi.dto.CustomerInitiateRequest;
 import kh.edu.istad.platform.customer.restapi.dto.CustomerInitiateResponse;
+import kh.edu.istad.platform.customer.restapi.dto.CustomerStatisticsResponse;
 import kh.edu.istad.platform.customer.restapi.mapper.CustomerWebMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,12 @@ import java.util.UUID;
 public class CustomerController {
 
     private final InitiateCustomerUseCase initiateCustomerUseCase;
-    private final UpdateCustomerUseCase updateCustomerUseCase;
     private final DeactivateCustomerUseCase deactivateCustomerUseCase;
     private final CustomerWebMapper customerWebMapper;
     private final QueryCustomerUseCase queryCustomerUseCase;
     private final DeleteCustomerUseCase deleteCustomerUseCase;
     private final FilterCustomersUseCase filterCustomersUseCase;
+    private final GetCustomerStatisticsUseCase getCustomerStatisticsUseCase;
 
     @GetMapping
     public Flux<Customer> findAll() {
@@ -88,5 +89,15 @@ public class CustomerController {
         return filterCustomersUseCase.execute(
                 username, status, givenName, familyName, page, size
         );
+    }
+
+    @GetMapping("/statistics")
+    public Mono<CustomerStatisticsResponse> getStatistics() {
+        return getCustomerStatisticsUseCase.execute()
+                .map(res -> CustomerStatisticsResponse.builder()
+                        .totalCustomers(res.getTotalCustomers())
+                        .countByStatus(res.getCountByStatus())
+                        .countBySegment(res.getCountBySegment())
+                        .build());
     }
 }
