@@ -1,0 +1,26 @@
+[
+  {
+    "createdAt": null,
+    "description": "Premium tier customers with loyalty benefits",
+    "id": "67151...",
+    "modifiedAt": null,
+    "name": "Gold VIP Members",
+    "segmentType": "GOLD"
+  },
+  {
+    "createdAt": null,
+    "description": "test",
+    "id": "2",
+    "modifiedAt": null,
+    "name": "kim",
+    "segmentType": "SILVER"
+  },
+  {
+    "createdAt": null,
+    "description": "test",
+    "id": "3",
+    "modifiedAt": null,
+    "name": "kim",
+    "segmentType": "PREMIUM"
+  }
+]

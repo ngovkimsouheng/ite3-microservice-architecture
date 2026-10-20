@@ -8,17 +8,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-19T173505.500.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-19T232422.201.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-19T233058.201.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-19T235644.201.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-19T235742.201.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T003502.200.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T010214.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T010353.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T010639.200.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T010706.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T010806.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T010857.200.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T011009.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T011635.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T011641.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T011943.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T012339.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T012559.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T012654.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T012826.200.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T013008.405.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T013013.405.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T110349.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T110428.500.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerReactiveRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerReactiveRepositoryAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-domain-core/src/main/java/kh/edu/istad/platform/customer/domain/valueobject/CustomerSegmentType.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-domain-core/src/main/java/kh/edu/istad/platform/customer/domain/valueobject/CustomerSegmentType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerReactiveRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerReactiveRepositoryAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/document/CustomerDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/document/CustomerDocument.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/port/out/CustomerSegmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/port/out/CustomerSegmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-domain-core/src/main/java/kh/edu/istad/platform/customer/domain/entity/CustomerSegment.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-domain-core/src/main/java/kh/edu/istad/platform/customer/domain/entity/CustomerSegment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerSegmentReactiveRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerSegmentReactiveRepositoryAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/document/CustomerSegmentDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/document/CustomerSegmentDocument.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/mapper/CustomerSegmentPersistenceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/mapper/CustomerSegmentPersistenceMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/controller/CustomerSegmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/controller/CustomerSegmentController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +207,15 @@
     "HTTP Request.generated-requests | #29.executor": "Run",
     "HTTP Request.generated-requests | #3.executor": "Run",
     "HTTP Request.generated-requests | #30.executor": "Run",
+    "HTTP Request.generated-requests | #34.executor": "Run",
+    "HTTP Request.generated-requests | #35.executor": "Run",
+    "HTTP Request.generated-requests | #36.executor": "Run",
+    "HTTP Request.generated-requests | #37.executor": "Run",
+    "HTTP Request.generated-requests | #38.executor": "Run",
+    "HTTP Request.generated-requests | #39.executor": "Run",
     "HTTP Request.generated-requests | #4.executor": "Run",
+    "HTTP Request.generated-requests | #40.executor": "Run",
+    "HTTP Request.generated-requests | #41.executor": "Run",
     "HTTP Request.generated-requests | #5.executor": "Run",
     "HTTP Request.generated-requests | #6.executor": "Run",
     "HTTP Request.generated-requests | #7.executor": "Run",
@@ -253,10 +279,11 @@
         <entry key="HttpClient.HttpRequestRunConfigurationType">
           <value>
             <map>
-              <entry key="generated-requests | #27" value="STOPPED" />
-              <entry key="generated-requests | #28" value="STOPPED" />
-              <entry key="generated-requests | #29" value="STOPPED" />
-              <entry key="generated-requests | #30" value="STOPPED" />
+              <entry key="generated-requests | #37" value="STOPPED" />
+              <entry key="generated-requests | #38" value="STOPPED" />
+              <entry key="generated-requests | #39" value="STOPPED" />
+              <entry key="generated-requests | #40" value="STOPPED" />
+              <entry key="generated-requests | #41" value="STOPPED" />
             </map>
           </value>
         </entry>
@@ -264,6 +291,7 @@
           <value>
             <map>
               <entry key="CustomerApplicationService" value="FAILED" />
+              <entry key="OrderApplicationService" value="STOPPED" />
             </map>
           </value>
         </entry>
@@ -271,30 +299,19 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.CustomerApplicationService">
-    <configuration name="generated-requests | #29" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#29" index="29" runType="Run single request">
+    <configuration name="generated-requests | #37" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#37" index="37" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #30" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#30" index="30" runType="Run single request">
+    <configuration name="generated-requests | #38" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#38" index="38" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #31" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#31" index="31" runType="Run single request">
+    <configuration name="generated-requests | #39" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#39" index="39" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #32" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#32" index="32" runType="Run single request">
+    <configuration name="generated-requests | #40" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#40" index="40" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #33" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#33" index="33" runType="Run single request">
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="istad-common.main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="istad-common.main" />
-      <option name="filePath" />
+    <configuration name="generated-requests | #41" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#41" index="41" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="BusinessApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
@@ -332,11 +349,11 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="HTTP Request.generated-requests | #29" />
-      <item itemvalue="HTTP Request.generated-requests | #30" />
-      <item itemvalue="HTTP Request.generated-requests | #31" />
-      <item itemvalue="HTTP Request.generated-requests | #32" />
-      <item itemvalue="HTTP Request.generated-requests | #33" />
+      <item itemvalue="HTTP Request.generated-requests | #37" />
+      <item itemvalue="HTTP Request.generated-requests | #38" />
+      <item itemvalue="HTTP Request.generated-requests | #39" />
+      <item itemvalue="HTTP Request.generated-requests | #40" />
+      <item itemvalue="HTTP Request.generated-requests | #41" />
       <item itemvalue="Spring Boot.CustomerApplicationService" />
       <item itemvalue="Spring Boot.BusinessApplication" />
       <item itemvalue="Spring Boot.OrderApplicationService" />
@@ -344,11 +361,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.generated-requests | #33" />
-        <item itemvalue="HTTP Request.generated-requests | #32" />
-        <item itemvalue="HTTP Request.generated-requests | #31" />
-        <item itemvalue="HTTP Request.generated-requests | #30" />
-        <item itemvalue="HTTP Request.generated-requests | #29" />
+        <item itemvalue="HTTP Request.generated-requests | #38" />
+        <item itemvalue="HTTP Request.generated-requests | #41" />
+        <item itemvalue="HTTP Request.generated-requests | #40" />
+        <item itemvalue="HTTP Request.generated-requests | #39" />
+        <item itemvalue="HTTP Request.generated-requests | #37" />
       </list>
     </recent_temporary>
   </component>
@@ -407,6 +424,7 @@
       <workItem from="1792477910522" duration="5143000" />
       <workItem from="1792491506790" duration="764000" />
       <workItem from="1792494301815" duration="395000" />
+      <workItem from="1792511780874" duration="1811000" />
     </task>
     <servers />
   </component>

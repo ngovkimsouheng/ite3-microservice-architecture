@@ -1,120 +1,117 @@
 package kh.edu.istad.platform.customer.domain.entity;
 
+import kh.edu.istad.common.domain.entity.BaseEntity;
+import kh.edu.istad.platform.customer.domain.exception.CustomerDomainException;
+import kh.edu.istad.platform.customer.domain.valueobject.CustomerSegmentId;
 import kh.edu.istad.platform.customer.domain.valueobject.CustomerSegmentType;
-import java.time.Instant;
 
-public class CustomerSegment {
-    private String id;
+import java.time.Instant;
+import java.util.UUID;
+
+public class CustomerSegment extends BaseEntity<CustomerSegmentId> {
     private String name;
     private String description;
     private CustomerSegmentType segmentType;
     private Instant createdAt;
     private Instant modifiedAt;
 
-    public CustomerSegment() {
+    public void initiateSegment() {
+        if (super.getId() != null) {
+            throw new CustomerDomainException("Customer segment id must be null before initiation");
+        }
+        super.setId(new CustomerSegmentId(UUID.randomUUID().toString()));
+        this.createdAt = Instant.now();
+        this.modifiedAt = Instant.now();
     }
 
-    public CustomerSegment(String id, String name, String description, CustomerSegmentType segmentType, Instant createdAt, Instant modifiedAt) {
-        this.id = id;
+    public void updateSegment(String name, String description, CustomerSegmentType segmentType) {
+        if (name == null || name.isBlank()) {
+            throw new CustomerDomainException("Segment name must not be blank");
+        }
+        if (segmentType == null) {
+            throw new CustomerDomainException("Segment type must not be null");
+        }
         this.name = name;
         this.description = description;
         this.segmentType = segmentType;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        this.modifiedAt = Instant.now();
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public CustomerSegmentType getSegmentType() {
         return segmentType;
     }
 
-    public void setSegmentType(CustomerSegmentType segmentType) {
-        this.segmentType = segmentType;
-    }
-
     public Instant getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
     }
 
     public Instant getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(Instant modifiedAt) {
-        this.modifiedAt = modifiedAt;
+    private CustomerSegment(Builder builder) {
+        super.setId(builder.id);
+        this.name = builder.name;
+        this.description = builder.description;
+        this.segmentType = builder.segmentType;
+        this.createdAt = builder.createdAt;
+        this.modifiedAt = builder.modifiedAt;
     }
 
-    public static class Builder {
-        private String id;
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private CustomerSegmentId id;
         private String name;
         private String description;
         private CustomerSegmentType segmentType;
         private Instant createdAt;
         private Instant modifiedAt;
 
-        public Builder id(String id) {
-            this.id = id;
+        private Builder() {}
+
+        public Builder id(CustomerSegmentId val) {
+            id = val;
             return this;
         }
 
-        public Builder name(String name) {
-            this.name = name;
+        public Builder name(String val) {
+            name = val;
             return this;
         }
 
-        public Builder description(String description) {
-            this.description = description;
+        public Builder description(String val) {
+            description = val;
             return this;
         }
 
-        public Builder segmentType(CustomerSegmentType segmentType) {
-            this.segmentType = segmentType;
+        public Builder segmentType(CustomerSegmentType val) {
+            segmentType = val;
             return this;
         }
 
-        public Builder createdAt(Instant createdAt) {
-            this.createdAt = createdAt;
+        public Builder createdAt(Instant val) {
+            createdAt = val;
             return this;
         }
 
-        public Builder modifiedAt(Instant modifiedAt) {
-            this.modifiedAt = modifiedAt;
+        public Builder modifiedAt(Instant val) {
+            modifiedAt = val;
             return this;
         }
 
         public CustomerSegment build() {
-            return new CustomerSegment(id, name, description, segmentType, createdAt, modifiedAt);
+            return new CustomerSegment(this);
         }
     }
 }

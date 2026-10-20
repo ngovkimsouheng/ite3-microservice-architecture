@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-10-20T16:25:18.621Z",
+  "status": 400,
+  "error": "Bad Request",
+  "path": "/api/segments/fd5cf7be-00b1-4b87-9a95-0fb599232d3c"
+}

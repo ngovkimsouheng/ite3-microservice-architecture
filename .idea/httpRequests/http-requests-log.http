@@ -1,3 +1,343 @@
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 81
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "Kimkim",
+  "description": "kokoma kokoma",
+  "segmentType": "GOLD"
+}
+
+<> 2026-10-20T232634.201.json
+
+###
+
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 81
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "Kimkim",
+  "description": "kokoma kokoma",
+  "segmentType": "GOLD"
+}
+
+<> 2026-10-20T232628.201.json
+
+###
+
+DELETE http://localhost:9091/api/segments/fd5cf7be-00b1-4b87-9a95-0fb599232d3c
+Content-Type: application/json
+Content-Length: 64
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "",
+  "description": "",
+  "segmentType": "SILVER"
+}
+
+###
+
+GET http://localhost:9091/api/segments/fd5cf7be-00b1-4b87-9a95-0fb599232d3c
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 64
+
+{
+  "name": "",
+  "description": "",
+  "segmentType": "SILVER"
+}
+
+<> 2026-10-20T232553.200.json
+
+###
+
+PUT http://localhost:9091/api/segments/fd5cf7be-00b1-4b87-9a95-0fb599232d3c
+Content-Type: application/json
+Content-Length: 69
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "kim",
+  "description": "koko",
+  "segmentType": "GOLD"
+}
+
+<> 2026-10-20T232529.200.json
+
+###
+
+PUT http://localhost:9091/api/segments/fd5cf7be-00b1-4b87-9a95-0fb599232d3c
+Content-Type: application/json
+Content-Length: 62
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "",
+  "description": "",
+  "segmentType": "GOLD"
+}
+
+<> 2026-10-20T232518.400.json
+
+###
+
+PUT http://localhost:9091/api/segments/fd5cf7be-00b1-4b87-9a95-0fb599232d3c
+Content-Type: application/json
+Content-Length: 64
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "",
+  "description": "",
+  "segmentType": "SILVER"
+}
+
+<> 2026-10-20T232445.400.json
+
+###
+
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 81
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "Kimkim",
+  "description": "kokoma kokoma",
+  "segmentType": "GOLD"
+}
+
+<> 2026-10-20T232423.201.json
+
+###
+
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 76
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "latte",
+  "description": "kokoma",
+  "segmentType": "PREMIUM"
+}
+
+<> 2026-10-20T232355.201.json
+
+###
+
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 75
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "souheng",
+  "description": "koko",
+  "segmentType": "SILVER"
+}
+
+<> 2026-10-20T232328.201.json
+
+###
+
+DELETE http://localhost:9091/api/segments/6ad792f1b4f007be1bbee717
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2026-10-20T231350.500.json
+
+###
+
+DELETE http://localhost:9091/api/segments/6ad792f1b4f007be1bbee717
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2026-10-20T231322.500.json
+
+###
+
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 99
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "souheng",
+  "description": "premium value customer tier",
+  "segmentType": "PREMIUM"
+}
+
+<> 2026-10-20T231233.201.json
+
+###
+
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 93
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "sil",
+  "description": "MEDIUM value customer tier",
+  "segmentType": "SILVER"
+}
+
+<> 2026-10-20T231202.201.json
+
+###
+
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "VIP Gold",
+  "description": "High value customer tier",
+  "segmentType": "GOLD"
+}
+
+<> 2026-10-20T231131.201.json
+
+###
+
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "name": "VIP Gold",
+  "description": "High value customer tier",
+  "segmentType": "GOLD"
+}
+
+<> 2026-10-20T231101.201.json
+
+###
+
+GET http://localhost:9091/api/segments
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T230926.200.json
+
+###
+
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 86
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "id": "3",
+  "name": "kim",
+  "description": "test",
+  "segmentType": "PREMIUM"
+
+}
+
+<> 2026-10-20T230920.201.json
+
+###
+
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 85
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "id": "2",
+  "name": "kim",
+  "description": "test",
+  "segmentType": "SILVER"
+
+}
+
+<> 2026-10-20T230848.201.json
+
+###
+
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 85
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "id": "2",
+  "name": "kim",
+  "description": "test",
+  "segmentType": "SILVER"
+
+}
+
+<> 2026-10-20T230651.201.json
+
+###
+
+GET http://localhost:9091/api/segments
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T230233.200.json
+
+###
+
+GET http://localhost:9091/api/segments
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T230055.500.json
+
+###
+
 GET http://localhost:9091/api/customers/report
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
 Accept-Encoding: br, deflate, gzip, x-gzip
@@ -301,239 +641,6 @@ Accept-Encoding: br, deflate, gzip, x-gzip
 Accept: */*
 
 <> 2026-10-20T110453.500.json
-
-###
-
-GET http://localhost:9091/api/customers/filter?status=ACTIVE
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T110428.500.json
-
-###
-
-GET http://localhost:9091/api/customers/filter?username=john&status=ACTIVE
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T110349.500.json
-
-###
-
-DELETE http://localhost:9091/api/customers/592dd71b-4d6e-4673-a4d9-84a20dc910bb
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-###
-
-DELETE http://localhost:9091/api/customers/592dd71b-4d6e-4673-a4d9-84a20dc910bb
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-<> 2026-10-20T013013.405.json
-
-###
-
-DELETE http://localhost:9091/api/customers/592dd71b-4d6e-4673-a4d9-84a20dc910bb
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-<> 2026-10-20T013008.405.json
-
-###
-
-PATCH http://localhost:9091/api/customers/592dd71b-4d6e-4673-a4d9-84a20dc910bb/deactivate
-Content-Type: application/x-www-form-urlencoded
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-<> 2026-10-20T012826.200.json
-
-###
-
-PATCH http://localhost:9091/api/customers/592dd71b-4d6e-4673-a4d9-84a20dc910bb/deactivate
-Content-Type: application/x-www-form-urlencoded
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-<> 2026-10-20T012654.500.json
-
-###
-
-PATCH http://localhost:9091/api/customers/592dd71b-4d6e-4673-a4d9-84a20dc910bb/deactivate
-Content-Type: application/x-www-form-urlencoded
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-<> 2026-10-20T012559.500.json
-
-###
-
-PATCH http://localhost:9091/api/customers/592dd71b-4d6e-4673-a4d9-84a20dc910bb/deactivate
-Content-Type: application/x-www-form-urlencoded
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-<> 2026-10-20T012339.500.json
-
-###
-
-PATCH http://localhost:9091/api/customers/15771ea0-4407-4cda-b08f-559038d13f21/deactivate
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-<> 2026-10-20T011943.500.json
-
-###
-
-PATCH http://localhost:9091/api/customers/15771ea0-4407-4cda-b08f-559038d13f21/deactivate
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-<> 2026-10-20T011641.500.json
-
-###
-
-PATCH http://localhost:9091/api/customers/15771ea0-4407-4cda-b08f-559038d13f21/deactivate
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-<> 2026-10-20T011635.500.json
-
-###
-
-PATCH http://localhost:9091/api/customers/15771ea0-4407-4cda-b08f-559038d13f21/deactivate
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-<> 2026-10-20T011009.500.json
-
-###
-
-GET http://localhost:9091/api/customers/username/long
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T010857.200.json
-
-###
-
-PATCH http://localhost:9091/api/customers/15771ea0-4407-4cda-b08f-559038d13f21/deactivate
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-<> 2026-10-20T010806.500.json
-
-###
-
-GET http://localhost:9091/api/customers/username/kim
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T010706.500.json
-
-###
-
-GET http://localhost:9091/api/customers/15771ea0-4407-4cda-b08f-559038d13f21
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T010639.200.json
-
-###
-
-GET http://localhost:9091/api/customers/15771ea0-4407-4cda-b08f-559038d13f21
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T010353.500.json
-
-###
-
-GET http://localhost:9091/api/customers/592dd71b-4d6e-4673-a4d9-84a20dc910bb
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T010214.500.json
-
-###
-
-GET http://localhost:9091/api/customers/query
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T003502.200.json
-
-###
-
-POST http://localhost:9091/api/customers
-Content-Type: application/json
-Content-Length: 132
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "username": "long",
-  "familyName": "bin",
-  "givenName": "bin",
-  "email": "longbin@gmail.con",
-  "phoneNumber": "012345678"
-
-}
-
-<> 2026-10-19T235742.201.json
-
-###
-
-POST http://localhost:9091/api/customers
-Content-Type: application/json
-Content-Length: 133
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "username": "kim",
-  "familyName": "kong",
-  "givenName": "long",
-  "email": "kimkong@gmail.com",
-  "phoneNumber": "0123456789"
-}
-
-<> 2026-10-19T235644.201.json
 
 ###
 
