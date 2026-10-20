@@ -1,0 +1,192 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"BackgroundAgentGlobalSettings\">\r\n    <option name=\"selectedModelId\" value=\"auto\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"8834ea17-b9a9-43bb-8660-21c73773547c\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/controller/CustomerController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/controller/CustomerController.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"CopilotChats\">\r\n    <option name=\"panelChat\">\r\n      <chat>\r\n        <option name=\"activeSessionId\" value=\"6374bba1-16c4-4d39-8523-9c8ff00d73f7\" />\r\n        <option name=\"sessions\">\r\n          <session>\r\n            <option name=\"chatType\" value=\"PANEL\" />\r\n            <option name=\"id\" value=\"6374bba1-16c4-4d39-8523-9c8ff00d73f7\" />\r\n            <option name=\"modeId\" value=\"Ask\" />\r\n            <option name=\"modelType\" value=\"builtin_family\" />\r\n            <option name=\"modelValue\" value=\"auto\" />\r\n            <option name=\"targetType\" value=\"LOCAL\" />\r\n          </session>\r\n        </option>\r\n        <option name=\"type\" value=\"PANEL\" />\r\n      </chat>\r\n    </option>\r\n  </component>\r\n  <component name=\"CopilotPersistence\">\r\n    <persistenceIdMap>\r\n      <entry key=\"_C:/Users/TUF/Desktop/istad-ite-project\" value=\"3K5ZhTjXnqoogpaXQV3yPXottPe\" />\r\n    </persistenceIdMap>\r\n  </component>\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$\">\r\n      <ProjectState />\r\n    </projectState>\r\n    <projectState path=\"$PROJECT_DIR$/istad-common\">\r\n      <ProjectState />\r\n    </projectState>\r\n    <projectState path=\"$PROJECT_DIR$/microservice/order-service\">\r\n      <ProjectState />\r\n    </projectState>\r\n    <projectState path=\"$PROJECT_DIR$/microservice/payment-service\">\r\n      <ProjectState />\r\n    </projectState>\r\n    <projectState path=\"$PROJECT_DIR$/microservices/order-service\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"ExternalProjectsManager\">\r\n    <system id=\"GRADLE\">\r\n      <state>\r\n        <task path=\"$PROJECT_DIR$/istad-common\">\r\n          <activation />\r\n        </task>\r\n        <task path=\"$PROJECT_DIR$\">\r\n          <activation />\r\n        </task>\r\n        <task path=\"$PROJECT_DIR$/microservice/customer-service\">\r\n          <activation />\r\n        </task>\r\n        <projects_view>\r\n          <tree_state>\r\n            <expand>\r\n              <path>\r\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\r\n                <item name=\"istad-common\" type=\"f1a62948:ProjectNode\" />\r\n              </path>\r\n              <path>\r\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\r\n                <item name=\"istad-ite-project\" type=\"f1a62948:ProjectNode\" />\r\n              </path>\r\n            </expand>\r\n            <select />\r\n          </tree_state>\r\n        </projects_view>\r\n      </state>\r\n    </system>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Enum\" />\r\n        <option value=\"Interface\" />\r\n        <option value=\"Record\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;ngovkimsouheng&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/ngovkimsouheng/ite3-microservice-architecture.git&quot;,\r\n    &quot;accountId&quot;: &quot;84c967e8-877d-410e-a198-3dfecc5ed5ab&quot;\r\n  }\r\n}</component>\r\n  <component name=\"HttpClientOnboardingState\">{\r\n  &quot;isOnboardingCommentShown&quot;: true\r\n}</component>\r\n  <component name=\"KubernetesApiPersistence\">{}</component>\r\n  <component name=\"KubernetesApiProvider\">{\r\n  &quot;isMigrated&quot;: true\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 5,\r\n  &quot;fromUser&quot;: false\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"3K5ZhTjXnqoogpaXQV3yPXottPe\" />\r\n  <component name=\"ProjectSessionTemplates\">\r\n    <option name=\"panelTemplate\">\r\n      <template>\r\n        <option name=\"modeId\" value=\"Agent\" />\r\n        <option name=\"model\">\r\n          <model>\r\n            <option name=\"modelType\" value=\"builtin_id\" />\r\n            <option name=\"modelValue\" value=\"auto\" />\r\n          </model>\r\n        </option>\r\n        <option name=\"targetType\" value=\"BACKGROUND\" />\r\n        <option name=\"worktreeMode\" value=\"WORKSPACE\" />\r\n      </template>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.BusinessApplicationService.executor\": \"Run\",\r\n    \"Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment.executor\": \"Run\",\r\n    \"Docker.mongodb/docker-compose.yaml: Compose Deployment.executor\": \"Run\",\r\n    \"Gradle.Build istad-common.executor\": \"Run\",\r\n    \"Gradle.Build istad-ite-project.executor\": \"Run\",\r\n    \"Gradle.Build order-service.executor\": \"Run\",\r\n    \"Gradle.Download Sources.executor\": \"Run\",\r\n    \"Gradle.customer-service [dependencies].executor\": \"Run\",\r\n    \"Gradle.istad-ite-project [:microservice:business-service:kh.edu.istad.platform.business.BusinessApplicationService.main()].executor\": \"Run\",\r\n    \"Gradle.istad-ite-project.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #1.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #10.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #11.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #12.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #13.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #14.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #2.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #3.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #4.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #5.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #6.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #7.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #8.executor\": \"Run\",\r\n    \"HTTP Request.generated-requests | #9.executor\": \"Run\",\r\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\r\n    \"RequestMappingsPanelOrder0\": \"0\",\r\n    \"RequestMappingsPanelOrder1\": \"1\",\r\n    \"RequestMappingsPanelWidth0\": \"75\",\r\n    \"RequestMappingsPanelWidth1\": \"75\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"RunOnceActivity.typescript.service.memoryLimit.init\": \"true\",\r\n    \"Spring Boot.BusinessApplication.executor\": \"Run\",\r\n    \"Spring Boot.BusinessApplicationService.executor\": \"Run\",\r\n    \"Spring Boot.CustomerApplicationService (1).executor\": \"Run\",\r\n    \"Spring Boot.CustomerApplicationService.executor\": \"Run\",\r\n    \"Spring Boot.CustomerApplicationServicee.executor\": \"Run\",\r\n    \"Spring Boot.OrderApplication.executor\": \"Run\",\r\n    \"Spring Boot.OrderApplicationService.executor\": \"Run\",\r\n    \"Spring Boot.PaymentApplicationService.executor\": \"Run\",\r\n    \"copilot.chat.legacySessionMetadata.migrated\": \"true\",\r\n    \"database.data.extractors.current.export.id\": \"Comma-separated (CSV)_id\",\r\n    \"git-widget-placeholder\": \"practice\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"run.code.analysis.last.selected.profile\": \"pProject Default\",\r\n    \"run.configurations.included.in.services\": \"true\",\r\n    \"settings.editor.selected.configurable\": \"preferences.lookFeel\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  },\r\n  \"keyToStringList\": {\r\n    \"DatabaseDriversLRU\": [\r\n      \"mongo\",\r\n      \"postgresql\"\r\n    ]\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\TUF\\Desktop\\istad-ite-project\\microservice\\business-service\" />\r\n      <recent name=\"C:\\Users\\TUF\\Desktop\\istad-ite-project\\microservice\\payment-service\\payment-service-domain\" />\r\n      <recent name=\"C:\\Users\\TUF\\Desktop\\istad-ite-project\\microservice\\order-service\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunDashboard\">\r\n    <option name=\"configurationTypes\">\r\n      <set>\r\n        <option value=\"KtorApplicationConfigurationType\" />\r\n        <option value=\"MicronautRunConfigurationType\" />\r\n        <option value=\"QuarkusRunConfigurationType\" />\r\n        <option value=\"SpringBootApplicationConfigurationType\" />\r\n      </set>\r\n    </option>\r\n    <option name=\"configurationStatuses\">\r\n      <map>\r\n        <entry key=\"HttpClient.HttpRequestRunConfigurationType\">\r\n          <value>\r\n            <map>\r\n              <entry key=\"generated-requests | #11\" value=\"STOPPED\" />\r\n              <entry key=\"generated-requests | #12\" value=\"STOPPED\" />\r\n              <entry key=\"generated-requests | #13\" value=\"STOPPED\" />\r\n              <entry key=\"generated-requests | #14\" value=\"STOPPED\" />\r\n            </map>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"SpringBootApplicationConfigurationType\">\r\n          <value>\r\n            <map>\r\n              <entry key=\"BusinessApplication\" value=\"STOPPED\" />\r\n              <entry key=\"CustomerApplicationService\" value=\"STOPPED\" />\r\n              <entry key=\"OrderApplicationService\" value=\"STOPPED\" />\r\n            </map>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"HTTP Request.generated-requests | #14\">\r\n    <configuration name=\"generated-requests | #11\" type=\"HttpClient.HttpRequestRunConfigurationType\" factoryName=\"HTTP Request\" temporary=\"true\" nameIsGenerated=\"true\" path=\"$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http\" executionIdentifier=\"#11\" index=\"11\" runType=\"Run single request\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"generated-requests | #12\" type=\"HttpClient.HttpRequestRunConfigurationType\" factoryName=\"HTTP Request\" temporary=\"true\" nameIsGenerated=\"true\" path=\"$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http\" executionIdentifier=\"#12\" index=\"12\" runType=\"Run single request\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"generated-requests | #13\" type=\"HttpClient.HttpRequestRunConfigurationType\" factoryName=\"HTTP Request\" temporary=\"true\" nameIsGenerated=\"true\" path=\"$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http\" executionIdentifier=\"#13\" index=\"13\" runType=\"Run single request\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"generated-requests | #14\" type=\"HttpClient.HttpRequestRunConfigurationType\" factoryName=\"HTTP Request\" temporary=\"true\" nameIsGenerated=\"true\" path=\"$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http\" executionIdentifier=\"#14\" index=\"14\" runType=\"Run single request\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <module name=\"istad-common.main\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <module name=\"istad-common.main\" />\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"BusinessApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\" nameIsGenerated=\"true\">\r\n      <module name=\"business-service.business-service-main.main\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"kh.edu.istad.platform.business.BusinessApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"CustomerApplicationService\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"customer-service.customer-service-main.main\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"kh.edu.istad.platform.customer.CustomerApplicationService\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"kh.edu.istad.platform.customer.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"OrderApplicationService\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\" nameIsGenerated=\"true\">\r\n      <module name=\"order-service.order-service-main.main\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"kh.edu.istad.platform.order.OrderApplicationService\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"PaymentApplicationService\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\" nameIsGenerated=\"true\">\r\n      <module name=\"payment-service.payment-service-main.main\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"kh.edu.istad.platform.payment.PaymentApplicationService\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"docker-deploy\" factoryName=\"docker-compose.yml\" temporary=\"true\">\r\n      <deployment type=\"docker-compose.yml\">\r\n        <settings />\r\n      </deployment>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"HTTP Request.generated-requests | #14\" />\r\n      <item itemvalue=\"HTTP Request.generated-requests | #11\" />\r\n      <item itemvalue=\"HTTP Request.generated-requests | #12\" />\r\n      <item itemvalue=\"HTTP Request.generated-requests | #13\" />\r\n      <item itemvalue=\"Spring Boot.BusinessApplication\" />\r\n      <item itemvalue=\"Spring Boot.OrderApplicationService\" />\r\n      <item itemvalue=\"Spring Boot.PaymentApplicationService\" />\r\n      <item itemvalue=\"Spring Boot.CustomerApplicationService\" />\r\n    </list>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"HTTP Request.generated-requests | #14\" />\r\n        <item itemvalue=\"Spring Boot.CustomerApplicationService\" />\r\n        <item itemvalue=\"HTTP Request.generated-requests | #13\" />\r\n        <item itemvalue=\"HTTP Request.generated-requests | #12\" />\r\n        <item itemvalue=\"HTTP Request.generated-requests | #11\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.33514.17\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.33514.17\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"StructureViewState\">\r\n    <option name=\"selectedTab\" value=\"Logical\" />\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"8834ea17-b9a9-43bb-8660-21c73773547c\" name=\"Changes\" comment=\"\" />\r\n      <created>1790849520588</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1790849520588</updated>\r\n      <workItem from=\"1790849522504\" duration=\"2115000\" />\r\n      <workItem from=\"1790921981893\" duration=\"190000\" />\r\n      <workItem from=\"1790922815558\" duration=\"282000\" />\r\n      <workItem from=\"1790923181285\" duration=\"19000\" />\r\n      <workItem from=\"1790923594046\" duration=\"5774000\" />\r\n      <workItem from=\"1790929484644\" duration=\"421000\" />\r\n      <workItem from=\"1790929936809\" duration=\"295000\" />\r\n      <workItem from=\"1790930244343\" duration=\"3088000\" />\r\n      <workItem from=\"1791039899774\" duration=\"48000\" />\r\n      <workItem from=\"1791357498450\" duration=\"8334000\" />\r\n      <workItem from=\"1791441369760\" duration=\"13421000\" />\r\n      <workItem from=\"1791457770812\" duration=\"3831000\" />\r\n      <workItem from=\"1791461634937\" duration=\"5275000\" />\r\n      <workItem from=\"1791470039485\" duration=\"9003000\" />\r\n      <workItem from=\"1791527975057\" duration=\"8872000\" />\r\n      <workItem from=\"1791646992887\" duration=\"4345000\" />\r\n      <workItem from=\"1791657802221\" duration=\"3845000\" />\r\n      <workItem from=\"1791661676304\" duration=\"1309000\" />\r\n      <workItem from=\"1791663007310\" duration=\"12000\" />\r\n      <workItem from=\"1791704705983\" duration=\"1419000\" />\r\n      <workItem from=\"1791706146746\" duration=\"135000\" />\r\n      <workItem from=\"1791706299489\" duration=\"307000\" />\r\n      <workItem from=\"1791706639928\" duration=\"12994000\" />\r\n      <workItem from=\"1791729815771\" duration=\"101000\" />\r\n      <workItem from=\"1791729927126\" duration=\"86000\" />\r\n      <workItem from=\"1791730087937\" duration=\"1050000\" />\r\n      <workItem from=\"1791731359788\" duration=\"799000\" />\r\n      <workItem from=\"1791810813873\" duration=\"1143000\" />\r\n      <workItem from=\"1791874834856\" duration=\"9037000\" />\r\n      <workItem from=\"1791894694949\" duration=\"12653000\" />\r\n      <workItem from=\"1792044384259\" duration=\"6058000\" />\r\n      <workItem from=\"1792392492587\" duration=\"19719000\" />\r\n      <workItem from=\"1792426296569\" duration=\"9911000\" />\r\n      <workItem from=\"1792468706687\" duration=\"642000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n  <component name=\"github-copilot-workspace\">\r\n    <instructionFileLocations>\r\n      <option value=\".github/instructions\" />\r\n    </instructionFileLocations>\r\n    <promptFileLocations>\r\n      <option value=\".github/prompts\" />\r\n    </promptFileLocations>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 2475e73ef4994442ab2f31d47049663d4fc5474e)
++++ b/.idea/workspace.xml	(date 1792495045288)
+@@ -8,9 +8,7 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi/src/main/java/kh/edu/istad/platform/customer/restapi/controller/CustomerController.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -98,6 +96,11 @@
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="assignment_02" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="GitHubPullRequestSearchHistory">{
+@@ -143,69 +146,69 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Application.BusinessApplicationService.executor": "Run",
+-    "Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment.executor": "Run",
+-    "Docker.mongodb/docker-compose.yaml: Compose Deployment.executor": "Run",
+-    "Gradle.Build istad-common.executor": "Run",
+-    "Gradle.Build istad-ite-project.executor": "Run",
+-    "Gradle.Build order-service.executor": "Run",
+-    "Gradle.Download Sources.executor": "Run",
+-    "Gradle.customer-service [dependencies].executor": "Run",
+-    "Gradle.istad-ite-project [:microservice:business-service:kh.edu.istad.platform.business.BusinessApplicationService.main()].executor": "Run",
+-    "Gradle.istad-ite-project.executor": "Run",
+-    "HTTP Request.generated-requests | #1.executor": "Run",
+-    "HTTP Request.generated-requests | #10.executor": "Run",
+-    "HTTP Request.generated-requests | #11.executor": "Run",
+-    "HTTP Request.generated-requests | #12.executor": "Run",
+-    "HTTP Request.generated-requests | #13.executor": "Run",
+-    "HTTP Request.generated-requests | #14.executor": "Run",
+-    "HTTP Request.generated-requests | #2.executor": "Run",
+-    "HTTP Request.generated-requests | #3.executor": "Run",
+-    "HTTP Request.generated-requests | #4.executor": "Run",
+-    "HTTP Request.generated-requests | #5.executor": "Run",
+-    "HTTP Request.generated-requests | #6.executor": "Run",
+-    "HTTP Request.generated-requests | #7.executor": "Run",
+-    "HTTP Request.generated-requests | #8.executor": "Run",
+-    "HTTP Request.generated-requests | #9.executor": "Run",
+-    "ModuleVcsDetector.initialDetectionPerformed": "true",
+-    "RequestMappingsPanelOrder0": "0",
+-    "RequestMappingsPanelOrder1": "1",
+-    "RequestMappingsPanelWidth0": "75",
+-    "RequestMappingsPanelWidth1": "75",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+-    "Spring Boot.BusinessApplication.executor": "Run",
+-    "Spring Boot.BusinessApplicationService.executor": "Run",
+-    "Spring Boot.CustomerApplicationService (1).executor": "Run",
+-    "Spring Boot.CustomerApplicationService.executor": "Run",
+-    "Spring Boot.CustomerApplicationServicee.executor": "Run",
+-    "Spring Boot.OrderApplication.executor": "Run",
+-    "Spring Boot.OrderApplicationService.executor": "Run",
+-    "Spring Boot.PaymentApplicationService.executor": "Run",
+-    "copilot.chat.legacySessionMetadata.migrated": "true",
+-    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
+-    "git-widget-placeholder": "practice",
+-    "kotlin-language-version-configured": "true",
+-    "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Modules",
+-    "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.2",
+-    "run.code.analysis.last.selected.profile": "pProject Default",
+-    "run.configurations.included.in.services": "true",
+-    "settings.editor.selected.configurable": "preferences.lookFeel",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.BusinessApplicationService.executor&quot;: &quot;Run&quot;,
++    &quot;Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment.executor&quot;: &quot;Run&quot;,
++    &quot;Docker.mongodb/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
++    &quot;Gradle.Build istad-common.executor&quot;: &quot;Run&quot;,
++    &quot;Gradle.Build istad-ite-project.executor&quot;: &quot;Run&quot;,
++    &quot;Gradle.Build order-service.executor&quot;: &quot;Run&quot;,
++    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
++    &quot;Gradle.customer-service [dependencies].executor&quot;: &quot;Run&quot;,
++    &quot;Gradle.istad-ite-project [:microservice:business-service:kh.edu.istad.platform.business.BusinessApplicationService.main()].executor&quot;: &quot;Run&quot;,
++    &quot;Gradle.istad-ite-project.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #1.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #10.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #11.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #12.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #13.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #14.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #2.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #3.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #4.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #5.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #6.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #7.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #8.executor&quot;: &quot;Run&quot;,
++    &quot;HTTP Request.generated-requests | #9.executor&quot;: &quot;Run&quot;,
++    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
++    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
++    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
++    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
++    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
++    &quot;Spring Boot.BusinessApplication.executor&quot;: &quot;Run&quot;,
++    &quot;Spring Boot.BusinessApplicationService.executor&quot;: &quot;Run&quot;,
++    &quot;Spring Boot.CustomerApplicationService (1).executor&quot;: &quot;Run&quot;,
++    &quot;Spring Boot.CustomerApplicationService.executor&quot;: &quot;Run&quot;,
++    &quot;Spring Boot.CustomerApplicationServicee.executor&quot;: &quot;Run&quot;,
++    &quot;Spring Boot.OrderApplication.executor&quot;: &quot;Run&quot;,
++    &quot;Spring Boot.OrderApplicationService.executor&quot;: &quot;Run&quot;,
++    &quot;Spring Boot.PaymentApplicationService.executor&quot;: &quot;Run&quot;,
++    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
++    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;practice&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
++    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   },
+-  "keyToStringList": {
+-    "DatabaseDriversLRU": [
+-      "mongo",
+-      "postgresql"
++  &quot;keyToStringList&quot;: {
++    &quot;DatabaseDriversLRU&quot;: [
++      &quot;mongo&quot;,
++      &quot;postgresql&quot;
+     ]
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
+       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\business-service" />
+@@ -221,29 +224,6 @@
+         <option value="QuarkusRunConfigurationType" />
+         <option value="SpringBootApplicationConfigurationType" />
+       </set>
+-    </option>
+-    <option name="configurationStatuses">
+-      <map>
+-        <entry key="HttpClient.HttpRequestRunConfigurationType">
+-          <value>
+-            <map>
+-              <entry key="generated-requests | #11" value="STOPPED" />
+-              <entry key="generated-requests | #12" value="STOPPED" />
+-              <entry key="generated-requests | #13" value="STOPPED" />
+-              <entry key="generated-requests | #14" value="STOPPED" />
+-            </map>
+-          </value>
+-        </entry>
+-        <entry key="SpringBootApplicationConfigurationType">
+-          <value>
+-            <map>
+-              <entry key="BusinessApplication" value="STOPPED" />
+-              <entry key="CustomerApplicationService" value="STOPPED" />
+-              <entry key="OrderApplicationService" value="STOPPED" />
+-            </map>
+-          </value>
+-        </entry>
+-      </map>
+     </option>
+   </component>
+   <component name="RunManager" selected="HTTP Request.generated-requests | #14">

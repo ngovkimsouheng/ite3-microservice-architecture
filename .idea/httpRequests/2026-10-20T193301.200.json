@@ -1,0 +1,47 @@
+[
+  {
+    "email": {
+      "value": "kirari@gmail.com"
+    },
+    "familyName": "kirari",
+    "givenName": "kuru",
+    "id": {
+      "value": "263c562d-73b0-4c3b-9f32-1b7042358cc6"
+    },
+    "phoneNumber": {
+      "value": "012345678"
+    },
+    "status": "ACTIVE",
+    "username": "sukimheng"
+  },
+  {
+    "email": {
+      "value": "kirarirara@gmail.com"
+    },
+    "familyName": "mwoew",
+    "givenName": "chma",
+    "id": {
+      "value": "f0915323-3afb-4216-a118-2575ef171368"
+    },
+    "phoneNumber": {
+      "value": "09798100"
+    },
+    "status": "INACTIVE",
+    "username": "nana"
+  },
+  {
+    "email": {
+      "value": "kirarirara@gmail.com"
+    },
+    "familyName": "mwoew",
+    "givenName": "chma",
+    "id": {
+      "value": "412056c1-1f30-4dcc-8eed-593be0410c8d"
+    },
+    "phoneNumber": {
+      "value": "09798100"
+    },
+    "status": "ACTIVE",
+    "username": "nana"
+  }
+]

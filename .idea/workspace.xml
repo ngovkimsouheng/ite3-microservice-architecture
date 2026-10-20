@@ -7,7 +7,21 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="" />
+    <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_20_2026_6_22_PM_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_20_2026_6_22_PM_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_20_2026_6_22_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-19T153836.400.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-19T153900.201.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-19T171854.400.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-19T172105.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-19T172330.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-19T172454.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerReactiveRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerReactiveRepositoryAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/document/CustomerDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/document/CustomerDocument.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,6 +108,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="practice" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -139,69 +158,78 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.BusinessApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.mongodb/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build istad-common.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build istad-ite-project.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build order-service.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.customer-service [dependencies].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.istad-ite-project [:microservice:business-service:kh.edu.istad.platform.business.BusinessApplicationService.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.istad-ite-project.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #10.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #11.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #12.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #13.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #14.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #2.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #3.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #4.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #5.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #6.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #7.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #8.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #9.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;Spring Boot.BusinessApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.BusinessApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.CustomerApplicationService (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.CustomerApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.CustomerApplicationServicee.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.OrderApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.OrderApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.PaymentApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;assignment__02&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BusinessApplicationService.executor": "Run",
+    "Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment.executor": "Run",
+    "Docker.mongodb/docker-compose.yaml: Compose Deployment.executor": "Run",
+    "Gradle.Build istad-common.executor": "Run",
+    "Gradle.Build istad-ite-project.executor": "Run",
+    "Gradle.Build order-service.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.customer-service [dependencies].executor": "Run",
+    "Gradle.istad-ite-project [:microservice:business-service:kh.edu.istad.platform.business.BusinessApplicationService.main()].executor": "Run",
+    "Gradle.istad-ite-project.executor": "Run",
+    "HTTP Request.generated-requests | #1.executor": "Run",
+    "HTTP Request.generated-requests | #10.executor": "Run",
+    "HTTP Request.generated-requests | #11.executor": "Run",
+    "HTTP Request.generated-requests | #12.executor": "Run",
+    "HTTP Request.generated-requests | #13.executor": "Run",
+    "HTTP Request.generated-requests | #14.executor": "Run",
+    "HTTP Request.generated-requests | #17.executor": "Run",
+    "HTTP Request.generated-requests | #18.executor": "Run",
+    "HTTP Request.generated-requests | #19.executor": "Run",
+    "HTTP Request.generated-requests | #2.executor": "Run",
+    "HTTP Request.generated-requests | #20.executor": "Run",
+    "HTTP Request.generated-requests | #21.executor": "Run",
+    "HTTP Request.generated-requests | #22.executor": "Run",
+    "HTTP Request.generated-requests | #23.executor": "Run",
+    "HTTP Request.generated-requests | #25.executor": "Run",
+    "HTTP Request.generated-requests | #26.executor": "Run",
+    "HTTP Request.generated-requests | #3.executor": "Run",
+    "HTTP Request.generated-requests | #4.executor": "Run",
+    "HTTP Request.generated-requests | #5.executor": "Run",
+    "HTTP Request.generated-requests | #6.executor": "Run",
+    "HTTP Request.generated-requests | #7.executor": "Run",
+    "HTTP Request.generated-requests | #8.executor": "Run",
+    "HTTP Request.generated-requests | #9.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.BusinessApplication.executor": "Run",
+    "Spring Boot.BusinessApplicationService.executor": "Run",
+    "Spring Boot.CustomerApplicationService (1).executor": "Run",
+    "Spring Boot.CustomerApplicationService.executor": "Run",
+    "Spring Boot.CustomerApplicationServicee.executor": "Run",
+    "Spring Boot.OrderApplication.executor": "Run",
+    "Spring Boot.OrderApplicationService.executor": "Run",
+    "Spring Boot.PaymentApplicationService.executor": "Run",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
+    "git-widget-placeholder": "assignment__02",
+    "kotlin-language-version-configured": "true",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mongo&quot;,
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mongo",
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\business-service" />
@@ -223,10 +251,11 @@
         <entry key="HttpClient.HttpRequestRunConfigurationType">
           <value>
             <map>
-              <entry key="generated-requests | #11" value="STOPPED" />
-              <entry key="generated-requests | #12" value="STOPPED" />
-              <entry key="generated-requests | #13" value="STOPPED" />
-              <entry key="generated-requests | #14" value="STOPPED" />
+              <entry key="generated-requests | #18" value="STOPPED" />
+              <entry key="generated-requests | #21" value="STOPPED" />
+              <entry key="generated-requests | #23" value="STOPPED" />
+              <entry key="generated-requests | #25" value="STOPPED" />
+              <entry key="generated-requests | #26" value="STOPPED" />
             </map>
           </value>
         </entry>
@@ -234,25 +263,28 @@
           <value>
             <map>
               <entry key="BusinessApplication" value="STOPPED" />
-              <entry key="CustomerApplicationService" value="STOPPED" />
               <entry key="OrderApplicationService" value="STOPPED" />
+              <entry key="PaymentApplicationService" value="STOPPED" />
             </map>
           </value>
         </entry>
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.OrderApplicationService">
-    <configuration name="generated-requests | #11" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#11" index="11" runType="Run single request">
+  <component name="RunManager" selected="HTTP Request.generated-requests | #26">
+    <configuration name="generated-requests | #18" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#18" index="18" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #12" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#12" index="12" runType="Run single request">
+    <configuration name="generated-requests | #21" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#21" index="21" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #13" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#13" index="13" runType="Run single request">
+    <configuration name="generated-requests | #23" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#23" index="23" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #14" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#14" index="14" runType="Run single request">
+    <configuration name="generated-requests | #25" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#25" index="25" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #26" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#26" index="26" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
@@ -269,19 +301,6 @@
     <configuration name="BusinessApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="business-service.business-service-main.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.business.BusinessApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CustomerApplicationService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="customer-service.customer-service-main.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.customer.CustomerApplicationService" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="kh.edu.istad.platform.customer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -307,22 +326,22 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="HTTP Request.generated-requests | #14" />
-      <item itemvalue="HTTP Request.generated-requests | #11" />
-      <item itemvalue="HTTP Request.generated-requests | #12" />
-      <item itemvalue="HTTP Request.generated-requests | #13" />
+      <item itemvalue="HTTP Request.generated-requests | #18" />
+      <item itemvalue="HTTP Request.generated-requests | #21" />
+      <item itemvalue="HTTP Request.generated-requests | #23" />
+      <item itemvalue="HTTP Request.generated-requests | #25" />
+      <item itemvalue="HTTP Request.generated-requests | #26" />
       <item itemvalue="Spring Boot.BusinessApplication" />
       <item itemvalue="Spring Boot.OrderApplicationService" />
       <item itemvalue="Spring Boot.PaymentApplicationService" />
-      <item itemvalue="Spring Boot.CustomerApplicationService" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.CustomerApplicationService" />
-        <item itemvalue="HTTP Request.generated-requests | #14" />
-        <item itemvalue="HTTP Request.generated-requests | #13" />
-        <item itemvalue="HTTP Request.generated-requests | #12" />
-        <item itemvalue="HTTP Request.generated-requests | #11" />
+        <item itemvalue="HTTP Request.generated-requests | #26" />
+        <item itemvalue="HTTP Request.generated-requests | #25" />
+        <item itemvalue="HTTP Request.generated-requests | #18" />
+        <item itemvalue="HTTP Request.generated-requests | #21" />
+        <item itemvalue="HTTP Request.generated-requests | #23" />
       </list>
     </recent_temporary>
   </component>

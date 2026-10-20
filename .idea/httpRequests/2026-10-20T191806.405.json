@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-10-20T12:18:06.041Z",
+  "status": 405,
+  "error": "Method Not Allowed",
+  "path": "/api/customers/f0915323-3afb-4216-a118-2575ef171368/deactivate"
+}

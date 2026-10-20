@@ -13,10 +13,10 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
 
 @RequiredArgsConstructor
 @Repository
@@ -28,10 +28,18 @@ public class CustomerReactiveRepositoryAdapter implements CustomerRepository {
 
     @Override
     public Mono<Customer> save(Customer customer) {
-        CustomerDocument document =
-                customerPersistenceMapper.toDocument(customer);
+        CustomerDocument document = customerPersistenceMapper.toDocument(customer);
 
-        return customerMongoRepository.save(document)
+        return customerMongoRepository.existsById(document.getId())
+                .flatMap(exists -> {
+                    if (exists) {
+                        document.setNew(false);
+                        return customerMongoRepository.save(document);
+                    } else {
+                        document.setNew(true);
+                        return customerMongoRepository.insert(document);
+                    }
+                })
                 .map(customerPersistenceMapper::toDomain);
     }
 
@@ -60,12 +68,10 @@ public class CustomerReactiveRepositoryAdapter implements CustomerRepository {
 
     @Override
     public Flux<Customer> query() {
-
         Query query = Query.query(Criteria.where("username").is("long"));
 
-        return reactiveMongoTemplate.find(query, CustomerDocument.class).map(
-                customerPersistenceMapper::toDomain
-        );
+        return reactiveMongoTemplate.find(query, CustomerDocument.class)
+                .map(customerPersistenceMapper::toDomain);
     }
 
     @Override
@@ -112,4 +118,5 @@ public class CustomerReactiveRepositoryAdapter implements CustomerRepository {
 
         return reactiveMongoTemplate.find(query, CustomerDocument.class)
                 .map(customerPersistenceMapper::toDomain);
-    }}
+    }
+}
