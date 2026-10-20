@@ -7,13 +7,7 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/WebfluxController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7ec51cb9-1088-402f-b343-9a64360f36c4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7ec51cb9-1088-402f-b343-9a64360f36c4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -386,6 +380,7 @@
       <workItem from="1792468706687" duration="3488000" />
       <workItem from="1792477910522" duration="5143000" />
       <workItem from="1792491506790" duration="764000" />
+      <workItem from="1792494301815" duration="395000" />
     </task>
     <servers />
   </component>
