@@ -7,6 +7,6 @@ dependencies {
     implementation project(':order-service-domain:order-application-service')
     implementation project(':order-service-persistence')
     implementation project(':order-service-restapi')
-
-    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+//    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 }
