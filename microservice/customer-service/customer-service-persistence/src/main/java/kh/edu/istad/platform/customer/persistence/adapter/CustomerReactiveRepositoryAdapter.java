@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.bson.Document;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
@@ -112,27 +113,47 @@ public class CustomerReactiveRepositoryAdapter implements CustomerRepository {
 
     @Override
     public Mono<CustomerStatisticsResult> getStatistics() {
-        Aggregation statusAgg = Aggregation.newAggregation(
+        // Aggregation grouping by status
+        Aggregation statusAggregation = Aggregation.newAggregation(
                 Aggregation.group("status").count().as("count")
         );
 
-        Aggregation segmentAgg = Aggregation.newAggregation(
-                Aggregation.group("segment").count().as("count")
+        // Aggregation grouping by segment with lookup
+        Aggregation segmentAggregation = Aggregation.newAggregation(
+                lookup("customerSegments", "segment.$id", "_id", "segmentDetails"),
+                unwind("segmentDetails", true),
+                project()
+                        .andExpression("ifNull(segmentDetails.segmentType, 'UNASSIGNED')").as("segmentGroup"),
+                Aggregation.group("segmentGroup").count().as("count")
         );
 
         Mono<Map<String, Long>> statusCountsMono = reactiveMongoTemplate
-                .aggregate(statusAgg, "customerDocument", Document.class)
+                .aggregate(statusAggregation, "customerDocument", Document.class)
                 .collectMap(
-                        d -> String.valueOf(d.get("_id")),
-                        d -> ((Number) d.get("count")).longValue()
-                );
+                        doc -> {
+                            Object idVal = doc.get("_id");
+                            return idVal != null ? idVal.toString() : "UNKNOWN";
+                        },
+                        doc -> {
+                            Number count = (Number) doc.get("count");
+                            return count != null ? count.longValue() : 0L;
+                        }
+                )
+                .defaultIfEmpty(Collections.emptyMap());
 
         Mono<Map<String, Long>> segmentCountsMono = reactiveMongoTemplate
-                .aggregate(segmentAgg, "customerDocument", Document.class)
+                .aggregate(segmentAggregation, "customerDocument", Document.class)
                 .collectMap(
-                        d -> String.valueOf(d.get("_id")),
-                        d -> ((Number) d.get("count")).longValue()
-                );
+                        doc -> {
+                            Object idVal = doc.get("_id");
+                            return idVal != null ? idVal.toString() : "UNASSIGNED";
+                        },
+                        doc -> {
+                            Number count = (Number) doc.get("count");
+                            return count != null ? count.longValue() : 0L;
+                        }
+                )
+                .defaultIfEmpty(Collections.emptyMap());
 
         Mono<Long> totalCustomersMono = reactiveMongoTemplate.count(new Query(), "customerDocument");
 

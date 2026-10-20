@@ -1,3 +1,30 @@
+GET http://localhost:9091/api/customers/report
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T233528.200.json
+
+###
+
+GET http://localhost:9091/api/customers/statistics
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T233509.200.json
+
+###
+
+GET http://localhost:9091/api/customers/statistics
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T232943.200.json
+
+###
+
 POST http://localhost:9091/api/segments
 Content-Type: application/json
 Content-Length: 81
@@ -614,33 +641,6 @@ Accept-Encoding: br, deflate, gzip, x-gzip
 Accept: */*
 
 <> 2026-10-20T111043.200.json
-
-###
-
-GET http://localhost:9091/api/customers/filter?username=long&status=ACTIVE
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T110946.200.json
-
-###
-
-GET http://localhost:9091/api/customers/filter?username=long&status=ACTIVE
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T110923.500.json
-
-###
-
-GET http://localhost:9091/api/customers/filter?username=long&status=ACTIVE
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T110453.500.json
 
 ###
 
