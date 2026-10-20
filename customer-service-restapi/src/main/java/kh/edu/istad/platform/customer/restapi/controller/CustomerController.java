@@ -7,7 +7,6 @@ import kh.edu.istad.platform.customer.domain.usecase.*;
 import kh.edu.istad.platform.customer.restapi.dto.CustomerInitiateRequest;
 import kh.edu.istad.platform.customer.restapi.dto.CustomerInitiateResponse;
 import kh.edu.istad.platform.customer.restapi.dto.CustomerStatisticsResponse;
-import kh.edu.istad.platform.customer.restapi.dto.UpdateCustomerRequest;
 import kh.edu.istad.platform.customer.restapi.mapper.CustomerWebMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,6 @@ import java.util.UUID;
 public class CustomerController {
 
     private final InitiateCustomerUseCase initiateCustomerUseCase;
-    private final UpdateCustomerUseCase updateCustomerUseCase;
     private final DeactivateCustomerUseCase deactivateCustomerUseCase;
     private final CustomerWebMapper customerWebMapper;
     private final QueryCustomerUseCase queryCustomerUseCase;
@@ -43,39 +41,39 @@ public class CustomerController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Mono<CustomerInitiateResponse> initiateCustomer(@Valid @RequestBody CustomerInitiateRequest request) {
+    public Mono<CustomerInitiateResponse> initiateCustomer(
+            @Valid @RequestBody CustomerInitiateRequest request
+    ) {
         return initiateCustomerUseCase
                 .execute(customerWebMapper.toCommand(request))
                 .map(customerWebMapper::toResponse);
     }
 
     @GetMapping("/{id}")
-    public Mono<Customer> findById(@PathVariable(name = "id") UUID id) {
+    public Mono<Customer> findById(
+            @PathVariable(name = "id") UUID id
+    ) {
         return queryCustomerUseCase.findById(new CustomerId(id));
     }
 
     @GetMapping("/username/{username}")
-    public Mono<Customer> findByUsername(@PathVariable(name = "username") String username) {
+    public Mono<Customer> findByUsername(
+            @PathVariable(name = "username") String username
+    ) {
         return queryCustomerUseCase.findByUsername(username);
     }
 
-    @PutMapping("/{id}")
-    public Mono<CustomerInitiateResponse> updateCustomer(
-            @PathVariable(name = "id") UUID id,
-            @Valid @RequestBody UpdateCustomerRequest request
-    ) {
-        return updateCustomerUseCase
-                .execute(customerWebMapper.toCommand(id, request))
-                .map(customerWebMapper::toResponse);
-    }
-
     @PatchMapping("/{id}/deactivate")
-    public Mono<Customer> deactivateCustomer(@PathVariable(name = "id") UUID id) {
+    public Mono<Customer> deactivateCustomer(
+            @PathVariable(name = "id") UUID id
+    ) {
         return deactivateCustomerUseCase.execute(new CustomerId(id));
     }
 
     @DeleteMapping("/{id}")
-    public Mono<Void> deleteCustomer(@PathVariable(name = "id") UUID id) {
+    public Mono<Void> deleteCustomer(
+            @PathVariable(name = "id") UUID id
+    ) {
         return deleteCustomerUseCase.execute(new CustomerId(id));
     }
 
@@ -88,7 +86,9 @@ public class CustomerController {
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size
     ) {
-        return filterCustomersUseCase.execute(username, status, givenName, familyName, page, size);
+        return filterCustomersUseCase.execute(
+                username, status, givenName, familyName, page, size
+        );
     }
 
     @GetMapping("/statistics")
@@ -99,5 +99,10 @@ public class CustomerController {
                         .countByStatus(res.getCountByStatus())
                         .countBySegment(res.getCountBySegment())
                         .build());
+    }
+
+    @GetMapping("/report")
+    public Mono<CustomerStatisticsResponse> getReport() {
+        return getStatistics();
     }
 }

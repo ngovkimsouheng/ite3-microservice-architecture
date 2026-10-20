@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.time.Instant;
 
@@ -30,6 +31,9 @@ public class CustomerDocument implements Persistable<String> {
     private String email;
     private String phoneNumber;
     private CustomerStatus status;
+
+    @DocumentReference(lazy = true)
+    private CustomerSegmentDocument segment;
 
     @CreatedBy
     private String createdBy;

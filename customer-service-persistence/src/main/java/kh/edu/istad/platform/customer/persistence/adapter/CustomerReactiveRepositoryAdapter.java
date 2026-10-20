@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.bson.Document;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
@@ -113,52 +112,35 @@ public class CustomerReactiveRepositoryAdapter implements CustomerRepository {
 
     @Override
     public Mono<CustomerStatisticsResult> getStatistics() {
-        Aggregation aggregation = newAggregation(
-                facet(count().as("total")).as("totalCustomersFacet")
-                .and(group("status").count().as("count")).as("statusFacet")
-                .and(group("segment").count().as("count")).as("segmentFacet")
+        Aggregation statusAgg = Aggregation.newAggregation(
+                Aggregation.group("status").count().as("count")
         );
 
-        return reactiveMongoTemplate.aggregate(aggregation, "customerDocument", Document.class)
-                .next()
-                .map(doc -> {
-                    long total = 0L;
-                    List<Document> totalList = doc.getList("totalCustomersFacet", Document.class);
-                    if (totalList != null && !totalList.isEmpty()) {
-                        Number n = (Number) totalList.get(0).get("total");
-                        total = n != null ? n.longValue() : 0L;
-                    }
+        Aggregation segmentAgg = Aggregation.newAggregation(
+                Aggregation.group("segment").count().as("count")
+        );
 
-                    Map<String, Long> statusMap = new HashMap<>();
-                    List<Document> statusList = doc.getList("statusFacet", Document.class);
-                    if (statusList != null) {
-                        for (Document d : statusList) {
-                            String k = d.getString("_id");
-                            Number c = (Number) d.get("count");
-                            if (k != null) statusMap.put(k, c != null ? c.longValue() : 0L);
-                        }
-                    }
+        Mono<Map<String, Long>> statusCountsMono = reactiveMongoTemplate
+                .aggregate(statusAgg, "customerDocument", Document.class)
+                .collectMap(
+                        d -> String.valueOf(d.get("_id")),
+                        d -> ((Number) d.get("count")).longValue()
+                );
 
-                    Map<String, Long> segmentMap = new HashMap<>();
-                    List<Document> segmentList = doc.getList("segmentFacet", Document.class);
-                    if (segmentList != null) {
-                        for (Document d : segmentList) {
-                            String k = d.getString("_id");
-                            Number c = (Number) d.get("count");
-                            if (k != null) segmentMap.put(k, c != null ? c.longValue() : 0L);
-                        }
-                    }
+        Mono<Map<String, Long>> segmentCountsMono = reactiveMongoTemplate
+                .aggregate(segmentAgg, "customerDocument", Document.class)
+                .collectMap(
+                        d -> String.valueOf(d.get("_id")),
+                        d -> ((Number) d.get("count")).longValue()
+                );
 
-                    return CustomerStatisticsResult.builder()
-                            .totalCustomers(total)
-                            .countByStatus(statusMap)
-                            .countBySegment(segmentMap)
-                            .build();
-                })
-                .defaultIfEmpty(CustomerStatisticsResult.builder()
-                        .totalCustomers(0L)
-                        .countByStatus(Collections.emptyMap())
-                        .countBySegment(Collections.emptyMap())
+        Mono<Long> totalCustomersMono = reactiveMongoTemplate.count(new Query(), "customerDocument");
+
+        return Mono.zip(totalCustomersMono, statusCountsMono, segmentCountsMono)
+                .map(tuple -> CustomerStatisticsResult.builder()
+                        .totalCustomers(tuple.getT1())
+                        .countByStatus(tuple.getT2())
+                        .countBySegment(tuple.getT3())
                         .build());
     }
 }

@@ -100,4 +100,9 @@ public class CustomerController {
                         .countBySegment(res.getCountBySegment())
                         .build());
     }
+
+    @GetMapping("/report")
+    public Mono<CustomerStatisticsResponse> getReport() {
+        return getStatistics();
+    }
 }

@@ -1,3 +1,68 @@
+GET http://localhost:9091/api/customers/report
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T203248.200.json
+
+###
+
+GET http://localhost:9091/api/customers/statistics
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T203232.200.json
+
+###
+
+GET http://localhost:9091/api/segments
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T203154.200.json
+
+###
+
+POST http://localhost:9091/api/segments
+Content-Type: application/json
+Content-Length: 185
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "id": "67151...",
+  "name": "Gold VIP Members",
+  "description": "Premium tier customers with loyalty benefits",
+  "segmentType": "GOLD",
+  "createdAt": null,
+  "modifiedAt": null
+}
+
+<> 2026-10-20T203106.201.json
+
+###
+
+GET http://localhost:9091/api/customers/statistics
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T202447.200.json
+
+###
+
+GET http://localhost:9091/api/customers/report
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T202043.200.json
+
+###
+
 GET http://localhost:9091/api/customers/statistics
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
 Accept-Encoding: br, deflate, gzip, x-gzip
@@ -469,112 +534,6 @@ Accept: */*
 }
 
 <> 2026-10-19T235644.201.json
-
-###
-
-POST http://localhost:9091/api/customers
-Content-Type: application/json
-Content-Length: 133
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "username": "kim",
-  "familyName": "kong",
-  "givenName": "long",
-  "email": "kimkong@gmail.com",
-  "phoneNumber": "0123456789"
-}
-
-<> 2026-10-19T235447.201.json
-
-###
-
-POST http://localhost:9091/api/customers
-Content-Type: application/json
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-content-length: 0
-
-<> 2026-10-19T235354.400.json
-
-###
-
-POST http://localhost:9091/api/customers
-Content-Type: application/json
-Content-Length: 128
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "username": "kim",
-  "familyName": "heng",
-  "givenName": "kim",
-  "email": "kim@gmail.com",
-  "phoneNumber": "0123456789"
-}
-
-<> 2026-10-19T233159.201.json
-
-###
-
-POST http://localhost:9091/api/customers
-Content-Type: application/json
-Content-Length: 131
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "username": "latte",
-  "familyName": "kim",
-  "givenName": "kim",
-  "email": "kimkim@gmail.com",
-  "phoneNumber": "012345678"
-}
-
-<> 2026-10-19T233058.201.json
-
-###
-
-POST http://localhost:9091/api/customers
-Content-Type: application/json
-Content-Length: 131
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "username": "latte",
-  "familyName": "kim",
-  "givenName": "kim",
-  "email": "kimkim@gmail.com",
-  "phoneNumber": "012345678"
-}
-
-<> 2026-10-19T232422.201.json
-
-###
-
-POST http://localhost:9091/api/customers
-Content-Type: application/json
-Content-Length: 142
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "username": "souheng",
-  "familyName": "kim",
-  "givenName": "souheng",
-  "email": "kimsouheng@gmail.com",
-  "phoneNumber": "0123456789"
-}
-
-<> 2026-10-19T173505.500.json
 
 ###
 
