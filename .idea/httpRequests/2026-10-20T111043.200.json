@@ -1,0 +1,32 @@
+[
+  {
+    "email": {
+      "value": "kimkim@gmail.com"
+    },
+    "familyName": "kim",
+    "givenName": "kim",
+    "id": {
+      "value": "510d53c2-9775-48b6-bd14-1e1726b87d11"
+    },
+    "phoneNumber": {
+      "value": "012345678"
+    },
+    "status": "ACTIVE",
+    "username": "latte"
+  },
+  {
+    "email": {
+      "value": "kimkim@gmail.com"
+    },
+    "familyName": "kim",
+    "givenName": "kim",
+    "id": {
+      "value": "21524340-16f3-4155-b999-ddb4d329e547"
+    },
+    "phoneNumber": {
+      "value": "012345678"
+    },
+    "status": "ACTIVE",
+    "username": "latte"
+  }
+]

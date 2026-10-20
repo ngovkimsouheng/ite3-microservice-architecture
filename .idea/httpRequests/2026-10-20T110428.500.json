@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-10-20T04:04:28.437Z",
+  "status": 500,
+  "error": "Internal Server Error",
+  "path": "/api/customers/filter"
+}

@@ -1,3 +1,57 @@
+GET http://localhost:9091/api/customers/filter?username=latte&status=ACTIVE
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T111043.200.json
+
+###
+
+GET http://localhost:9091/api/customers/filter?username=long&status=ACTIVE
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T110946.200.json
+
+###
+
+GET http://localhost:9091/api/customers/filter?username=long&status=ACTIVE
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T110923.500.json
+
+###
+
+GET http://localhost:9091/api/customers/filter?username=long&status=ACTIVE
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T110453.500.json
+
+###
+
+GET http://localhost:9091/api/customers/filter?status=ACTIVE
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T110428.500.json
+
+###
+
+GET http://localhost:9091/api/customers/filter?username=john&status=ACTIVE
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-20T110349.500.json
+
+###
+
 DELETE http://localhost:9091/api/customers/592dd71b-4d6e-4673-a4d9-84a20dc910bb
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
 Accept-Encoding: br, deflate, gzip, x-gzip
