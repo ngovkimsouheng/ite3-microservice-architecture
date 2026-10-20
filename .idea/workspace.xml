@@ -9,10 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/CustomerController.java.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/CustomerReactiveRepositoryAdapter.java.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/CustomerRepository.java.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/FilterCustomersUseCase.java.bak" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +186,7 @@
     "Spring Boot.PaymentApplicationService.executor": "Run",
     "copilot.chat.legacySessionMetadata.migrated": "true",
     "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "practice",
+    "git-widget-placeholder": "assignment__02",
     "kotlin-language-version-configured": "true",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
@@ -324,8 +320,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.generated-requests | #14" />
         <item itemvalue="Spring Boot.CustomerApplicationService" />
+        <item itemvalue="HTTP Request.generated-requests | #14" />
         <item itemvalue="HTTP Request.generated-requests | #13" />
         <item itemvalue="HTTP Request.generated-requests | #12" />
         <item itemvalue="HTTP Request.generated-requests | #11" />
@@ -384,6 +380,7 @@
       <workItem from="1792392492587" duration="19719000" />
       <workItem from="1792426296569" duration="9911000" />
       <workItem from="1792468706687" duration="3488000" />
+      <workItem from="1792477910522" duration="5143000" />
     </task>
     <servers />
   </component>
