@@ -8,5 +8,7 @@ dependencies {
     implementation project(':order-service-persistence')
     implementation project(':order-service-restapi')
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:5.0.3'
+    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer:5.0.4'
 //    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 }

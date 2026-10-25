@@ -65,6 +65,7 @@
                   <project path="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-application-service" />
                   <project path="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-domain-core" />
                   <project path="$PROJECT_DIR$/microservice/payment-service/payment-service-main" />
+                  <project path="$PROJECT_DIR$/microservice/payment-service/payment-service-message" />
                   <project path="$PROJECT_DIR$/microservice/payment-service/payment-service-persistence" />
                   <project path="$PROJECT_DIR$/microservice/payment-service/payment-service-restapi" />
                 </projects>
@@ -109,6 +110,7 @@
             <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-application-service" />
             <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-domain-core" />
             <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-main" />
+            <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-message" />
             <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-persistence" />
             <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-restapi" />
           </set>
@@ -134,6 +136,15 @@
             <option value="$PROJECT_DIR$/istad-common" />
             <option value="$PROJECT_DIR$/istad-common/istad-common-domain" />
             <option value="$PROJECT_DIR$/istad-common/istad-common-restapi" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/microservice/discovery-service" />
+        <option name="gradleJvm" value="21 (2)" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/microservice/discovery-service" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -10,4 +10,6 @@ dependencies {
     implementation project(':customer-service-message')
 
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:5.0.3'
+
 }

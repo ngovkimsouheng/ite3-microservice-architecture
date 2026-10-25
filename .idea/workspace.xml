@@ -8,17 +8,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/microservice/discovery-service/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/discovery-service/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/discovery-service/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/discovery-service/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/discovery-service/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/discovery-service/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/discovery-service/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/discovery-service/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/discovery-service/src/main/java/kh/edu/istad/platform/discovery_service/DiscoveryServiceApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/discovery-service/src/main/resources/application.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/discovery-service/src/test/java/kh/edu/istad/platform/discovery_service/DiscoveryServiceApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T111043.200.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T185032.500.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerRepositoryAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build-logic/src/main/groovy/springboot-common-conventions.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build-logic/src/main/groovy/springboot-common-conventions.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/port/out/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/port/out/CustomerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-domain-core/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/bean/BeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/bean/BeanConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/adapter/CustomerRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/adapter/CustomerRepositoryAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/payment-service/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/payment-service/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +68,9 @@
     <projectState path="$PROJECT_DIR$/istad-common">
       <ProjectState />
     </projectState>
+    <projectState path="$PROJECT_DIR$/microservice/discovery-service">
+      <ProjectState />
+    </projectState>
     <projectState path="$PROJECT_DIR$/microservice/order-service">
       <ProjectState />
     </projectState>
@@ -82,10 +98,6 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="istad-common" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="istad-ite-project" type="f1a62948:ProjectNode" />
               </path>
               <path>
@@ -97,7 +109,7 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="istad-ite-project" type="f1a62948:ProjectNode" />
                 <item name="order-service" type="2d1252cf:ModuleNode" />
-                <item name="order-service-persistence" type="2d1252cf:ModuleNode" />
+                <item name="order-service-main" type="2d1252cf:ModuleNode" />
               </path>
             </expand>
             <select />
@@ -172,6 +184,7 @@
     "Application.BusinessApplicationService.executor": "Run",
     "Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment.executor": "Run",
     "Docker.mongodb/docker-compose.yaml: Compose Deployment.executor": "Run",
+    "Gradle.Build discovery-service.executor": "Run",
     "Gradle.Build istad-common.executor": "Run",
     "Gradle.Build istad-ite-project.executor": "Run",
     "Gradle.Build order-service.executor": "Run",
@@ -230,13 +243,15 @@
     "Spring Boot.CustomerApplicationService (1).executor": "Run",
     "Spring Boot.CustomerApplicationService.executor": "Run",
     "Spring Boot.CustomerApplicationServicee.executor": "Run",
+    "Spring Boot.DiscoveryServiceApplication.executor": "Run",
     "Spring Boot.OrderApplication.executor": "Run",
     "Spring Boot.OrderApplicationService.executor": "Run",
     "Spring Boot.PaymentApplicationService.executor": "Run",
     "copilot.chat.legacySessionMetadata.migrated": "true",
     "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "clean-branch",
+    "git-widget-placeholder": "assignment__03",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/TUF/Desktop/istad-ite-project/microservice",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
@@ -254,6 +269,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\business-service" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\payment-service\payment-service-domain" />
@@ -281,6 +299,7 @@
             <map>
               <entry key="BusinessApplication" value="STOPPED" />
               <entry key="CustomerApplicationService" value="STOPPED" />
+              <entry key="DiscoveryServiceApplication" value="STOPPED" />
               <entry key="OrderApplicationService" value="STOPPED" />
               <entry key="PaymentApplicationService" value="STOPPED" />
             </map>
@@ -324,6 +343,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DiscoveryServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="discovery-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.discovery_service.DiscoveryServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OrderApplicationService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="order-service.order-service-main.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.order.OrderApplicationService" />
@@ -350,6 +376,7 @@
       <item itemvalue="HTTP Request.generated-requests | #42" />
       <item itemvalue="HTTP Request.generated-requests | #43" />
       <item itemvalue="HTTP Request.generated-requests | #44" />
+      <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
       <item itemvalue="Spring Boot.CustomerApplicationService" />
       <item itemvalue="Spring Boot.BusinessApplication" />
       <item itemvalue="Spring Boot.OrderApplicationService" />
