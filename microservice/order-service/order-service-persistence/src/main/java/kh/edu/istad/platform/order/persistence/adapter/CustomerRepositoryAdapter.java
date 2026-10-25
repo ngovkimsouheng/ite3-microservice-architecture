@@ -20,21 +20,28 @@ public class CustomerRepositoryAdapter implements CustomerRepository {
     @Override
     public Mono<Customer> findCustomer(CustomerId customerId) {
         String targetUri = CUSTOMER_SERVICE_URI + "/" + customerId.value();
-        log.info("[EUREKA DISCOVERY] Querying Customer Service via virtual URI: {}", targetUri);
+
+        log.info("Querying Customer Service: {}", targetUri);
 
         return loadBalancedWebClient.get()
                 .uri(targetUri)
-                .retrieve()
-                .toBodilessEntity()
-                .flatMap(response -> {
-                    if (response.getStatusCode().is2xxSuccessful()) {
-                        return Mono.just(new Customer(customerId));
+                .exchangeToMono(response -> {
+                    if (response.statusCode().is2xxSuccessful()) {
+                        return response.releaseBody()
+                                .thenReturn(new Customer(customerId));
                     }
-                    return Mono.empty();
+
+                    if (response.statusCode().value() == 404) {
+                        return response.releaseBody()
+                                .then(Mono.empty());
+                    }
+
+                    return response.createException()
+                            .flatMap(Mono::error);
                 })
-                .onErrorResume(ex -> {
-                    log.error("Failed to reach customer-service via Eureka at [{}]: {}", targetUri, ex.getMessage());
-                    return Mono.empty();
-                });
+                .doOnError(ex -> log.error(
+                        "Failed to reach Customer Service: {}",
+                        ex.getMessage()
+                ));
     }
 }

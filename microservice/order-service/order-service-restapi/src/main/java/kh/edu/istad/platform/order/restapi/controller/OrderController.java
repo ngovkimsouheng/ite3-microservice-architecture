@@ -13,6 +13,8 @@ import kh.edu.istad.platform.order.restapi.mapper.OrderWebMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
+
 
 import java.util.UUID;
 
@@ -28,9 +30,12 @@ public class OrderController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public OrderCreateResponse createOrder(@Valid @RequestBody OrderCreateRequest request) {
-        CreateOrderResult result = createOrderUseCase.execute(orderWebMapper.toCommand(request));
-        return orderWebMapper.toResponse(result);
+    public Mono<OrderCreateResponse> createOrder(
+            @Valid @RequestBody OrderCreateRequest request) {
+
+        return createOrderUseCase
+                .execute(orderWebMapper.toCommand(request))
+                .map(orderWebMapper::toResponse);
     }
 
     @PutMapping("/{orderId}/pay")
