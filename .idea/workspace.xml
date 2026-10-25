@@ -8,9 +8,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T110453.500.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T111043.200.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2026-10-20T185032.500.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence/src/main/java/kh/edu/istad/platform/customer/persistence/adapter/CustomerRepositoryAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/bean/BeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/bean/BeanConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/adapter/CustomerRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/adapter/CustomerRepositoryAdapter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +87,17 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="istad-ite-project" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="istad-ite-project" type="f1a62948:ProjectNode" />
+                <item name="order-service" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="istad-ite-project" type="f1a62948:ProjectNode" />
+                <item name="order-service" type="2d1252cf:ModuleNode" />
+                <item name="order-service-persistence" type="2d1252cf:ModuleNode" />
               </path>
             </expand>
             <select />
@@ -191,6 +210,7 @@
     "HTTP Request.generated-requests | #40.executor": "Run",
     "HTTP Request.generated-requests | #41.executor": "Run",
     "HTTP Request.generated-requests | #42.executor": "Run",
+    "HTTP Request.generated-requests | #48.executor": "Run",
     "HTTP Request.generated-requests | #5.executor": "Run",
     "HTTP Request.generated-requests | #6.executor": "Run",
     "HTTP Request.generated-requests | #7.executor": "Run",
@@ -215,7 +235,7 @@
     "Spring Boot.PaymentApplicationService.executor": "Run",
     "copilot.chat.legacySessionMetadata.migrated": "true",
     "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "assignment__02",
+    "git-widget-placeholder": "clean-branch",
     "kotlin-language-version-configured": "true",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
@@ -249,24 +269,20 @@
         <option value="SpringBootApplicationConfigurationType" />
       </set>
     </option>
+    <option name="excludedTypes">
+      <set>
+        <option value="HttpClient.HttpRequestRunConfigurationType" />
+      </set>
+    </option>
     <option name="configurationStatuses">
       <map>
-        <entry key="HttpClient.HttpRequestRunConfigurationType">
-          <value>
-            <map>
-              <entry key="generated-requests | #38" value="STOPPED" />
-              <entry key="generated-requests | #39" value="STOPPED" />
-              <entry key="generated-requests | #40" value="STOPPED" />
-              <entry key="generated-requests | #41" value="STOPPED" />
-              <entry key="generated-requests | #42" value="STOPPED" />
-            </map>
-          </value>
-        </entry>
         <entry key="SpringBootApplicationConfigurationType">
           <value>
             <map>
-              <entry key="CustomerApplicationService" value="FAILED" />
+              <entry key="BusinessApplication" value="STOPPED" />
+              <entry key="CustomerApplicationService" value="STOPPED" />
               <entry key="OrderApplicationService" value="STOPPED" />
+              <entry key="PaymentApplicationService" value="STOPPED" />
             </map>
           </value>
         </entry>
@@ -277,9 +293,6 @@
     <configuration name="generated-requests | #38" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#38" index="38" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #41" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#41" index="41" runType="Run single request">
-      <method v="2" />
-    </configuration>
     <configuration name="generated-requests | #42" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#42" index="42" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -287,6 +300,14 @@
       <method v="2" />
     </configuration>
     <configuration name="generated-requests | #44" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#44" index="44" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #48" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#48" index="48" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="payment-application-service" />
+      <option name="filePath" />
       <method v="2" />
     </configuration>
     <configuration name="BusinessApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
@@ -324,8 +345,8 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="HTTP Request.generated-requests | #48" />
       <item itemvalue="HTTP Request.generated-requests | #38" />
-      <item itemvalue="HTTP Request.generated-requests | #41" />
       <item itemvalue="HTTP Request.generated-requests | #42" />
       <item itemvalue="HTTP Request.generated-requests | #43" />
       <item itemvalue="HTTP Request.generated-requests | #44" />
@@ -336,11 +357,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.generated-requests | #48" />
         <item itemvalue="HTTP Request.generated-requests | #44" />
         <item itemvalue="HTTP Request.generated-requests | #43" />
         <item itemvalue="HTTP Request.generated-requests | #42" />
         <item itemvalue="HTTP Request.generated-requests | #38" />
-        <item itemvalue="HTTP Request.generated-requests | #41" />
       </list>
     </recent_temporary>
   </component>
@@ -400,6 +421,7 @@
       <workItem from="1792491506790" duration="764000" />
       <workItem from="1792494301815" duration="395000" />
       <workItem from="1792511780874" duration="2123000" />
+      <workItem from="1792909212684" duration="5240000" />
     </task>
     <servers />
   </component>

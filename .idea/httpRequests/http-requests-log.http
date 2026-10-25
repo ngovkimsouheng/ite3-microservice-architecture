@@ -1,3 +1,21 @@
+GET http://localhost:9091/api/customers/query
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-25T142354.200.json
+
+###
+
+GET http://localhost:9092/api/customers/query
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+<> 2026-10-25T142320.500.json
+
+###
+
 GET http://localhost:9091/api/customers/report
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
 Accept-Encoding: br, deflate, gzip, x-gzip
@@ -623,24 +641,6 @@ Accept-Encoding: br, deflate, gzip, x-gzip
 Accept: */*
 
 <> 2026-10-20T185134.200.json
-
-###
-
-GET http://localhost:9091/api/customers
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T185032.500.json
-
-###
-
-GET http://localhost:9091/api/customers/filter?username=latte&status=ACTIVE
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-<> 2026-10-20T111043.200.json
 
 ###
 

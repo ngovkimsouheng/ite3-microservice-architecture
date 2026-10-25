@@ -1,0 +1,22 @@
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+repositories {
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs.addAll(['--release', '21'])
+}
+
+tasks.withType(GroovyCompile).configureEach {
+    sourceCompatibility = '21'
+    targetCompatibility = '21'
+}
