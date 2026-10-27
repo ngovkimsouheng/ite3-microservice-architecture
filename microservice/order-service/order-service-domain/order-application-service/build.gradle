@@ -6,4 +6,5 @@ plugins {
 dependencies {
     api project(':order-service-domain:order-domain-core')
     implementation 'io.projectreactor:reactor-core'
+
 }

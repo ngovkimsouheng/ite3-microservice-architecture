@@ -1,5 +1,6 @@
 plugins {
     id 'springboot-common-conventions'
+    id 'spring-cloud-common-conventions'
 }
 
 dependencies {
@@ -10,6 +11,8 @@ dependencies {
     implementation project(':customer-service-message')
 
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:5.0.3'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:5.0.3'
+    implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 }

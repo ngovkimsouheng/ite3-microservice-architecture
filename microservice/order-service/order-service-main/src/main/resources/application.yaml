@@ -1,7 +1,15 @@
 server:
-  port: 9092
+  port: 1111
 
 spring:
+  cloud:
+    consul:
+      discovery:
+        health-check-url: http://host.docker.internal:${server.port}/actuator/health
+        prefer-ip-address: true
+        service-name: order-service
+        instance-id: ${spring.application.name}:${random.value}
+
   main:
     web-application-type: reactive
   application:
@@ -18,11 +26,13 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
 eureka:
   client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${server.port}
+    enabled: false
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${server.port}

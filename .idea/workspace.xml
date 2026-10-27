@@ -8,7 +8,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/build-logic/src/main/groovy/spring-cloud-common-conventions.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/consul/docker-compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/adapter/CustomerServiceClientAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/port/out/client/CustomerServiceClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/WebFluxController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/bean/WebClientConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/CustomerApplicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/CustomerApplicationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/OrderApplicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/OrderApplicationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/WebfluxController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,14 +122,25 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="istad-ite-project" type="f1a62948:ProjectNode" />
                 <item name="order-service" type="2d1252cf:ModuleNode" />
-                <item name="order-service-main" type="2d1252cf:ModuleNode" />
+                <item name="order-service-persistence" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="istad-ite-project" type="f1a62948:ProjectNode" />
                 <item name="order-service" type="2d1252cf:ModuleNode" />
-                <item name="order-service-main" type="2d1252cf:ModuleNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+                <item name="order-service-restapi" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="istad-ite-project" type="f1a62948:ProjectNode" />
+                <item name="order-service" type="2d1252cf:ModuleNode" />
+                <item name="order-service-restapi" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="istad-ite-project" type="f1a62948:ProjectNode" />
+                <item name="payment-service" type="2d1252cf:ModuleNode" />
               </path>
             </expand>
             <select />
@@ -126,8 +154,8 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
-        <option value="Record" />
         <option value="Class" />
+        <option value="Record" />
       </list>
     </option>
   </component>
@@ -185,6 +213,8 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.BusinessApplicationService.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.consul/docker-compose.yaml.consul-server1: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.consul/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.mongodb/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Build discovery-service.executor&quot;: &quot;Run&quot;,
@@ -309,16 +339,7 @@
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="HTTP Request.generated-requests | #49">
-    <configuration name="generated-requests | #42" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#42" index="42" runType="Run single request">
-      <method v="2" />
-    </configuration>
-    <configuration name="generated-requests | #43" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#43" index="43" runType="Run single request">
-      <method v="2" />
-    </configuration>
-    <configuration name="generated-requests | #44" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#44" index="44" runType="Run single request">
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Spring Boot.CustomerApplicationService">
     <configuration name="generated-requests | #48" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#48" index="48" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -351,9 +372,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderApplicationService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="OrderApplicationService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="order-service.order-service-main.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.order.OrderApplicationService" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kh.edu.istad.platform.order.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -371,25 +398,45 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="consul/docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="deployment/consul/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="consul/docker-compose.yaml.consul-server1: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="consul-server1" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="deployment/consul/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Docker.consul/docker-compose.yaml.consul-server1: Compose Deployment" />
+      <item itemvalue="Docker.consul/docker-compose.yaml: Compose Deployment" />
       <item itemvalue="HTTP Request.generated-requests | #49" />
       <item itemvalue="HTTP Request.generated-requests | #48" />
-      <item itemvalue="HTTP Request.generated-requests | #42" />
-      <item itemvalue="HTTP Request.generated-requests | #43" />
-      <item itemvalue="HTTP Request.generated-requests | #44" />
-      <item itemvalue="Spring Boot.OrderApplicationService" />
       <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
       <item itemvalue="Spring Boot.CustomerApplicationService" />
       <item itemvalue="Spring Boot.BusinessApplication" />
       <item itemvalue="Spring Boot.PaymentApplicationService" />
+      <item itemvalue="Spring Boot.OrderApplicationService" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.consul/docker-compose.yaml: Compose Deployment" />
+        <item itemvalue="Spring Boot.OrderApplicationService" />
+        <item itemvalue="Docker.consul/docker-compose.yaml.consul-server1: Compose Deployment" />
         <item itemvalue="HTTP Request.generated-requests | #49" />
         <item itemvalue="HTTP Request.generated-requests | #48" />
-        <item itemvalue="HTTP Request.generated-requests | #44" />
-        <item itemvalue="HTTP Request.generated-requests | #43" />
-        <item itemvalue="HTTP Request.generated-requests | #42" />
       </list>
     </recent_temporary>
   </component>
@@ -450,7 +497,14 @@
       <workItem from="1792494301815" duration="395000" />
       <workItem from="1792511780874" duration="2123000" />
       <workItem from="1792909212684" duration="5240000" />
-      <workItem from="1792937092087" duration="3752000" />
+      <workItem from="1792937092087" duration="4457000" />
+      <workItem from="1792945684443" duration="1441000" />
+      <workItem from="1792984973018" duration="813000" />
+      <workItem from="1792998272930" duration="10971000" />
+      <workItem from="1793011983509" duration="5057000" />
+      <workItem from="1793017086683" duration="4891000" />
+      <workItem from="1793031411919" duration="676000" />
+      <workItem from="1793066571544" duration="1554000" />
     </task>
     <servers />
   </component>

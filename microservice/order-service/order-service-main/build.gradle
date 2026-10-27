@@ -1,14 +1,21 @@
 plugins {
-    id 'springboot-common-conventions'
+
+    id 'spring-cloud-common-conventions'
 }
+
 
 dependencies {
     implementation project(':order-service-domain:order-domain-core')
     implementation project(':order-service-domain:order-application-service')
     implementation project(':order-service-persistence')
     implementation project(':order-service-restapi')
+    implementation project(':order-service-client')
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:5.0.3'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:5.0.3'
     implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer:5.0.4'
+    implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.projectlombok:lombok'
+
 //    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 }
