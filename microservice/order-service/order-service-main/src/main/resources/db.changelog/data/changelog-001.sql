@@ -1,0 +1,2 @@
+-- insert into orders_addresses
+-- values (random_())

@@ -8,24 +8,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/build-logic/src/main/groovy/spring-cloud-common-conventions.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/deployment/consul/docker-compose.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/adapter/CustomerServiceClientAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/port/out/client/CustomerServiceClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/WebFluxController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/bean/WebClientConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/postgres/docker-compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/postgres/init_db/001_create_db.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/vault/docker-compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/config/ServicePropConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/db.changelog/data/changelog-001.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/db.changelog/db.changelog-master.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/db.changelog/ddl/changelog-001.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/db-forest-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/db-forest-config.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/CustomerApplicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/CustomerApplicationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deployment/consul/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deployment/consul/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/port/out/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/port/out/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/usecase/CancelOrderUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/usecase/CancelOrderUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/usecase/CreateOrderUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/usecase/CreateOrderUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/usecase/PayOrderUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/src/main/java/kh/edu/istad/platform/order/domain/usecase/PayOrderUseCase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/OrderApplicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/OrderApplicationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/WebfluxController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/WebFluxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/WebFluxController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/adapter/OrderRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/adapter/OrderRepositoryAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/CustomerEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/CustomerEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/OrderEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/OrderEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/OrderItemEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/OrderItemEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/repository/CustomerJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/repository/CustomerJpaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/repository/OrderJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/repository/OrderJpaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/controller/OrderController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,30 +129,6 @@
                 <item name="istad-ite-project" type="f1a62948:ProjectNode" />
                 <item name="order-service" type="2d1252cf:ModuleNode" />
               </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="istad-ite-project" type="f1a62948:ProjectNode" />
-                <item name="order-service" type="2d1252cf:ModuleNode" />
-                <item name="order-service-persistence" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="istad-ite-project" type="f1a62948:ProjectNode" />
-                <item name="order-service" type="2d1252cf:ModuleNode" />
-                <item name="order-service-restapi" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="istad-ite-project" type="f1a62948:ProjectNode" />
-                <item name="order-service" type="2d1252cf:ModuleNode" />
-                <item name="order-service-restapi" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="istad-ite-project" type="f1a62948:ProjectNode" />
-                <item name="payment-service" type="2d1252cf:ModuleNode" />
-              </path>
             </expand>
             <select />
           </tree_state>
@@ -154,8 +141,8 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Record" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -210,103 +197,111 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.BusinessApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.consul/docker-compose.yaml.consul-server1: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.consul/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.mongodb/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build discovery-service.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build istad-common.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build istad-ite-project.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build order-service.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.customer-service [dependencies].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.istad-ite-project [:microservice:business-service:kh.edu.istad.platform.business.BusinessApplicationService.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.istad-ite-project.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #10.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #11.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #12.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #13.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #14.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #17.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #18.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #19.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #2.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #20.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #21.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #22.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #23.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #25.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #26.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #27.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #28.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #29.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #3.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #30.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #34.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #35.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #36.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #37.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #38.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #39.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #4.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #40.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #41.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #42.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #48.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #49.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #5.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #6.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #7.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #8.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #9.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;Spring Boot.BusinessApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.BusinessApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.CustomerApplicationService (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.CustomerApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.CustomerApplicationServicee.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.DiscoveryServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.OrderApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.OrderApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.PaymentApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;assignment__03&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/TUF/Desktop/istad-ite-project/microservice&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BusinessApplicationService.executor": "Run",
+    "Docker.consul/docker-compose.yaml.consul-server1: Compose Deployment.executor": "Run",
+    "Docker.consul/docker-compose.yaml: Compose Deployment.executor": "Run",
+    "Docker.mongodb/docker-compose.yaml.mongodb: Compose Deployment.executor": "Run",
+    "Docker.mongodb/docker-compose.yaml: Compose Deployment.executor": "Run",
+    "Docker.postgres/docker-compose.yaml: Compose Deployment.executor": "Run",
+    "Docker.vault/docker-compose.yaml.vault: Compose Deployment.executor": "Run",
+    "Docker.vault/docker-compose.yaml: Compose Deployment (1).executor": "Run",
+    "Docker.vault/docker-compose.yaml: Compose Deployment.executor": "Run",
+    "Gradle.Build discovery-service.executor": "Run",
+    "Gradle.Build istad-common.executor": "Run",
+    "Gradle.Build istad-ite-project.executor": "Run",
+    "Gradle.Build order-service.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.customer-service [dependencies].executor": "Run",
+    "Gradle.istad-ite-project [:microservice:business-service:kh.edu.istad.platform.business.BusinessApplicationService.main()].executor": "Run",
+    "Gradle.istad-ite-project.executor": "Run",
+    "HTTP Request.generated-requests | #1.executor": "Run",
+    "HTTP Request.generated-requests | #10.executor": "Run",
+    "HTTP Request.generated-requests | #11.executor": "Run",
+    "HTTP Request.generated-requests | #12.executor": "Run",
+    "HTTP Request.generated-requests | #13.executor": "Run",
+    "HTTP Request.generated-requests | #14.executor": "Run",
+    "HTTP Request.generated-requests | #17.executor": "Run",
+    "HTTP Request.generated-requests | #18.executor": "Run",
+    "HTTP Request.generated-requests | #19.executor": "Run",
+    "HTTP Request.generated-requests | #2.executor": "Run",
+    "HTTP Request.generated-requests | #20.executor": "Run",
+    "HTTP Request.generated-requests | #21.executor": "Run",
+    "HTTP Request.generated-requests | #22.executor": "Run",
+    "HTTP Request.generated-requests | #23.executor": "Run",
+    "HTTP Request.generated-requests | #25.executor": "Run",
+    "HTTP Request.generated-requests | #26.executor": "Run",
+    "HTTP Request.generated-requests | #27.executor": "Run",
+    "HTTP Request.generated-requests | #28.executor": "Run",
+    "HTTP Request.generated-requests | #29.executor": "Run",
+    "HTTP Request.generated-requests | #3.executor": "Run",
+    "HTTP Request.generated-requests | #30.executor": "Run",
+    "HTTP Request.generated-requests | #34.executor": "Run",
+    "HTTP Request.generated-requests | #35.executor": "Run",
+    "HTTP Request.generated-requests | #36.executor": "Run",
+    "HTTP Request.generated-requests | #37.executor": "Run",
+    "HTTP Request.generated-requests | #38.executor": "Run",
+    "HTTP Request.generated-requests | #39.executor": "Run",
+    "HTTP Request.generated-requests | #4.executor": "Run",
+    "HTTP Request.generated-requests | #40.executor": "Run",
+    "HTTP Request.generated-requests | #41.executor": "Run",
+    "HTTP Request.generated-requests | #42.executor": "Run",
+    "HTTP Request.generated-requests | #48.executor": "Run",
+    "HTTP Request.generated-requests | #49.executor": "Run",
+    "HTTP Request.generated-requests | #5.executor": "Run",
+    "HTTP Request.generated-requests | #6.executor": "Run",
+    "HTTP Request.generated-requests | #7.executor": "Run",
+    "HTTP Request.generated-requests | #8.executor": "Run",
+    "HTTP Request.generated-requests | #9.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.BusinessApplication.executor": "Run",
+    "Spring Boot.BusinessApplicationService.executor": "Run",
+    "Spring Boot.CustomerApplicationService (1).executor": "Run",
+    "Spring Boot.CustomerApplicationService.executor": "Run",
+    "Spring Boot.CustomerApplicationServicee.executor": "Run",
+    "Spring Boot.DiscoveryServiceApplication.executor": "Run",
+    "Spring Boot.OrderApplication.executor": "Run",
+    "Spring Boot.OrderApplicationService.executor": "Run",
+    "Spring Boot.PaymentApplicationService.executor": "Run",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
+    "git-widget-placeholder": "assignment__03",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/TUF/Desktop/istad-ite-project/microservice/order-service/order-service-main/src/main/resources/db.changelog/data",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mongo&quot;,
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql",
+      "mongo"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\order-service\order-service-main\src\main\resources\db.changelog\data" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\deployment\vault" />
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\deployment\vault\vault" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\business-service" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\payment-service\payment-service-domain" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\order-service" />
@@ -332,20 +327,14 @@
           <value>
             <map>
               <entry key="CustomerApplicationService" value="STOPPED" />
-              <entry key="OrderApplicationService" value="STOPPED" />
+              <entry key="OrderApplicationService" value="FAILED" />
             </map>
           </value>
         </entry>
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.CustomerApplicationService">
-    <configuration name="generated-requests | #48" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#48" index="48" runType="Run single request">
-      <method v="2" />
-    </configuration>
-    <configuration name="generated-requests | #49" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#49" index="49" runType="Run single request">
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Spring Boot.OrderApplicationService">
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="payment-application-service" />
       <option name="filePath" />
@@ -406,24 +395,40 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="consul/docker-compose.yaml.consul-server1: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="postgres/docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="deployment/postgres/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="vault/docker-compose.yaml: Compose Deployment (1)" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="deployment/vault/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="vault/docker-compose.yaml.vault: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="consul-server1" />
+              <option value="vault" />
             </list>
           </option>
-          <option name="sourceFilePath" value="deployment/consul/docker-compose.yaml" />
+          <option name="sourceFilePath" value="deployment/vault/docker-compose.yaml" />
         </settings>
       </deployment>
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Docker.consul/docker-compose.yaml.consul-server1: Compose Deployment" />
+      <item itemvalue="Docker.vault/docker-compose.yaml.vault: Compose Deployment" />
+      <item itemvalue="Docker.vault/docker-compose.yaml: Compose Deployment (1)" />
+      <item itemvalue="Docker.postgres/docker-compose.yaml: Compose Deployment" />
       <item itemvalue="Docker.consul/docker-compose.yaml: Compose Deployment" />
-      <item itemvalue="HTTP Request.generated-requests | #49" />
-      <item itemvalue="HTTP Request.generated-requests | #48" />
       <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
       <item itemvalue="Spring Boot.CustomerApplicationService" />
       <item itemvalue="Spring Boot.BusinessApplication" />
@@ -432,11 +437,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.consul/docker-compose.yaml: Compose Deployment" />
         <item itemvalue="Spring Boot.OrderApplicationService" />
-        <item itemvalue="Docker.consul/docker-compose.yaml.consul-server1: Compose Deployment" />
-        <item itemvalue="HTTP Request.generated-requests | #49" />
-        <item itemvalue="HTTP Request.generated-requests | #48" />
+        <item itemvalue="Docker.consul/docker-compose.yaml: Compose Deployment" />
+        <item itemvalue="Docker.vault/docker-compose.yaml.vault: Compose Deployment" />
+        <item itemvalue="Docker.vault/docker-compose.yaml: Compose Deployment (1)" />
+        <item itemvalue="Docker.postgres/docker-compose.yaml: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -504,7 +509,10 @@
       <workItem from="1793011983509" duration="5057000" />
       <workItem from="1793017086683" duration="4891000" />
       <workItem from="1793031411919" duration="676000" />
-      <workItem from="1793066571544" duration="1554000" />
+      <workItem from="1793066571544" duration="3730000" />
+      <workItem from="1793085912293" duration="10622000" />
+      <workItem from="1793096853624" duration="254000" />
+      <workItem from="1793101995128" duration="5977000" />
     </task>
     <servers />
   </component>
@@ -529,6 +537,11 @@
           <url>file://$PROJECT_DIR$/microservice/customer-service/customer-service-domain/customer-application-service/src/main/java/kh/edu/istad/platform/customer/domain/port/out/CustomerRepository.java</url>
           <line>17</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/microservice/order-service/order-service-persistence/build.gradle</url>
+          <line>14</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

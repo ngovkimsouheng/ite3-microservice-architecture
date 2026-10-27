@@ -1,11 +1,12 @@
 package kh.edu.istad.platform.order.persistence.repository;
 
 import kh.edu.istad.platform.order.persistence.entity.CustomerEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface CustomerJpaRepository extends JpaRepository<CustomerEntity, UUID> {
+public interface CustomerJpaRepository extends ReactiveCrudRepository<CustomerEntity, UUID> {
 }

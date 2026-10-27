@@ -1,53 +1,50 @@
+
 package kh.edu.istad.platform.order.persistence.entity;
 
-import jakarta.persistence.*;
 import kh.edu.istad.platform.order.domain.valueobject.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "orders")
+@Table("orders")
 public class OrderEntity {
 
     @Id
-    @Column(name = "order_id")
+    @Column("order_id")
     private UUID orderId;
 
-    @Column(name = "customer_id", nullable = false)
+    @Column("customer_id")
     private UUID customerId;
 
-    @Column(name = "business_id", nullable = false)
+    @Column("business_id")
     private UUID businessId;
 
-    @Column(name = "tracking_id", nullable = false, unique = true)
+    @Column("tracking_id")
     private UUID trackingId;
 
-    @Column(nullable = false)
+    @Column("price")
     private BigDecimal price;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "order_status", nullable = false)
+    @Column("order_status")
     private OrderStatus orderStatus;
 
-    @Column(nullable = false)
+    @Column("street")
     private String street;
 
-    @Column(name = "postal_code", nullable = false)
+    @Column("postal_code")
     private String postalCode;
 
-    @Column(nullable = false)
+    @Column("city")
     private String city;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItemEntity> items;
 }

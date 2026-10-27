@@ -9,6 +9,7 @@ import kh.edu.istad.platform.order.domain.valueobject.OrderId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
@@ -20,12 +21,20 @@ public class PayOrderUseCase {
     private final OrderDomainService orderDomainService;
     private final OrderRepository orderRepository;
 
-    public Order execute(UUID orderId) {
+    public Mono<Order> execute(UUID orderId) {
         log.info("Paying order with id: {}", orderId);
-        Order order = orderRepository.findById(new OrderId(orderId))
-                .orElseThrow(() -> new OrderDomainException("Order not found with id: " + orderId));
 
-        OrderPaidEvent orderPaidEvent = orderDomainService.payOrder(order);
-        return orderRepository.save(orderPaidEvent.order());
+        return orderRepository.findById(new OrderId(orderId))
+                .switchIfEmpty(Mono.error(
+                        new OrderDomainException(
+                                "Order not found with id: " + orderId
+                        )
+                ))
+                .flatMap(order -> {
+                    OrderPaidEvent event =
+                            orderDomainService.payOrder(order);
+
+                    return orderRepository.save(event.order());
+                });
     }
 }

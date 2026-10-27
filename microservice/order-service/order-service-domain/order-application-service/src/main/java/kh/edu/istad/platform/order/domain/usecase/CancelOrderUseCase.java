@@ -8,6 +8,7 @@ import kh.edu.istad.platform.order.domain.valueobject.OrderId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,12 +21,21 @@ public class CancelOrderUseCase {
     private final OrderDomainService orderDomainService;
     private final OrderRepository orderRepository;
 
-    public Order execute(UUID orderId) {
+    public Mono<Order> execute(UUID orderId) {
         log.info("Cancelling order with id: {}", orderId);
-        Order order = orderRepository.findById(new OrderId(orderId))
-                .orElseThrow(() -> new OrderDomainException("Order not found with id: " + orderId));
 
-        orderDomainService.cancelOrder(order, List.of("Cancelled by user request"));
-        return orderRepository.save(order);
+        return orderRepository.findById(new OrderId(orderId))
+                .switchIfEmpty(Mono.error(
+                        new OrderDomainException(
+                                "Order not found with id: " + orderId
+                        )
+                ))
+                .flatMap(order -> {
+                    orderDomainService.cancelOrder(
+                            order,
+                            List.of("Cancelled by user request")
+                    );
+                    return orderRepository.save(order);
+                });
     }
 }

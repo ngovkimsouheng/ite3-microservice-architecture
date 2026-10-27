@@ -2,10 +2,9 @@ package kh.edu.istad.platform.order.domain.port.out;
 
 import kh.edu.istad.platform.order.domain.entity.Order;
 import kh.edu.istad.platform.order.domain.valueobject.OrderId;
-
-import java.util.Optional;
+import reactor.core.publisher.Mono;
 
 public interface OrderRepository {
-    Order save(Order order);
-    Optional<Order> findById(OrderId orderId);
+    Mono<Order> save(Order order);
+    Mono<Order> findById(OrderId orderId);
 }

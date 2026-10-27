@@ -6,7 +6,6 @@ import kh.edu.istad.common.domain.valueobject.Money;
 import kh.edu.istad.platform.order.domain.dto.CreateOrderCommand;
 import kh.edu.istad.platform.order.domain.dto.CreateOrderResult;
 import kh.edu.istad.platform.order.domain.entity.Business;
-import kh.edu.istad.platform.order.domain.entity.Customer;
 import kh.edu.istad.platform.order.domain.entity.Order;
 import kh.edu.istad.platform.order.domain.entity.OrderItem;
 import kh.edu.istad.platform.order.domain.entity.Product;
@@ -43,7 +42,6 @@ public class CreateOrderUseCase {
         return checkCustomer(command.customerId())
                 .then(Mono.fromCallable(() -> checkBusiness(command)))
                 .flatMap(business -> Mono.fromCallable(() -> {
-
                     List<OrderItem> orderItems = command.items().stream()
                             .map(item -> OrderItem.Builder.builder()
                                     .product(new Product(
@@ -77,8 +75,9 @@ public class CreateOrderUseCase {
                                     order, business
                             );
 
-                    return orderRepository.save(event.order());
+                    return event.order();
                 }))
+                .flatMap(orderRepository::save)
                 .map(savedOrder -> {
                     log.info(
                             "Order saved with ID: {}",
@@ -108,19 +107,29 @@ public class CreateOrderUseCase {
                 )
                 .then();
     }
+
     private Business checkBusiness(CreateOrderCommand command) {
         Business business = Business.builder()
                 .businessId(new BusinessId(command.businessId()))
                 .products(command.items().stream()
-                        .map(item -> new Product(new ProductId(item.productId())))
+                        .map(item ->
+                                new Product(new ProductId(item.productId())))
                         .toList())
                 .build();
 
-        Optional<Business> businessInformation = businessRepository.findBusinessInformation(business);
+        Optional<Business> businessInformation =
+                businessRepository.findBusinessInformation(business);
+
         if (businessInformation.isEmpty()) {
-            log.warn("Could not find business with id: {}", command.businessId());
-            throw new OrderDomainException("Could not find business with id: " + command.businessId());
+            log.warn(
+                    "Could not find business with id: {}",
+                    command.businessId()
+            );
+            throw new OrderDomainException(
+                    "Could not find business with id: " + command.businessId()
+            );
         }
+
         return businessInformation.get();
     }
 }
