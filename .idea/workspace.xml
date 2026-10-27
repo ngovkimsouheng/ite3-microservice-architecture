@@ -7,16 +7,7 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/CustomerEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/CustomerEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/OrderEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/entity/OrderEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/repository/CustomerJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/repository/CustomerJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/repository/OrderJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/repository/OrderJpaRepository.java" afterDir="false" />
-    </list>
+    <list default="true" id="8834ea17-b9a9-43bb-8660-21c73773547c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -492,7 +483,7 @@
       <workItem from="1793085912293" duration="10622000" />
       <workItem from="1793096853624" duration="254000" />
       <workItem from="1793101995128" duration="6336000" />
-      <workItem from="1793114223799" duration="2243000" />
+      <workItem from="1793114223799" duration="2601000" />
     </task>
     <servers />
   </component>
