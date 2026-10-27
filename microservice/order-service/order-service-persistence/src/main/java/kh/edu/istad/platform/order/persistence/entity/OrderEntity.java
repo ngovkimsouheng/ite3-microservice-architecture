@@ -1,50 +1,42 @@
-
 package kh.edu.istad.platform.order.persistence.entity;
 
 import kh.edu.istad.platform.order.domain.valueobject.OrderStatus;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
+@Table("orders")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Table("orders")
-public class OrderEntity {
+public class OrderEntity implements Persistable<UUID> {
 
     @Id
-    @Column("order_id")
     private UUID orderId;
-
-    @Column("customer_id")
     private UUID customerId;
-
-    @Column("business_id")
     private UUID businessId;
-
-    @Column("tracking_id")
     private UUID trackingId;
-
-    @Column("price")
     private BigDecimal price;
-
-    @Column("order_status")
     private OrderStatus orderStatus;
-
-    @Column("street")
     private String street;
-
-    @Column("postal_code")
     private String postalCode;
-
-    @Column("city")
     private String city;
+
+    @Transient
+    private boolean isNew = true;
+
+    @Override
+    public UUID getId() {
+        return this.orderId;
+    }
+
+    @Override
+    public boolean isNew() {
+        return this.isNew;
+    }
 }

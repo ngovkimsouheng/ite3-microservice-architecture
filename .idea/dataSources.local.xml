@@ -36,7 +36,9 @@
             <node kind="database" qname="@">
               <node kind="schema" qname="@" />
             </node>
-            <node kind="database" qname="db_customer">
+            <node kind="database">
+              <name qname="db_customer" />
+              <name qname="db_order" />
               <node kind="schema" negative="1" />
             </node>
           </node>
