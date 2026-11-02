@@ -1,11 +1,13 @@
-plugins{
-    id 'springboot-common-conventions'
+plugins {
+    id 'spring-cloud-common-conventions'
 }
+
 ext {
-    springCloudVersion = "2025.1.4"
+    set('springCloudVersion', "2025.1.4")
 }
+
 dependencyManagement {
     imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
 }

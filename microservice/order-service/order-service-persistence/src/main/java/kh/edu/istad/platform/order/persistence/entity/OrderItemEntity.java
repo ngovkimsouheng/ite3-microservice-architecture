@@ -1,7 +1,5 @@
-
 package kh.edu.istad.platform.order.persistence.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,19 +13,16 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table("order_items")
 public class OrderItemEntity {
-
     @Id
-    @Column("order_item_id")
-    private Long orderItemId;
-
-    @Column("order_id")
-    private UUID orderId;
+    OrderItemEntityId id;
 
     @Column("product_id")
     private UUID productId;
+
+    @Column("product_name")
+    private String productName;
 
     @Column("quantity")
     private Integer quantity;

@@ -15,14 +15,5 @@ public class BeanConfig {
         return new OrderDomainServiceImpl();
     }
 
-    @Bean
-    @LoadBalanced
-    public WebClient.Builder loadBalancedWebClientBuilder() {
-        return WebClient.builder();
-    }
 
-    @Bean
-    public WebClient loadBalancedWebClient(WebClient.Builder loadBalancedWebClientBuilder) {
-        return loadBalancedWebClientBuilder.build();
-    }
 }

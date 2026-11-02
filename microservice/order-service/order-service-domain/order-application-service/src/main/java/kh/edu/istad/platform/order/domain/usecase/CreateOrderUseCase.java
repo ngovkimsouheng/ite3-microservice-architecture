@@ -1,29 +1,26 @@
 package kh.edu.istad.platform.order.domain.usecase;
 
-import kh.edu.istad.common.domain.valueobject.BusinessId;
 import kh.edu.istad.common.domain.valueobject.CustomerId;
-import kh.edu.istad.common.domain.valueobject.Money;
+import kh.edu.istad.common.domain.valueobject.OrderId;
 import kh.edu.istad.platform.order.domain.dto.CreateOrderCommand;
 import kh.edu.istad.platform.order.domain.dto.CreateOrderResult;
-import kh.edu.istad.platform.order.domain.entity.Business;
 import kh.edu.istad.platform.order.domain.entity.Order;
 import kh.edu.istad.platform.order.domain.entity.OrderItem;
 import kh.edu.istad.platform.order.domain.entity.Product;
-import kh.edu.istad.platform.order.domain.event.OrderCreatedEvent;
-import kh.edu.istad.platform.order.domain.exception.OrderDomainException;
-import kh.edu.istad.platform.order.domain.port.out.BusinessRepository;
-import kh.edu.istad.platform.order.domain.port.out.CustomerRepository;
 import kh.edu.istad.platform.order.domain.port.out.OrderRepository;
 import kh.edu.istad.platform.order.domain.service.OrderDomainService;
-import kh.edu.istad.platform.order.domain.valueobject.ProductId;
+import kh.edu.istad.platform.order.domain.valueobject.BusinessId;
+import kh.edu.istad.platform.order.domain.valueobject.Money;
+
+import kh.edu.istad.platform.order.domain.valueobject.OrderItemId;
 import kh.edu.istad.platform.order.domain.valueobject.StreetAddress;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -33,103 +30,50 @@ public class CreateOrderUseCase {
 
     private final OrderDomainService orderDomainService;
     private final OrderRepository orderRepository;
-    private final CustomerRepository customerRepository;
-    private final BusinessRepository businessRepository;
 
     public Mono<CreateOrderResult> execute(CreateOrderCommand command) {
-        log.info("CreateOrderUseCase.execute: command = {}", command);
+        log.info("Create order use case: {}", command);
 
-        return checkCustomer(command.customerId())
-                .then(Mono.fromCallable(() -> checkBusiness(command)))
-                .flatMap(business -> Mono.fromCallable(() -> {
-                    List<OrderItem> orderItems = command.items().stream()
-                            .map(item -> OrderItem.Builder.builder()
-                                    .product(new Product(
-                                            new ProductId(item.productId()),
-                                            "",
-                                            new Money(item.price())
-                                    ))
-                                    .quantity(item.quantity())
-                                    .price(new Money(item.price()))
-                                    .subTotal(new Money(item.subTotal()))
-                                    .build())
-                            .toList();
+        OrderId orderId = new OrderId(UUID.randomUUID());
 
-                    StreetAddress deliveryAddress = new StreetAddress(
-                            UUID.randomUUID(),
-                            command.street(),
-                            command.postalCode(),
-                            command.city()
-                    );
+        List<OrderItem> items = command.items().stream()
+                .map(item -> OrderItem.builder()
+                        .id(new OrderItemId(
+                                UUID.randomUUID().hashCode() & Integer.MAX_VALUE
+                        ))
+                        .orderId(orderId)
+                        .product(new Product(
+                                item.productId(),
+                                item.productName()
+                        ))
+                        .quantity(item.quantity())
+                        .price(new Money(item.price()))
+                        .build())
+                .toList();
 
-                    Order order = Order.Builder.builder()
-                            .customerId(new CustomerId(command.customerId()))
-                            .businessId(new BusinessId(command.businessId()))
-                            .deliveryAddress(deliveryAddress)
-                            .price(new Money(command.price()))
-                            .items(orderItems)
-                            .build();
+        BigDecimal totalAmount = items.stream()
+                .map(item -> item.getSubTotal().amount())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-                    OrderCreatedEvent event =
-                            orderDomainService.validateAndInitiateOrder(
-                                    order, business
-                            );
-
-                    return event.order();
-                }))
-                .flatMap(orderRepository::save)
-                .map(savedOrder -> {
-                    log.info(
-                            "Order saved with ID: {}",
-                            savedOrder.getId().value()
-                    );
-
-                    return new CreateOrderResult(
-                            savedOrder.getTrackingId().value(),
-                            savedOrder.getOrderStatus(),
-                            "Order created successfully"
-                    );
-                });
-    }
-
-    private Mono<Void> checkCustomer(UUID customerId) {
-        log.info("Checking customer: {}", customerId);
-
-        return customerRepository
-                .findCustomer(new CustomerId(customerId))
-                .switchIfEmpty(Mono.error(
-                        new OrderDomainException(
-                                "Could not find customer with id: " + customerId
-                        )
-                ))
-                .doOnSuccess(ignored ->
-                        log.info("Customer validation succeeded: {}", customerId)
-                )
-                .then();
-    }
-
-    private Business checkBusiness(CreateOrderCommand command) {
-        Business business = Business.builder()
+        Order order = Order.builder()
+                .id(orderId)
+                .customerId(new CustomerId(command.customerId()))
                 .businessId(new BusinessId(command.businessId()))
-                .products(command.items().stream()
-                        .map(item ->
-                                new Product(new ProductId(item.productId())))
-                        .toList())
+                .deliveryAddress(new StreetAddress(
+                        command.street(),
+                        command.postalCode(),
+                        command.city()
+                ))
+                .items(items)
+                .price(new Money(totalAmount))
                 .build();
 
-        Optional<Business> businessInformation =
-                businessRepository.findBusinessInformation(business);
+        orderDomainService.createOrder(order);
 
-        if (businessInformation.isEmpty()) {
-            log.warn(
-                    "Could not find business with id: {}",
-                    command.businessId()
-            );
-            throw new OrderDomainException(
-                    "Could not find business with id: " + command.businessId()
-            );
-        }
-
-        return businessInformation.get();
+        return orderRepository.save(order)
+                .map(savedOrder -> new CreateOrderResult(
+                        savedOrder.getId().value(),
+                        savedOrder.getTrackingId().value()
+                ));
     }
 }

@@ -1,64 +1,51 @@
 package kh.edu.istad.platform.order.domain.service;
 
-import kh.edu.istad.platform.order.domain.entity.Business;
 import kh.edu.istad.platform.order.domain.entity.Order;
-import kh.edu.istad.platform.order.domain.entity.Product;
 import kh.edu.istad.platform.order.domain.event.OrderCancelledEvent;
 import kh.edu.istad.platform.order.domain.event.OrderCreatedEvent;
 import kh.edu.istad.platform.order.domain.event.OrderPaidEvent;
 import kh.edu.istad.platform.order.domain.exception.OrderDomainException;
 
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.List;
 
 public class OrderDomainServiceImpl implements OrderDomainService {
-
-    private static final String UTC = "UTC";
-
     @Override
-    public OrderCreatedEvent validateAndInitiateOrder(Order order, Business business) {
-        validateBusiness(business);
-        setOrderProductInformation(order, business);
-        order.validateOrder();
-        order.initializeOrder();
-        return new OrderCreatedEvent(order, ZonedDateTime.now(ZoneId.of(UTC)));
-    }
+    public OrderCreatedEvent createOrder(Order order) {
 
-    private void validateBusiness(Business business) {
-        if (!business.isActive()) {
-            throw new OrderDomainException("Business with id " + business.getId().value() + " is currently not active!");
+        if (order == null) {
+            throw new OrderDomainException("Order is required");
         }
-    }
 
-    private void setOrderProductInformation(Order order, Business business) {
-        order.getItems().forEach(orderItem -> business.getProducts().forEach(businessProduct -> {
-            Product currentProduct = orderItem.getProduct();
-            if (currentProduct.equals(businessProduct)) {
-                currentProduct.updateWithConfirmedNameAndPrice(businessProduct.getName(), businessProduct.getPrice());
-            }
-        }));
+        return order.initializeOrder();
     }
 
     @Override
     public OrderPaidEvent payOrder(Order order) {
+
+        if (order == null) {
+            throw new OrderDomainException("Order is required");
+        }
+
         order.pay();
-        return new OrderPaidEvent(order, ZonedDateTime.now(ZoneId.of(UTC)));
+
+        return new OrderPaidEvent(
+                order,
+                ZonedDateTime.now()
+        );
     }
 
     @Override
-    public void approveOrder(Order order) {
-        order.approve();
-    }
+    public OrderCancelledEvent cancelOrder(Order order) {
 
-    @Override
-    public OrderCancelledEvent cancelOrderPayment(Order order, List<String> failureMessages) {
-        order.initCancel(failureMessages);
-        return new OrderCancelledEvent(order, ZonedDateTime.now(ZoneId.of(UTC)));
-    }
+        if (order == null) {
+            throw new OrderDomainException("Order is required");
+        }
+        order.initCancel();
+        order.cancel();
 
-    @Override
-    public void cancelOrder(Order order, List<String> failureMessages) {
-        order.cancel(failureMessages);
+        return new OrderCancelledEvent(
+                order,
+                ZonedDateTime.now()
+        );
     }
 }

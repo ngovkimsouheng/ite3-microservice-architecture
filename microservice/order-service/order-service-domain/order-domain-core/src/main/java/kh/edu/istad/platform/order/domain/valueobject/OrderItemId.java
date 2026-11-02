@@ -1,4 +1,6 @@
 package kh.edu.istad.platform.order.domain.valueobject;
 
-public record OrderItemId(Long value) {
+
+public record OrderItemId(
+        Integer value) {
 }

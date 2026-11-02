@@ -17,6 +17,8 @@
                   <project path="$PROJECT_DIR$/istad-common" />
                   <project path="$PROJECT_DIR$/istad-common/istad-common-domain" />
                   <project path="$PROJECT_DIR$/istad-common/istad-common-restapi" />
+                  <project path="$PROJECT_DIR$/istad-common/istad-common-swagger" />
+                  <project path="$PROJECT_DIR$/istad-common/istad-common-webflux" />
                 </projects>
               </build>
               <build path="$PROJECT_DIR$/microservice" name="microservice">
@@ -45,6 +47,11 @@
                   <project path="$PROJECT_DIR$/microservice/customer-service/customer-service-message" />
                   <project path="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence" />
                   <project path="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/microservice/discovery-service" name="discovery-service">
+                <projects>
+                  <project path="$PROJECT_DIR$/microservice/discovery-service" />
                 </projects>
               </build>
               <build path="$PROJECT_DIR$/microservice/order-service" name="order-service">
@@ -83,6 +90,8 @@
             <option value="$PROJECT_DIR$/istad-common" />
             <option value="$PROJECT_DIR$/istad-common/istad-common-domain" />
             <option value="$PROJECT_DIR$/istad-common/istad-common-restapi" />
+            <option value="$PROJECT_DIR$/istad-common/istad-common-swagger" />
+            <option value="$PROJECT_DIR$/istad-common/istad-common-webflux" />
             <option value="$PROJECT_DIR$/microservice" />
             <option value="$PROJECT_DIR$/microservice/business-service" />
             <option value="$PROJECT_DIR$/microservice/business-service/business-service-domain" />
@@ -99,6 +108,7 @@
             <option value="$PROJECT_DIR$/microservice/customer-service/customer-service-message" />
             <option value="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence" />
             <option value="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi" />
+            <option value="$PROJECT_DIR$/microservice/discovery-service" />
             <option value="$PROJECT_DIR$/microservice/order-service" />
             <option value="$PROJECT_DIR$/microservice/order-service/order-service-client" />
             <option value="$PROJECT_DIR$/microservice/order-service/order-service-domain" />
@@ -115,38 +125,6 @@
             <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-message" />
             <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-persistence" />
             <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-restapi" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <compositeConfiguration>
-          <compositeBuild compositeDefinitionSource="SCRIPT">
-            <builds>
-              <build path="$PROJECT_DIR$/build-logic" name="build-logic">
-                <projects>
-                  <project path="$PROJECT_DIR$/build-logic" />
-                </projects>
-              </build>
-            </builds>
-          </compositeBuild>
-        </compositeConfiguration>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/istad-common" />
-        <option name="gradleJvm" value="21 (2)" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/build-logic" />
-            <option value="$PROJECT_DIR$/istad-common" />
-            <option value="$PROJECT_DIR$/istad-common/istad-common-domain" />
-            <option value="$PROJECT_DIR$/istad-common/istad-common-restapi" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/microservice/discovery-service" />
-        <option name="gradleJvm" value="21 (2)" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/microservice/discovery-service" />
           </set>
         </option>
       </GradleProjectSettings>

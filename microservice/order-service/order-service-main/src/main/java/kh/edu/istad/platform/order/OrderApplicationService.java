@@ -6,11 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 
-@EnableConfigurationProperties
-@SpringBootApplication
-@ComponentScan(basePackages = {
+@SpringBootApplication (scanBasePackages = {
         "kh.edu.istad.platform.order",
-        "kh.edu.istad.platform.order.client.adapter"
+        "kh.edu.istad.platform.order.domain.port.out"
 })
 public class OrderApplicationService {
     public static void main(String[] args) {

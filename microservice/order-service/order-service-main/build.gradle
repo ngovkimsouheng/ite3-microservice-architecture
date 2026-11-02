@@ -1,4 +1,5 @@
 plugins {
+    id 'springboot-common-conventions'
     id 'spring-cloud-common-conventions'
 }
 
@@ -26,7 +27,7 @@ dependencies {
 
     //add anotation liguibase core
     implementation 'org.liquibase:liquibase-core'
-
+    implementation 'kh.edu.istad:istad-common-swagger'
 
 
 }
