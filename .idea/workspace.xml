@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="" />
+    <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,6 +115,7 @@
     "Docker.postgres/docker-compose.yaml: Compose Deployment.executor": "Run",
     "Gradle.Build discovery-service.executor": "Run",
     "Gradle.Build istad-ite-project.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
     "Gradle.build-logic [dependencies].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -330,6 +333,7 @@
       <workItem from="1793687371818" duration="6000" />
       <workItem from="1793687413030" duration="684000" />
       <workItem from="1793688152947" duration="1573000" />
+      <workItem from="1793715984706" duration="2650000" />
     </task>
     <servers />
   </component>
