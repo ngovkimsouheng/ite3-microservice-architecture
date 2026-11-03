@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/adapter/OrderRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/adapter/OrderRepositoryAdapter.java" afterDir="false" />
-    </list>
+    <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
