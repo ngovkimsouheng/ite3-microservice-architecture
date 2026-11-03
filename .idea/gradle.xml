@@ -129,6 +129,27 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/build-logic" name="build-logic">
+                <projects>
+                  <project path="$PROJECT_DIR$/build-logic" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/microservice/gateway-server" />
+        <option name="gradleJvm" value="21 (2)" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/build-logic" />
+            <option value="$PROJECT_DIR$/microservice/gateway-server" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-application-service" />
         <option name="gradleJvm" value="21 (2)" />
       </GradleProjectSettings>
