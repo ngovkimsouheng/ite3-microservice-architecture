@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-public class GlobalExceptionHandler extends RuntimeException {
+public class  GlobalExceptionHandler extends RuntimeException {
 
     @ExceptionHandler (DownStreamServiceException.class)
     public ResponseEntity<?> handle (DownStreamServiceException ex){

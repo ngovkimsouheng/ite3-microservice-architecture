@@ -45,6 +45,25 @@ spring:
     user: iteuser
     password: qwerqwer
     driver-class-name: org.postgresql.Driver
+  security:
+    oauth2:
+      client:
+        registration:
+            keycloak:
+                client-id: order-service
+                client-secret: 123456
+
+
+http:
+  serviceclient:
+    customer-service:
+      connect-timeout:
+        seconds: 10
+      read-timeout:
+        seconds: 10
+      base-url: http://customer-service
+
+
 
 eureka:
   client:
