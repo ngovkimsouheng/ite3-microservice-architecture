@@ -1,4 +1,3 @@
-
 package kh.edu.istad.platform.order.persistence.adapter;
 
 import kh.edu.istad.common.domain.valueobject.CustomerId;
@@ -38,7 +37,8 @@ public class OrderRepositoryAdapter implements OrderRepository {
                         saveItems(savedOrder, order.getItems())
                                 .collectList()
                                 .map(savedItems ->
-                                        toDomain(savedOrder, savedItems)
+                                        // Pass the incoming order's deliveryAddress to avoid null validation failure
+                                        toDomain(savedOrder, savedItems, order.getDeliveryAddress())
                                 )
                 );
     }
@@ -79,12 +79,22 @@ public class OrderRepositoryAdapter implements OrderRepository {
         entity.setTrackingId(order.getTrackingId().value());
         entity.setOrderStatus(order.getOrderStatus() != null ? order.getOrderStatus().name() : null);
 
+        // If your OrderEntity and orders table have address columns, persist them here:
+        /*
+        if (order.getDeliveryAddress() != null) {
+            entity.setStreet(order.getDeliveryAddress().street());
+            entity.setPostalCode(order.getDeliveryAddress().postalCode());
+            entity.setCity(order.getDeliveryAddress().city());
+        }
+        */
+
         return entity;
     }
 
     private Order toDomain(
             OrderEntity entity,
-            List<OrderItemEntity> itemEntities
+            List<OrderItemEntity> itemEntities,
+            StreetAddress deliveryAddress
     ) {
         List<OrderItem> items = itemEntities.stream()
                 .map(item -> OrderItem.builder()
@@ -103,6 +113,7 @@ public class OrderRepositoryAdapter implements OrderRepository {
                 .id(new OrderId(entity.getId()))
                 .customerId(new CustomerId(entity.getCustomerId()))
                 .businessId(new BusinessId(entity.getBusinessId()))
+                .deliveryAddress(deliveryAddress) // <--- SET THE ADDRESS HERE
                 .price(new Money(entity.getPrice()))
                 .items(items)
                 .trackingId(new TrackingId(entity.getTrackingId()))

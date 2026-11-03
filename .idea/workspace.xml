@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/db.changelog/ddl/changelog-002.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/config/WebClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/config/WebClientConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/adapter/OrderRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/src/main/java/kh/edu/istad/platform/order/persistence/adapter/OrderRepositoryAdapter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +177,7 @@
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.OrderApplicationService">
+  <component name="RunManager" selected="Spring Boot.CustomerApplicationService">
     <configuration name="build-logic [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
