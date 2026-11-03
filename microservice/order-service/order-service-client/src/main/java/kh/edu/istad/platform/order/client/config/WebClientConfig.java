@@ -11,7 +11,6 @@ import org.springframework.security.oauth2.client.ReactiveOAuth2AuthorizedClient
 import org.springframework.security.oauth2.client.ReactiveOAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction;
-import org.springframework.security.oauth2.client.web.reactive.function.client.support.OAuth2WebClientHttpServiceGroupConfigurer;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
@@ -37,12 +36,6 @@ public class WebClientConfig {
     }
 
     @Bean
-    public OAuth2WebClientHttpServiceGroupConfigurer securityConfigurer(
-            ReactiveOAuth2AuthorizedClientManager manager) {
-        return OAuth2WebClientHttpServiceGroupConfigurer.from(manager);
-    }
-
-    @Bean
     public CustomerHttpClient customerHttpClient(
             ReactiveOAuth2AuthorizedClientManager authorizedClientManager,
             ReactorLoadBalancerExchangeFilterFunction loadBalancerFilter,
@@ -51,10 +44,13 @@ public class WebClientConfig {
         ServerOAuth2AuthorizedClientExchangeFilterFunction oauth2Filter =
                 new ServerOAuth2AuthorizedClientExchangeFilterFunction(authorizedClientManager);
 
+        // Sets the client registration from your application.yaml: "customer-client"
+        oauth2Filter.setDefaultClientRegistrationId("customer-client");
+
         WebClient webClient = WebClient.builder()
                 .baseUrl(customerServiceBaseUrl)
-                .filter(loadBalancerFilter) // Resolves "customer-service" via Consul
-                .filter(oauth2Filter)       // Attaches OAuth2 token
+                .filter(loadBalancerFilter) // Consul service discovery
+                .filter(oauth2Filter)       // Auto-fetches M2M token & adds Authorization: Bearer
                 .build();
 
         HttpServiceProxyFactory factory = HttpServiceProxyFactory
@@ -64,7 +60,6 @@ public class WebClientConfig {
         return factory.createClient(CustomerHttpClient.class);
     }
 }
-
 //package kh.edu.istad.platform.order.client.config;
 //
 //import org.springframework.cloud.client.loadbalancer.LoadBalanced;
