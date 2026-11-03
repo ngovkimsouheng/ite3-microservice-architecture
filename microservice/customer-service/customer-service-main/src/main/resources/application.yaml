@@ -17,6 +17,11 @@ spring:
     database: db_customer
     authentication-database: admin
     uuid-representation: standard
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
 #eureka:
 #  client:
 #    service-url:

@@ -14,13 +14,13 @@ import reactor.core.publisher.Flux;
 @RequiredArgsConstructor
 public class CustomerServiceClientAdapter implements CustomerServiceClient {
 
-    private final WebClient.Builder webClientBuilder;
+//    private final WebClient.Builder webClientBuilder;
     private final CustomerHttpClient customerHttpClient;
 
 
     private record ValuePayload(String value) {}
 
-    private record CustomerPayload(
+    public record CustomerPayload(
             ValuePayload id,
             String username,
             String familyName,

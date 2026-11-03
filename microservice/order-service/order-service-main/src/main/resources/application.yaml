@@ -15,7 +15,6 @@ spring:
     consul:
       host: localhost
       port: 8500
-
       config:
         enabled: true
         format: yaml
@@ -26,7 +25,6 @@ spring:
           enabled: true
           wait-time: 5
           delay: 10000
-
       discovery:
         health-check-url: http://host.docker.internal:${server.port}/actuator/health
         prefer-ip-address: true
@@ -45,14 +43,20 @@ spring:
     user: iteuser
     password: qwerqwer
     driver-class-name: org.postgresql.Driver
+
   security:
     oauth2:
       client:
         registration:
-            keycloak:
-                client-id: order-service
-                client-secret: 123456
-
+          customer-client:
+            provider: auth-server
+            client-id: order-service
+            client-secret: order-secret
+            authorization-grant-type: client_credentials
+            scope: customer:read
+        provider:
+          auth-server:
+            issuer-uri: http://localhost:9000
 
 http:
   serviceclient:
@@ -63,8 +67,6 @@ http:
         seconds: 10
       base-url: http://customer-service
 
-
-
 eureka:
   client:
     enabled: false
@@ -74,6 +76,7 @@ management:
     web:
       exposure:
         include: "*"
+
 logging:
   level:
     org.springframework.r2dbc: DEBUG

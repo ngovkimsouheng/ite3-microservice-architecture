@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-client/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/adapter/CustomerServiceClientAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/adapter/CustomerServiceClientAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/config/WebClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/config/WebClientConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/httpclient/CustomerHttpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/httpclient/CustomerHttpClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -171,7 +177,7 @@
           <value>
             <map>
               <entry key="BusinessApplication" value="STOPPED" />
-              <entry key="CustomerApplicationService" value="STOPPED" />
+              <entry key="CustomerApplicationService" value="FAILED" />
               <entry key="DiscoveryServiceApplication" value="STOPPED" />
               <entry key="OrderApplicationService" value="STOPPED" />
               <entry key="PaymentApplicationService" value="STOPPED" />
@@ -244,6 +250,7 @@
     </configuration>
     <configuration name="OrderApplicationService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="order-service.order-service-main.main" />
+      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.order.OrderApplicationService" />
       <extension name="coverage">
         <pattern>
@@ -258,6 +265,12 @@
     <configuration name="PaymentApplicationService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="payment-service.payment-service-main.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.payment.PaymentApplicationService" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -279,11 +292,11 @@
     <list>
       <item itemvalue="Docker.postgres/docker-compose.yaml: Compose Deployment" />
       <item itemvalue="Gradle.build-logic [dependencies]" />
-      <item itemvalue="Spring Boot.IstadCommonWebfluxApplication" />
-      <item itemvalue="Spring Boot.IstadCmmonWebfluxApplication" />
-      <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
-      <item itemvalue="Spring Boot.CustomerApplicationService" />
       <item itemvalue="Spring Boot.BusinessApplication" />
+      <item itemvalue="Spring Boot.CustomerApplicationService" />
+      <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
+      <item itemvalue="Spring Boot.IstadCmmonWebfluxApplication" />
+      <item itemvalue="Spring Boot.IstadCommonWebfluxApplication" />
       <item itemvalue="Spring Boot.PaymentApplicationService" />
       <item itemvalue="Spring Boot.OrderApplicationService" />
     </list>
@@ -318,7 +331,11 @@
       <workItem from="1793617915280" duration="4283000" />
       <workItem from="1793636637885" duration="6115000" />
       <workItem from="1793667209448" duration="2312000" />
-      <workItem from="1793673083500" duration="2483000" />
+      <workItem from="1793673083500" duration="3511000" />
+      <workItem from="1793676911173" duration="2630000" />
+      <workItem from="1793687371818" duration="6000" />
+      <workItem from="1793687413030" duration="684000" />
+      <workItem from="1793688152947" duration="1573000" />
     </task>
     <servers />
   </component>

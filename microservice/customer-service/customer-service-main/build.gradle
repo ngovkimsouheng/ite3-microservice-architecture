@@ -11,9 +11,13 @@ dependencies {
     implementation project(':customer-service-restapi')
     implementation project(':customer-service-message')
 
-    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.5'
+//    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 //    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:5.0.3'
     implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
 }
