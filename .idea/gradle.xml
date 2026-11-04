@@ -54,6 +54,11 @@
                   <project path="$PROJECT_DIR$/microservice/discovery-service" />
                 </projects>
               </build>
+              <build path="$PROJECT_DIR$/microservice/iam-service" name="iam-service">
+                <projects>
+                  <project path="$PROJECT_DIR$/microservice/iam-service" />
+                </projects>
+              </build>
               <build path="$PROJECT_DIR$/microservice/order-service" name="order-service">
                 <projects>
                   <project path="$PROJECT_DIR$/microservice/order-service" />
@@ -109,6 +114,7 @@
             <option value="$PROJECT_DIR$/microservice/customer-service/customer-service-persistence" />
             <option value="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi" />
             <option value="$PROJECT_DIR$/microservice/discovery-service" />
+            <option value="$PROJECT_DIR$/microservice/iam-service" />
             <option value="$PROJECT_DIR$/microservice/order-service" />
             <option value="$PROJECT_DIR$/microservice/order-service/order-service-client" />
             <option value="$PROJECT_DIR$/microservice/order-service/order-service-domain" />

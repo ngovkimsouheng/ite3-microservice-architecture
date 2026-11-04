@@ -50,7 +50,7 @@ public class WebClientConfig {
         WebClient webClient = WebClient.builder()
                 .baseUrl(customerServiceBaseUrl)
                 .filter(loadBalancerFilter) // Consul service discovery
-//                .filter(oauth2Filter)       // Auto-fetches M2M token & adds Authorization: Bearer
+                .filter(oauth2Filter)       // Auto-fetches M2M token & adds Authorization: Bearer
                 .build();
 
         HttpServiceProxyFactory factory = HttpServiceProxyFactory

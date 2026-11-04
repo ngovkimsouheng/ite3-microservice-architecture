@@ -5,9 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/PasswordConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/TokenConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/UserDetailServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/domain/Permission.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/domain/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/domain/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/features/permission/PermissionJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/features/role/Role_JpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/features/user/UserjpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/init/InitCore.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/init/InitRegisteredClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/db/changelog/db.changelog-master.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/db/changelog/ddl/001-create-authorization-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/db/changelog/ddl/002-create-authorization-consent-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/db/changelog/ddl/003-create-client-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/db/changelog/ddl/004-create-core-table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/db/changelog/ddl/005-create-user-table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/adapter/CustomerServiceClientAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/adapter/CustomerServiceClientAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/config/WebClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/config/WebClientConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +59,9 @@
     <projectState path="$PROJECT_DIR$/microservice/discovery-service">
       <ProjectState />
     </projectState>
+    <projectState path="$PROJECT_DIR$/microservice/iam-service">
+      <ProjectState />
+    </projectState>
   </component>
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
@@ -60,6 +87,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Record" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -132,6 +160,7 @@
     &quot;Spring Boot.BusinessApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.CustomerApplicationService.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.DiscoveryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.IamServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.OrderApplicationService.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.PaymentApplicationService.executor&quot;: &quot;Run&quot;,
     &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
@@ -146,7 +175,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.AcpAgentsConfigurable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.liquibase.common.gui.settings.db.LiquibaseConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -171,14 +200,15 @@
           <value>
             <map>
               <entry key="CustomerApplicationService" value="STOPPED" />
-              <entry key="OrderApplicationService" value="FAILED" />
+              <entry key="IamServiceApplication" value="FAILED" />
+              <entry key="OrderApplicationService" value="STOPPED" />
             </map>
           </value>
         </entry>
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.CustomerApplicationService">
+  <component name="RunManager" selected="Spring Boot.IamServiceApplication">
     <configuration name="build-logic [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -228,6 +258,14 @@
     <configuration name="DiscoveryServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="discovery-service.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.discovery_service.DiscoveryServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IamServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="iam-service.main" />
+      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.iam.IamServiceApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -290,6 +328,7 @@
     <list>
       <item itemvalue="Docker.postgres/docker-compose.yaml: Compose Deployment" />
       <item itemvalue="Gradle.build-logic [dependencies]" />
+      <item itemvalue="Spring Boot.IamServiceApplication" />
       <item itemvalue="Spring Boot.BusinessApplication" />
       <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
       <item itemvalue="Spring Boot.IstadCmmonWebfluxApplication" />
@@ -337,7 +376,8 @@
       <workItem from="1793688152947" duration="1573000" />
       <workItem from="1793715984706" duration="2650000" />
       <workItem from="1793718823193" duration="351000" />
-      <workItem from="1793719622241" duration="970000" />
+      <workItem from="1793719622241" duration="1670000" />
+      <workItem from="1793774864656" duration="12452000" />
     </task>
     <servers />
   </component>
