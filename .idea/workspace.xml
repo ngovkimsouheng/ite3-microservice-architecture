@@ -5,33 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/PasswordConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/TokenConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/UserDetailServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/domain/Permission.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/domain/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/domain/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/features/permission/PermissionJpaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/features/role/Role_JpaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/features/user/UserjpaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/init/InitCore.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/init/InitRegisteredClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/db/changelog/db.changelog-master.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/db/changelog/ddl/001-create-authorization-table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/db/changelog/ddl/002-create-authorization-consent-table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/db/changelog/ddl/003-create-client-table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/db/changelog/ddl/004-create-core-table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/db/changelog/ddl/005-create-user-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/config/WebClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/config/WebClientConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -378,6 +352,7 @@
       <workItem from="1793718823193" duration="351000" />
       <workItem from="1793719622241" duration="1670000" />
       <workItem from="1793774864656" duration="12452000" />
+      <workItem from="1793794490119" duration="658000" />
     </task>
     <servers />
   </component>
