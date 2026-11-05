@@ -1,23 +1,7 @@
 spring:
   application:
     name: iam-service
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            client-id: Ov23liNdS9E6DIN3a5XN
-            client-secret: 32a47068c352cd6473e2beb1ef0d509762aba8ae
-            client-name: iam-service
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-          google:
-            client-id: 352289978674-e4j6jhndl98gph86klkd5e9q8afbtr4f.apps.googleusercontent.com
-            client-secret: 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
-            client-name: kkkk
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-        provider:
-          github:
-          google:
+
   datasource:
     url: jdbc:postgresql://localhost:9543/db_oauth2
     username: iteuser
