@@ -53,8 +53,8 @@ spring:
         registration:
           customer-client:
             provider: auth-server
-            client-id: order-service
-            client-secret: order-secret
+            client-id: ${ORDER_OAUTH_CLIENT_ID}
+            client-secret: ${ORDER_OAUTH_CLIENT_SECRET}
             authorization-grant-type: client_credentials
             scope: customer:read
         provider:
