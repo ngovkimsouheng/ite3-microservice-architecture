@@ -1,8 +1,10 @@
 package kh.edu.istad.iam.config;
 
-import kh.edu.istad.iam.features.user.UserjpaRepository;
+import kh.edu.istad.iam.feature.user.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,20 +16,43 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class UserDetailServiceImpl implements UserDetailsService {
-    private final UserjpaRepository userRepository;
+
+    private final UserJpaRepository userJpaRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        var existing = userRepository.findByUsernameOrEmail(username, username)
-//                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-//
-//     Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-//     existing.getPermissions().forEach(permission -> {
-//         grantedAuthorities.add((GrantedAuthority) permission::getPermission);
-        return null;
+        var existing = userJpaRepository.findByUsernameOrEmail(username, username).orElseThrow(
+                () -> new UsernameNotFoundException("Username not found")
+        );
 
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        existing.getPermissions()
+                .forEach(
+                        permission -> {
+                            authorities.add(
+                                    new SimpleGrantedAuthority(permission.getPermission())
+                            );
+                        }
+                );
+
+        existing.getRoles()
+                .forEach(
+                        role -> {
+                            authorities.add(
+                                    new SimpleGrantedAuthority("ROLE_" + role.getRole())
+                            );
+                        }
+                );
+
+        return new User(
+                existing.getUsername(),
+                existing.getPassword(),
+                existing.isEnabled(),
+                existing.isAccountNonExpired(),
+                existing.isCredentialsNonExpired(),
+                existing.isAccountNonLocked(),
+                authorities
+
+        );
     }
-
-
-
 }

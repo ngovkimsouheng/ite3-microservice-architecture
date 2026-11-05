@@ -21,11 +21,10 @@ import java.util.UUID;
 public class InitRegisteredClient {
 
     private final RegisteredClientRepository registeredClientRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
-    public void init() {
+    public void init(){
 
         TokenSettings tokenSettings = TokenSettings.builder()
                 .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
@@ -36,15 +35,12 @@ public class InitRegisteredClient {
                 .build();
 
         ClientSettings clientSettings = ClientSettings.builder()
-
                 .requireProofKey(true)
                 .requireAuthorizationConsent(true)
-
                 .build();
+
         RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("oidc-client")
-                .clientSecret(passwordEncoder.encode("secret"))
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_JWT)
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
@@ -58,7 +54,7 @@ public class InitRegisteredClient {
 
         var client = registeredClientRepository.findByClientId("oidc-client");
 
-        if (client == null) {
+        if(client == null){
             registeredClientRepository.save(oidcClient);
         }
     }

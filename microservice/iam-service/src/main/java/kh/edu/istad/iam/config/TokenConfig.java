@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 
@@ -14,30 +14,31 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 public class TokenConfig {
 
     @Bean
-    public OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer() {
-        return (context) -> {
+    public OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer(){
+        return context -> {
 
-            SecurityContext securityContext = SecurityContextHolder.getContext();
-            Authentication authentication = securityContext.getAuthentication();
-            var printcipal = authentication.getPrincipal();
-
-            if (printcipal instanceof OAuth2User) {
-                if (OAuth2ParameterNames.ACCESS_TOKEN.equals(context.getTokenType().getValue())) {
-                    context.getClaims().claim(
-                            claim -> claim.put("username", ((OAuth2User) printcipal).getName()));
-                 );
+            SecurityContext cn = SecurityContextHolder.getContext();
+            Authentication authentication = cn.getAuthentication();
+            System.out.println(cn);
+            if(authentication == null){
+                return;
+            }
+            System.out.println(authentication);
+            var principal = authentication.getPrincipal();
+            System.out.println(principal);
+            if(principal instanceof UserDetails user){
+                if(OAuth2ParameterNames.ACCESS_TOKEN.equals(context.getTokenType().getValue())){
+                    context.getClaims()
+                            .claims(claim -> {
+                                claim.put("preferred_username", user.getUsername());
+                                claim.put("authorities", user.getAuthorities());
+                            });
                 }
             }
 
-            if (authentication != null && authentication.isAuthenticated()) {
-                String username = authentication.getName();
-                context.getClaims().claim("username", username);
-            }
 
-//            if (OAuth2ParameterNames.ACCESS_TOKEN.equals(context.getTokenType().getValue())) {
-//
-//                context.getClaims().claim();
-//            }
+
+
         };
     }
 }
