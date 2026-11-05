@@ -1,0 +1,4 @@
+version: v1
+name: buf.build/istad/ecommerce-protos
+deps:
+  - buf.build/googleapis/googleapis
