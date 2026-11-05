@@ -301,16 +301,16 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Docker.postgres/docker-compose.yaml: Compose Deployment" />
       <item itemvalue="Gradle.build-logic [dependencies]" />
-      <item itemvalue="Spring Boot.BusinessApplication" />
-      <item itemvalue="Spring Boot.CustomerApplicationService" />
-      <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
       <item itemvalue="Spring Boot.IamServiceApplication" />
+      <item itemvalue="Spring Boot.BusinessApplication" />
+      <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
       <item itemvalue="Spring Boot.IstadCmmonWebfluxApplication" />
       <item itemvalue="Spring Boot.IstadCommonWebfluxApplication" />
-      <item itemvalue="Spring Boot.OrderApplicationService" />
       <item itemvalue="Spring Boot.PaymentApplicationService" />
-      <item itemvalue="Docker.postgres/docker-compose.yaml: Compose Deployment" />
+      <item itemvalue="Spring Boot.CustomerApplicationService" />
+      <item itemvalue="Spring Boot.OrderApplicationService" />
     </list>
     <recent_temporary>
       <list>
