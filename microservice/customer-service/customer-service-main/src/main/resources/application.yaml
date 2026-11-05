@@ -2,6 +2,8 @@ server:
   port: 9091
 
 spring:
+  autoconfigure:
+    exclude: net.devh.boot.grpc.server.autoconfigure.GrpcMetadataConsulConfiguration
   application:
     name: customer-service
   cloud:
@@ -29,3 +31,6 @@ spring:
 #  instance:
 #    prefer-ip-address: true
 #    instance-id: ${spring.application.name}:${server.port}
+grpc:
+  server:
+    port: 9090

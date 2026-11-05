@@ -4,6 +4,8 @@ plugins {
 
 dependencies {
     api project(':order-service-domain:order-application-service')
+    implementation project(':order-service-client')
+    implementation 'kh.edu.istad:istad-common'
 
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
     implementation 'kh.edu.istad:istad-common-restapi'

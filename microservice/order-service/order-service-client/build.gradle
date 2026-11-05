@@ -5,7 +5,9 @@ plugins {
 
 dependencies {
 
-    implementation 'kh.edu.istad:order-application-service'
+    implementation project(':order-service-domain:order-application-service')
+    implementation 'net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE'
+    implementation 'kh.edu.istad:istad-common'
 // WebFlux provides WebClient and HttpInterfaces support
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     testImplementation 'io.projectreactor:reactor-test'

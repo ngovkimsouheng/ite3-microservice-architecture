@@ -4,6 +4,9 @@ plugins {
 }
 
 dependencies {
+
+    implementation 'net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE'
+    implementation 'kh.edu.istad:istad-common'
     implementation "kh.edu.istad:istad-common-swagger"
     implementation project(':customer-service-domain:customer-domain-core')
     implementation project(':customer-service-domain:customer-application-service')

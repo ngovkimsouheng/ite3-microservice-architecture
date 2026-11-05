@@ -3,12 +3,25 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="ensemble" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/buf.gen.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/buf.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/istad-common/src/main/proto/customer/customer.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/grpc/CustomerGrpcServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/adapter/CustomerGrpcClientAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/src/main/java/kh/edu/istad/platform/order/restapi/controller/GrpcTestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/istad-common/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/istad-common/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/customer-service/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-client/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-domain/order-application-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-persistence/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-restapi/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/order-service/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,8 +194,10 @@
         <entry key="SpringBootApplicationConfigurationType">
           <value>
             <map>
+              <entry key="CustomerApplicationService" value="STOPPED" />
               <entry key="IamServiceApplication" value="FAILED" />
-              <entry key="OrderApplicationService" value="FAILED" />
+              <entry key="OrderApplicationService" value="STOPPED" />
+              <entry key="PaymentApplicationService" value="STOPPED" />
             </map>
           </value>
         </entry>
@@ -344,7 +359,7 @@
       <workItem from="1793719622241" duration="1670000" />
       <workItem from="1793774864656" duration="12452000" />
       <workItem from="1793794490119" duration="658000" />
-      <workItem from="1793894247543" duration="3499000" />
+      <workItem from="1793894247543" duration="8378000" />
     </task>
     <servers />
   </component>

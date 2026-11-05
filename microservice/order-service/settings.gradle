@@ -7,6 +7,18 @@ pluginManagement {
     }
 }
 
+includeBuild('../../istad-common') {
+    dependencySubstitution {
+        substitute(module('kh.edu.istad:istad-common')).using(project(':'))
+        substitute(module('kh.edu.istad:istad-common-domain'))
+                .using(project(':istad-common-domain'))
+        substitute(module('kh.edu.istad:istad-common-restapi'))
+                .using(project(':istad-common-restapi'))
+        substitute(module('kh.edu.istad:istad-common-swagger'))
+                .using(project(':istad-common-swagger'))
+    }
+}
+
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
