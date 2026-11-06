@@ -3,251 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 18px; /* Enforces smallest font size of 18px */
-        }
+    <title>Sign in</title>
 
-        body {
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            background-color: #0f172a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+          rel="stylesheet">
 
-        /* Background Floating Blur Animation Elements */
-        .background-blobs {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            animation: float 12s infinite alternate ease-in-out;
-        }
-
-        .blob-1 {
-            width: 400px;
-            height: 400px;
-            background: #6366f1;
-            top: -10%;
-            left: -10%;
-            animation-delay: 0s;
-        }
-
-        .blob-2 {
-            width: 500px;
-            height: 500px;
-            background: #ec4899;
-            bottom: -20%;
-            right: -10%;
-            animation-delay: -4s;
-        }
-
-        .blob-3 {
-            width: 350px;
-            height: 350px;
-            background: #3b82f6;
-            top: 40%;
-            left: 60%;
-            animation-delay: -8s;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translate(0px, 0px) scale(1);
-            }
-            50% {
-                transform: translate(40px, 60px) scale(1.1);
-            }
-            100% {
-                transform: translate(-30px, -50px) scale(0.9);
+    <!-- Tailwind (Play CDN). For production, swap for your compiled Tailwind CSS build. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'Arial', 'sans-serif']
+                    },
+                    colors: {
+                        canvas: '#f6f5f2',
+                        ink: '#111111',
+                        faint: '#9a9a96',
+                        line: '#e4e2dd'
+                    },
+                    keyframes: {
+                        rise: {
+                            '0%':   { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    },
+                    animation: {
+                        rise: 'rise 0.4s ease-out both'
+                    }
+                }
             }
         }
-
-        /* Main Layout */
-        main {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            width: 100%;
-            max-width: 520px;
-            padding: 20px;
-        }
-
-        .right {
-            background: rgba(30, 41, 59, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        /* Form elements */
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        label {
-            color: #cbd5e1;
-            font-weight: 500;
-            font-size: 18px;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            color: #f8fafc;
-            font-size: 18px;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
-        }
-
-        button[type="submit"] {
-            margin-top: 8px;
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.1s, opacity 0.2s;
-        }
-
-        button[type="submit"]:hover {
-            opacity: 0.9;
-        }
-
-        button[type="submit"]:active {
-            transform: scale(0.98);
-        }
-
-        /* OAuth Buttons */
-        .oauth-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .oauth-btn {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 0;
-            cursor: pointer;
-            transition: background 0.2s, border-color 0.2s;
-        }
-
-        .oauth-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .oauth-btn a {
-            display: block;
-            padding: 12px;
-            color: #f8fafc;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 500;
-            text-align: center;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: #64748b;
-            font-size: 18px;
-            margin: 4px 0;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .divider::before {
-            margin-right: .75em;
-        }
-
-        .divider::after {
-            margin-left: .75em;
-        }
-    </style>
+    </script>
 </head>
-<body>
 
-<!-- Background Floating Blurred Orbs Animation -->
-<div class="background-blobs">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-</div>
+<body class="flex min-h-screen items-center justify-center bg-canvas p-5 font-sans text-[15px] leading-normal text-ink antialiased">
 
-<main>
-    <div class="right">
-        <form action="/login" method="post">
-            <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+<main class="w-full max-w-[400px] animate-rise rounded-2xl border border-line bg-white px-5 py-6 shadow-sm motion-reduce:animate-none min-[421px]:p-8">
 
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required autocomplete="username">
-
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required autocomplete="current-password">
-
-            <button type="submit">Sign In</button>
-        </form>
-
-        <div class="divider">or</div>
-
-        <div class="oauth-container">
-            <button class="oauth-btn">
-                <a href="/oauth2/authorization/github">Login with GitHub</a>
-            </button>
-            <button class="oauth-btn">
-                <a href="/oauth2/authorization/google">Login with Google</a>
-            </button>
-        </div>
+    <!-- Shown only on ?error / ?logout -->
+    <div class="mb-[18px] rounded-[10px] bg-[#fdf0ee] px-3.5 py-[11px] text-sm font-medium text-[#a12a1b]"
+         role="alert" th:if="${param.error}">
+        Invalid username or password.
     </div>
+    <div class="mb-[18px] rounded-[10px] bg-[#eef6ef] px-3.5 py-[11px] text-sm font-medium text-[#25603a]"
+         role="status" th:if="${param.logout}">
+        You have been signed out.
+    </div>
+
+    <form class="flex flex-col gap-[18px]" th:action="@{/login}" action="/login" method="post">
+
+        <!-- Thymeleaf CSRF -->
+        <input type="hidden"
+               th:if="${_csrf}"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}">
+
+        <div class="flex flex-col gap-[7px] text-sm">
+            <label for="username" class="text-[18px] font-semibold">Username</label>
+            <input type="text"
+                   id="username"
+                   name="username"
+                   placeholder="Enter your username"
+                   required
+                   autofocus
+                   autocomplete="username"
+                   class="h-12 w-full rounded-[10px] border border-line bg-white px-3.5 text-ink outline-none transition placeholder:text-faint hover:border-[#cfccc5] focus:border-ink focus:ring-[3px] focus:ring-ink/10">
+        </div>
+
+        <div class="flex flex-col gap-[7px] text-sm">
+            <label for="password" class="text-[18px] font-semibold">Password</label>
+            <input type="password"
+                   id="password"
+                   name="password"
+                   placeholder="Enter your password"
+                   required
+                   autocomplete="current-password"
+                   class="h-12 w-full rounded-[10px] border border-line bg-white px-3.5 text-ink outline-none transition placeholder:text-faint hover:border-[#cfccc5] focus:border-ink focus:ring-[3px] focus:ring-ink/10">
+        </div>
+
+        <button type="submit"
+                class="mt-1 h-[50px] cursor-pointer rounded-[10px] border border-ink bg-ink text-[15px] font-semibold text-white transition hover:bg-[#2b2b2b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink active:scale-[0.99]">
+            Sign in
+        </button>
+    </form>
+
+    <div class="my-6 flex items-center gap-3.5 text-[11px] font-medium uppercase tracking-[0.14em] text-faint before:h-px before:flex-1 before:bg-line after:h-px after:flex-1 after:bg-line">
+        Or continue with
+    </div>
+
+    <div class="grid grid-cols-1 gap-3 min-[421px]:grid-cols-2">
+        <a href="/oauth2/authorization/github" th:href="@{/oauth2/authorization/github}"
+           class="flex h-12 items-center justify-center gap-2.5 rounded-[10px] border border-line bg-white text-sm font-semibold text-ink no-underline transition hover:border-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">
+            <svg class="h-[18px] w-[18px] shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+            </svg>
+            GitHub
+        </a>
+
+        <a href="/oauth2/authorization/google" th:href="@{/oauth2/authorization/google}"
+           class="flex h-12 items-center justify-center gap-2.5 rounded-[10px] border border-line bg-white text-sm font-semibold text-ink no-underline transition hover:border-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">
+            <svg class="h-[18px] w-[18px] shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#4285F4" d="M23.5 12.27c0-.85-.08-1.67-.22-2.45H12v4.64h6.45a5.52 5.52 0 0 1-2.39 3.62v3h3.87c2.27-2.09 3.57-5.17 3.57-8.81Z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.07 7.93-2.91l-3.87-3c-1.07.72-2.44 1.15-4.06 1.15-3.12 0-5.77-2.11-6.71-4.95H1.29v3.1A12 12 0 0 0 12 24Z"/>
+                <path fill="#FBBC05" d="M5.29 14.29a7.2 7.2 0 0 1 0-4.58v-3.1H1.29a12 12 0 0 0 0 10.78l4-3.1Z"/>
+                <path fill="#EA4335" d="M12 4.76c1.76 0 3.34.61 4.58 1.8l3.43-3.43C17.94 1.19 15.24 0 12 0A12 12 0 0 0 1.29 6.61l4 3.1C6.23 6.87 8.88 4.76 12 4.76Z"/>
+            </svg>
+            Google
+        </a>
+    </div>
+
 </main>
 
 </body>
