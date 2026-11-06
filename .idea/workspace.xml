@@ -8,7 +8,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/dto/CommonDtos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/in/RegisterUserCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/CurrentActorProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/IdentityRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/PasswordHasher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/PermissionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/RoleRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core/src/main/java/kh/edu/istad/iam/domain/core/entity/Identity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core/src/main/java/kh/edu/istad/iam/domain/core/entity/RolePermissionAssignment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core/src/main/java/kh/edu/istad/iam/domain/core/entity/UserPermissionAssignment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core/src/main/java/kh/edu/istad/iam/domain/core/entity/UserRoleAssignment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/IdentityRepositoryAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/PermissionRepositoryAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/RoleRepositoryAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/UserRepositoryAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/entity/IdentityJpaEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/entity/PermissionJpaEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/entity/RoleJpaEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/entity/RolePermissionAssignmentJpaEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/entity/UserJpaEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/entity/UserPermissionAssignmentJpaEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/entity/UserRoleAssignmentJpaEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/IdentityJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/PermissionJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/RoleJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/RolePermissionAssignmentJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/UserJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/UserPermissionAssignmentJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/UserRoleAssignmentJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/dto/RegisterUserRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/exception/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-debug.txt" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-debug.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core/src/main/java/kh/edu/istad/iam/domain/Permission.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core/src/main/java/kh/edu/istad/iam/domain/core/entity/Permission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core/src/main/java/kh/edu/istad/iam/domain/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core/src/main/java/kh/edu/istad/iam/domain/core/entity/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core/src/main/java/kh/edu/istad/iam/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core/src/main/java/kh/edu/istad/iam/domain/core/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/CustomUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/CustomUserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/InitCore.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/InitCore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/feature/permission/PermissionJpaRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/feature/role/RoleJpaRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/feature/user/UserJpaRepository.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -361,7 +404,7 @@
       <workItem from="1793894247543" duration="10049000" />
       <workItem from="1793930369047" duration="8968000" />
       <workItem from="1793947110257" duration="23132000" />
-      <workItem from="1793986195252" duration="2960000" />
+      <workItem from="1793986195252" duration="10038000" />
     </task>
     <servers />
   </component>
