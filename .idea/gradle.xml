@@ -57,6 +57,14 @@
               <build path="$PROJECT_DIR$/microservice/iam-service" name="iam-service">
                 <projects>
                   <project path="$PROJECT_DIR$/microservice/iam-service" />
+                  <project path="$PROJECT_DIR$/microservice/iam-service/iam-domain" />
+                  <project path="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service" />
+                  <project path="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core" />
+                  <project path="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure" />
+                  <project path="$PROJECT_DIR$/microservice/iam-service/iam-main" />
+                  <project path="$PROJECT_DIR$/microservice/iam-service/iam-persistence" />
+                  <project path="$PROJECT_DIR$/microservice/iam-service/iam-rest-api" />
+                  <project path="$PROJECT_DIR$/microservice/iam-service/iam-web" />
                 </projects>
               </build>
               <build path="$PROJECT_DIR$/microservice/order-service" name="order-service">
@@ -115,6 +123,14 @@
             <option value="$PROJECT_DIR$/microservice/customer-service/customer-service-restapi" />
             <option value="$PROJECT_DIR$/microservice/discovery-service" />
             <option value="$PROJECT_DIR$/microservice/iam-service" />
+            <option value="$PROJECT_DIR$/microservice/iam-service/iam-domain" />
+            <option value="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service" />
+            <option value="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core" />
+            <option value="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure" />
+            <option value="$PROJECT_DIR$/microservice/iam-service/iam-main" />
+            <option value="$PROJECT_DIR$/microservice/iam-service/iam-persistence" />
+            <option value="$PROJECT_DIR$/microservice/iam-service/iam-rest-api" />
+            <option value="$PROJECT_DIR$/microservice/iam-service/iam-web" />
             <option value="$PROJECT_DIR$/microservice/order-service" />
             <option value="$PROJECT_DIR$/microservice/order-service/order-service-client" />
             <option value="$PROJECT_DIR$/microservice/order-service/order-service-domain" />
@@ -133,10 +149,6 @@
             <option value="$PROJECT_DIR$/microservice/payment-service/payment-service-restapi" />
           </set>
         </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/microservice/payment-service/payment-service-domain/payment-application-service" />
-        <option name="gradleJvm" value="21 (2)" />
       </GradleProjectSettings>
     </option>
   </component>

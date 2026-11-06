@@ -1,0 +1,12 @@
+plugins {
+    id 'spring-common-conventions'
+}
+
+dependencies {
+    implementation project(':iam-domain:iam-application-service')
+    implementation project(':iam-persistence')
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-authorization-server'
+    implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-client'
+}
