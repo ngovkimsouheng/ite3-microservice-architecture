@@ -17,6 +17,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer;
+import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -62,7 +63,7 @@ public class SecurityConfig {
                 .securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
                 .with(authorizationServerConfigurer, (authorizationServer) ->
                         authorizationServer
-                                .oidc(Customizer.withDefaults())    // Enable OpenID Connect 1.0
+                                .oidc(Customizer.withDefaults())	// Enable OpenID Connect 1.0
                 )
                 .authorizeHttpRequests((authorize) ->
                         authorize
@@ -85,11 +86,18 @@ public class SecurityConfig {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
             throws Exception {
         http
-                .authorizeHttpRequests(authorize -> authorize
-
+                .authorizeHttpRequests((authorize) -> authorize
                         .anyRequest().authenticated()
-                ).oauth2Login(Customizer.withDefaults()).oauth2Client(Customizer.withDefaults())
-                .formLogin(form -> form
+                )
+                // Form login handles the redirect to the login page from the
+                // authorization server filter chain
+                .oauth2Login(
+                        config -> config
+                                .loginPage("/login")
+                                .permitAll()
+                )
+                .oauth2Client(Customizer.withDefaults())
+                .formLogin(config -> config
                         .loginPage("/login")
                         .permitAll()
                 );
@@ -104,12 +112,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public OAuth2AuthorizationService oAuth2AuthorizationService() {
+    public OAuth2AuthorizationService oAuth2AuthorizationService(){
         return new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository());
     }
 
     @Bean
-    public OAuth2AuthorizationConsentService oAuth2AuthorizationConsentService() {
+    public OAuth2AuthorizationConsentService oAuth2AuthorizationConsentService(){
         return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository());
     }
 
@@ -132,7 +140,8 @@ public class SecurityConfig {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
             keyPairGenerator.initialize(2048);
             keyPair = keyPairGenerator.generateKeyPair();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new IllegalStateException(ex);
         }
         return keyPair;

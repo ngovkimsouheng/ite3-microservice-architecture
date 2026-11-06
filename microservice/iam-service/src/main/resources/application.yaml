@@ -6,23 +6,33 @@ spring:
       client:
         registration:
           github:
-            client-id: ${GITHUB_OAUTH_CLIENT_ID}
-            client-secret: ${GITHUB_OAUTH_CLIENT_SECRET}
-            client-name: iam-service
+            provider: github
+            client-id: Ov23liNdS9E6DIN3a5XN
+            client-secret: 284e9f445be4d61e5b9316bf7c721b2eb32d406b
+            client-name: GitHub
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
           google:
-            client-id: ${GOOGLE_OAUTH_CLIENT_ID}
-            client-secret: ${GOOGLE_OAUTH_CLIENT_SECRET}
-            client-name: kkkk
+            provider: google
+            client-id: 352289978674-k5vt9j5q8e85bdmevueg1uuu8ceovljc.apps.googleusercontent.com
+            client-secret: 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
+            client-name: Google
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+
+
         provider:
-          github:
           google:
+          github:
+
+      authorizationserver:
+        issuer: http://localhost:9000
   datasource:
     url: jdbc:postgresql://localhost:9543/db_oauth2
     username: iteuser
     password: qwerqwer
     driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
 
   liquibase:
     url: ${spring.datasource.url}
@@ -33,3 +43,7 @@ spring:
 
 server:
   port: 9000
+
+logging:
+  level:
+    org.springframework.security: TRACE

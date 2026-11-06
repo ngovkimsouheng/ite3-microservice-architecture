@@ -9,7 +9,21 @@
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-client/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/IamServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/IamServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/CustomUserDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/CustomUserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/PasswordConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/PasswordConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/TokenConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/TokenConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/UserDetailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/config/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/domain/Permission.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/domain/Permission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/domain/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/domain/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/feature/role/Role_JpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/feature/role/RoleJpaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/init/InitCore.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/init/InitCore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/init/InitRegisteredClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/java/kh/edu/istad/iam/init/InitRegisteredClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/thymeleaf/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/src/main/resources/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,47 +136,49 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Docker.postgres/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build discovery-service.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build istad-ite-project.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.build-logic [dependencies].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.BusinessApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.CustomerApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.DiscoveryServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.IamServiceApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.OrderApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.PaymentApplicationService.executor&quot;: &quot;Run&quot;,
-    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;assignment__05&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.postgres/docker-compose.yaml: Compose Deployment.executor": "Run",
+    "Gradle.Build discovery-service.executor": "Run",
+    "Gradle.Build istad-ite-project.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.build-logic [dependencies].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.BusinessApplication.executor": "Run",
+    "Spring Boot.CustomerApplicationService.executor": "Run",
+    "Spring Boot.DiscoveryServiceApplication.executor": "Run",
+    "Spring Boot.IamServiceApplication.executor": "Run",
+    "Spring Boot.OrderApplicationService.executor": "Run",
+    "Spring Boot.PaymentApplicationService.executor": "Run",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "git-widget-placeholder": "assignment__05",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\src\main\resources\templates" />
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\src\main\resources" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\src\main\resources\thymeleaf" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\istad-common\istad-common-webflux\src\main\resources\META-INF\spring" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\istad-common\istad-common-swagger\src\main\resources\META-INF" />
@@ -184,7 +200,7 @@
             <map>
               <entry key="BusinessApplication" value="STOPPED" />
               <entry key="CustomerApplicationService" value="STOPPED" />
-              <entry key="IamServiceApplication" value="FAILED" />
+              <entry key="IamServiceApplication" value="STOPPED" />
               <entry key="OrderApplicationService" value="STOPPED" />
               <entry key="PaymentApplicationService" value="STOPPED" />
             </map>
@@ -248,6 +264,12 @@
       </method>
     </configuration>
     <configuration name="IamServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="GITHUB_OAUTH_CLIENT_ID" value="Ov23liNdS9E6DIN3a5XN" />
+        <env name="GITHUB_OAUTH_CLIENT_SECRET" value="284e9f445be4d61e5b9316bf7c721b2eb32d406b" />
+        <env name="GOOGLE_OAUTH_CLIENT_ID" value="352289978674-e4j6jhndl98gph86klkd5e9q8afbtr4f.apps.googleusercontent.com" />
+        <env name="GOOGLE_OAUTH_CLIENT_SECRET" value="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" />
+      </envs>
       <module name="iam-service.main" />
       <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.iam.IamServiceApplication" />
@@ -349,11 +371,16 @@
       <workItem from="1793774864656" duration="12452000" />
       <workItem from="1793794490119" duration="658000" />
       <workItem from="1793894247543" duration="10049000" />
-      <workItem from="1793930369047" duration="8186000" />
+      <workItem from="1793930369047" duration="8968000" />
+      <workItem from="1793947110257" duration="8238000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
