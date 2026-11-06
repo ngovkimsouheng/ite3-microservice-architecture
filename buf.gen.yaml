@@ -1,10 +1,11 @@
-version: v1
+version: v2
 managed:
   enabled: true
+  override:
+    - file_option: java_multiple_files
+      value: true
 plugins:
-  - plugin: buf.build/protocolbuffers/java:v25.1
-    out: istad-common/src/main/java
-    opt: java_multiple_files=true
-  - plugin: buf.build/grpc/java:v1.60.0
-    out: istad-common/src/main/java
-    opt: java_multiple_files=true
+  - remote: buf.build/protocolbuffers/java
+    out: build/generated
+  - remote: buf.build/grpc/java
+    out: build/generated

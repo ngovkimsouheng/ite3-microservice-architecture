@@ -1,4 +1,14 @@
-version: v1
-name: buf.build/istad/ecommerce-protos
+version: v2
+modules:
+  - path: proto
 deps:
+  - buf.build/ngovkimsouheng-org/ecom-proto
   - buf.build/googleapis/googleapis
+
+lint:
+  use:
+    - DEFAULT
+
+breaking:
+  use:
+    - FILE

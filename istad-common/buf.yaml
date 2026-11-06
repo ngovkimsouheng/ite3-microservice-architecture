@@ -1,0 +1,4 @@
+version: v2
+name: buf.build/your-org/istad-common
+deps:
+  - buf.build/googleapis/googleapis
