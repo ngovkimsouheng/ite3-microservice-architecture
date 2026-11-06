@@ -8,10 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -364,7 +361,7 @@
       <workItem from="1793894247543" duration="10049000" />
       <workItem from="1793930369047" duration="8968000" />
       <workItem from="1793947110257" duration="23132000" />
-      <workItem from="1793986195252" duration="1441000" />
+      <workItem from="1793986195252" duration="2960000" />
     </task>
     <servers />
   </component>
