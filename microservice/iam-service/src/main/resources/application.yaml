@@ -7,14 +7,14 @@ spring:
         registration:
           github:
             provider: github
-            client-id: Ov23liNdS9E6DIN3a5XN
-            client-secret: 284e9f445be4d61e5b9316bf7c721b2eb32d406b
+            client-id: ${GITHUB_OAUTH_CLIENT_ID}
+            client-secret: ${GITHUB_OAUTH_CLIENT_SECRET}
             client-name: GitHub
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
           google:
             provider: google
-            client-id: 352289978674-k5vt9j5q8e85bdmevueg1uuu8ceovljc.apps.googleusercontent.com
-            client-secret: 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
+            client-id: ${GOOGLE_OAUTH_CLIENT_ID}
+            client-secret: ${GOOGLE_OAUTH_CLIENT_SECRET}
             client-name: Google
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
 

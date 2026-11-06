@@ -35,16 +35,16 @@ public class InitCore {
                 .build();
 
         User user = User.builder()
-                .familyName("Kung")
-                .givenName("Sovannda")
-                .email("kungsovannda@gmail.com")
+                .familyName("kimsouheng")
+                .givenName("kim")
+                .email("kimsouheng@gmail.com")
                 .gender("Male")
                 .emailVerified(true)
-                .username("kungsovannda")
-                .password(passwordEncoder.encode("supersecret"))
+                .username("souheng")
+                .password(passwordEncoder.encode("qwerqwer"))
                 .build();
 
-        if(!userJpaRepository.existsByUsername("kungsovannda")){
+        if(!userJpaRepository.existsByUsername("souheng")){
             role = roleJpaRepository.save(role);
             permission = permissionJpaRepository.save(permission);
             user.setRoles(Set.of(role));
