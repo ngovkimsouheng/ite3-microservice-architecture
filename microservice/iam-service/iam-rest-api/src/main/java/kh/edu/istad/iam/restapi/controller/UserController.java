@@ -26,7 +26,7 @@ public class UserController {
 
     @GetMapping("/users/{uuid}")
     @PreAuthorize("hasAuthority('user:read')")
-    public ResponseEntity<UserResponse> getUserByUuid(@PathVariable UUID uuid) {
+    public ResponseEntity<UserResponse> getUserByUuid(@PathVariable("uuid") UUID uuid) {
         UserResult result = getUserUseCase.execute(uuid);
         return ResponseEntity.ok(new UserResponse(
                 result.uuid(),

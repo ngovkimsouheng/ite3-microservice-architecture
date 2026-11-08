@@ -1,3 +1,25 @@
+POST http://localhost:9000/api/auth/register
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+cookie: JSESSIONID=4901AC28C50DC78DC2351DB5F9DE59F3
+content-length: 196
+
+{
+  "username": "souheng",
+  "email": "ngovkimsouheng@gmail.com",
+  "password": "qwerqwer",
+  "confirmPassword": "qwerqwer",
+  "givenName": "kimsouheng",
+  "familyName": "ngov",
+  "locale": "km"
+}
+
+<> 2026-11-08T140139.200.html
+
+###
+
 POST http://localhost:9091/api/customers
 Content-Type: application/json
 Content-Length: 156
@@ -641,25 +663,6 @@ Accept: */*
 }
 
 <> 2026-10-20T185643.201.json
-
-###
-
-POST http://localhost:9091/api/customers
-Content-Type: application/json
-Content-Length: 149
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.3.5
-Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
-
-{
-  "username": "souhengg",
-  "familyName": "kimkim",
-  "givenName": "heng",
-  "email": "souhengkimsouheng@gmail.com",
-  "phoneNumber": "012345678"
-}
-
-<> 2026-10-20T185351.201.json
 
 ###
 

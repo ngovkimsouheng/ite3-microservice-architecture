@@ -63,14 +63,19 @@ public class SecurityConfig {
                 .securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
                 .with(authorizationServerConfigurer, (authorizationServer) ->
                         authorizationServer
-                                .oidc(Customizer.withDefaults())	// Enable OpenID Connect 1.0
+                                .oidc((oidc) -> oidc
+                                        // 1. Explicitly enable Dynamic Client Registration (POST /connect/register)
+                                        .clientRegistrationEndpoint(Customizer.withDefaults())
+                                )
                 )
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .anyRequest().authenticated()
                 )
-                // Redirect to the login page when not authenticated from the
-                // authorization endpoint
+                // 2. Allow Chain 1 to validate Bearer tokens for /connect/register
+                .oauth2ResourceServer((oauth2) -> oauth2
+                        .jwt(Customizer.withDefaults())
+                )
                 .exceptionHandling((exceptions) -> exceptions
                         .defaultAuthenticationEntryPointFor(
                                 new LoginUrlAuthenticationEntryPoint("/login"),
@@ -81,25 +86,30 @@ public class SecurityConfig {
         return http.build();
     }
 
+    // Chain 2: REST API & Form Login Filter Chain
     @Bean
     @Order(2)
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
-            throws Exception {
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authorize) -> authorize
+                // 1. Disable CSRF for all /api endpoints so Postman can POST
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/api/**")
+                )
+                // 2. Authorization rules
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/login", "/register", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated()
                 )
-                // Form login handles the redirect to the login page from the
-                // authorization server filter chain
-                .oauth2Login(
-                        config -> config
-                                .loginPage("/login")
-                                .permitAll()
-                )
-                .oauth2Client(Customizer.withDefaults())
-                .formLogin(config -> config
+                // 3. Web UI Login Form
+                .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
+                )
+                // 4. Accept JWT access tokens for protected /api endpoints
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(Customizer.withDefaults())
                 );
 
         return http.build();
