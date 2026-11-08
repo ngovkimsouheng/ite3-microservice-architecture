@@ -9,14 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/dto/CommonDtos.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/dto/CommonDtos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/CreateUserUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/CreateUserUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/GetUserUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/GetUserUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/RegisterUserUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/RegisterUserUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/UpdateUserProfileUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/UpdateUserProfileUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/dto/RestDtos.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/dto/RestDtos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/exception/GlobalExceptionHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -390,7 +384,7 @@
       <workItem from="1794025465795" duration="619000" />
       <workItem from="1794026111637" duration="505000" />
       <workItem from="1794119240759" duration="17005000" />
-      <workItem from="1794147420395" duration="1497000" />
+      <workItem from="1794147420395" duration="8456000" />
     </task>
     <servers />
   </component>

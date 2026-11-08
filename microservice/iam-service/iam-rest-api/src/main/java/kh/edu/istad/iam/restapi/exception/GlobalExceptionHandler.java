@@ -5,9 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.net.URI;
 import java.util.List;
@@ -32,6 +35,33 @@ public class GlobalExceptionHandler {
                 .toList();
 
         problem.setProperty("errors", errors);
+        return problem;
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ProblemDetail handleTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problem.setType(URI.create("https://iam.istad.co/problems/invalid-parameter"));
+        problem.setTitle("Invalid Request Parameter");
+        problem.setDetail("Parameter '" + ex.getName() + "' has an invalid value.");
+        return problem;
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ProblemDetail handleMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.METHOD_NOT_ALLOWED);
+        problem.setType(URI.create("https://iam.istad.co/problems/method-not-allowed"));
+        problem.setTitle("Method Not Allowed");
+        problem.setDetail("The HTTP method is not supported for this endpoint.");
+        return problem;
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ProblemDetail handleResourceNotFoundException(NoResourceFoundException ex) {
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problem.setType(URI.create("https://iam.istad.co/problems/not-found"));
+        problem.setTitle("Not Found");
+        problem.setDetail("The requested endpoint was not found.");
         return problem;
     }
 
