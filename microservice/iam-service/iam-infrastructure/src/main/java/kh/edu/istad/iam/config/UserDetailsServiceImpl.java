@@ -1,7 +1,6 @@
 package kh.edu.istad.iam.config;
 
 import kh.edu.istad.iam.application.dto.CommonDtos.AuthUserResult;
-
 import kh.edu.istad.iam.application.usecase.user.LoadUserForAuthenticationUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,7 +22,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        AuthUserResult authUser = loadUserUseCase.execute(usernameOrEmail);
+        AuthUserResult authUser;
+        try {
+            authUser = loadUserUseCase.execute(usernameOrEmail);
+        } catch (Exception ex) {
+            throw new UsernameNotFoundException("Failed to load user: " + usernameOrEmail, ex);
+        }
+
         if (authUser == null) {
             throw new UsernameNotFoundException("User not found: " + usernameOrEmail);
         }
@@ -36,7 +41,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         return User.builder()
-                .username(authUser.uuid().toString())
+                .username(authUser.username()) // Use authUser.username() for standard form login matching
                 .password(authUser.passwordHash() != null ? authUser.passwordHash() : "")
                 .disabled(!authUser.enabled())
                 .accountExpired(!authUser.accountNonExpired())

@@ -87,7 +87,7 @@ public class UserJpaEntity {
     @Column(name = "address_country", length = 2)
     private String addressCountry;
 
-    @Column(nullable = false)
+    @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
     @Column(name = "account_non_expired", nullable = false)
