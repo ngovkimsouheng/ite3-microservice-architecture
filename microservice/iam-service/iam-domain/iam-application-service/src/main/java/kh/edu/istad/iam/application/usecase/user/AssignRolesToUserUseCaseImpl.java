@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,7 +37,7 @@ public class AssignRolesToUserUseCaseImpl implements AssignRolesToUserUseCase {
         OffsetDateTime now = OffsetDateTime.now();
         List<RoleAssignmentResult> results = new ArrayList<>();
 
-        for (UUID roleUuid : command.roleUuids()) {
+        for (UUID roleUuid : new LinkedHashSet<>(command.roleUuids())) {
             Role role = roleRepository.findByUuid(roleUuid)
                     .filter(r -> !r.isDeleted())
                     .orElseThrow(() -> new IllegalArgumentException("Role not found: " + roleUuid));
@@ -46,16 +47,26 @@ public class AssignRolesToUserUseCaseImpl implements AssignRolesToUserUseCase {
             }
 
             var existing = userRepository.findRoleAssignment(user.getId(), role.getId());
-            if (existing.isPresent() && existing.get().getRevokedAt() == null) {
+            if (existing.isPresent() && existing.get().isActive()) {
+                UserRoleAssignment activeAssignment = existing.get();
+                results.add(new RoleAssignmentResult(
+                        role.getUuid(),
+                        role.getName(),
+                        activeAssignment.getAssignedAt(),
+                        activeAssignment.getExpiresAt()
+                ));
                 continue;
             }
 
             UserRoleAssignment assignment = UserRoleAssignment.builder()
+                    .id(existing.map(UserRoleAssignment::getId).orElse(null))
                     .userId(user.getId())
                     .roleId(role.getId())
                     .assignedAt(now)
                     .assignedBy(actor)
                     .expiresAt(command.expiresAt())
+                    .revokedAt(null)
+                    .revokedBy(null)
                     .reason(command.reason())
                     .build();
 
