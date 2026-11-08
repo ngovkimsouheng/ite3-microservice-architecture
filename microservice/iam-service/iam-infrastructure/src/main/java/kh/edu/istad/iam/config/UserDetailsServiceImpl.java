@@ -22,13 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        AuthUserResult authUser;
-        try {
-            authUser = loadUserUseCase.execute(usernameOrEmail);
-        } catch (Exception ex) {
-            throw new UsernameNotFoundException("Failed to load user: " + usernameOrEmail, ex);
-        }
-
+        AuthUserResult authUser = loadUserUseCase.execute(usernameOrEmail);
         if (authUser == null) {
             throw new UsernameNotFoundException("User not found: " + usernameOrEmail);
         }
@@ -41,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         return User.builder()
-                .username(authUser.username()) // Use authUser.username() for standard form login matching
+                .username(authUser.username())
                 .password(authUser.passwordHash() != null ? authUser.passwordHash() : "")
                 .disabled(!authUser.enabled())
                 .accountExpired(!authUser.accountNonExpired())

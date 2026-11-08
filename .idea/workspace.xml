@@ -11,10 +11,14 @@
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63/storage_v2/_src_/database/db_oauth2.XEtWEw/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63/storage_v2/_src_/database/db_oauth2.XEtWEw/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/JwtCustomizerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/JwtCustomizerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/TokenConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/TokenConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/UserDetailsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/entity/UserJpaEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/entity/UserJpaEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/InitRegisteredClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/InitRegisteredClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +210,7 @@
             <map>
               <entry key="BusinessApplication" value="STOPPED" />
               <entry key="CustomerApplicationService" value="STOPPED" />
-              <entry key="IamServiceApplication" value="STOPPED" />
+              <entry key="IamServiceApplication" value="FAILED" />
               <entry key="OrderApplicationService" value="STOPPED" />
               <entry key="PaymentApplicationService" value="STOPPED" />
             </map>
@@ -388,7 +392,8 @@
       <workItem from="1794025465795" duration="619000" />
       <workItem from="1794026111637" duration="505000" />
       <workItem from="1794119240759" duration="17005000" />
-      <workItem from="1794147420395" duration="12744000" />
+      <workItem from="1794147420395" duration="15723000" />
+      <workItem from="1794165958236" duration="585000" />
     </task>
     <servers />
   </component>

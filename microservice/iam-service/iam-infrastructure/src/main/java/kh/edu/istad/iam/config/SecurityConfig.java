@@ -5,37 +5,26 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import kh.edu.istad.iam.adapter.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
-import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer;
-import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
-import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
-import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
@@ -52,31 +41,29 @@ import java.util.UUID;
 public class SecurityConfig {
 
     private final JdbcTemplate jdbcTemplate;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     @Order(1)
-    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
-            throws Exception {
+    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
         OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer();
 
         http
                 .securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
-                .with(authorizationServerConfigurer, (authorizationServer) ->
+                .with(authorizationServerConfigurer, authorizationServer ->
                         authorizationServer
-                                .oidc((oidc) -> oidc
-                                        // 1. Explicitly enable Dynamic Client Registration (POST /connect/register)
+                                .oidc(oidc -> oidc
+                                        // Section E.3: Dynamic Client Registration
                                         .clientRegistrationEndpoint(Customizer.withDefaults())
                                 )
                 )
-                .authorizeHttpRequests((authorize) ->
+                .authorizeHttpRequests(authorize ->
                         authorize
                                 .anyRequest().authenticated()
                 )
-                // 2. Allow Chain 1 to validate Bearer tokens for /connect/register
-                .oauth2ResourceServer((oauth2) -> oauth2
-                        .jwt(Customizer.withDefaults())
-                )
-                .exceptionHandling((exceptions) -> exceptions
+                // Critical for DCR: Enables Bearer token authentication on /connect/register
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+                .exceptionHandling(exceptions -> exceptions
                         .defaultAuthenticationEntryPointFor(
                                 new LoginUrlAuthenticationEntryPoint("/login"),
                                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
@@ -86,35 +73,34 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Chain 2: REST API & Form Login Filter Chain
     @Bean
     @Order(2)
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                // 1. Disable CSRF for all /api endpoints so Postman can POST
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/api/**")
+                        .ignoringRequestMatchers("/api/**", "/connect/register")
                 )
-                // 2. Authorization rules
-                .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/login", "/register", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated()
                 )
-                // 3. Web UI Login Form
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
                 )
-                // 4. Accept JWT access tokens for protected /api endpoints
-                .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(Customizer.withDefaults())
+                // Section E.4: Hook CustomOAuth2UserService for Social Login
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
                 );
 
         return http.build();
     }
-
 
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
@@ -122,12 +108,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public OAuth2AuthorizationService oAuth2AuthorizationService(){
+    public OAuth2AuthorizationService oAuth2AuthorizationService() {
         return new JdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository());
     }
 
     @Bean
-    public OAuth2AuthorizationConsentService oAuth2AuthorizationConsentService(){
+    public OAuth2AuthorizationConsentService oAuth2AuthorizationConsentService() {
         return new JdbcOAuth2AuthorizationConsentService(jdbcTemplate, registeredClientRepository());
     }
 
@@ -150,8 +136,7 @@ public class SecurityConfig {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
             keyPairGenerator.initialize(2048);
             keyPair = keyPairGenerator.generateKeyPair();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new IllegalStateException(ex);
         }
         return keyPair;
@@ -168,6 +153,4 @@ public class SecurityConfig {
                 .issuer("http://localhost:9000")
                 .build();
     }
-
-
 }
