@@ -32,13 +32,22 @@
       <schema-mapping>
         <introspection-scope>
           <node negative="1">
-            <node kind="database" negative="1" />
+            <node kind="database" negative="1">
+              <name qname="db_business" />
+              <name qname="db_customer" />
+              <name qname="db_oauth2" />
+              <name qname="db_order" />
+              <name qname="postgres" />
+            </node>
             <node kind="database">
               <name qname="db_business" />
               <name qname="db_customer" />
               <name qname="db_oauth2" />
               <name qname="db_order" />
               <node kind="schema" negative="1" />
+            </node>
+            <node kind="database" qname="postgres">
+              <node kind="schema" qname="public" />
             </node>
           </node>
         </introspection-scope>
