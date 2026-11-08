@@ -1,5 +1,6 @@
 package kh.edu.istad.iam.persistence.adapter;
 
+import kh.edu.istad.iam.application.dto.CommonDtos;
 import kh.edu.istad.iam.application.port.out.UserRepository;
 import kh.edu.istad.iam.domain.core.entity.User;
 import kh.edu.istad.iam.domain.core.entity.UserPermissionAssignment;
@@ -11,6 +12,10 @@ import kh.edu.istad.iam.persistence.repository.UserJpaRepository;
 import kh.edu.istad.iam.persistence.repository.UserPermissionAssignmentJpaRepository;
 import kh.edu.istad.iam.persistence.repository.UserRoleAssignmentJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,6 +29,26 @@ public class UserRepositoryAdapter implements UserRepository {
     private final UserJpaRepository userJpaRepository;
     private final UserRoleAssignmentJpaRepository userRoleRepo;
     private final UserPermissionAssignmentJpaRepository userPermRepo;
+
+    @Override
+    public CommonDtos.PageResult<User> findAll(int page, int size, String sort) {
+        Sort sortObj = (sort != null && !sort.isBlank()) ? Sort.by(sort) : Sort.by("id").ascending();
+        Pageable pageable = PageRequest.of(page, size, sortObj);
+
+        Page<UserJpaEntity> entityPage = userJpaRepository.findAllByIsDeletedFalse(pageable);
+
+        List<User> content = entityPage.getContent().stream()
+                .map(this::mapToDomain)
+                .toList();
+
+        return new CommonDtos.PageResult<>(
+                content,
+                entityPage.getNumber(),
+                entityPage.getSize(),
+                entityPage.getTotalElements(),
+                entityPage.getTotalPages()
+        );
+    }
 
     @Override
     public User save(User user) {
@@ -59,6 +84,11 @@ public class UserRepositoryAdapter implements UserRepository {
     @Override
     public boolean existsByEmail(String email) {
         return userJpaRepository.findByEmail(email).isPresent();
+    }
+
+    @Override
+    public boolean existsByPhoneNumber(String phoneNumber) {
+        return userJpaRepository.existsByPhoneNumberAndIsDeletedFalse(phoneNumber);
     }
 
     @Override

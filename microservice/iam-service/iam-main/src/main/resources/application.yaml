@@ -1,49 +1,131 @@
+server:
+  port: 9000
+
 spring:
   application:
     name: iam-service
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            provider: github
-            client-id: ${GITHUB_OAUTH_CLIENT_ID}
-            client-secret: ${GITHUB_OAUTH_CLIENT_SECRET}
-            client-name: GitHub
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-          google:
-            provider: google
-            client-id: ${GOOGLE_OAUTH_CLIENT_ID}
-            client-secret: ${GOOGLE_OAUTH_CLIENT_SECRET}
-            client-name: Google
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
 
-
-        provider:
-          google:
-          github:
-
-      authorizationserver:
-        issuer: http://localhost:9000
   datasource:
-    url: jdbc:postgresql://localhost:9543/db_oauth2
-    username: iteuser
-    password: qwerqwer
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:9543/db_oauth2}
+    username: ${DATASOURCE_USERNAME:iteuser}
+    password: ${DATASOURCE_PASSWORD:qwerqwer}
     driver-class-name: org.postgresql.Driver
+
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
 
   liquibase:
+    enabled: true
     url: ${spring.datasource.url}
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
     driver-class-name: ${spring.datasource.driver-class-name}
     change-log: classpath:/db/changelog/db.changelog-master.yaml
 
-server:
-  port: 9000
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: ${OAUTH2_ISSUER_URI:http://localhost:9000}
+
+      # Section E.4: Social login providers (Google, GitHub, Facebook, Telegram)
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_OAUTH_CLIENT_ID:google-client-id}
+            client-secret: ${GOOGLE_OAUTH_CLIENT_SECRET:google-client-secret}
+            scope:
+              - openid
+              - profile
+              - email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-name: Google
+
+          github:
+            client-id: ${GITHUB_OAUTH_CLIENT_ID:github-client-id}
+            client-secret: ${GITHUB_OAUTH_CLIENT_SECRET:github-client-secret}
+            scope:
+              - read:user
+              - user:email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-name: GitHub
+
+          facebook:
+            client-id: ${FACEBOOK_OAUTH_CLIENT_ID:facebook-client-id}
+            client-secret: ${FACEBOOK_OAUTH_CLIENT_SECRET:facebook-client-secret}
+            scope:
+              - public_profile
+              - email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-name: Facebook
+
+# Client registration secrets for InitRegisteredClient
+app:
+  oauth2:
+    clients:
+      registrar:
+        secret: ${REGISTRAR_CLIENT_SECRET:registrar-secret}
+      gateway:
+        secret: ${GATEWAY_CLIENT_SECRET:gateway-secret}
+      web:
+        secret: ${WEB_CLIENT_SECRET:web-secret}
 
 logging:
   level:
-    org.springframework.security: TRACE
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: DEBUG
+
+
+#spring:
+#  application:
+#    name: iam-service
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          github:
+#            provider: github
+#            client-id: ${GITHUB_OAUTH_CLIENT_ID}
+#            client-secret: ${GITHUB_OAUTH_CLIENT_SECRET}
+#            client-name: GitHub
+#            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+#          google:
+#            provider: google
+#            client-id: ${GOOGLE_OAUTH_CLIENT_ID}
+#            client-secret: ${GOOGLE_OAUTH_CLIENT_SECRET}
+#            client-name: Google
+#            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+#
+#
+#        provider:
+#          google:
+#          github:
+#
+#      authorizationserver:
+#        issuer: http://localhost:9000
+#  datasource:
+#    url: jdbc:postgresql://localhost:9543/db_oauth2
+#    username: iteuser
+#    password: qwerqwer
+#    driver-class-name: org.postgresql.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#
+#  liquibase:
+#    url: ${spring.datasource.url}
+#    user: ${spring.datasource.username}
+#    password: ${spring.datasource.password}
+#    driver-class-name: ${spring.datasource.driver-class-name}
+#    change-log: classpath:/db/changelog/db.changelog-master.yaml
+#
+#server:
+#  port: 9000
+#
+#logging:
+#  level:
+#    org.springframework.security: TRACE

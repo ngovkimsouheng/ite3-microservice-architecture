@@ -11,4 +11,5 @@ public interface IdentityRepository {
     Optional<Identity> findByProviderAndProviderSubject(String provider, String providerSubject);
     List<Identity> findActiveByUserId(Long userId);
     Optional<Identity> findActiveByUserIdAndProvider(Long userId, String provider);
+    List<Identity> findByUserId(Long userId);
 }

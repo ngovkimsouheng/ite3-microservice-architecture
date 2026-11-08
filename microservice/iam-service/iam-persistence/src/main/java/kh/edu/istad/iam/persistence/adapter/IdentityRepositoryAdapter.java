@@ -38,6 +38,13 @@ public class IdentityRepositoryAdapter implements IdentityRepository {
                 .map(this::mapToDomain)
                 .toList();
     }
+    @Override
+    public List<Identity> findByUserId(Long userId) {
+        return identityJpaRepository.findByUserIdAndIsDeletedFalse(userId)
+                .stream()
+                .map(this::mapToDomain)
+                .toList();
+    }
 
     @Override
     public Optional<Identity> findActiveByUserIdAndProvider(Long userId, String provider) {

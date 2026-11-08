@@ -7,8 +7,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-// User Results & Commands
 public class CommonDtos {
+
+    // --- User Commands & Results ---
 
     public record UserResult(
             UUID uuid,
@@ -61,6 +62,11 @@ public class CommonDtos {
             String phoneNumber,
             String zoneinfo,
             String locale,
+            String addressStreetAddress,
+            String addressLocality,
+            String addressRegion,
+            String addressPostalCode,
+            String addressCountry,
             List<UUID> roleUuids
     ) {}
 
@@ -105,6 +111,11 @@ public class CommonDtos {
             String reason
     ) {}
 
+    public record UserRoleResult(
+            UUID uuid,
+            String name
+    ) {}
+
     public record PermissionGrantResult(
             UUID permissionUuid,
             String permissionName,
@@ -115,7 +126,8 @@ public class CommonDtos {
     public record UserAuthoritiesResult(
             UUID userUuid,
             Set<String> roles,
-            Set<String> permissions
+            Set<String> permissions,
+            List<UserRoleResult> roleDetails
     ) {}
 
     public record AuthUserResult(
@@ -130,20 +142,25 @@ public class CommonDtos {
             Set<String> authorities
     ) {}
 
-    // Role Commands & Results
+    // --- Role Commands & Results ---
+
     public record CreateRoleCommand(String name, String description) {}
-    public record UpdateRoleCommand(UUID roleUuid, String description) {}
-    public record RoleResult(UUID uuid, String name, String description, boolean isSystem, boolean isActive) {}
-    public record RoleSummary(UUID uuid, String name, String description, boolean isActive) {}
+    public record UpdateRoleCommand(UUID roleUuid, String name, String description) {}
+    public record RoleResult(UUID uuid, String name, String description, boolean isSystem, boolean active) {}
+    public record RoleSummary(UUID uuid, String name, boolean active) {}
     public record AssignPermissionsToRoleCommand(UUID roleUuid, List<UUID> permissionUuids, String reason) {}
     public record PermissionAssignmentResult(UUID permissionUuid, String permissionName, OffsetDateTime assignedAt) {}
 
-    // Permission Commands & Results
+    // --- Permission Commands & Results ---
+
     public record CreatePermissionCommand(String resource, String action, String description) {}
     public record UpdatePermissionCommand(UUID permissionUuid, String description) {}
-    public record PermissionResult(UUID uuid, String name, String resource, String action, String description, boolean isSystem, boolean isActive) {}
+    public record PermissionResult(
+            UUID uuid, String name, String resource, String action, String description, boolean isSystem, boolean active
+    ) {}
 
-    // Identity Commands & Results
+    // --- Identity Commands & Results ---
+
     public record FederatedIdentityCommand(
             String provider,
             String providerSubject,

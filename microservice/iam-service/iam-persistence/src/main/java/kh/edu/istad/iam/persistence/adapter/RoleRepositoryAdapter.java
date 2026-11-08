@@ -1,5 +1,6 @@
 package kh.edu.istad.iam.persistence.adapter;
 
+import kh.edu.istad.iam.application.dto.CommonDtos;
 import kh.edu.istad.iam.application.port.out.RoleRepository;
 import kh.edu.istad.iam.domain.core.entity.Role;
 import kh.edu.istad.iam.domain.core.entity.RolePermissionAssignment;
@@ -8,6 +9,10 @@ import kh.edu.istad.iam.persistence.entity.RolePermissionAssignmentJpaEntity;
 import kh.edu.istad.iam.persistence.repository.RoleJpaRepository;
 import kh.edu.istad.iam.persistence.repository.RolePermissionAssignmentJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,7 +25,30 @@ public class RoleRepositoryAdapter implements RoleRepository {
 
     private final RoleJpaRepository roleJpaRepository;
     private final RolePermissionAssignmentJpaRepository rolePermRepo;
+    @Override
+    public CommonDtos.PageResult<Role> findAll(int page, int size, String sort) {
+        Sort sortObj;
+        if (sort != null && !sort.isBlank()) {
+            sortObj = Sort.by(sort);
+        } else {
+            sortObj = Sort.by("id").ascending();
+        }
+        Pageable pageable = PageRequest.of(page, size, sortObj);
 
+        Page<RoleJpaEntity> entityPage = roleJpaRepository.findAllByIsDeletedFalse(pageable);
+
+        List<Role> content = entityPage.getContent().stream()
+                .map(this::mapToDomain) // or your mapping method
+                .toList();
+
+        return new CommonDtos.PageResult<>(
+                content,
+                entityPage.getNumber(),
+                entityPage.getSize(),
+                entityPage.getTotalElements(),
+                entityPage.getTotalPages()
+        );
+    }
     @Override
     public Role save(Role role) {
         RoleJpaEntity entity = RoleJpaEntity.builder()

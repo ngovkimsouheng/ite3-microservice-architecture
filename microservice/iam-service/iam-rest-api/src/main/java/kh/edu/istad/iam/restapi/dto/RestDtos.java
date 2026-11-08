@@ -2,8 +2,10 @@ package kh.edu.istad.iam.restapi.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import kh.edu.istad.iam.application.dto.CommonDtos;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -75,6 +77,11 @@ public class RestDtos {
             @NotBlank String confirmPassword
     ) {}
 
+    public record ResetUserPasswordRequest(
+            @NotBlank(message = "New password cannot be blank")
+            String newPassword
+    ) {}
+
     public record AssignRolesToUserRequest(
             @NotNull List<UUID> roleUuids,
             OffsetDateTime expiresAt,
@@ -94,9 +101,28 @@ public class RestDtos {
             List<UUID> permissionUuids
     ) {}
 
+    public record UpdateRoleRequest(
+            @NotBlank(message = "Name is required")
+            @Size(max = 50, message = "Name must not exceed 50 characters")
+            String name,
+
+            @Size(max = 255, message = "Description must not exceed 255 characters")
+            String description
+    ) {}
+
+    public record AssignPermissionsToRoleRequest(
+            @NotEmpty(message = "permissionUuids cannot be empty")
+            List<UUID> permissionUuids,
+            String reason
+    ) {}
+
     public record CreatePermissionRequest(
             @NotBlank String resource,
             @NotBlank String action,
+            String description
+    ) {}
+
+    public record UpdatePermissionRequest(
             String description
     ) {}
 
@@ -119,9 +145,10 @@ public class RestDtos {
             String name
     ) {}
 
-    public record UserAuthoritiesResponse(
-            Set<String> roles,
-            Set<String> effectivePermissions
+    public record RoleSummaryResponse(
+            UUID uuid,
+            String name,
+            boolean active
     ) {}
 
     public record RoleResponse(
@@ -142,6 +169,11 @@ public class RestDtos {
             boolean isActive
     ) {}
 
+    public record UserAuthoritiesResponse(
+            Set<String> roles,
+            Set<String> effectivePermissions
+    ) {}
+
     public record IdentityResponse(
             UUID uuid,
             String provider,
@@ -149,4 +181,28 @@ public class RestDtos {
             String displayName,
             OffsetDateTime linkedAt
     ) {}
+
+    public record PageMetadata(
+            int number,
+            int size,
+            long totalElements,
+            int totalPages
+    ) {}
+
+    public record PageResponse<T>(
+            List<T> content,
+            PageMetadata page
+    ) {
+        public static <T> PageResponse<T> from(CommonDtos.PageResult<T> result) {
+            return new PageResponse<>(
+                    result.content(),
+                    new PageMetadata(
+                            result.pageNumber(),
+                            result.pageSize(),
+                            result.totalElements(),
+                            result.totalPages()
+                    )
+            );
+        }
+    }
 }

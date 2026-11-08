@@ -1,10 +1,15 @@
 package kh.edu.istad.iam.persistence.adapter;
 
+import kh.edu.istad.iam.application.dto.CommonDtos;
 import kh.edu.istad.iam.application.port.out.PermissionRepository;
 import kh.edu.istad.iam.domain.core.entity.Permission;
 import kh.edu.istad.iam.persistence.entity.PermissionJpaEntity;
 import kh.edu.istad.iam.persistence.repository.PermissionJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,7 +21,25 @@ import java.util.UUID;
 public class PermissionRepositoryAdapter implements PermissionRepository {
 
     private final PermissionJpaRepository permissionJpaRepository;
+    @Override
+    public CommonDtos.PageResult<Permission> findAll(int page, int size, String sort) {
+        Sort sortObj = (sort != null && !sort.isBlank()) ? Sort.by(sort) : Sort.by("id").ascending();
+        Pageable pageable = PageRequest.of(page, size, sortObj);
 
+        Page<PermissionJpaEntity> entityPage = permissionJpaRepository.findAllByIsDeletedFalse(pageable);
+
+        List<Permission> domainList = entityPage.getContent().stream()
+                .map(this::mapToDomain)
+                .toList();
+
+        return new CommonDtos.PageResult<>(
+                domainList,
+                entityPage.getNumber(),
+                entityPage.getSize(),
+                entityPage.getTotalElements(),
+                entityPage.getTotalPages()
+        );
+    }
     @Override
     public Permission save(Permission p) {
         PermissionJpaEntity entity = PermissionJpaEntity.builder()
