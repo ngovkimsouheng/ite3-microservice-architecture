@@ -96,6 +96,7 @@ public class UserController {
     ) {
         UserResult result = updateUserProfileUseCase.execute(new UpdateUserProfileCommand(
                 uuid,
+                request.username(),
                 request.givenName(),
                 request.nickname(),
                 request.phoneNumber(),
@@ -236,6 +237,7 @@ public class UserController {
         UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
         UserResult result = updateUserProfileUseCase.execute(new UpdateUserProfileCommand(
                 currentUuid,
+                request.username(),
                 request.givenName(),
                 request.nickname(),
                 request.phoneNumber(),
@@ -283,6 +285,7 @@ public class UserController {
                 result.emailVerified(),
                 result.givenName() + " " + result.familyName(),
                 result.locale(),
+                result.phoneNumber(),
                 result.enabled(),
                 authorities.roleDetails() != null ? authorities.roleDetails().stream()
                         .map(role -> new RoleDto(role.uuid(), role.name()))

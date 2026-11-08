@@ -65,6 +65,7 @@ public class RegisterUserUseCaseImpl implements RegisterUserUseCase {
                 saved.getGivenName(),
                 saved.getFamilyName(),
                 saved.getLocale(),
+                saved.getPhoneNumber(),
                 saved.isEnabled(),
                 saved.getCreatedAt(),
                 saved.getUpdatedAt()

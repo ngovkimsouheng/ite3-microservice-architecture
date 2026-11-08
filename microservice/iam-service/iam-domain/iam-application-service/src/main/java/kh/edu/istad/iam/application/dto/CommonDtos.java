@@ -19,6 +19,7 @@ public class CommonDtos {
             String givenName,
             String familyName,
             String locale,
+            String phoneNumber,
             boolean enabled,
             OffsetDateTime createdAt,
             OffsetDateTime updatedAt
@@ -72,6 +73,7 @@ public class CommonDtos {
 
     public record UpdateUserProfileCommand(
             UUID userUuid,
+            String username,
             String givenName,
             String nickname,
             String phoneNumber,

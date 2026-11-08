@@ -65,8 +65,11 @@ public class RestDtos {
     ) {}
 
     public record UpdateUserProfileRequest(
+            @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
+            String username,
             String givenName,
             String nickname,
+            @Size(max = 20, message = "Phone number must not exceed 20 characters")
             String phoneNumber,
             String locale
     ) {}
@@ -134,6 +137,7 @@ public class RestDtos {
             boolean emailVerified,
             String name,
             String locale,
+            String phoneNumber,
             boolean enabled,
             List<RoleDto> roles,
             OffsetDateTime createdAt,

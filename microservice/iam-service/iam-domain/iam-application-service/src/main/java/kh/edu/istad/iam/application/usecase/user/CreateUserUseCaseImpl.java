@@ -129,6 +129,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
                 savedUser.getGivenName(),
                 savedUser.getFamilyName(),
                 savedUser.getLocale(),
+                savedUser.getPhoneNumber(),
                 savedUser.isEnabled(),
                 savedUser.getCreatedAt(),
                 savedUser.getUpdatedAt()

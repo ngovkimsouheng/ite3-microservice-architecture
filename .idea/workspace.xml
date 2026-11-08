@@ -8,58 +8,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/RolePermissionRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/permission/ActivatePermissionUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/permission/DeactivatePermissionUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/permission/DeletePermissionUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/permission/ListPermissionsUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/permission/UpdatePermissionUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/role/ActivateRoleUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/role/AssignPermissionsToRoleUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/role/DeactivateRoleUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/role/DeleteRoleUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/role/ListRolesUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/role/RevokePermissionFromRoleUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/role/UpdateRoleUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/AssignRolesToUserUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/ChangePasswordUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/CreateUserUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/DeleteUserUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/DisableUserUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/EnableUserUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/GrantPermissionsToUserUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/ListUserIdentitiesUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/ListUsersUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/LockUserUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/ResetUserPasswordUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/RevokePermissionFromUserUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/RevokeRoleFromUserUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/UnlockUserUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/UpdateUserProfileUseCaseImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/RolePermissionRepositoryAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/entity/RolePermissionJpaEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/RolePermissionJpaRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/dto/CommonDtos.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/dto/CommonDtos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/IdentityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/IdentityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/PermissionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/PermissionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/RoleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/port/out/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/GetUserAuthoritiesUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/GetUserAuthoritiesUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/LoadUserForAuthenticationUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/LoadUserForAuthenticationUseCaseImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/TokenConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/TokenConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/InitRegisteredClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/InitRegisteredClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/IdentityRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/IdentityRepositoryAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/PermissionRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/PermissionRepositoryAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/RoleRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/RoleRepositoryAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/UserRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/adapter/UserRepositoryAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/PermissionJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/PermissionJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/RoleJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/RoleJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/RolePermissionAssignmentJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/RolePermissionAssignmentJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/UserJpaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/UserJpaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/PermissionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/PermissionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/RoleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/CreateUserUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/CreateUserUseCaseImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/GetUserUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/GetUserUseCaseImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/RegisterUserUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/RegisterUserUseCaseImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/UpdateUserProfileUseCaseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/application/usecase/user/UpdateUserProfileUseCaseImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/dto/RestDtos.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/dto/RestDtos.java" afterDir="false" />
     </list>
@@ -144,9 +99,9 @@
     &quot;accountId&quot;: &quot;84c967e8-877d-410e-a198-3dfecc5ed5ab&quot;
   }
 }</component>
-  <component name="HttpClientOnboardingState"><![CDATA[{
-  "isOnboardingCommentShown": true
-}]]></component>
+  <component name="HttpClientOnboardingState">{
+  &quot;isOnboardingCommentShown&quot;: true
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -181,46 +136,46 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.postgres/docker-compose.yaml: Compose Deployment.executor": "Run",
-    "Gradle.Build discovery-service.executor": "Run",
-    "Gradle.Build istad-ite-project.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.build-logic [dependencies].executor": "Run",
-    "HTTP Request.generated-requests | #50.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.BusinessApplication.executor": "Run",
-    "Spring Boot.CustomerApplicationService.executor": "Run",
-    "Spring Boot.DiscoveryServiceApplication.executor": "Run",
-    "Spring Boot.IamServiceApplication.executor": "Run",
-    "Spring Boot.OrderApplicationService.executor": "Run",
-    "Spring Boot.PaymentApplicationService.executor": "Run",
-    "copilot.chat.legacySessionMetadata.migrated": "true",
-    "git-widget-placeholder": "iam-service",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.postgres/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build discovery-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build istad-ite-project.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.build-logic [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #50.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BusinessApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.CustomerApplicationService.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DiscoveryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.IamServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.OrderApplicationService.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PaymentApplicationService.executor&quot;: &quot;Run&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;iam-service&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\src\main\resources\templates" />
@@ -434,7 +389,8 @@
       <workItem from="1793986195252" duration="11821000" />
       <workItem from="1794025465795" duration="619000" />
       <workItem from="1794026111637" duration="505000" />
-      <workItem from="1794119240759" duration="16688000" />
+      <workItem from="1794119240759" duration="17005000" />
+      <workItem from="1794147420395" duration="1497000" />
     </task>
     <servers />
   </component>

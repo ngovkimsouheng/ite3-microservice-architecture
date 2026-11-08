@@ -27,6 +27,7 @@ public class GetUserUseCaseImpl implements GetUserUseCase {
                 user.getGivenName(),
                 user.getFamilyName(),
                 user.getLocale(),
+                user.getPhoneNumber(),
                 user.isEnabled(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()

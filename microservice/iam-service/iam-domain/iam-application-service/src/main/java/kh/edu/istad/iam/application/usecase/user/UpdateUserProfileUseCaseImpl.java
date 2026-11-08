@@ -2,7 +2,6 @@ package kh.edu.istad.iam.application.usecase.user;
 
 import kh.edu.istad.iam.application.dto.CommonDtos.UpdateUserProfileCommand;
 import kh.edu.istad.iam.application.dto.CommonDtos.UserResult;
-import kh.edu.istad.iam.application.port.out.CurrentActorProvider;
 import kh.edu.istad.iam.application.port.out.UserRepository;
 import kh.edu.istad.iam.domain.core.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import java.time.OffsetDateTime;
 public class UpdateUserProfileUseCaseImpl implements UpdateUserProfileUseCase {
 
     private final UserRepository userRepository;
-    private final CurrentActorProvider currentActorProvider;
 
     @Override
     @Transactional
@@ -25,6 +23,15 @@ public class UpdateUserProfileUseCaseImpl implements UpdateUserProfileUseCase {
                 .filter(u -> !u.isDeleted())
                 .orElseThrow(() -> new IllegalArgumentException("User not found: " + command.userUuid()));
 
+        if (command.username() != null && !command.username().isBlank()) {
+            if (!command.username().equals(user.getUsername())
+                    && userRepository.findByUsername(command.username())
+                    .filter(existing -> !existing.getUuid().equals(user.getUuid()))
+                    .isPresent()) {
+                throw new IllegalArgumentException("Username already taken.");
+            }
+            user.setUsername(command.username());
+        }
         if (command.givenName() != null && !command.givenName().isBlank()) {
             user.setGivenName(command.givenName());
         }
@@ -39,21 +46,24 @@ public class UpdateUserProfileUseCaseImpl implements UpdateUserProfileUseCase {
         }
 
         user.setUpdatedAt(OffsetDateTime.now());
-        user.setUpdatedBy(currentActorProvider.getCurrentActorSub());
+        User saved = userRepository.save(user);
 
-        User updated = userRepository.save(user);
+        return toUserResult(saved);
+    }
 
+    private UserResult toUserResult(User u) {
         return new UserResult(
-                updated.getUuid(),
-                updated.getUsername(),
-                updated.getEmail(),
-                updated.isEmailVerified(),
-                updated.getGivenName(),
-                updated.getFamilyName(),
-                updated.getLocale(),
-                updated.isEnabled(),
-                updated.getCreatedAt(),
-                updated.getUpdatedAt()
+                u.getUuid(),
+                u.getUsername(),
+                u.getEmail(),
+                u.isEmailVerified(),
+                u.getGivenName(),
+                u.getFamilyName(),
+                u.getLocale(),
+                u.getPhoneNumber(),
+                u.isEnabled(),
+                u.getCreatedAt(),
+                u.getUpdatedAt()
         );
     }
 }

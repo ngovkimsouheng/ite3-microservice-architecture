@@ -41,6 +41,7 @@ public class AuthController {
                 result.emailVerified(),
                 result.givenName() + " " + result.familyName(),
                 result.locale(),
+                result.phoneNumber(),
                 result.enabled(),
                 Collections.emptyList(),
                 result.createdAt(),
