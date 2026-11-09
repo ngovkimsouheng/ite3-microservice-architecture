@@ -2,7 +2,9 @@ package kh.edu.istad.iam.adapter;
 
 import kh.edu.istad.iam.domain.dto.AuthUserResult;
 import kh.edu.istad.iam.domain.dto.FederatedIdentityCommand;
+import kh.edu.istad.iam.domain.port.out.CurrentActorProvider;
 import kh.edu.istad.iam.domain.usecase.identity.FindOrProvisionFederatedUserUseCase;
+import kh.edu.istad.iam.domain.usecase.identity.LinkIdentityUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
@@ -11,6 +13,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
@@ -18,6 +23,7 @@ import org.springframework.web.client.RestClientException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +35,8 @@ public class FederatedUserProvisioner {
             new ParameterizedTypeReference<>() {};
 
     private final FindOrProvisionFederatedUserUseCase federatedUserUseCase;
+    private final LinkIdentityUseCase linkIdentityUseCase;
+    private final CurrentActorProvider currentActorProvider;
     private final RestClient restClient = RestClient.create();
 
     public AuthUserResult provision(OAuth2UserRequest userRequest, Map<String, Object> attributes,
@@ -76,7 +84,7 @@ public class FederatedUserProvisioner {
         }
 
         try {
-            AuthUserResult authUser = federatedUserUseCase.execute(new FederatedIdentityCommand(
+            FederatedIdentityCommand command = new FederatedIdentityCommand(
                     provider,
                     providerSubject,
                     email,
@@ -85,7 +93,18 @@ public class FederatedUserProvisioner {
                     username,
                     pictureUrl,
                     attributes
-            ));
+            );
+            AuthUserResult authUser;
+            String linkRequest = consumeLinkRequest();
+            if (linkRequest != null) {
+                if (!isValidLinkRequest(linkRequest, provider)) {
+                    throw new IllegalArgumentException("The identity-link request is invalid or expired.");
+                }
+                linkIdentityUseCase.execute(UUID.fromString(currentActorProvider.getCurrentActorSub()), command);
+                authUser = federatedUserUseCase.execute(command);
+            } else {
+                authUser = federatedUserUseCase.execute(command);
+            }
             log.info("Federated login provisioned for provider {} as user {}",
                     provider, authUser.uuid());
             return authUser;
@@ -125,6 +144,32 @@ public class FederatedUserProvisioner {
                     "The federated account could not be saved.",
                     exception
             );
+        }
+    }
+
+    private String consumeLinkRequest() {
+        if (!(RequestContextHolder.getRequestAttributes() instanceof ServletRequestAttributes attributes)) {
+            return null;
+        }
+        HttpSession session = attributes.getRequest().getSession(false);
+        if (session == null) {
+            return null;
+        }
+        Object value = session.getAttribute("iam.link-provider");
+        session.removeAttribute("iam.link-provider");
+        return value instanceof String linkRequest ? linkRequest : null;
+    }
+
+    private boolean isValidLinkRequest(String linkRequest, String provider) {
+        String[] parts = linkRequest.split(":", 2);
+        if (parts.length != 2 || !provider.equals(parts[0])) {
+            return false;
+        }
+        try {
+            long ageMillis = System.currentTimeMillis() - Long.parseLong(parts[1]);
+            return ageMillis >= 0 && ageMillis <= 5 * 60 * 1000L;
+        } catch (NumberFormatException exception) {
+            return false;
         }
     }
 

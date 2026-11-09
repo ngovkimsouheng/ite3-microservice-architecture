@@ -1,10 +1,12 @@
 package kh.edu.istad.iam;
 
 import kh.edu.istad.iam.domain.core.entity.Identity;
+import kh.edu.istad.iam.domain.core.entity.Role;
 import kh.edu.istad.iam.domain.core.entity.User;
 import kh.edu.istad.iam.domain.dto.FederatedIdentityCommand;
 import kh.edu.istad.iam.domain.dto.UserAuthoritiesResult;
 import kh.edu.istad.iam.domain.port.out.IdentityRepository;
+import kh.edu.istad.iam.domain.port.out.RoleRepository;
 import kh.edu.istad.iam.domain.port.out.UserRepository;
 import kh.edu.istad.iam.domain.usecase.identity.FindOrProvisionFederatedUserUseCase;
 import kh.edu.istad.iam.domain.usecase.user.GetUserAuthoritiesUseCase;
@@ -27,9 +29,11 @@ class FederatedUserProvisioningTests {
     void createsUserAndPersistsProviderIdentityOnFirstVerifiedLogin() {
         IdentityRepository identityRepository = mock(IdentityRepository.class);
         UserRepository userRepository = mock(UserRepository.class);
+        RoleRepository roleRepository = mock(RoleRepository.class);
         GetUserAuthoritiesUseCase authoritiesUseCase = mock(GetUserAuthoritiesUseCase.class);
         FindOrProvisionFederatedUserUseCase useCase =
-                new FindOrProvisionFederatedUserUseCase(identityRepository, userRepository, authoritiesUseCase);
+                new FindOrProvisionFederatedUserUseCase(
+                        identityRepository, userRepository, roleRepository, authoritiesUseCase);
         UUID userUuid = UUID.randomUUID();
 
         when(identityRepository.findByProviderAndProviderSubject("GOOGLE", "google-subject"))
@@ -42,6 +46,7 @@ class FederatedUserProvisioningTests {
             return user;
         });
         when(identityRepository.save(any(Identity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(roleRepository.findByName("USER")).thenReturn(Optional.of(defaultUserRole()));
         when(authoritiesUseCase.execute(any(UUID.class)))
                 .thenReturn(new UserAuthoritiesResult(userUuid, Set.of(), Set.of(), List.of()));
 
@@ -64,15 +69,18 @@ class FederatedUserProvisioningTests {
         assertEquals(42L, identityCaptor.getValue().getUserId());
         assertEquals("GOOGLE", identityCaptor.getValue().getProvider());
         assertEquals("google-subject", identityCaptor.getValue().getProviderSubject());
+        verify(userRepository).saveRoleAssignment(any());
     }
 
     @Test
     void linksVerifiedProviderToExistingVerifiedAccount() {
         IdentityRepository identityRepository = mock(IdentityRepository.class);
         UserRepository userRepository = mock(UserRepository.class);
+        RoleRepository roleRepository = mock(RoleRepository.class);
         GetUserAuthoritiesUseCase authoritiesUseCase = mock(GetUserAuthoritiesUseCase.class);
         FindOrProvisionFederatedUserUseCase useCase =
-                new FindOrProvisionFederatedUserUseCase(identityRepository, userRepository, authoritiesUseCase);
+                new FindOrProvisionFederatedUserUseCase(
+                        identityRepository, userRepository, roleRepository, authoritiesUseCase);
 
         UUID userUuid = UUID.randomUUID();
         User existingUser = User.builder()
@@ -116,9 +124,11 @@ class FederatedUserProvisioningTests {
     void doesNotLinkProviderToExistingAccountWithUnverifiedEmail() {
         IdentityRepository identityRepository = mock(IdentityRepository.class);
         UserRepository userRepository = mock(UserRepository.class);
+        RoleRepository roleRepository = mock(RoleRepository.class);
         FindOrProvisionFederatedUserUseCase useCase = new FindOrProvisionFederatedUserUseCase(
                 identityRepository,
                 userRepository,
+                roleRepository,
                 mock(GetUserAuthoritiesUseCase.class)
         );
         User existingUser = User.builder()
@@ -150,5 +160,9 @@ class FederatedUserProvisioningTests {
         var identityCaptor = org.mockito.ArgumentCaptor.forClass(Identity.class);
         verify(identityRepository).save(identityCaptor.capture());
         return identityCaptor.getValue();
+    }
+
+    private Role defaultUserRole() {
+        return Role.builder().id(1L).name("USER").isActive(true).isSystem(true).build();
     }
 }

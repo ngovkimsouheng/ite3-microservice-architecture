@@ -25,12 +25,10 @@ public class UnlinkIdentityUseCase {
                 .orElseThrow(() -> new IllegalArgumentException("User not found: " + userUuid));
 
         List<Identity> activeIdentities = identityRepository.findActiveByUserId(user.getId());
-
-        // Enforce Rule B.6
-        user.validateCanUnlinkIdentity(activeIdentities, identityUuid);
-
         Identity identity = identityRepository.findByUuid(identityUuid)
-                .orElseThrow(() -> new IllegalArgumentException("Identity not found: " + identityUuid));
+                .filter(candidate -> candidate.getUserId().equals(user.getId()) && !candidate.isDeleted())
+                .orElseThrow(() -> new IllegalArgumentException("Identity is not linked to this user."));
+        user.validateCanUnlinkIdentity(activeIdentities, identityUuid);
 
         String actor = currentActorProvider.getCurrentActorSub();
         identity.setDeleted(true);

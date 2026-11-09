@@ -4,8 +4,10 @@ import kh.edu.istad.iam.domain.dto.RegisterUserCommand;
 import kh.edu.istad.iam.domain.dto.UserResult;
 import kh.edu.istad.iam.domain.mapper.DomainDtoMapper;
 import kh.edu.istad.iam.domain.port.out.PasswordHasher;
+import kh.edu.istad.iam.domain.port.out.RoleRepository;
 import kh.edu.istad.iam.domain.port.out.UserRepository;
 import kh.edu.istad.iam.domain.core.entity.User;
+import kh.edu.istad.iam.domain.core.entity.UserRoleAssignment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ public class RegisterUserUseCase {
     private final UserRepository userRepository;
     private final PasswordHasher passwordHasher;
     private final DomainDtoMapper domainDtoMapper;
+    private final RoleRepository roleRepository;
     @Transactional
     public UserResult execute(RegisterUserCommand command) {
         if (!command.password().equals(command.confirmPassword())) {
@@ -55,6 +58,16 @@ public class RegisterUserUseCase {
                 .build();
 
         User saved = userRepository.save(user);
+        var defaultRole = roleRepository.findByName("USER")
+                .filter(role -> role.isActive() && !role.isDeleted())
+                .orElseThrow(() -> new IllegalStateException("The system USER role is not configured."));
+        userRepository.saveRoleAssignment(UserRoleAssignment.builder()
+                .userId(saved.getId())
+                .roleId(defaultRole.getId())
+                .assignedAt(now)
+                .assignedBy("SELF_REGISTER")
+                .reason("Default registration role")
+                .build());
 
         return domainDtoMapper.toUserResult(saved);
     }

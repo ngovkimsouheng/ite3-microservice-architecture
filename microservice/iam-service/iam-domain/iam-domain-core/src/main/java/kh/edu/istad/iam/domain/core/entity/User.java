@@ -100,12 +100,17 @@ public class User {
      */
     public void validateCanUnlinkIdentity(List<Identity> activeIdentities, UUID identityUuidToUnlink) {
         boolean hasPassword = this.passwordHash != null && !this.passwordHash.isBlank();
-        long activeSocialCount = activeIdentities.stream()
-                .filter(i -> !i.isDeleted())
-                .count();
+        boolean identityIsLinked = activeIdentities != null && activeIdentities.stream()
+                .anyMatch(identity -> Objects.equals(identityUuidToUnlink, identity.getUuid())
+                        && !identity.isDeleted());
+        if (!identityIsLinked) {
+            throw new DomainRuleViolationException("The identity is not linked to this user.");
+        }
 
-        // If no password exists and only 1 social account is linked, unlinking is forbidden
-        if (!hasPassword && activeSocialCount <= 1) {
+        boolean hasAnotherSignInMethod = activeIdentities.stream()
+                .anyMatch(identity -> !identity.isDeleted()
+                        && !Objects.equals(identityUuidToUnlink, identity.getUuid()));
+        if (!hasPassword && !hasAnotherSignInMethod) {
             throw new DomainRuleViolationException("Cannot unlink the last remaining sign-in method.");
         }
     }

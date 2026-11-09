@@ -3,16 +3,14 @@ package kh.edu.istad.iam.adapter;
 import kh.edu.istad.iam.domain.dto.AuthUserResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
-import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
-import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.Map;
 
 @Slf4j
@@ -32,26 +30,39 @@ public class CustomOidcUserService extends OidcUserService {
                 oidcUser.getName()
         );
 
-        Map<String, Object> claims = new HashMap<>(oidcUser.getIdToken().getClaims());
-        claims.put("sub", authUser.uuid().toString());
-        claims.put("name", authUser.username() != null ? authUser.username() : authUser.uuid().toString());
+        return new IamOidcUser(oidcUser, authUser);
+    }
 
-        OidcIdToken idToken = new OidcIdToken(
-                oidcUser.getIdToken().getTokenValue(),
-                oidcUser.getIdToken().getIssuedAt(),
-                oidcUser.getIdToken().getExpiresAt(),
-                claims
-        );
+    private record IamOidcUser(OidcUser delegate, AuthUserResult authUser) implements OidcUser {
 
-        OidcUserInfo userInfo = oidcUser.getUserInfo() != null
-                ? new OidcUserInfo(new HashMap<>(oidcUser.getUserInfo().getClaims()))
-                : null;
+        @Override
+        public Collection<? extends GrantedAuthority> getAuthorities() {
+            return CustomOAuth2UserService.authorities(authUser);
+        }
 
-        return new DefaultOidcUser(
-                CustomOAuth2UserService.authorities(authUser),
-                idToken,
-                userInfo,
-                "sub"
-        );
+        @Override
+        public Map<String, Object> getAttributes() {
+            return delegate.getAttributes();
+        }
+
+        @Override
+        public String getName() {
+            return authUser.uuid().toString();
+        }
+
+        @Override
+        public Map<String, Object> getClaims() {
+            return delegate.getClaims();
+        }
+
+        @Override
+        public org.springframework.security.oauth2.core.oidc.OidcUserInfo getUserInfo() {
+            return delegate.getUserInfo();
+        }
+
+        @Override
+        public org.springframework.security.oauth2.core.oidc.OidcIdToken getIdToken() {
+            return delegate.getIdToken();
+        }
     }
 }

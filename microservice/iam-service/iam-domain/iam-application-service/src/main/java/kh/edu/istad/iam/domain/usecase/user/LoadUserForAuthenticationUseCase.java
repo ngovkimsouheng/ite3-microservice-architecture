@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -35,23 +36,27 @@ public class LoadUserForAuthenticationUseCase {
             return null;
         }
 
-        // 5. Load user authorities
-        var authoritiesResult =
-                getUserAuthoritiesUseCase.execute(user.getUuid());
+        return toAuthUserResult(user);
+    }
 
+    public AuthUserResult execute(UUID userUuid) {
+        return userRepository.findByUuid(userUuid)
+                .filter(user -> !user.isDeleted())
+                .map(this::toAuthUserResult)
+                .orElse(null);
+    }
+
+    private AuthUserResult toAuthUserResult(User user) {
+        var authoritiesResult = getUserAuthoritiesUseCase.execute(user.getUuid());
         Set<String> allAuthorities = new HashSet<>();
-
         if (authoritiesResult != null) {
             if (authoritiesResult.roles() != null) {
                 allAuthorities.addAll(authoritiesResult.roles());
             }
-
             if (authoritiesResult.permissions() != null) {
                 allAuthorities.addAll(authoritiesResult.permissions());
             }
         }
-
-        // 6. Return authentication result
         return new AuthUserResult(
                 user.getUuid(),
                 user.getUsername(),

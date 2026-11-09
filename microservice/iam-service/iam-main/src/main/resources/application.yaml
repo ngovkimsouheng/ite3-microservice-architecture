@@ -2,13 +2,15 @@ server:
   port: 9000
 
 spring:
+  profiles:
+    default: dev
   application:
     name: iam-service
 
   datasource:
     url: ${DATASOURCE_URL:jdbc:postgresql://localhost:9543/db_oauth2}
     username: ${DATASOURCE_USERNAME:iteuser}
-    password: ${DATASOURCE_PASSWORD:qwerqwer}
+    password: ${DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -26,6 +28,9 @@ spring:
     password: ${spring.datasource.password}
     driver-class-name: ${spring.datasource.driver-class-name}
     change-log: classpath:/db/changelog/db.changelog-master.yaml
+
+  messages:
+    basename: messages
 
   security:
     oauth2:
@@ -74,13 +79,21 @@ app:
   oauth2:
     clients:
       registrar:
-        secret: ${REGISTRAR_CLIENT_SECRET:registrar-secret}
+        secret: ${REGISTRAR_CLIENT_SECRET}
       gateway:
-        secret: ${GATEWAY_CLIENT_SECRET:gateway-secret}
+        secret: ${GATEWAY_CLIENT_SECRET}
       web:
-        secret: ${WEB_CLIENT_SECRET:web-secret}
+        secret: ${WEB_CLIENT_SECRET}
+  telegram:
+    bot-token: ${TELEGRAM_BOT_TOKEN:}
+    bot-username: ${TELEGRAM_BOT_USERNAME:}
+    public-base-url: ${TELEGRAM_PUBLIC_BASE_URL:http://localhost:9000}
+
+gg:
+  jte:
+    use-precompiled-templates: true
 
 logging:
   level:
     org.springframework.security: INFO
-    org.springframework.security.oauth2: DEBUG
+    org.springframework.security.oauth2: INFO

@@ -1,0 +1,150 @@
+{
+  "info": {
+    "_postman_id": "bc8ca59e-a904-4a21-9b83-2a50bcb41e3e",
+    "name": "IAM Service",
+    "description": "Local IAM registration, OAuth token, dynamic client registration, and protected API smoke tests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:9000" },
+    { "key": "gatewayClientId", "value": "gateway-client" },
+    { "key": "gatewayClientSecret", "value": "" },
+    { "key": "registrarClientId", "value": "registrar-client" },
+    { "key": "registrarClientSecret", "value": "" },
+    { "key": "accessToken", "value": "" },
+    { "key": "registrarToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Register user",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"postman-user\",\n  \"email\": \"postman-user@example.test\",\n  \"password\": \"ReplaceWithAStrongPassword1!\",\n  \"confirmPassword\": \"ReplaceWithAStrongPassword1!\",\n  \"givenName\": \"Postman\",\n  \"familyName\": \"User\",\n  \"locale\": \"en\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/register",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "register"]
+        }
+      }
+    },
+    {
+      "name": "Get gateway API token",
+      "request": {
+        "method": "POST",
+        "auth": {
+          "type": "basic",
+          "basic": [
+            { "key": "username", "value": "{{gatewayClientId}}", "type": "string" },
+            { "key": "password", "value": "{{gatewayClientSecret}}", "type": "string" }
+          ]
+        },
+        "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            { "key": "grant_type", "value": "client_credentials" },
+            { "key": "scope", "value": "user:read user:create role:read permission:read" }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/oauth2/token",
+          "host": ["{{baseUrl}}"],
+          "path": ["oauth2", "token"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('token request succeeds', function () { pm.response.to.have.status(200); });",
+              "if (pm.response.code === 200) pm.collectionVariables.set('accessToken', pm.response.json().access_token);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "List users",
+      "request": {
+        "method": "GET",
+        "auth": {
+          "type": "bearer",
+          "bearer": [{ "key": "token", "value": "{{accessToken}}", "type": "string" }]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/users?page=0&size=20",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "users"],
+          "query": [
+            { "key": "page", "value": "0" },
+            { "key": "size", "value": "20" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get registrar token for DCR",
+      "request": {
+        "method": "POST",
+        "auth": {
+          "type": "basic",
+          "basic": [
+            { "key": "username", "value": "{{registrarClientId}}", "type": "string" },
+            { "key": "password", "value": "{{registrarClientSecret}}", "type": "string" }
+          ]
+        },
+        "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            { "key": "grant_type", "value": "client_credentials" },
+            { "key": "scope", "value": "client.create client.read" }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/oauth2/token",
+          "host": ["{{baseUrl}}"],
+          "path": ["oauth2", "token"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('registrar token request succeeds', function () { pm.response.to.have.status(200); });",
+              "if (pm.response.code === 200) pm.collectionVariables.set('registrarToken', pm.response.json().access_token);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Register OAuth client (DCR)",
+      "request": {
+        "method": "POST",
+        "auth": {
+          "type": "bearer",
+          "bearer": [{ "key": "token", "value": "{{registrarToken}}", "type": "string" }]
+        },
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"client_name\": \"Postman test client\",\n  \"redirect_uris\": [\"https://oauth.pstmn.io/v1/callback\"],\n  \"grant_types\": [\"authorization_code\", \"refresh_token\"],\n  \"response_types\": [\"code\"],\n  \"token_endpoint_auth_method\": \"none\",\n  \"scope\": \"openid profile email\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/connect/register",
+          "host": ["{{baseUrl}}"],
+          "path": ["connect", "register"]
+        }
+      }
+    }
+  ]
+}

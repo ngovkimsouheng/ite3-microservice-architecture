@@ -4,9 +4,11 @@ import kh.edu.istad.iam.domain.dto.AuthUserResult;
 import kh.edu.istad.iam.domain.dto.FederatedIdentityCommand;
 import kh.edu.istad.iam.domain.dto.UserAuthoritiesResult;
 import kh.edu.istad.iam.domain.port.out.IdentityRepository;
+import kh.edu.istad.iam.domain.port.out.RoleRepository;
 import kh.edu.istad.iam.domain.port.out.UserRepository;
 import kh.edu.istad.iam.domain.core.entity.Identity;
 import kh.edu.istad.iam.domain.core.entity.User;
+import kh.edu.istad.iam.domain.core.entity.UserRoleAssignment;
 import kh.edu.istad.iam.domain.core.valueobject.EmailAddress;
 import kh.edu.istad.iam.domain.usecase.user.GetUserAuthoritiesUseCase;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class FindOrProvisionFederatedUserUseCase {
 
     private final IdentityRepository identityRepository;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final GetUserAuthoritiesUseCase getUserAuthoritiesUseCase;
     @Transactional
     public AuthUserResult execute(FederatedIdentityCommand command) {
@@ -62,17 +65,11 @@ public class FindOrProvisionFederatedUserUseCase {
             return toAuthUserResult(user);
         }
 
-        String email;
-        try {
-            email = new EmailAddress(command.email()).value();
-        } catch (IllegalArgumentException exception) {
-            throw new IllegalArgumentException(
-                    "A valid email address is required to create a federated user.", exception);
-        }
-        if (!command.emailVerified()) {
-            throw new IllegalArgumentException("A verified email address is required to create a federated user.");
-        }
-        User existingUser = userRepository.findByEmail(email).orElse(null);
+        boolean telegram = "TELEGRAM".equals(provider);
+        String email = telegram
+                ? telegramEmail(providerSubject)
+                : verifiedEmail(command);
+        User existingUser = telegram ? null : userRepository.findByEmail(email).orElse(null);
         if (existingUser != null) {
             if (!existingUser.isEmailVerified()) {
                 throw new IllegalArgumentException(
@@ -105,7 +102,7 @@ public class FindOrProvisionFederatedUserUseCase {
                 .uuid(userUuid)
                 .username(username)
                 .email(email)
-                .emailVerified(true)
+                .emailVerified(command.emailVerified())
                 .givenName(names[0])
                 .familyName(names[1])
                 .pictureUrl(command.pictureUrl())
@@ -124,9 +121,42 @@ public class FindOrProvisionFederatedUserUseCase {
                 .version(0L)
                 .build());
 
-        identityRepository.save(createIdentity(user.getId(), provider, providerSubject, email, command, now));
+        identityRepository.save(createIdentity(user.getId(), provider, providerSubject,
+                telegram ? null : email, command, now));
+
+        var defaultRole = roleRepository.findByName("USER")
+                .filter(role -> role.isActive() && !role.isDeleted())
+                .orElseThrow(() -> new IllegalStateException("The system USER role is not configured."));
+        userRepository.saveRoleAssignment(UserRoleAssignment.builder()
+                .userId(user.getId())
+                .roleId(defaultRole.getId())
+                .assignedAt(now)
+                .assignedBy(FEDERATED_LOGIN_ACTOR)
+                .reason("Default federated user role")
+                .build());
 
         return toAuthUserResult(user);
+    }
+
+    private String verifiedEmail(FederatedIdentityCommand command) {
+        String email;
+        try {
+            email = new EmailAddress(command.email()).value();
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException(
+                    "A valid email address is required to create a federated user.", exception);
+        }
+        if (!command.emailVerified()) {
+            throw new IllegalArgumentException("A verified email address is required to create a federated user.");
+        }
+        return email;
+    }
+
+    private String telegramEmail(String providerSubject) {
+        if (!providerSubject.matches("[0-9]{1,20}")) {
+            throw new IllegalArgumentException("Telegram user id must be numeric.");
+        }
+        return "telegram-" + providerSubject + "@users.invalid";
     }
 
     private Identity createIdentity(Long userId, String provider, String providerSubject, String email,
@@ -137,7 +167,7 @@ public class FindOrProvisionFederatedUserUseCase {
                 .provider(provider)
                 .providerSubject(providerSubject)
                 .email(email)
-                .emailVerified(true)
+                .emailVerified(command.emailVerified())
                 .displayName(command.displayName())
                 .username(command.username())
                 .pictureUrl(command.pictureUrl())

@@ -22,13 +22,13 @@ public class InitRegisteredClient implements CommandLineRunner {
     private final RegisteredClientRepository registeredClientRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${app.oauth2.clients.registrar.secret:${REGISTRAR_CLIENT_SECRET:registrar-secret}}")
+    @Value("${app.oauth2.clients.registrar.secret}")
     private String registrarClientSecret;
 
-    @Value("${app.oauth2.clients.gateway.secret:${GATEWAY_CLIENT_SECRET:gateway-secret}}")
+    @Value("${app.oauth2.clients.gateway.secret}")
     private String gatewayClientSecret;
 
-    @Value("${app.oauth2.clients.web.secret:${WEB_CLIENT_SECRET:web-secret}}")
+    @Value("${app.oauth2.clients.web.secret}")
     private String webClientSecret;
 
     @Override
@@ -121,12 +121,12 @@ public class InitRegisteredClient implements CommandLineRunner {
                 .scope(OidcScopes.ADDRESS)
                 .clientSettings(ClientSettings.builder()
                         .requireAuthorizationConsent(true)
-                        .requireProofKey(false) // Set to false if Postman tests without PKCE; true for production
+                        .requireProofKey(true)
                         .build())
                 .tokenSettings(TokenSettings.builder()
                         .accessTokenTimeToLive(Duration.ofMinutes(30))
                         .refreshTokenTimeToLive(Duration.ofDays(7))
-                        .reuseRefreshTokens(true)
+                        .reuseRefreshTokens(false)
                         .build())
                 .build();
 
