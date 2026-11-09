@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -84,8 +85,19 @@ public class LoginController {
                           Model model) {
         model.addAttribute("clientId", clientId);
         model.addAttribute("state", state);
-        model.addAttribute("requestedScopes", scopes == null ? List.of() : scopes);
+        model.addAttribute("requestedScopes", splitScopes(scopes));
         return "consent";
+    }
+
+    static List<String> splitScopes(List<String> scopes) {
+        if (scopes == null) {
+            return List.of();
+        }
+        return scopes.stream()
+                .filter(scope -> scope != null && !scope.isBlank())
+                .flatMap(scope -> Arrays.stream(scope.trim().split("\\s+")))
+                .distinct()
+                .toList();
     }
 
     private RegisterForm emptyForm() {
