@@ -1,11 +1,11 @@
 package kh.edu.istad.iam.domain.core.entity;
 
+import kh.edu.istad.iam.domain.core.exception.DomainRuleViolationException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.*;
@@ -106,7 +106,7 @@ public class User {
 
         // If no password exists and only 1 social account is linked, unlinking is forbidden
         if (!hasPassword && activeSocialCount <= 1) {
-            throw new IllegalStateException("Cannot unlink the last remaining sign-in method.");
+            throw new DomainRuleViolationException("Cannot unlink the last remaining sign-in method.");
         }
     }
 }

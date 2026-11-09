@@ -1,6 +1,6 @@
 package kh.edu.istad.iam.adapter;
 
-import kh.edu.istad.iam.application.port.out.CurrentActorProvider;
+import kh.edu.istad.iam.domain.port.out.CurrentActorProvider;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

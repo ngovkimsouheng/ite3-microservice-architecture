@@ -1,6 +1,6 @@
 package kh.edu.istad.iam.adapter;
 
-import kh.edu.istad.iam.application.port.out.PasswordHasher;
+import kh.edu.istad.iam.domain.port.out.PasswordHasher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

@@ -6,7 +6,9 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import kh.edu.istad.iam.adapter.CustomOAuth2UserService;
+import kh.edu.istad.iam.adapter.CustomOidcUserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -17,6 +19,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
@@ -38,10 +42,12 @@ import java.util.UUID;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@Slf4j
 public class SecurityConfig {
 
     private final JdbcTemplate jdbcTemplate;
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final CustomOidcUserService customOidcUserService;
 
     @Bean
     @Order(1)
@@ -53,7 +59,6 @@ public class SecurityConfig {
                 .with(authorizationServerConfigurer, authorizationServer ->
                         authorizationServer
                                 .oidc(oidc -> oidc
-                                        // Section E.3: Dynamic Client Registration
                                         .clientRegistrationEndpoint(Customizer.withDefaults())
                                 )
                 )
@@ -61,7 +66,6 @@ public class SecurityConfig {
                         authorize
                                 .anyRequest().authenticated()
                 )
-                // Critical for DCR: Enables Bearer token authentication on /connect/register
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .exceptionHandling(exceptions -> exceptions
                         .defaultAuthenticationEntryPointFor(
@@ -91,15 +95,32 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .permitAll()
                 )
-                // Section E.4: Hook CustomOAuth2UserService for Social Login
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
+                        .failureHandler((request, response, exception) -> {
+                            log.error("OAuth2/OIDC Login Failed: {}", exception.getMessage(), exception);
+                            response.sendRedirect("/login?oauth2_error=" + oauth2FailureCode(exception));
+                        })
+                        .defaultSuccessUrl("/login?oauth2_success", false)
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService)
+                                .oidcUserService(customOidcUserService)
                         )
                 );
 
         return http.build();
+    }
+
+    private static String oauth2FailureCode(AuthenticationException exception) {
+        for (Throwable cause = exception; cause != null; cause = cause.getCause()) {
+            if (cause instanceof OAuth2AuthenticationException oauthException) {
+                String code = oauthException.getError().getErrorCode();
+                if (code != null && !code.isBlank()) {
+                    return code;
+                }
+            }
+        }
+        return "provider_login_failed";
     }
 
     @Bean

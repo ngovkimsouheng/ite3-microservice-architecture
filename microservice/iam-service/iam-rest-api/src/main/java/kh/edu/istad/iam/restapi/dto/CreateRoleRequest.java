@@ -1,0 +1,11 @@
+package kh.edu.istad.iam.restapi.dto;
+
+import jakarta.validation.constraints.NotBlank;
+import java.util.List;
+import java.util.UUID;
+
+public record CreateRoleRequest(
+            @NotBlank String name,
+            String description,
+            List<UUID> permissionUuids
+    ) {}

@@ -1,7 +1,7 @@
 package kh.edu.istad.iam.config;
 
-import kh.edu.istad.iam.application.dto.CommonDtos.AuthUserResult;
-import kh.edu.istad.iam.application.usecase.user.LoadUserForAuthenticationUseCase;
+import kh.edu.istad.iam.domain.dto.AuthUserResult;
+import kh.edu.istad.iam.domain.usecase.user.LoadUserForAuthenticationUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.HashSet;
 import java.util.Set;
 

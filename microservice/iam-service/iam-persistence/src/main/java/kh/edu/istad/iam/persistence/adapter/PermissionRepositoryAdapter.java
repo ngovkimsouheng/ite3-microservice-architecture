@@ -1,9 +1,10 @@
 package kh.edu.istad.iam.persistence.adapter;
 
-import kh.edu.istad.iam.application.dto.CommonDtos;
-import kh.edu.istad.iam.application.port.out.PermissionRepository;
+import kh.edu.istad.iam.domain.dto.*;
+import kh.edu.istad.iam.domain.port.out.PermissionRepository;
 import kh.edu.istad.iam.domain.core.entity.Permission;
 import kh.edu.istad.iam.persistence.entity.PermissionJpaEntity;
+import kh.edu.istad.iam.persistence.mapper.PermissionPersistenceMapper;
 import kh.edu.istad.iam.persistence.repository.PermissionJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,18 +21,19 @@ import java.util.UUID;
 public class PermissionRepositoryAdapter implements PermissionRepository {
 
     private final PermissionJpaRepository permissionJpaRepository;
+    private final PermissionPersistenceMapper permissionMapper;
     @Override
-    public CommonDtos.PageResult<Permission> findAll(int page, int size, String sort) {
+    public PageResult<Permission> findAll(int page, int size, String sort) {
         Sort sortObj = (sort != null && !sort.isBlank()) ? Sort.by(sort) : Sort.by("id").ascending();
         Pageable pageable = PageRequest.of(page, size, sortObj);
 
         Page<PermissionJpaEntity> entityPage = permissionJpaRepository.findAllByIsDeletedFalse(pageable);
 
         List<Permission> domainList = entityPage.getContent().stream()
-                .map(this::mapToDomain)
+                .map(permissionMapper::toDomain)
                 .toList();
 
-        return new CommonDtos.PageResult<>(
+        return new PageResult<>(
                 domainList,
                 entityPage.getNumber(),
                 entityPage.getSize(),
@@ -42,40 +43,22 @@ public class PermissionRepositoryAdapter implements PermissionRepository {
     }
     @Override
     public Permission save(Permission p) {
-        PermissionJpaEntity entity = PermissionJpaEntity.builder()
-                .id(p.getId())
-                .uuid(p.getUuid())
-                .name(p.getName())
-                .resource(p.getResource())
-                .action(p.getAction())
-                .description(p.getDescription())
-                .isSystem(p.isSystem())
-                .isActive(p.isActive())
-                .isDeleted(p.isDeleted())
-                .deletedAt(p.getDeletedAt())
-                .deletedBy(p.getDeletedBy())
-                .createdAt(p.getCreatedAt())
-                .createdBy(p.getCreatedBy())
-                .updatedAt(p.getUpdatedAt())
-                .updatedBy(p.getUpdatedBy())
-                .version(p.getVersion() != null ? p.getVersion() : 0L)
-                .build();
-        return mapToDomain(permissionJpaRepository.save(entity));
+        return permissionMapper.toDomain(permissionJpaRepository.save(permissionMapper.toEntity(p)));
     }
 
     @Override
     public Optional<Permission> findById(Long id) {
-        return permissionJpaRepository.findById(id).map(this::mapToDomain);
+        return permissionJpaRepository.findById(id).map(permissionMapper::toDomain);
     }
 
     @Override
     public Optional<Permission> findByUuid(UUID uuid) {
-        return permissionJpaRepository.findByUuid(uuid).map(this::mapToDomain);
+        return permissionJpaRepository.findByUuid(uuid).map(permissionMapper::toDomain);
     }
 
     @Override
     public Optional<Permission> findByName(String name) {
-        return permissionJpaRepository.findByName(name).map(this::mapToDomain);
+        return permissionJpaRepository.findByName(name).map(permissionMapper::toDomain);
     }
 
     @Override
@@ -86,7 +69,7 @@ public class PermissionRepositoryAdapter implements PermissionRepository {
     @Override
     public List<Permission> findAllByIds(Iterable<Long> ids) {
         return permissionJpaRepository.findAllById(ids).stream()
-                .map(this::mapToDomain)
+                .map(permissionMapper::toDomain)
                 .toList();
     }
 
@@ -94,28 +77,7 @@ public class PermissionRepositoryAdapter implements PermissionRepository {
     public List<Permission> findAllActive() {
         return permissionJpaRepository.findAll().stream()
                 .filter(p -> p.isActive() && !p.isDeleted())
-                .map(this::mapToDomain)
+                .map(permissionMapper::toDomain)
                 .toList();
-    }
-
-    private Permission mapToDomain(PermissionJpaEntity e) {
-        return Permission.builder()
-                .id(e.getId())
-                .uuid(e.getUuid())
-                .name(e.getName())
-                .resource(e.getResource())
-                .action(e.getAction())
-                .description(e.getDescription())
-                .isSystem(e.isSystem())
-                .isActive(e.isActive())
-                .isDeleted(e.isDeleted())
-                .deletedAt(e.getDeletedAt())
-                .deletedBy(e.getDeletedBy())
-                .createdAt(e.getCreatedAt())
-                .createdBy(e.getCreatedBy())
-                .updatedAt(e.getUpdatedAt())
-                .updatedBy(e.getUpdatedBy())
-                .version(e.getVersion())
-                .build();
     }
 }

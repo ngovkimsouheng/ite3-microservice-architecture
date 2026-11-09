@@ -1,11 +1,11 @@
 package kh.edu.istad.iam.domain.core.entity;
 
+import kh.edu.istad.iam.domain.core.exception.DomainRuleViolationException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -38,14 +38,14 @@ public class Role {
     // Rule: System roles cannot be changed or deleted
     public void validateModifiable() {
         if (isSystem) {
-            throw new IllegalStateException("System role '" + name + "' cannot be modified or deleted.");
+            throw new DomainRuleViolationException("System role '" + name + "' cannot be modified or deleted.");
         }
     }
 
     // Rule: Inactive roles cannot be assigned
     public void validateAssignable() {
         if (!isActive || isDeleted) {
-            throw new IllegalStateException("Inactive or deleted role '" + name + "' cannot be assigned.");
+            throw new DomainRuleViolationException("Inactive or deleted role '" + name + "' cannot be assigned.");
         }
     }
 }

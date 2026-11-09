@@ -1,12 +1,13 @@
     package kh.edu.istad.iam.restapi.controller;
 
     import jakarta.validation.Valid;
-    import kh.edu.istad.iam.application.dto.CommonDtos.*;
-    import kh.edu.istad.iam.application.port.out.CurrentActorProvider;
-    import kh.edu.istad.iam.application.usecase.identity.ListUserIdentitiesUseCase;
-    import kh.edu.istad.iam.application.usecase.identity.UnlinkIdentityUseCase;
-    import kh.edu.istad.iam.application.usecase.user.*;
-    import kh.edu.istad.iam.restapi.dto.RestDtos.*;
+    import kh.edu.istad.iam.domain.dto.*;
+    import kh.edu.istad.iam.domain.port.out.CurrentActorProvider;
+    import kh.edu.istad.iam.domain.usecase.identity.ListUserIdentitiesUseCase;
+    import kh.edu.istad.iam.domain.usecase.identity.UnlinkIdentityUseCase;
+    import kh.edu.istad.iam.domain.usecase.user.*;
+    import kh.edu.istad.iam.restapi.dto.*;
+    import kh.edu.istad.iam.restapi.mapper.IamWebMapper;
     import lombok.RequiredArgsConstructor;
     import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
@@ -40,33 +41,14 @@
         private final ListUserIdentitiesUseCase listUserIdentitiesUseCase;
         private final UnlinkIdentityUseCase unlinkIdentityUseCase;
         private final CurrentActorProvider currentActorProvider;
+        private final IamWebMapper webMapper;
 
         // --- /api/users CRUD ---
 
         @PostMapping("/users")
         @PreAuthorize("hasAuthority('user:create')")
         public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request) {
-            AddressDto address = request.address();
-            CreateUserCommand command = new CreateUserCommand(
-                    request.username(),
-                    request.email(),
-                    request.password(),
-                    request.givenName(),
-                    request.familyName(),
-                    request.gender(),
-                    request.birthdate(),
-                    request.phoneNumber(),
-                    request.zoneinfo(),
-                    request.locale(),
-                    address != null ? address.streetAddress() : null,
-                    address != null ? address.locality() : null,
-                    address != null ? address.region() : null,
-                    address != null ? address.postalCode() : null,
-                    address != null ? address.country() : null,
-                    request.roleUuids()
-            );
-
-            UserResult result = createUserUseCase.execute(command);
+            UserResult result = createUserUseCase.execute(webMapper.toCommand(request));
             return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(result));
         }
 
@@ -94,14 +76,7 @@
                 @PathVariable("uuid") UUID uuid,
                 @Valid @RequestBody UpdateUserProfileRequest request
         ) {
-            UserResult result = updateUserProfileUseCase.execute(new UpdateUserProfileCommand(
-                    uuid,
-                    request.username(),
-                    request.givenName(),
-                    request.nickname(),
-                    request.phoneNumber(),
-                    request.locale()
-            ));
+            UserResult result = updateUserProfileUseCase.execute(webMapper.toCommand(uuid, request));
             return ResponseEntity.ok(toResponse(result));
         }
 
@@ -148,7 +123,7 @@
                 @PathVariable("uuid") UUID uuid,
                 @Valid @RequestBody ResetUserPasswordRequest request
         ) {
-            resetUserPasswordUseCase.execute(new ResetUserPasswordCommand(uuid, request.newPassword()));
+            resetUserPasswordUseCase.execute(webMapper.toCommand(uuid, request));
             return ResponseEntity.noContent().build();
         }
 
@@ -158,7 +133,7 @@
         @PreAuthorize("hasAuthority('user:read')")
         public ResponseEntity<UserAuthoritiesResponse> getUserAuthorities(@PathVariable("uuid") UUID uuid) {
             UserAuthoritiesResult result = getUserAuthoritiesUseCase.execute(uuid);
-            return ResponseEntity.ok(new UserAuthoritiesResponse(result.roles(), result.permissions()));
+            return ResponseEntity.ok(webMapper.toAuthoritiesResponse(result));
         }
 
         @PostMapping("/users/{uuid}/roles")
@@ -167,9 +142,8 @@
                 @PathVariable("uuid") UUID uuid,
                 @Valid @RequestBody AssignRolesToUserRequest request
         ) {
-            List<RoleAssignmentResult> results = assignRolesToUserUseCase.execute(
-                    new AssignRolesToUserCommand(uuid, request.roleUuids(), request.expiresAt(), request.reason())
-            );
+            List<RoleAssignmentResult> results =
+                    assignRolesToUserUseCase.execute(webMapper.toCommand(uuid, request));
             return ResponseEntity.ok(results);
         }
 
@@ -189,9 +163,8 @@
                 @PathVariable("uuid") UUID uuid,
                 @Valid @RequestBody GrantPermissionsToUserRequest request
         ) {
-            List<PermissionGrantResult> results = grantPermissionsToUserUseCase.execute(
-                    new GrantPermissionsToUserCommand(uuid, request.permissionUuids(), request.effect(), request.expiresAt(), request.reason())
-            );
+            List<PermissionGrantResult> results =
+                    grantPermissionsToUserUseCase.execute(webMapper.toCommand(uuid, request));
             return ResponseEntity.ok(results);
         }
 
@@ -210,7 +183,7 @@
         @PreAuthorize("hasAuthority('user:read')")
         public ResponseEntity<List<IdentityResponse>> listIdentities(@PathVariable("uuid") UUID uuid) {
             List<IdentityResult> results = listUserIdentitiesUseCase.execute(uuid);
-            return ResponseEntity.ok(results.stream().map(this::toIdentityResponse).toList());
+            return ResponseEntity.ok(results.stream().map(webMapper::toIdentityResponse).toList());
         }
 
         @DeleteMapping("/users/{uuid}/identities/{identityUuid}")
@@ -234,28 +207,14 @@
         @PatchMapping("/me")
         public ResponseEntity<UserResponse> updateCurrentUser(@Valid @RequestBody UpdateUserProfileRequest request) {
             UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
-            UserResult result = updateUserProfileUseCase.execute(new UpdateUserProfileCommand(
-                    currentUuid,
-                    request.username(),
-                    request.givenName(),
-                    request.nickname(),
-                    request.phoneNumber(),
-                    request.locale()
-            ));
+            UserResult result = updateUserProfileUseCase.execute(webMapper.toCommand(currentUuid, request));
             return ResponseEntity.ok(toResponse(result));
         }
 
         @PutMapping("/me/password")
         public ResponseEntity<Void> changeCurrentPassword(@Valid @RequestBody ChangePasswordRequest request) {
             UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
-            changePasswordUseCase.execute(
-                    currentUuid,
-                    new ChangePasswordCommand(
-                            request.currentPassword(),
-                            request.newPassword(),
-                            request.confirmPassword()
-                    )
-            );
+            changePasswordUseCase.execute(currentUuid, webMapper.toCommand(request));
             return ResponseEntity.noContent().build();
         }
 
@@ -263,7 +222,7 @@
         public ResponseEntity<List<IdentityResponse>> getCurrentUserIdentities() {
             UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
             List<IdentityResult> results = listUserIdentitiesUseCase.execute(currentUuid);
-            return ResponseEntity.ok(results.stream().map(this::toIdentityResponse).toList());
+            return ResponseEntity.ok(results.stream().map(webMapper::toIdentityResponse).toList());
         }
 
         @DeleteMapping("/me/identities/{identityUuid}")
@@ -277,30 +236,6 @@
 
         private UserResponse toResponse(UserResult result) {
             UserAuthoritiesResult authorities = getUserAuthoritiesUseCase.execute(result.uuid());
-            return new UserResponse(
-                    result.uuid(),
-                    result.username(),
-                    result.email(),
-                    result.emailVerified(),
-                    result.givenName() + " " + result.familyName(),
-                    result.locale(),
-                    result.phoneNumber(),
-                    result.enabled(),
-                    authorities.roleDetails() != null ? authorities.roleDetails().stream()
-                            .map(role -> new RoleDto(role.uuid(), role.name()))
-                            .toList() : List.of(),
-                    result.createdAt(),
-                    result.updatedAt()
-            );
-        }
-
-        private IdentityResponse toIdentityResponse(IdentityResult r) {
-            return new IdentityResponse(
-                    r.uuid(),
-                    r.provider(),
-                    r.email(),
-                    r.displayName(),
-                    r.linkedAt()
-            );
+            return webMapper.toUserResponse(result, authorities);
         }
     }

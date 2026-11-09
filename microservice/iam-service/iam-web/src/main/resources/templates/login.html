@@ -49,6 +49,34 @@
          role="alert" th:if="${param.error}">
         Invalid username or password.
     </div>
+    <div class="mb-[18px] rounded-[10px] bg-[#fdf0ee] px-3.5 py-[11px] text-sm font-medium text-[#a12a1b]"
+         role="alert" th:if="${param.oauth2_error != null and param.oauth2_error[0] == 'facebook_email_missing'}">
+        Facebook did not provide an email address. Check that your Facebook account has an email and that the Meta app has the email permission enabled, or sign in with Google or GitHub.
+    </div>
+    <div class="mb-[18px] rounded-[10px] bg-[#fdf0ee] px-3.5 py-[11px] text-sm font-medium text-[#a12a1b]"
+         role="alert" th:if="${param.oauth2_error != null and param.oauth2_error[0] == 'github_email_missing'}">
+        GitHub did not provide a verified email. Verify an email in GitHub settings and allow the app to access your email, then try again.
+    </div>
+    <div class="mb-[18px] rounded-[10px] bg-[#fdf0ee] px-3.5 py-[11px] text-sm font-medium text-[#a12a1b]"
+         role="alert" th:if="${param.oauth2_error != null and param.oauth2_error[0] == 'invalid_id_token'}">
+        Google rejected the ID token. Check that the Google web client ID and secret belong to the same OAuth app, and register the exact redirect URI for this service.
+    </div>
+    <div class="mb-[18px] rounded-[10px] bg-[#fdf0ee] px-3.5 py-[11px] text-sm font-medium text-[#a12a1b]"
+         role="alert" th:if="${param.oauth2_error != null and param.oauth2_error[0] == 'federated_account_rejected'}">
+        The provider signed you in, but IAM could not safely link or create your account. If you already have an IAM account with this email, sign in with its existing method. Check the IAM console for the exact “Federated login rejected” reason. Do not use a made-up email address.
+    </div>
+    <div class="mb-[18px] rounded-[10px] bg-[#fdf0ee] px-3.5 py-[11px] text-sm font-medium text-[#a12a1b]"
+         role="alert" th:if="${param.oauth2_error != null and param.oauth2_error[0] == 'federated_persistence_failed'}">
+        Your account could not be saved. Please try again later.
+    </div>
+    <div class="mb-[18px] rounded-[10px] bg-[#fdf0ee] px-3.5 py-[11px] text-sm font-medium text-[#a12a1b]"
+         role="alert" th:if="${param.oauth2_error != null and param.oauth2_error[0] == 'provider_login_failed'}">
+        Provider sign-in failed. Check the OAuth app settings and redirect URI, then try again.
+    </div>
+    <div class="mb-[18px] rounded-[10px] bg-[#eef6ef] px-3.5 py-[11px] text-sm font-medium text-[#25603a]"
+         role="status" th:if="${param.oauth2_success}">
+        You signed in successfully.
+    </div>
     <div class="mb-[18px] rounded-[10px] bg-[#eef6ef] px-3.5 py-[11px] text-sm font-medium text-[#25603a]"
          role="status" th:if="${param.logout}">
         You have been signed out.
@@ -95,7 +123,7 @@
         Or continue with
     </div>
 
-    <div class="grid grid-cols-1 gap-3 min-[421px]:grid-cols-2">
+    <div class="grid grid-cols-1 gap-3 min-[421px]:grid-cols-3">
         <a href="/oauth2/authorization/github" th:href="@{/oauth2/authorization/github}"
            class="flex h-12 items-center justify-center gap-2.5 rounded-[10px] border border-line bg-white text-sm font-semibold text-ink no-underline transition hover:border-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">
             <svg class="h-[18px] w-[18px] shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -114,9 +142,23 @@
             </svg>
             Google
         </a>
+
+        <a href="/oauth2/authorization/facebook" th:href="@{/oauth2/authorization/facebook}"
+           class="flex h-12 items-center justify-center gap-2.5 rounded-[10px] border border-line bg-white text-sm font-semibold text-ink no-underline transition hover:border-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">
+            <svg class="h-[18px] w-[18px] shrink-0" viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true">
+                <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.018 10.125 11.927v-8.437H7.078v-3.49h3.047V9.412c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.976h-1.513c-1.491 0-1.956.931-1.956 1.886v2.26h3.328l-.532 3.49h-2.796V24C19.612 23.091 24 18.092 24 12.073Z"/>
+            </svg>
+            Facebook
+        </a>
     </div>
 
 </main>
+
+<script>
+    if (window.location.hash === '#_=_') {
+        window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
+    }
+</script>
 
 </body>
 </html>

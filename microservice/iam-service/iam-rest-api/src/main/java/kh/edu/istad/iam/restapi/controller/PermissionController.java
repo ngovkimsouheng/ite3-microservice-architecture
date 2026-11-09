@@ -1,20 +1,18 @@
 package kh.edu.istad.iam.restapi.controller;
 
 import jakarta.validation.Valid;
-import kh.edu.istad.iam.application.dto.CommonDtos.CreatePermissionCommand;
-import kh.edu.istad.iam.application.dto.CommonDtos.PageResult;
-import kh.edu.istad.iam.application.dto.CommonDtos.PermissionResult;
-import kh.edu.istad.iam.application.dto.CommonDtos.UpdatePermissionCommand;
-import kh.edu.istad.iam.application.usecase.permission.*;
-import kh.edu.istad.iam.restapi.dto.RestDtos.CreatePermissionRequest;
-import kh.edu.istad.iam.restapi.dto.RestDtos.PermissionResponse;
-import kh.edu.istad.iam.restapi.dto.RestDtos.UpdatePermissionRequest;
+import kh.edu.istad.iam.domain.dto.PageResult;
+import kh.edu.istad.iam.domain.dto.PermissionResult;
+import kh.edu.istad.iam.domain.usecase.permission.*;
+import kh.edu.istad.iam.restapi.dto.CreatePermissionRequest;
+import kh.edu.istad.iam.restapi.dto.PermissionResponse;
+import kh.edu.istad.iam.restapi.dto.UpdatePermissionRequest;
+import kh.edu.istad.iam.restapi.mapper.IamWebMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.UUID;
 
 @RestController
@@ -29,15 +27,14 @@ public class PermissionController {
     private final ActivatePermissionUseCase activatePermissionUseCase;
     private final DeactivatePermissionUseCase deactivatePermissionUseCase;
     private final DeletePermissionUseCase deletePermissionUseCase;
+    private final IamWebMapper webMapper;
 
     // POST /api/permissions
     @PostMapping
     @PreAuthorize("hasAuthority('permission:create')")
     public ResponseEntity<PermissionResponse> createPermission(@Valid @RequestBody CreatePermissionRequest req) {
-        PermissionResult result = createPermissionUseCase.execute(
-                new CreatePermissionCommand(req.resource(), req.action(), req.description())
-        );
-        return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(result));
+        PermissionResult result = createPermissionUseCase.execute(webMapper.toCommand(req));
+        return ResponseEntity.status(HttpStatus.CREATED).body(webMapper.toPermissionResponse(result));
     }
 
     // GET /api/permissions
@@ -49,13 +46,7 @@ public class PermissionController {
             @RequestParam(name = "sort", required = false) String sort
     ) {
         PageResult<PermissionResult> result = listPermissionsUseCase.execute(page, size, sort);
-        return ResponseEntity.ok(new PageResult<>(
-                result.content().stream().map(this::toResponse).toList(),
-                result.pageNumber(),
-                result.pageSize(),
-                result.totalElements(),
-                result.totalPages()
-        ));
+        return ResponseEntity.ok(webMapper.toPermissionPageResult(result));
     }
 
     // GET /api/permissions/{uuid}
@@ -63,7 +54,7 @@ public class PermissionController {
     @PreAuthorize("hasAuthority('permission:read')")
     public ResponseEntity<PermissionResponse> getPermission(@PathVariable("uuid") UUID uuid) {
         PermissionResult result = getPermissionUseCase.execute(uuid);
-        return ResponseEntity.ok(toResponse(result));
+        return ResponseEntity.ok(webMapper.toPermissionResponse(result));
     }
 
     // PATCH /api/permissions/{uuid}
@@ -73,10 +64,8 @@ public class PermissionController {
             @PathVariable("uuid") UUID uuid,
             @Valid @RequestBody UpdatePermissionRequest req
     ) {
-        PermissionResult result = updatePermissionUseCase.execute(
-                new UpdatePermissionCommand(uuid, req.description())
-        );
-        return ResponseEntity.ok(toResponse(result));
+        PermissionResult result = updatePermissionUseCase.execute(webMapper.toCommand(uuid, req));
+        return ResponseEntity.ok(webMapper.toPermissionResponse(result));
     }
 
     // POST /api/permissions/{uuid}/activate
@@ -103,15 +92,4 @@ public class PermissionController {
         return ResponseEntity.noContent().build();
     }
 
-    private PermissionResponse toResponse(PermissionResult r) {
-        return new PermissionResponse(
-                r.uuid(),
-                r.name(),
-                r.resource(),
-                r.action(),
-                r.description(),
-                r.isSystem(),
-                r.active()
-        );
-    }
 }

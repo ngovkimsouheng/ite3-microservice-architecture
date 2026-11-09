@@ -1,11 +1,11 @@
 package kh.edu.istad.iam.domain.core.entity;
 
+import kh.edu.istad.iam.domain.core.exception.DomainRuleViolationException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -40,14 +40,14 @@ public class Permission {
     // Rule: System permissions cannot be changed or deleted
     public void validateModifiable() {
         if (isSystem) {
-            throw new IllegalStateException("System permission '" + name + "' cannot be modified or deleted.");
+            throw new DomainRuleViolationException("System permission '" + name + "' cannot be modified or deleted.");
         }
     }
 
     // Rule: Inactive permissions cannot be assigned
     public void validateAssignable() {
         if (!isActive || isDeleted) {
-            throw new IllegalStateException("Inactive or deleted permission '" + name + "' cannot be assigned.");
+            throw new DomainRuleViolationException("Inactive or deleted permission '" + name + "' cannot be assigned.");
         }
     }
 }

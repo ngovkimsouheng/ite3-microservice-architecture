@@ -1,9 +1,9 @@
 package kh.edu.istad.iam.config;
 
-import kh.edu.istad.iam.application.dto.CommonDtos.UserAuthoritiesResult;
-import kh.edu.istad.iam.application.dto.CommonDtos.UserResult;
-import kh.edu.istad.iam.application.usecase.user.GetUserAuthoritiesUseCase;
-import kh.edu.istad.iam.application.usecase.user.GetUserUseCase;
+import kh.edu.istad.iam.domain.dto.UserAuthoritiesResult;
+import kh.edu.istad.iam.domain.dto.UserResult;
+import kh.edu.istad.iam.domain.usecase.user.GetUserAuthoritiesUseCase;
+import kh.edu.istad.iam.domain.usecase.user.GetUserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
-
 import java.util.Set;
 import java.util.UUID;
 

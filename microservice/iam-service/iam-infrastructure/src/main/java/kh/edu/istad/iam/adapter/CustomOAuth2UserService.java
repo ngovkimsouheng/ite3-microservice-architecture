@@ -1,8 +1,6 @@
 package kh.edu.istad.iam.adapter;
 
-import kh.edu.istad.iam.application.dto.CommonDtos.AuthUserResult;
-import kh.edu.istad.iam.application.dto.CommonDtos.FederatedIdentityCommand;
-import kh.edu.istad.iam.application.usecase.identity.FindOrProvisionFederatedUserUseCase;
+import kh.edu.istad.iam.domain.dto.AuthUserResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,57 +19,25 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-    private final FindOrProvisionFederatedUserUseCase federatedUserUseCase;
+    private final FederatedUserProvisioner federatedUserProvisioner;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        Map<String, Object> attributes = oAuth2User.getAttributes();
+        AuthUserResult authUser = federatedUserProvisioner.provision(
+                userRequest, oAuth2User.getAttributes(), oAuth2User.getName());
 
-        String providerSubject;
-        String email = null;
-        boolean emailVerified = false;
-        String displayName = null;
-        String username = null;
-        String pictureUrl = null;
-
-        if ("github".equalsIgnoreCase(registrationId)) {
-            providerSubject = String.valueOf(attributes.get("id"));
-            email = (String) attributes.get("email");
-            emailVerified = email != null;
-            displayName = (String) attributes.get("name");
-            username = (String) attributes.get("login");
-            pictureUrl = (String) attributes.get("avatar_url");
-        } else if ("google".equalsIgnoreCase(registrationId)) {
-            providerSubject = String.valueOf(attributes.get("sub"));
-            email = (String) attributes.get("email");
-            Object verified = attributes.get("email_verified");
-            emailVerified = Boolean.TRUE.equals(verified);
-            displayName = (String) attributes.get("name");
-            pictureUrl = (String) attributes.get("picture");
-        } else if ("facebook".equalsIgnoreCase(registrationId)) {
-            providerSubject = String.valueOf(attributes.get("id"));
-            email = (String) attributes.get("email");
-            emailVerified = email != null;
-            displayName = (String) attributes.get("name");
-        } else {
-            providerSubject = oAuth2User.getName();
-        }
-
-        FederatedIdentityCommand command = new FederatedIdentityCommand(
-                registrationId.toUpperCase(),
-                providerSubject,
-                email,
-                emailVerified,
-                displayName,
-                username,
-                pictureUrl,
-                attributes
+        return new DefaultOAuth2User(
+                authorities(authUser),
+                Map.of(
+                        "sub", authUser.uuid().toString(),
+                        "name", authUser.username() != null ? authUser.username() : authUser.uuid().toString()
+                ),
+                "sub"
         );
+    }
 
-        AuthUserResult authUser = federatedUserUseCase.execute(command);
-
+    static Set<GrantedAuthority> authorities(AuthUserResult authUser) {
         Set<GrantedAuthority> authorities = new HashSet<>();
         if (authUser.authorities() != null) {
             for (String auth : authUser.authorities()) {
@@ -81,14 +47,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         if (authorities.isEmpty()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
-
-        return new DefaultOAuth2User(
-                authorities,
-                Map.of(
-                        "sub", authUser.uuid().toString(),
-                        "name", authUser.username() != null ? authUser.username() : authUser.uuid().toString()
-                ),
-                "sub"
-        );
+        return authorities;
     }
 }
