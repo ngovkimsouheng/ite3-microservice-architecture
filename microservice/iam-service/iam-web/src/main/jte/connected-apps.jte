@@ -5,28 +5,36 @@
 @param java.util.List<kh.edu.istad.iam.domain.dto.ConnectedAppResult> apps
 <!doctype html>
 <html lang="${currentLanguage}">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${messages.get("apps.title")}</title></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${messages.get("apps.title")}</title><link rel="stylesheet" href="/css/iam.css"></head>
 <body>
-<main>
-    <h1>${messages.get("apps.title")}</h1>
+<main class="page-card page-card-wide">
+    <header class="page-header">
+        <h1>${messages.get("apps.title")}</h1>
+        <nav class="language-switch" aria-label="Language">
+            <a href="?lang=en">${messages.get("common.english")}</a><span aria-hidden="true">·</span>
+            <a href="?lang=km">${messages.get("common.khmer")}</a>
+        </nav>
+    </header>
     @if (apps.isEmpty())
-        <p>${messages.get("apps.empty")}</p>
+        <p class="empty-state">${messages.get("apps.empty")}</p>
     @endif
-    <ul>
+    <div class="item-list">
         @for (kh.edu.istad.iam.domain.dto.ConnectedAppResult app : apps)
-            <li>
-                <strong>${app.clientName()}</strong>
-                <p>${messages.get("apps.scopes")}: ${String.join(", ", app.scopes())}</p>
+            <article class="item-card">
+                <div>
+                    <strong>${app.clientName()}</strong>
+                    <p>${messages.get("apps.scopes")}: ${String.join(", ", app.scopes())}</p>
+                </div>
                 <form action="/profile/apps/${app.clientId()}/revoke" method="post">
                     @if (!csrfToken.isEmpty())
                         <input type="hidden" name="${csrfParameterName}" value="${csrfToken}">
                     @endif
-                    <button type="submit">${messages.get("apps.revoke")}</button>
+                    <button class="button-danger" type="submit">${messages.get("apps.revoke")}</button>
                 </form>
-            </li>
+            </article>
         @endfor
-    </ul>
-    <a href="/">${messages.get("common.back")}</a>
+    </div>
+    <div class="actions"><a class="button button-secondary" href="/">${messages.get("common.back")}</a></div>
 </main>
 </body>
 </html>

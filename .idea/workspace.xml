@@ -8,25 +8,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/dto/UserResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/dto/UserResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/usecase/identity/FindOrProvisionFederatedUserUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/usecase/identity/FindOrProvisionFederatedUserUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/usecase/identity/UnlinkIdentityUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/usecase/identity/UnlinkIdentityUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/usecase/user/LoadUserForAuthenticationUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/usecase/user/LoadUserForAuthenticationUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/usecase/user/RegisterUserUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/usecase/user/RegisterUserUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core/src/main/java/kh/edu/istad/iam/domain/core/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-domain-core/src/main/java/kh/edu/istad/iam/domain/core/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/adapter/CustomOidcUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/adapter/CustomOidcUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/adapter/FederatedUserProvisioner.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/adapter/FederatedUserProvisioner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/adapter/SecurityCurrentActorProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/adapter/SecurityCurrentActorProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/JwtCustomizerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/JwtCustomizerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/InitRegisteredClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/InitRegisteredClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/test/java/kh/edu/istad/iam/FederatedUserProvisioningTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/test/java/kh/edu/istad/iam/FederatedUserProvisioningTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/change-password.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/change-password.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/connected-apps.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/connected-apps.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/consent.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/consent.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/index.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/index.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/linked-accounts.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/linked-accounts.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/login.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/login.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/profile-edit.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/profile-edit.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/register.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/register.jte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -410,7 +400,7 @@
       <workItem from="1794165958236" duration="1241000" />
       <workItem from="1794214739349" duration="907000" />
       <workItem from="1794217224889" duration="574000" />
-      <workItem from="1794217824101" duration="17856000" />
+      <workItem from="1794217824101" duration="21389000" />
     </task>
     <servers />
   </component>
