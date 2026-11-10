@@ -17,17 +17,17 @@
     <link rel="stylesheet" href="/css/page-typography.css">
 </head>
 <body class="min-h-screen bg-white px-5 py-8 text-zinc-950 antialiased sm:px-8" style="font-family: 'Bricolage Grotesque', 'Noto Sans Khmer', sans-serif">
-<main class="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-2xl items-center justify-center">
+<main class="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-2xl flex-col items-center justify-center">
+    <nav class="mb-4 flex w-full justify-end gap-3 px-1 text-xs uppercase tracking-[0.1em] text-zinc-500" aria-label="${messages.get("common.language")}">
+        <a class="hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=en">${messages.get("common.english")}</a>
+        <span aria-hidden="true">/</span>
+        <a class="hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=km">${messages.get("common.khmer")}</a>
+    </nav>
     <section class="w-full border border-zinc-200 bg-white p-7 shadow-2xl shadow-zinc-900/5 sm:p-12">
-        <header class="mb-10 flex flex-col-reverse justify-between gap-6 sm:flex-row sm:items-start">
+        <header class="mb-10">
             <div>
                 <h1 class="whitespace-nowrap text-2xl font-semibold leading-tight tracking-[-0.04em] sm:text-4xl">${messages.get("register.title")}</h1>
             </div>
-            <nav class="flex justify-end gap-3 text-xs uppercase tracking-[0.1em] text-zinc-500" aria-label="${messages.get("common.language")}">
-                <a class="hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=en">${messages.get("common.english")}</a>
-                <span aria-hidden="true">/</span>
-                <a class="hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=km">${messages.get("common.khmer")}</a>
-            </nav>
         </header>
         @if (!errors.isEmpty())
             <div class="mb-5 border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">

@@ -8,7 +8,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/change-password.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/change-password.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/connected-apps.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/connected-apps.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/consent.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/consent.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/index.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/index.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/linked-accounts.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/linked-accounts.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/login.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/login.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/profile-edit.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/profile-edit.jte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/register.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/register.jte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -386,7 +392,7 @@
       <workItem from="1794217224889" duration="574000" />
       <workItem from="1794217824101" duration="27382000" />
       <workItem from="1794273993672" duration="6587000" />
-      <workItem from="1794282060914" duration="3918000" />
+      <workItem from="1794282060914" duration="4237000" />
     </task>
     <servers />
   </component>
