@@ -29,11 +29,30 @@ spring:
           wait-time: 5
           delay: 10000
       discovery:
+        port: ${server.port}
         prefer-ip-address: true
         health-check-path: /actuator/health
         health-check-interval: 10s
         service-name: order-service
         instance-id: ${spring.application.name}:${random.value}
+
+  security:
+    oauth2:
+      client:
+        provider:
+          iam-server:
+            issuer-uri: http://localhost:9000
+        registration:
+          customer-client:
+            provider: iam-server
+            client-id: customer-client
+            client-secret: customer-secret
+            authorization-grant-type: client_credentials
+            client-authentication-method: client_secret_basic
+            scope:
+              - openid
+              - profile
+              - customer:read
 
   r2dbc:
     url: r2dbc:postgresql://localhost:9543/db_order

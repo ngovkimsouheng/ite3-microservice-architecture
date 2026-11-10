@@ -16,11 +16,11 @@ import org.springframework.web.service.registry.ImportHttpServices;
 
 @Configuration
 //spring boot 4.0.0
-@ImportHttpServices (
-        group = "customer-service",
-        types = {CustomerHttpClient.class},
-        clientType = HttpServiceGroup.ClientType.WEB_CLIENT
-)
+//@ImportHttpServices (
+//        group = "customer-service",
+//        types = {CustomerHttpClient.class},
+//        clientType = HttpServiceGroup.ClientType.WEB_CLIENT
+//)
 @ImportHttpServices (
         group = "business-service",
         types = {BusinessHttpClient.class},

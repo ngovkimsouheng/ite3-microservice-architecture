@@ -75,9 +75,9 @@ public class JwtCustomizerConfig {
                         addClaim(context, "birthdate", user.birthdate() == null ? null : user.birthdate().toString());
                         addClaim(context, "zoneinfo", user.zoneinfo());
                         addClaim(context, "locale", user.locale());
-                        if (user.updatedAt() != null) {
-                            context.getClaims().claim("updated_at", user.updatedAt().toEpochSecond());
-                        }
+//                        if (user.updatedAt() != null) {
+//                            context.getClaims().claim("updated_at", user.updatedAt().toEpochSecond());
+//                        }
                     }
                     if (authorizedScopes.contains(OidcScopes.EMAIL)) {
                         addClaim(context, "email", user.email());

@@ -12,8 +12,10 @@ import kh.edu.istad.platform.business.restapi.dto.ValidateOrderResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.List;
 
 @RestController
@@ -84,4 +86,18 @@ public class BusinessController {
                         result.failureMessages()
                 ));
     }
+
+    @GetMapping("/flux")
+    public Flux<String> getFluxData() {
+        return Flux.just("A", "B", "C", "D", "E", "F")
+                .log()
+                .delayElements(Duration.ofSeconds(1));
+    }
+
+    @GetMapping
+    public Mono<String> getBusinesses() {
+        return Mono.just("Hello from Business Service! Authenticated successfully.");
+    }
+
+
 }

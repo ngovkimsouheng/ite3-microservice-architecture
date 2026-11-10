@@ -1,5 +1,11 @@
 server:
   port: 9999
+  reactive:
+    session:
+      cookie:
+        name: GATEWAY_SESSION
+        same-site: lax
+        path: /
 
 spring:
   application:
@@ -14,6 +20,8 @@ spring:
         prefer-ip-address: true
         service-name: ${spring.application.name}
         instance-id: ${spring.application.name}-${random.value}
+        enabled: false
+        lower-case-service-id: true
     gateway:
       server:
         webflux:
@@ -22,28 +30,69 @@ spring:
               enabled: true
               lower-case-service-id: true
           routes:
+            - id: business-service
+              uri: http://localhost:8084
+              predicates:
+                - Path=/api/v1/businesses, /api/v1/businesses/**, /api/businesses, /api/businesses/**
+              filters:
+                - RewritePath=/api/v1/(?<segment>.*), /api/$\{segment}
+                - TokenRelay
+
+            # --- ADD THIS ROUTE BEFORE nextjs ---
+            - id: order-service
+              order: -1
+              uri: http://localhost:8082
+              predicates:
+                - Path=/order-service/**
+              filters:
+                - RewritePath=/order-service/?(?<segment>.*), /$\{segment}
+                - TokenRelay
+
             - id: my-customer-service
               uri: lb://customer-service
               predicates:
                 - Path=/my-customers/**
               filters:
                 - RewritePath=/my-customers/?(?<segment>.*), /$\{segment}
+
+            # nextjs must stay at the end as fallback
             - id: nextjs
               uri: http://localhost:3000
               predicates:
                 - Path=/**
-#              filters:
-#                - RewritePath=/my-customers/?(?<segment>.*), /$\{segment}
+            #              filters:
+            #                - RewritePath=/my-customers/?(?<segment>.*), /$\{segment}
             - id: json-placeholder
               uri: https://jsonplaceholder.typicode.com
               predicates:
                 - Path=/jph/**
               filters:
                 - RewritePath=/jph/?(?<segment>.*), /$\{segment}
-#                - SaveSession=always
-#          default-filters:
-#            - SaveSession
-#            - TokenRelay
+          default-filters:
+            - TokenRelay
+            - SaveSession
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
+      client:
+        provider:
+          iam-server:
+            issuer-uri: http://localhost:9000
+        registration:
+          front-bff-client:
+            provider: iam-server
+            client-id: front-bff-client
+            client-authentication-method: none
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:9999/login/oauth2/code/front-bff-client
+            scope:
+              - openid
+              - profile
+
+
 management:
   endpoints:
     web:
