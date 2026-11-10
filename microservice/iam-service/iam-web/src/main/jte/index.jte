@@ -23,7 +23,7 @@
                 <p class="mb-3 text-xs font-medium uppercase tracking-[0.35em] text-zinc-500">ISTAD · IDENTITY</p>
                 <h1 class="text-4xl font-semibold uppercase leading-none tracking-[-0.06em] sm:text-5xl">${messages.get("profile.title")}</h1>
             </div>
-            <nav class="flex justify-end gap-3 text-xs uppercase tracking-[0.2em] text-zinc-500" aria-label="Language">
+            <nav class="flex justify-end gap-3 text-xs uppercase tracking-[0.2em] text-zinc-500" aria-label="${messages.get("common.language")}">
                 <a class="transition hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=en">${messages.get("common.english")}</a>
                 <span aria-hidden="true">/</span>
                 <a class="transition hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=km">${messages.get("common.khmer")}</a>
@@ -46,8 +46,8 @@
         </dl>
 
         <section class="mt-7 border-t border-zinc-200 pt-6">
-            <h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">Account settings</h2>
-            <nav class="grid divide-y divide-zinc-200 border-y border-zinc-200 sm:grid-cols-2 sm:divide-x sm:divide-y-0" aria-label="Profile actions">
+            <h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">${messages.get("common.accountSettings")}</h2>
+            <nav class="grid divide-y divide-zinc-200 border-y border-zinc-200 sm:grid-cols-2 sm:divide-x sm:divide-y-0" aria-label="${messages.get("profile.actions")}">
                 <a class="flex min-h-14 items-center justify-between px-3 py-3 text-sm font-medium text-zinc-800 transition hover:bg-zinc-50 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-black sm:border-b sm:border-zinc-200" href="/profile/edit"><span>${messages.get("profile.edit")}</span><span aria-hidden="true">→</span></a>
                 <a class="flex min-h-14 items-center justify-between px-3 py-3 text-sm font-medium text-zinc-800 transition hover:bg-zinc-50 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-black" href="/profile/password"><span>${messages.get("profile.password")}</span><span aria-hidden="true">→</span></a>
                 <a class="flex min-h-14 items-center justify-between px-3 py-3 text-sm font-medium text-zinc-800 transition hover:bg-zinc-50 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-black" href="/profile/accounts"><span>${messages.get("profile.linkedAccounts")}</span><span aria-hidden="true">→</span></a>

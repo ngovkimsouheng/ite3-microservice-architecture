@@ -87,7 +87,6 @@ app:
   telegram:
     bot-token: ${TELEGRAM_BOT_TOKEN}
     bot-username: ${TELEGRAM_BOT_USERNAME}
-    public-base-url: ${TELEGRAM_PUBLIC_BASE_URL:https://pauper-facebook-strode.ngrok-free.dev}
 
 gg:
   jte:

@@ -55,7 +55,10 @@ public class ProfileController {
 
     @GetMapping("/profile/edit")
     public String editProfile(Model model) {
-        model.addAttribute("user", getUserUseCase.execute(currentUserUuid()));
+        UserResult user = getUserUseCase.execute(currentUserUuid());
+        model.addAttribute("user", user);
+        model.addAttribute("selectedLocale", user.locale());
+        model.addAttribute("saved", false);
         model.addAttribute("errors", List.of());
         return "profile-edit";
     }
@@ -65,6 +68,8 @@ public class ProfileController {
                                 BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", getUserUseCase.execute(currentUserUuid()));
+            model.addAttribute("selectedLocale", form.locale());
+            model.addAttribute("saved", false);
             model.addAttribute("errors", errors(bindingResult));
             return "profile-edit";
         }
@@ -73,6 +78,7 @@ public class ProfileController {
                 userUuid, null, form.givenName(), form.nickname(), form.phoneNumber(), form.locale()
         ));
         model.addAttribute("user", user);
+        model.addAttribute("selectedLocale", user.locale());
         model.addAttribute("errors", List.of());
         model.addAttribute("saved", true);
         return "profile-edit";

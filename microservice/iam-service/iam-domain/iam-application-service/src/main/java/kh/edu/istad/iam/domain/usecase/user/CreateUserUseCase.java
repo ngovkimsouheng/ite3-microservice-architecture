@@ -10,13 +10,13 @@ import kh.edu.istad.iam.domain.port.out.UserRepository;
 import kh.edu.istad.iam.domain.core.entity.Role;
 import kh.edu.istad.iam.domain.core.entity.User;
 import kh.edu.istad.iam.domain.core.entity.UserRoleAssignment;
+import kh.edu.istad.iam.domain.core.valueobject.EmailAddress;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 @Service
@@ -32,7 +32,7 @@ public class CreateUserUseCase {
     public UserResult execute(CreateUserCommand command) {
 
         // 1. Normalize and validate user information
-        String email = command.email().trim().toLowerCase(Locale.ROOT);
+        String email = new EmailAddress(command.email()).value();
 
         if (userRepository.existsByUsername(command.username())) {
             throw new IllegalArgumentException("Username already taken.");

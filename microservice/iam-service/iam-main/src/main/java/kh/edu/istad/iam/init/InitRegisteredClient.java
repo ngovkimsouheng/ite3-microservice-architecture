@@ -36,6 +36,7 @@ public class InitRegisteredClient implements CommandLineRunner {
         initRegistrarClient();
         initGatewayClient();
         initWebClient();
+        initPostmanClient();
     }
 
     private void initRegistrarClient() {
@@ -131,5 +132,28 @@ public class InitRegisteredClient implements CommandLineRunner {
                 .build();
 
         registeredClientRepository.save(webClient);
+    }
+
+    private void initPostmanClient() {
+        RegisteredClient existing = registeredClientRepository.findByClientId("postman-client");
+        RegisteredClient.Builder builder = (existing != null)
+                ? RegisteredClient.from(existing)
+                : RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("postman-client")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .redirectUri("https://oauth.pstmn.io/v1/callback");
+
+        RegisteredClient postmanClient = builder
+                .scope(OidcScopes.OPENID)
+                .scope(OidcScopes.PROFILE)
+                .scope(OidcScopes.EMAIL)
+                .clientSettings(ClientSettings.builder()
+                        .requireProofKey(true)
+                        .requireAuthorizationConsent(true)
+                        .build())
+                .build();
+
+        registeredClientRepository.save(postmanClient);
     }
 }
