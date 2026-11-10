@@ -22,7 +22,7 @@
     <section class="w-full border border-zinc-200 bg-white p-6 shadow-2xl shadow-zinc-900/5 sm:p-10">
         <header class="mb-8 flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-start">
             <div><h1 class="text-4xl font-semibold uppercase leading-none tracking-[-0.06em]">${messages.get("consent.title")}</h1></div>
-            <nav class="flex justify-end gap-3 text-xs uppercase tracking-[0.2em] text-zinc-500" aria-label="${messages.get("common.language")}"><a class="hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=en">${messages.get("common.english")}</a><span aria-hidden="true">/</span><a class="hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=km">${messages.get("common.khmer")}</a></nav>
+            <nav class="flex justify-end gap-3 text-xs uppercase tracking-[0.1em] text-zinc-500" aria-label="${messages.get("common.language")}"><a class="hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=en">${messages.get("common.english")}</a><span aria-hidden="true">/</span><a class="hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=km">${messages.get("common.khmer")}</a></nav>
         </header>
         <p class="text-description mb-3 text-zinc-600">${messages.get("consent.requested")}</p>
         <p class="mb-6"><code class="inline-block max-w-full break-all border border-zinc-200 bg-zinc-50 px-3 py-2 font-mono text-sm text-zinc-800">${clientId}</code></p>

@@ -23,7 +23,7 @@
             <div>
                 <h1 class="text-4xl font-semibold uppercase leading-none tracking-[-0.06em]">${messages.get("register.title")}</h1>
             </div>
-            <nav class="flex justify-end gap-3 text-xs uppercase tracking-[0.2em] text-zinc-500" aria-label="${messages.get("common.language")}">
+            <nav class="flex justify-end gap-3 text-xs uppercase tracking-[0.1em] text-zinc-500" aria-label="${messages.get("common.language")}">
                 <a class="hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=en">${messages.get("common.english")}</a>
                 <span aria-hidden="true">/</span>
                 <a class="hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=km">${messages.get("common.khmer")}</a>

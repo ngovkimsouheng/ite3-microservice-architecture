@@ -21,7 +21,7 @@
 <body class="min-h-screen bg-white px-5 py-10 text-zinc-950 antialiased sm:px-8" style="font-family: 'Bricolage Grotesque', 'Noto Sans Khmer', sans-serif">
 <main class="mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-6xl items-center justify-center">
     <section class="w-full max-w-md border border-zinc-200 bg-white p-6 shadow-2xl shadow-zinc-900/5 sm:p-10">
-        <nav class="mb-12 flex justify-end gap-3 text-xs uppercase tracking-[0.2em] text-zinc-500" aria-label="${messages.get("common.language")}">
+        <nav class="mb-12 flex justify-end gap-3 text-xs uppercase tracking-[0.1em] text-zinc-500" aria-label="${messages.get("common.language")}">
             <a class="transition hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=en">${messages.get("common.english")}</a>
             <span aria-hidden="true">/</span>
             <a class="transition hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=km">${messages.get("common.khmer")}</a>
