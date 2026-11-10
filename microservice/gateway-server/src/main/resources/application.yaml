@@ -1,0 +1,54 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: gateway-server
+  profiles:
+    active: dev
+  cloud:
+
+    consul:
+      discovery:
+        health-check-url: http://host.docker.internal:${server.port}/actuator/health
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+        instance-id: ${spring.application.name}-${random.value}
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          routes:
+            - id: my-customer-service
+              uri: lb://customer-service
+              predicates:
+                - Path=/my-customers/**
+              filters:
+                - RewritePath=/my-customers/?(?<segment>.*), /$\{segment}
+            - id: nextjs
+              uri: http://localhost:3000
+              predicates:
+                - Path=/**
+#              filters:
+#                - RewritePath=/my-customers/?(?<segment>.*), /$\{segment}
+            - id: json-placeholder
+              uri: https://jsonplaceholder.typicode.com
+              predicates:
+                - Path=/jph/**
+              filters:
+                - RewritePath=/jph/?(?<segment>.*), /$\{segment}
+#                - SaveSession=always
+#          default-filters:
+#            - SaveSession
+#            - TokenRelay
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health, gateway"
+  endpoint:
+    gateway:
+      access: read_only

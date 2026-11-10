@@ -1,5 +1,5 @@
 plugins {
-    id 'springboot-common-conventions'
+
     id 'spring-cloud-common-conventions'
 }
 

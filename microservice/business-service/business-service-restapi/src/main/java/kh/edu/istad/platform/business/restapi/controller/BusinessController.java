@@ -24,6 +24,7 @@ public class BusinessController {
     private final CreateBusinessUseCase createBusinessUseCase;
     private final ValidateOrderUseCase validateOrderUseCase;
 
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<CreateBusinessResponse> createBusiness(@Valid @RequestBody CreateBusinessRequest request) {

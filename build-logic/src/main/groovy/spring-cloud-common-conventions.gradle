@@ -1,5 +1,5 @@
 plugins {
-    id 'spring-cloud-common-conventions'
+    id 'springboot-common-conventions'
 }
 
 ext {
