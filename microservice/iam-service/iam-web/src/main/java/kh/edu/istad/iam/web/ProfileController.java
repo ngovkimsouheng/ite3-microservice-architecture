@@ -121,7 +121,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/accounts/link/{provider}")
-    public String linkAccount(@PathVariable String provider, HttpServletRequest request) {
+    public String linkAccount(@PathVariable("provider") String provider, HttpServletRequest request) {
         String normalizedProvider = provider.toUpperCase(Locale.ROOT);
         if (!List.of("GOOGLE", "GITHUB", "FACEBOOK", "TELEGRAM").contains(normalizedProvider)) {
             throw new IllegalArgumentException("Unsupported identity provider: " + provider);
@@ -137,7 +137,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/accounts/{identityUuid}/unlink")
-    public String unlinkAccount(@PathVariable UUID identityUuid) {
+    public String unlinkAccount(@PathVariable("identityUuid") UUID identityUuid) {
         unlinkIdentityUseCase.execute(currentUserUuid(), identityUuid);
         return "redirect:/profile/accounts";
     }
@@ -151,7 +151,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/apps/{clientId}/revoke")
-    public String revokeConnectedApp(@PathVariable String clientId) {
+    public String revokeConnectedApp(@PathVariable("clientId") String clientId) {
         revokeConnectedAppUseCase.execute(currentActorProvider.getCurrentActorSub(), clientId);
         return "redirect:/profile/apps";
     }

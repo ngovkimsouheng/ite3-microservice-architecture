@@ -14,10 +14,11 @@
     <title>${messages.get("login.title")}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/page-typography.css">
 </head>
-<body class="min-h-screen bg-white px-5 py-10 text-zinc-950 antialiased sm:px-8" style="font-family: 'Archivo', 'Archivo Fallback', sans-serif">
+<body class="min-h-screen bg-white px-5 py-10 text-zinc-950 antialiased sm:px-8" style="font-family: 'Bricolage Grotesque', 'Noto Sans Khmer', sans-serif">
 <main class="mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-6xl items-center justify-center">
     <section class="w-full max-w-md border border-zinc-200 bg-white p-6 shadow-2xl shadow-zinc-900/5 sm:p-10">
         <nav class="mb-12 flex justify-end gap-3 text-xs uppercase tracking-[0.2em] text-zinc-500" aria-label="${messages.get("common.language")}">
@@ -26,7 +27,6 @@
             <a class="transition hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=km">${messages.get("common.khmer")}</a>
         </nav>
 
-        <p class="mb-3 text-xs font-medium uppercase tracking-[0.35em] text-zinc-500">ISTAD · IDENTITY</p>
         <h1 class="mb-9 text-4xl font-semibold uppercase leading-none tracking-[-0.06em] sm:text-5xl">${messages.get("login.title")}</h1>
     @if (error)
         <p class="mb-5 border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">${messages.get("login.error")}</p>
@@ -71,9 +71,7 @@
 
     @if (telegramBotUsername != null && !telegramBotUsername.isBlank())
         <button class="flex h-12 w-12 shrink-0 items-center justify-center border border-zinc-200 bg-white text-zinc-700 transition hover:border-zinc-500 hover:bg-zinc-50 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" id="telegram-login-toggle" type="button" aria-label="${messages.get("login.telegram")}" title="${messages.get("login.telegram")}" aria-expanded="false" aria-controls="telegram-login-panel">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M21.8 4.2 18.6 20c-.24 1.12-.88 1.4-1.78.87l-4.92-3.63-2.37 2.28c-.26.26-.48.48-.98.48l.35-5.01 9.12-8.24c.4-.35-.09-.55-.62-.2L6.12 13.7l-4.85-1.52c-1.05-.33-1.07-1.05.22-1.56L20.45 3.2c.87-.32 1.63.21 1.35 1Z"/>
-            </svg>
+            <img class="h-5 w-5 object-contain" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB8Ga8uvmXLQectoQsAX_Wcn48j02mGjJy3gN27lGPZQ&amp;s=10" alt="" aria-hidden="true">
         </button>
     @endif
     </div>

@@ -39,7 +39,7 @@ public class UpdateUserProfileUseCase {
             user.setNickname(command.nickname());
         }
         if (command.phoneNumber() != null) {
-            user.setPhoneNumber(command.phoneNumber());
+            user.setPhoneNumber(command.phoneNumber().isBlank() ? null : command.phoneNumber().trim());
         }
         if (command.locale() != null && !command.locale().isBlank()) {
             user.setLocale(command.locale());
