@@ -5,69 +5,65 @@
 @param java.util.List<kh.edu.istad.iam.domain.dto.IdentityResult> identities
 <!doctype html>
 <html lang="${currentLanguage}">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${messages.get("accounts.title")}</title><link rel="stylesheet" href="/css/iam.css"></head>
-<body>
-<main class="page-card page-card-wide">
-    <header class="page-header">
-        <h1>${messages.get("accounts.title")}</h1>
-        <nav class="language-switch" aria-label="Language">
-            <a href="?lang=en">${messages.get("common.english")}</a><span aria-hidden="true">·</span>
-            <a href="?lang=km">${messages.get("common.khmer")}</a>
-        </nav>
-    </header>
-    @if (identities.isEmpty())
-        <p class="empty-state">${messages.get("accounts.empty")}</p>
-    @endif
-    <div class="item-list">
-        @for (kh.edu.istad.iam.domain.dto.IdentityResult identity : identities)
-            <article class="item-card">
-                <div><strong>${identity.provider()}</strong><p>${identity.email()}</p></div>
-                <form action="/profile/accounts/${identity.uuid().toString()}/unlink" method="post">
-                    @if (!csrfToken.isEmpty())
-                        <input type="hidden" name="${csrfParameterName}" value="${csrfToken}">
-                    @endif
-                    <button class="button-danger" type="submit">${messages.get("accounts.unlink")}</button>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${messages.get("accounts.title")}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-white px-5 py-8 text-zinc-950 antialiased sm:px-8" style="font-family: 'Archivo', 'Archivo Fallback', sans-serif">
+<main class="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-3xl items-center justify-center">
+    <section class="w-full border border-zinc-200 bg-white p-6 shadow-2xl shadow-zinc-900/5 sm:p-10">
+        <header class="mb-8 flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-start">
+            <div><p class="mb-3 text-xs font-medium uppercase tracking-[0.35em] text-zinc-500">ISTAD · IDENTITY</p><h1 class="text-4xl font-semibold uppercase leading-none tracking-[-0.06em]">${messages.get("accounts.title")}</h1></div>
+            <nav class="flex justify-end gap-3 text-xs uppercase tracking-[0.2em] text-zinc-500" aria-label="Language"><a class="hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=en">${messages.get("common.english")}</a><span aria-hidden="true">/</span><a class="hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="?lang=km">${messages.get("common.khmer")}</a></nav>
+        </header>
+        <section>
+            <h2 class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">Connected sign-in methods</h2>
+            @if (identities.isEmpty())
+                <p class="border border-dashed border-zinc-300 bg-zinc-50 px-4 py-5 text-sm leading-6 text-zinc-600">${messages.get("accounts.empty")}</p>
+            @else
+                <div class="divide-y divide-zinc-200 border-y border-zinc-200">
+                    @for (kh.edu.istad.iam.domain.dto.IdentityResult identity : identities)
+                        <article class="flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+                            <div class="min-w-0"><p class="text-sm font-semibold text-zinc-900">${identity.provider()}</p><p class="mt-1 break-all text-sm text-zinc-500">${identity.email()}</p></div>
+                            <form class="shrink-0" action="/profile/accounts/${identity.uuid().toString()}/unlink" method="post">
+                                @if (!csrfToken.isEmpty())
+                                    <input type="hidden" name="${csrfParameterName}" value="${csrfToken}">
+                                @endif
+                                <button class="inline-flex min-h-10 items-center justify-center border border-zinc-200 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-600 transition hover:border-red-700 hover:bg-red-700 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-700" type="submit">${messages.get("accounts.unlink")}</button>
+                            </form>
+                        </article>
+                    @endfor
+                </div>
+            @endif
+        </section>
+        <section class="mt-8 border-t border-zinc-200 pt-6">
+            <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">${messages.get("accounts.link")}</h2>
+            <div class="mt-3 grid divide-y divide-zinc-200 border-y border-zinc-200 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+                <form class="sm:border-b sm:border-zinc-200" action="/profile/accounts/link/google" method="post">
+                    @if (!csrfToken.isEmpty())<input type="hidden" name="${csrfParameterName}" value="${csrfToken}">@endif
+                    <button class="flex min-h-14 w-full items-center justify-between px-3 py-3 text-left text-sm font-medium text-zinc-800 transition hover:bg-zinc-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-black" type="submit"><span>${messages.get("provider.google")}</span><span aria-hidden="true">+</span></button>
                 </form>
-            </article>
-        @endfor
-    </div>
-    <hr class="section-divider">
-    <p class="intro-text">${messages.get("accounts.link")}</p>
-    <div class="provider-grid">
-        <div>
-            <form action="/profile/accounts/link/google" method="post">
-                @if (!csrfToken.isEmpty())
-                    <input type="hidden" name="${csrfParameterName}" value="${csrfToken}">
-                @endif
-                <button class="button-secondary" type="submit">${messages.get("provider.google")}</button>
-            </form>
-        </div>
-        <div>
-            <form action="/profile/accounts/link/github" method="post">
-                @if (!csrfToken.isEmpty())
-                    <input type="hidden" name="${csrfParameterName}" value="${csrfToken}">
-                @endif
-                <button class="button-secondary" type="submit">${messages.get("provider.github")}</button>
-            </form>
-        </div>
-        <div>
-            <form action="/profile/accounts/link/facebook" method="post">
-                @if (!csrfToken.isEmpty())
-                    <input type="hidden" name="${csrfParameterName}" value="${csrfToken}">
-                @endif
-                <button class="button-secondary" type="submit">${messages.get("provider.facebook")}</button>
-            </form>
-        </div>
-        <div>
-            <form action="/profile/accounts/link/telegram" method="post">
-                @if (!csrfToken.isEmpty())
-                    <input type="hidden" name="${csrfParameterName}" value="${csrfToken}">
-                @endif
-                <button class="button-secondary" type="submit">${messages.get("provider.telegram")}</button>
-            </form>
-        </div>
-    </div>
-    <div class="actions"><a class="button button-secondary" href="/">${messages.get("common.back")}</a></div>
+                <form action="/profile/accounts/link/github" method="post">
+                    @if (!csrfToken.isEmpty())<input type="hidden" name="${csrfParameterName}" value="${csrfToken}">@endif
+                    <button class="flex min-h-14 w-full items-center justify-between px-3 py-3 text-left text-sm font-medium text-zinc-800 transition hover:bg-zinc-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-black" type="submit"><span>${messages.get("provider.github")}</span><span aria-hidden="true">+</span></button>
+                </form>
+                <form class="sm:border-t sm:border-zinc-200" action="/profile/accounts/link/facebook" method="post">
+                    @if (!csrfToken.isEmpty())<input type="hidden" name="${csrfParameterName}" value="${csrfToken}">@endif
+                    <button class="flex min-h-14 w-full items-center justify-between px-3 py-3 text-left text-sm font-medium text-zinc-800 transition hover:bg-zinc-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-black" type="submit"><span>${messages.get("provider.facebook")}</span><span aria-hidden="true">+</span></button>
+                </form>
+                <form class="sm:border-t sm:border-zinc-200" action="/profile/accounts/link/telegram" method="post">
+                    @if (!csrfToken.isEmpty())<input type="hidden" name="${csrfParameterName}" value="${csrfToken}">@endif
+                    <button class="flex min-h-14 w-full items-center justify-between px-3 py-3 text-left text-sm font-medium text-zinc-800 transition hover:bg-zinc-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-black" type="submit"><span>${messages.get("provider.telegram")}</span><span aria-hidden="true">+</span></button>
+                </form>
+            </div>
+        </section>
+        <div class="mt-7"><a class="inline-flex min-h-11 items-center justify-center border border-zinc-200 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-700 transition hover:border-zinc-500 hover:bg-zinc-50 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-black" href="/">${messages.get("common.back")}</a></div>
+    </section>
 </main>
 </body>
 </html>

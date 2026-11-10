@@ -8,11 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63/storage_v2/_src_/database/db_oauth2.XEtWEw/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63/storage_v2/_src_/database/db_oauth2.XEtWEw/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/adapter/CustomOidcUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/adapter/CustomOidcUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/index.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/index.jte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/login.jte" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/login.jte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,21 +191,10 @@
     </option>
     <option name="configurationStatuses">
       <map>
-        <entry key="HttpClient.HttpRequestRunConfigurationType">
-          <value>
-            <map>
-              <entry key="generated-requests | #50" value="STOPPED" />
-            </map>
-          </value>
-        </entry>
         <entry key="SpringBootApplicationConfigurationType">
           <value>
             <map>
-              <entry key="BusinessApplication" value="STOPPED" />
-              <entry key="CustomerApplicationService" value="STOPPED" />
               <entry key="IamServiceApplication" value="STOPPED" />
-              <entry key="OrderApplicationService" value="STOPPED" />
-              <entry key="PaymentApplicationService" value="STOPPED" />
             </map>
           </value>
         </entry>
@@ -272,16 +260,18 @@
     </configuration>
     <configuration name="IamServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <envs>
+        <env name="DATASOURCE_PASSWORD" value="qwerqwer" />
+        <env name="FACEBOOK_OAUTH_CLIENT_ID" value="1171995958599035" />
+        <env name="FACEBOOK_OAUTH_CLIENT_SECRET" value="b0c1a4ebcedab803cefe79e87637b196" />
+        <env name="GATEWAY_CLIENT_SECRET" value="gateway-secret" />
         <env name="GITHUB_OAUTH_CLIENT_ID" value="Ov23liNdS9E6DIN3a5XN" />
         <env name="GITHUB_OAUTH_CLIENT_SECRET" value="284e9f445be4d61e5b9316bf7c721b2eb32d406b" />
         <env name="GOOGLE_OAUTH_CLIENT_ID" value="352289978674-k5vt9j5q8e85bdmevueg1uuu8ceovljc.apps.googleusercontent.com" />
         <env name="GOOGLE_OAUTH_CLIENT_SECRET" value="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" />
-        <env name="FACEBOOK_OAUTH_CLIENT_ID" value="1171995958599035" />
-        <env name="FACEBOOK_OAUTH_CLIENT_SECRET" value="b0c1a4ebcedab803cefe79e87637b196" />
-        <env name="DATASOURCE_PASSWORD" value="qwerqwer" />
         <env name="REGISTRAR_CLIENT_SECRET" value="registrar-secret" />
-        <env name="GATEWAY_CLIENT_SECRET" value="gateway-secret" />
+        <env name="TELEGRAM_BOT_USERNAME" value="istad_iam_dev_bot" />
         <env name="WEB_CLIENT_SECRET" value="FTtH4JFxOpe//OGasSU1ZmjTbV2U/EhbMgBhZkKaHoY=" />
+        <env name="TELEGRAM_BOT_TOKEN" value="9295858162:AAGkfDGGi-xmdrI29a8r_Hxfe6T55_h0BfM" />
       </envs>
       <module name="iam-service.iam-main.main" />
       <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
@@ -397,6 +387,7 @@
       <workItem from="1794214739349" duration="907000" />
       <workItem from="1794217224889" duration="574000" />
       <workItem from="1794217824101" duration="27382000" />
+      <workItem from="1794273993672" duration="4519000" />
     </task>
     <servers />
   </component>
