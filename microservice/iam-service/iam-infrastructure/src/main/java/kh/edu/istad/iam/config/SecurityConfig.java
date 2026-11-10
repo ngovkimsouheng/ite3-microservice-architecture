@@ -143,7 +143,7 @@ public class SecurityConfig {
                             }
                             response.sendRedirect("/login?oauth2_error=" + oauth2FailureCode(exception));
                         })
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/")
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService)
                                 .oidcUserService(customOidcUserService)

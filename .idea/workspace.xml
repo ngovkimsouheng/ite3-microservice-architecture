@@ -8,8 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/entity/RolePermissionJpaEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-persistence/src/main/java/kh/edu/istad/iam/persistence/repository/RolePermissionJpaRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -385,7 +385,8 @@
       <workItem from="1794214739349" duration="907000" />
       <workItem from="1794217224889" duration="574000" />
       <workItem from="1794217824101" duration="27382000" />
-      <workItem from="1794273993672" duration="6217000" />
+      <workItem from="1794273993672" duration="6587000" />
+      <workItem from="1794282060914" duration="1326000" />
     </task>
     <servers />
   </component>
