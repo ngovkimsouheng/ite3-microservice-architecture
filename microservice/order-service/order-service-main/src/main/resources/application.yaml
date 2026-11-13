@@ -35,6 +35,10 @@ spring:
         health-check-interval: 10s
         service-name: order-service
         instance-id: ${spring.application.name}:${random.value}
+        # Automatically deregisters from Consul when the Spring Boot app stops
+        deregister: true
+        # Automatically removes the instance from Consul if health check fails for 10 seconds
+        deregister-critical-service-after: 10s
 
   security:
     oauth2:

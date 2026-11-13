@@ -8,20 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/microservice/gateway-server/src/main/java/kh/edu/istad/platform/gateway/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/AdminUserInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/InitCore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63/storage_v2/_src_/database/db_oauth2.XEtWEw/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63/storage_v2/_src_/database/db_oauth2.XEtWEw/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/business-service/business-service-restapi/src/main/java/kh/edu/istad/platform/business/restapi/controller/BusinessController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/business-service/business-service-restapi/src/main/java/kh/edu/istad/platform/business/restapi/controller/BusinessController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/gateway-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/gateway-server/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/gateway-server/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/gateway-server/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/JwtCustomizerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/JwtCustomizerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/InitRegisteredClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/InitRegisteredClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/test/java/kh/edu/istad/iam/init/InitRegisteredClientTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/test/java/kh/edu/istad/iam/init/InitRegisteredClientTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/config/ClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/config/ClientConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -145,48 +132,49 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.postgres/docker-compose.yaml: Compose Deployment.executor": "Run",
-    "Gradle.Build discovery-service.executor": "Run",
-    "Gradle.Build istad-ite-project.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.build-logic [dependencies].executor": "Run",
-    "HTTP Request.generated-requests | #50.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.BusinessApplication.executor": "Run",
-    "Spring Boot.CustomerApplicationService.executor": "Run",
-    "Spring Boot.DiscoveryServiceApplication.executor": "Run",
-    "Spring Boot.GatewayServerApplication.executor": "Run",
-    "Spring Boot.IamServiceApplication (1).executor": "Run",
-    "Spring Boot.IamServiceApplication.executor": "Run",
-    "Spring Boot.OrderApplicationService.executor": "Run",
-    "Spring Boot.PaymentApplicationService.executor": "Run",
-    "copilot.chat.legacySessionMetadata.migrated": "true",
-    "git-widget-placeholder": "iam-service",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.consul/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.postgres/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build discovery-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build istad-ite-project.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.build-logic [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #50.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BusinessApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.CustomerApplicationService.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DiscoveryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GatewayServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.IamServiceApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.IamServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.OrderApplicationService.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PaymentApplicationService.executor&quot;: &quot;Run&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;iam-service&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\src\main\resources\templates" />
@@ -221,32 +209,7 @@
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.CustomerApplicationService">
-    <configuration name="build-logic [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/build-logic" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="dependencies" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Docker.consul/docker-compose.yaml: Compose Deployment">
     <configuration name="generated-requests | #50" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#50" index="50" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -369,8 +332,16 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="consul/docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="deployment/consul/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Gradle.build-logic [dependencies]" />
+      <item itemvalue="Docker.consul/docker-compose.yaml: Compose Deployment" />
       <item itemvalue="HTTP Request.generated-requests | #50" />
       <item itemvalue="Spring Boot.IamServiceApplication (1)" />
       <item itemvalue="Spring Boot.IamServiceApplication" />
@@ -383,11 +354,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.consul/docker-compose.yaml: Compose Deployment" />
         <item itemvalue="Spring Boot.OrderApplicationService" />
         <item itemvalue="Spring Boot.GatewayServerApplication" />
         <item itemvalue="Spring Boot.CustomerApplicationService" />
         <item itemvalue="HTTP Request.generated-requests | #50" />
-        <item itemvalue="Gradle.build-logic [dependencies]" />
       </list>
     </recent_temporary>
   </component>
@@ -440,7 +411,7 @@
       <workItem from="1794282060914" duration="4237000" />
       <workItem from="1794306759747" duration="571000" />
       <workItem from="1794308501175" duration="6131000" />
-      <workItem from="1794329898399" duration="5731000" />
+      <workItem from="1794329898399" duration="7092000" />
     </task>
     <servers />
   </component>
