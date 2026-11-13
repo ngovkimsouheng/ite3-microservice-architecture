@@ -1,7 +1,12 @@
 server:
   port: 8083
-
+  forward-headers-strategy: framework
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
   application:
     name: payment-service
   datasource:

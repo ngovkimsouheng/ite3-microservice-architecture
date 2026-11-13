@@ -3,9 +3,11 @@ plugins {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-resource-server'
     implementation project(':business-service-domain:business-domain-core')
     implementation project(':business-service-domain:business-application-service')
     implementation project(':business-service-persistence')
     implementation project(':business-service-restapi')
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-scalar:3.2.0'
 }

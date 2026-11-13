@@ -17,7 +17,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.projectlombok:lombok'
     implementation 'org.springframework.cloud:spring-cloud-starter-consul-config'
-
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 //    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 
 
@@ -25,7 +25,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-client'
     runtimeOnly 'org.postgresql:postgresql'
     runtimeOnly 'org.postgresql:r2dbc-postgresql'
-
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-scalar:3.2.0'
     //add anotation liguibase core
     implementation 'org.liquibase:liquibase-core'
     implementation 'kh.edu.istad:istad-common-swagger'

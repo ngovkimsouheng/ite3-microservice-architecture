@@ -25,17 +25,23 @@ spring:
     gateway:
       server:
         webflux:
+          trusted-proxies: ".*"
+          default-filers:
+            - SaveSession
+            - TokenRelay=
+
           discovery:
             locator:
               enabled: true
               lower-case-service-id: true
           routes:
             - id: business-service
+              order: -1
               uri: http://localhost:8084
               predicates:
-                - Path=/api/v1/businesses, /api/v1/businesses/**, /api/businesses, /api/businesses/**
+                - Path=/business-service/**
               filters:
-                - RewritePath=/api/v1/(?<segment>.*), /api/$\{segment}
+                - RewritePath=/business-service/?(?<segment>.*), /$\{segment}  # <--- Change to this
                 - TokenRelay
 
             # --- ADD THIS ROUTE BEFORE nextjs ---
@@ -48,18 +54,27 @@ spring:
                 - RewritePath=/order-service/?(?<segment>.*), /$\{segment}
                 - TokenRelay
 
-            - id: my-customer-service
-              uri: lb://customer-service
+            - id: payment-service
+              order: -1
+              uri: http://localhost:8083
               predicates:
-                - Path=/my-customers/**
+                - Path=/payment-service/**
               filters:
-                - RewritePath=/my-customers/?(?<segment>.*), /$\{segment}
+                - RewritePath=/payment-service/?(?<segment>.*), /$\{segment}
+                - TokenRelay
 
-            # nextjs must stay at the end as fallback
-            - id: nextjs
-              uri: http://localhost:3000
+            - id: customer-service
+              uri: http://localhost:9091
               predicates:
-                - Path=/**
+                - Path=/customer-service/**
+              filters:
+                - RewritePath=/customer-service/?(?<segment>.*), /$\{segment}
+                - TokenRelay
+            # nextjs must stay at the end as fallback
+            #            - id: nextjs
+            #              uri: http://localhost:3000
+            #              predicates:
+            #                - Path=/**
             #              filters:
             #                - RewritePath=/my-customers/?(?<segment>.*), /$\{segment}
             - id: json-placeholder
@@ -101,3 +116,28 @@ management:
   endpoint:
     gateway:
       access: read_only
+
+scalar:
+  sources:
+    - title: Order Service
+      url: /order-service/v3/api-docs
+    - title: Business Service
+      url: /business-service/v3/api-docs
+    - title: Payment Service
+      url: /payment-service/v3/api-docs
+    - title: Customer Service
+      url: /customer-service/v3/api-docs
+
+
+#springdoc:
+#  swagger-ui:
+#    urls:
+#      - name: Order Service
+#        url: /order-service/v3/api-docs
+#      - name: Business Service
+#        url: /business-service/v3/api-docs
+#    enabled: true
+#  api-docs:
+#    enabled: true
+
+

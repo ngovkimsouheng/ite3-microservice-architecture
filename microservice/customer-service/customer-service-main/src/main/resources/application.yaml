@@ -1,6 +1,6 @@
 server:
   port: 9091
-
+  forward-headers-strategy: framework
 spring:
   autoconfigure:
     exclude: net.devh.boot.grpc.server.autoconfigure.GrpcMetadataConsulConfiguration
