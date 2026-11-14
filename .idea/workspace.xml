@@ -8,26 +8,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/microservice/business-service/business-service-main/src/main/java/kh/edu/istad/platform/business/DemoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/business-service/business-service-main/src/main/java/kh/edu/istad/platform/business/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/gateway-server/src/main/java/kh/edu/istad/platform/gateway/config/GatewayRouteConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/DemoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/payment-service/payment-service-main/src/main/java/kh/edu/istad/platform/payment/DemoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/microservice/payment-service/payment-service-main/src/main/java/kh/edu/istad/platform/payment/bean/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/business-service/business-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/business-service/business-service-main/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/business-service/business-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/business-service/business-service-main/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/gateway-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/gateway-server/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/gateway-server/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/gateway-server/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/java/kh/edu/istad/platform/order/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/order-service/order-service-main/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/payment-service/payment-service-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/payment-service/payment-service-main/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/payment-service/payment-service-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/payment-service/payment-service-main/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/public/favicon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/favicon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/public/icons.svg" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/icons.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/src/assets/hero.png" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/hero.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/src/assets/react.svg" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/react.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/src/assets/vite.svg" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/vite.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/IamServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/IamServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/LoginController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,11 +191,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\iam-main\src\main\resources\static" />
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\iam-main\src\main\resources\static\assets" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\iam-main" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\src\main\resources\templates" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\src\main\resources" />
-      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\src\main\resources\thymeleaf" />
-      <recent name="C:\Users\TUF\Desktop\istad-ite-project\istad-common\istad-common-webflux\src\main\resources\META-INF\spring" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -219,12 +212,8 @@
         <entry key="SpringBootApplicationConfigurationType">
           <value>
             <map>
-              <entry key="BusinessApplication" value="STOPPED" />
-              <entry key="CustomerApplicationService" value="STOPPED" />
-              <entry key="GatewayServerApplication" value="STOPPED" />
+              <entry key="IamServiceApplication" value="STOPPED" />
               <entry key="IamServiceApplication (1)" value="STOPPED" />
-              <entry key="OrderApplicationService" value="STOPPED" />
-              <entry key="PaymentApplicationService" value="STOPPED" />
             </map>
           </value>
         </entry>
@@ -299,28 +288,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IamServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <envs>
-        <env name="DATASOURCE_PASSWORD" value="qwerqwer" />
-        <env name="FACEBOOK_OAUTH_CLIENT_ID" value="1171995958599035" />
-        <env name="FACEBOOK_OAUTH_CLIENT_SECRET" value="b0c1a4ebcedab803cefe79e87637b196" />
-        <env name="GATEWAY_CLIENT_SECRET" value="gateway-secret" />
-        <env name="GITHUB_OAUTH_CLIENT_ID" value="Ov23liNdS9E6DIN3a5XN" />
-        <env name="GITHUB_OAUTH_CLIENT_SECRET" value="284e9f445be4d61e5b9316bf7c721b2eb32d406b" />
-        <env name="GOOGLE_OAUTH_CLIENT_ID" value="352289978674-k5vt9j5q8e85bdmevueg1uuu8ceovljc.apps.googleusercontent.com" />
-        <env name="GOOGLE_OAUTH_CLIENT_SECRET" value="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" />
-        <env name="REGISTRAR_CLIENT_SECRET" value="registrar-secret" />
-        <env name="TELEGRAM_BOT_USERNAME" value="istad_iam_dev_bot" />
-        <env name="WEB_CLIENT_SECRET" value="FTtH4JFxOpe//OGasSU1ZmjTbV2U/EhbMgBhZkKaHoY=" />
-        <env name="TELEGRAM_BOT_TOKEN" value="9295858162:AAGkfDGGi-xmdrI29a8r_Hxfe6T55_h0BfM" />
-      </envs>
-      <module name="iam-service.iam-main.main" />
-      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.iam.IamServiceApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="OrderApplicationService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="order-service.order-service-main.main" />
       <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
@@ -366,7 +333,6 @@
       <item itemvalue="Docker.consul/docker-compose.yaml: Compose Deployment" />
       <item itemvalue="HTTP Request.generated-requests | #50" />
       <item itemvalue="Spring Boot.IamServiceApplication (1)" />
-      <item itemvalue="Spring Boot.IamServiceApplication" />
       <item itemvalue="Spring Boot.BusinessApplication" />
       <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
       <item itemvalue="Spring Boot.PaymentApplicationService" />
@@ -438,11 +404,26 @@
       <workItem from="1794555184528" duration="9603000" />
       <workItem from="1794567859364" duration="728000" />
       <workItem from="1794568616549" duration="4390000" />
+      <workItem from="1794574582611" duration="1475000" />
+      <workItem from="1794592062088" duration="2273000" />
+      <workItem from="1794594373325" duration="2054000" />
+      <workItem from="1794671412836" duration="630000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

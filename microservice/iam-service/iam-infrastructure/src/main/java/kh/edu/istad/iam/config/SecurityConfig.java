@@ -126,7 +126,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login", "/login.html", "/register", "/login/telegram/callback",
-                                "/css/**", "/js/**", "/images/**").permitAll()
+                                "/css/**","/assets/**","/index.html/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
                         .anyRequest().authenticated()
                 )

@@ -31,20 +31,28 @@ public class LoginController {
     @Value("${app.telegram.bot-username:}")
     private String telegramBotUsername;
 
-    @GetMapping({"/login", "/login.html"})
-    public String login(@RequestParam(name = "error", required = false) String error,
-                        @RequestParam(name = "oauth2_error", required = false) String oauthError,
-                        @RequestParam(name = "registered", required = false) String registered,
-                        @RequestParam(name = "telegramLink", required = false) String telegramLink,
-                        HttpServletRequest request, Model model) {
-        model.addAttribute("error", error != null || oauthError != null);
-        model.addAttribute("registered", registered != null);
-        model.addAttribute("telegramBotUsername", telegramBotUsername);
-        model.addAttribute("telegramLinkMode", telegramLink != null
-                && request.getSession(false) != null
-                && request.getSession(false).getAttribute("iam.link-provider") instanceof String);
-        return "login";
-    }
+//    @GetMapping({"/login", "/login.html"})
+//    public String login(@RequestParam(name = "error", required = false) String error,
+//                        @RequestParam(name = "oauth2_error", required = false) String oauthError,
+//                        @RequestParam(name = "registered", required = false) String registered,
+//                        @RequestParam(name = "telegramLink", required = false) String telegramLink,
+//                        HttpServletRequest request, Model model) {
+//        model.addAttribute("error", error != null || oauthError != null);
+//        model.addAttribute("registered", registered != null);
+//        model.addAttribute("telegramBotUsername", telegramBotUsername);
+//        model.addAttribute("telegramLinkMode", telegramLink != null
+//                && request.getSession(false) != null
+//                && request.getSession(false).getAttribute("iam.link-provider") instanceof String);
+//        return "login";
+//    }
+@GetMapping({"/login", "/login.html"})
+public String login(@RequestParam(name = "error", required = false) String error,
+                    @RequestParam(name = "oauth2_error", required = false) String oauthError,
+                    @RequestParam(name = "registered", required = false) String registered,
+                    @RequestParam(name = "telegramLink", required = false) String telegramLink,
+                    HttpServletRequest request, Model model) {
+    return "forward:/index.html"; // <--- Forwards directly to your React app
+}
 
     @GetMapping("/register")
     public String registrationForm(Model model) {
