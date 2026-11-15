@@ -99,8 +99,8 @@ app:
       web:
         secret: ${WEB_CLIENT_SECRET}
   telegram:
-    bot-token: ${TELEGRAM_BOT_TOKEN}
-    bot-username: ${TELEGRAM_BOT_USERNAME}
+    bot-token: ${TELEGRAM_BOT_TOKEN:9295858162:AAGkfDGGi-xmdrI29a8r_Hxfe6T55_h0BfM}
+    bot-username: ${TELEGRAM_BOT_USERNAME:istad_iam_dev_bot}
 
 gg:
   jte:

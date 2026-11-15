@@ -100,7 +100,24 @@ public class FederatedUserProvisioner {
                 if (!isValidLinkRequest(linkRequest, provider)) {
                     throw new IllegalArgumentException("The identity-link request is invalid or expired.");
                 }
-                linkIdentityUseCase.execute(UUID.fromString(currentActorProvider.getCurrentActorSub()), command);
+                String[] parts = linkRequest.split(":", 3);
+                UUID targetUserUuid;
+                if (parts.length >= 3 && !parts[2].isBlank()) {
+                    targetUserUuid = UUID.fromString(parts[2]);
+                } else {
+                    targetUserUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
+                }
+
+                linkIdentityUseCase.execute(targetUserUuid, command);
+
+                // Flag link success in session so OAuth2 success handler redirects to linked-accounts page
+                if (RequestContextHolder.getRequestAttributes() instanceof ServletRequestAttributes reqAttr) {
+                    HttpSession session = reqAttr.getRequest().getSession(false);
+                    if (session != null) {
+                        session.setAttribute("iam.link-success", provider);
+                    }
+                }
+
                 authUser = federatedUserUseCase.execute(command);
             } else {
                 authUser = federatedUserUseCase.execute(command);
@@ -161,8 +178,8 @@ public class FederatedUserProvisioner {
     }
 
     private boolean isValidLinkRequest(String linkRequest, String provider) {
-        String[] parts = linkRequest.split(":", 2);
-        if (parts.length != 2 || !provider.equals(parts[0])) {
+        String[] parts = linkRequest.split(":", 3);
+        if (parts.length < 2 || !provider.equalsIgnoreCase(parts[0])) {
             return false;
         }
         try {

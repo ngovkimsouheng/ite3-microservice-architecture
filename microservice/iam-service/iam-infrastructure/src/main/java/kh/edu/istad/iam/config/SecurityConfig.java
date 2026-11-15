@@ -152,7 +152,20 @@ public class SecurityConfig {
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
-                        .defaultSuccessUrl("/account/profile", true)
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                                .oidcUserService(customOidcUserService)
+                        )
+                        .successHandler((request, response, authentication) -> {
+                            jakarta.servlet.http.HttpSession session = request.getSession(false);
+                            if (session != null && session.getAttribute("iam.link-success") != null) {
+                                String linkedProv = (String) session.getAttribute("iam.link-success");
+                                session.removeAttribute("iam.link-success");
+                                response.sendRedirect("/account/linked-accounts?linked=" + linkedProv.toLowerCase(java.util.Locale.ROOT));
+                                return;
+                            }
+                            response.sendRedirect("/account/profile");
+                        })
                 );
 
         return http.build();
