@@ -13,9 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +34,14 @@ public class GrantPermissionsToUserUseCase {
         OffsetDateTime now = OffsetDateTime.now();
         List<PermissionGrantResult> results = new ArrayList<>();
 
-        for (UUID permUuid : command.permissionUuids()) {
+        Set<UUID> requestedPermUuids = command.permissionUuids() != null
+                ? new LinkedHashSet<>(command.permissionUuids())
+                : Collections.emptySet();
+
+        Set<Long> targetPermIds = new HashSet<>();
+        List<Permission> targetPerms = new ArrayList<>();
+
+        for (UUID permUuid : requestedPermUuids) {
             Permission perm = permissionRepository.findByUuid(permUuid)
                     .filter(p -> !p.isDeleted())
                     .orElseThrow(() -> new IllegalArgumentException("Permission not found: " + permUuid));
@@ -45,23 +50,41 @@ public class GrantPermissionsToUserUseCase {
                 throw new IllegalStateException("Inactive permissions cannot be assigned: " + perm.getName());
             }
 
+            targetPermIds.add(perm.getId());
+            targetPerms.add(perm);
+        }
+
+        // 1. Revoke any currently active direct permissions not in target list
+        List<UserPermissionAssignment> currentAssignments = userRepository.findPermissionAssignmentsByUserId(user.getId());
+        for (UserPermissionAssignment assignment : currentAssignments) {
+            if (assignment.isActive() && !targetPermIds.contains(assignment.getPermissionId())) {
+                assignment.revoke(actor, "Unassigned by administrator");
+                userRepository.savePermissionAssignment(assignment);
+            }
+        }
+
+        // 2. Grant / re-activate target permissions
+        for (Permission perm : targetPerms) {
             var existing = userRepository.findPermissionAssignment(user.getId(), perm.getId());
-            if (existing.isPresent() && existing.get().getRevokedAt() == null) {
+            if (existing.isPresent() && existing.get().isActive()) {
+                results.add(domainDtoMapper.toPermissionGrantResult(perm, existing.get()));
                 continue;
             }
 
             UserPermissionAssignment assignment = UserPermissionAssignment.builder()
+                    .id(existing.map(UserPermissionAssignment::getId).orElse(null))
                     .userId(user.getId())
                     .permissionId(perm.getId())
-                    .effect(command.effect())
+                    .effect(command.effect() != null ? command.effect() : "GRANT")
                     .assignedAt(now)
                     .assignedBy(actor)
                     .expiresAt(command.expiresAt())
+                    .revokedAt(null)
+                    .revokedBy(null)
                     .reason(command.reason())
                     .build();
 
             userRepository.savePermissionAssignment(assignment);
-
             results.add(domainDtoMapper.toPermissionGrantResult(perm, assignment));
         }
 

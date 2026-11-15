@@ -5,18 +5,23 @@ import java.util.List;
 import java.util.UUID;
 
 public record UserResponse(
-            UUID uuid,
-            String username,
-            String email,
-            boolean emailVerified,
-            String name,
-            String givenName,
-            String familyName,
-            String nickname,
-            String locale,
-            String phoneNumber,
-            boolean enabled,
-            List<RoleDto> roles,
-            OffsetDateTime createdAt,
-            OffsetDateTime updatedAt
-    ) {}
+        UUID uuid,
+        String username,
+        String email,
+        boolean emailVerified,
+        String name,
+        String givenName,
+        String familyName,
+        String nickname,
+        String locale,
+        String phoneNumber,
+        boolean enabled,
+        boolean accountNonLocked,
+        List<RoleDto> roles,
+        OffsetDateTime createdAt,
+        OffsetDateTime updatedAt
+) {
+    public boolean accountLocked() {
+        return !accountNonLocked;
+    }
+}

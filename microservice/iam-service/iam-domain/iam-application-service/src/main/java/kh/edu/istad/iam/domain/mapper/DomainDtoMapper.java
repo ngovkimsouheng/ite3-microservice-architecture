@@ -11,6 +11,7 @@ public interface DomainDtoMapper {
 
     UserResult toUserResult(User user);
 
+    @Mapping(target = "roles", expression = "java(java.util.List.of())")
     UserSummary toUserSummary(User user);
 
     @Mapping(target = "isSystem", expression = "java(role.isSystem())")

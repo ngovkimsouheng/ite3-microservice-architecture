@@ -5,29 +5,34 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public record UserResult(
-            UUID uuid,
-            String username,
-            String email,
-            boolean emailVerified,
-            String givenName,
-            String familyName,
-            String middleName,
-            String nickname,
-            String gender,
-            LocalDate birthdate,
-            String profileUrl,
-            String pictureUrl,
-            String websiteUrl,
-            String zoneinfo,
-            String locale,
-            String phoneNumber,
-            boolean phoneNumberVerified,
-            String addressStreetAddress,
-            String addressLocality,
-            String addressRegion,
-            String addressPostalCode,
-            String addressCountry,
-            boolean enabled,
-            OffsetDateTime createdAt,
-            OffsetDateTime updatedAt
-    ) {}
+        UUID uuid,
+        String username,
+        String email,
+        boolean emailVerified,
+        String givenName,
+        String familyName,
+        String middleName,
+        String nickname,
+        String gender,
+        LocalDate birthdate,
+        String profileUrl,
+        String pictureUrl,
+        String websiteUrl,
+        String zoneinfo,
+        String locale,
+        String phoneNumber,
+        boolean phoneNumberVerified,
+        String addressStreetAddress,
+        String addressLocality,
+        String addressRegion,
+        String addressPostalCode,
+        String addressCountry,
+        boolean enabled,
+        boolean accountNonLocked,
+        OffsetDateTime createdAt,
+        OffsetDateTime updatedAt
+) {
+    public boolean accountLocked() {
+        return !accountNonLocked;
+    }
+}

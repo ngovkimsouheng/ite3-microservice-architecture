@@ -13,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +34,14 @@ public class AssignRolesToUserUseCase {
         OffsetDateTime now = OffsetDateTime.now();
         List<RoleAssignmentResult> results = new ArrayList<>();
 
-        for (UUID roleUuid : new LinkedHashSet<>(command.roleUuids())) {
+        Set<UUID> requestedRoleUuids = command.roleUuids() != null
+                ? new LinkedHashSet<>(command.roleUuids())
+                : Collections.emptySet();
+
+        Set<Long> targetRoleIds = new HashSet<>();
+        List<Role> targetRoles = new ArrayList<>();
+
+        for (UUID roleUuid : requestedRoleUuids) {
             Role role = roleRepository.findByUuid(roleUuid)
                     .filter(r -> !r.isDeleted())
                     .orElseThrow(() -> new IllegalArgumentException("Role not found: " + roleUuid));
@@ -46,10 +50,24 @@ public class AssignRolesToUserUseCase {
                 throw new IllegalStateException("Inactive roles cannot be assigned: " + role.getName());
             }
 
+            targetRoleIds.add(role.getId());
+            targetRoles.add(role);
+        }
+
+        // 1. Revoke any currently active role assignments that are NOT in the target list
+        List<UserRoleAssignment> currentAssignments = userRepository.findRoleAssignmentsByUserId(user.getId());
+        for (UserRoleAssignment assignment : currentAssignments) {
+            if (assignment.isActive() && !targetRoleIds.contains(assignment.getRoleId())) {
+                assignment.revoke(actor, "Unassigned by administrator");
+                userRepository.saveRoleAssignment(assignment);
+            }
+        }
+
+        // 2. Assign / re-activate target roles
+        for (Role role : targetRoles) {
             var existing = userRepository.findRoleAssignment(user.getId(), role.getId());
             if (existing.isPresent() && existing.get().isActive()) {
-                UserRoleAssignment activeAssignment = existing.get();
-                results.add(domainDtoMapper.toRoleAssignmentResult(role, activeAssignment));
+                results.add(domainDtoMapper.toRoleAssignmentResult(role, existing.get()));
                 continue;
             }
 
@@ -66,7 +84,6 @@ public class AssignRolesToUserUseCase {
                     .build();
 
             userRepository.saveRoleAssignment(assignment);
-
             results.add(domainDtoMapper.toRoleAssignmentResult(role, assignment));
         }
 

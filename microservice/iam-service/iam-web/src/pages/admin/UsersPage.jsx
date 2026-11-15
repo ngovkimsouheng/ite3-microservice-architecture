@@ -193,12 +193,12 @@ export default function UsersPage() {
         try {
             if (user.accountLocked) {
                 await adminService.unlockUser(user.uuid);
-                showToast(`Unlocked ${user.username}`);
+                showToast(`Account @${user.username} has been UNLOCKED.`, 'success');
             } else {
                 await adminService.lockUser(user.uuid);
-                showToast(`Locked ${user.username}`);
+                showToast(`Account @${user.username} has been LOCKED.`, 'error');
             }
-            fetchUsers();
+            await fetchUsers();
         } catch (err) {
             showToast('Failed to update lock status.', 'error');
         }
@@ -209,12 +209,12 @@ export default function UsersPage() {
         try {
             if (user.enabled) {
                 await adminService.disableUser(user.uuid);
-                showToast(`Disabled ${user.username}`);
+                showToast(`Disabled @${user.username}`);
             } else {
                 await adminService.enableUser(user.uuid);
-                showToast(`Enabled ${user.username}`);
+                showToast(`Enabled @${user.username}`);
             }
-            fetchUsers();
+            await fetchUsers();
         } catch (err) {
             showToast('Failed to update enable status.', 'error');
         }
@@ -226,7 +226,16 @@ export default function UsersPage() {
         try {
             const auths = await adminService.getUserAuthorities(user.uuid);
             setUserAuthorities(auths);
-            setSelectedRoleUuids(auths.roles ? auths.roles.map(r => r.uuid) : []);
+            let matchedUuids = [];
+            if (auths.roleDetails && auths.roleDetails.length > 0) {
+                matchedUuids = auths.roleDetails.map(r => r.uuid);
+            } else if (auths.roles) {
+                const roleNameSet = new Set(Array.from(auths.roles).map(rn => rn.replace(/^ROLE_/, '')));
+                matchedUuids = availableRoles
+                    .filter(r => roleNameSet.has(r.name) || roleNameSet.has(r.name.replace(/^ROLE_/, '')))
+                    .map(r => r.uuid);
+            }
+            setSelectedRoleUuids(matchedUuids);
             setShowRoleModal(true);
         } catch (err) {
             showToast('Failed to load user roles.', 'error');
@@ -237,9 +246,9 @@ export default function UsersPage() {
     const handleSaveRoles = async () => {
         try {
             await adminService.assignRolesToUser(selectedUser.uuid, selectedRoleUuids);
-            showToast('Roles assigned successfully.');
+            showToast('Roles updated successfully.');
             setShowRoleModal(false);
-            fetchUsers();
+            await fetchUsers();
         } catch (err) {
             showToast('Failed to update roles.', 'error');
         }
@@ -251,7 +260,11 @@ export default function UsersPage() {
         try {
             const auths = await adminService.getUserAuthorities(user.uuid);
             setUserAuthorities(auths);
-            setSelectedPermUuids(auths.permissions ? auths.permissions.map(p => p.uuid) : []);
+            const permSet = new Set(auths.effectivePermissions || auths.permissions || []);
+            const matchedUuids = availablePerms
+                .filter(p => permSet.has(p.name))
+                .map(p => p.uuid);
+            setSelectedPermUuids(matchedUuids);
             setShowPermModal(true);
         } catch (err) {
             showToast('Failed to load user permissions.', 'error');
@@ -262,9 +275,9 @@ export default function UsersPage() {
     const handleSavePermissions = async () => {
         try {
             await adminService.grantPermissionsToUser(selectedUser.uuid, selectedPermUuids);
-            showToast('Direct permissions updated.');
+            showToast('Direct permissions updated successfully.');
             setShowPermModal(false);
-            fetchUsers();
+            await fetchUsers();
         } catch (err) {
             showToast('Failed to update permissions.', 'error');
         }
@@ -396,16 +409,34 @@ export default function UsersPage() {
                                 </tr>
                             ) : (
                                 filteredUsers.map((user) => (
-                                    <tr key={user.uuid} className="hover:bg-slate-50/70 transition-colors">
+                                    <tr
+                                        key={user.uuid}
+                                        className={`transition-colors ${
+                                            user.accountLocked
+                                                ? 'bg-red-50/50 hover:bg-red-50/80 border-l-4 border-l-[#DF1F28]'
+                                                : 'hover:bg-slate-50/70'
+                                        }`}
+                                    >
                                         {/* User Identity */}
                                         <td className="px-5 py-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-full bg-[#253C95]/10 text-[#253C95] font-bold text-base flex items-center justify-center shrink-0">
+                                                <div className={`w-10 h-10 rounded-full font-bold text-base flex items-center justify-center shrink-0 ${
+                                                    user.accountLocked
+                                                        ? 'bg-red-100 text-[#DF1F28]'
+                                                        : 'bg-[#253C95]/10 text-[#253C95]'
+                                                }`}>
                                                     {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
                                                 </div>
                                                 <div>
-                                                    <p className="font-bold text-slate-800 leading-snug">{user.username}</p>
-                                                    <p className="text-xs sm:text-sm text-slate-400 font-normal">{user.email || 'No email'}</p>
+                                                    <div className="flex items-center gap-2">
+                                                        <p className="font-bold text-slate-800 leading-snug">{user.name || user.username}</p>
+                                                        {user.accountLocked && (
+                                                            <span className="px-2 py-0.2 rounded text-[11px] font-black uppercase tracking-wider bg-red-100 text-[#DF1F28] border border-red-200">
+                                                                Locked
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <p className="text-xs sm:text-sm text-slate-400 font-normal">@{user.username} &bull; {user.email || 'No email'}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -413,19 +444,17 @@ export default function UsersPage() {
                                         {/* Status Badges */}
                                         <td className="px-5 py-4">
                                             <div className="flex flex-wrap items-center gap-1.5">
-                                                {user.enabled ? (
-                                                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                                                        Active
+                                                {user.accountLocked ? (
+                                                    <span className="px-3 py-1 rounded-full text-xs font-black bg-red-100 text-[#DF1F28] border-2 border-red-300 flex items-center gap-1.5 shadow-2xs animate-pulse">
+                                                        <Lock size={13} className="text-[#DF1F28]" /> ACCOUNT LOCKED
+                                                    </span>
+                                                ) : user.enabled ? (
+                                                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active
                                                     </span>
                                                 ) : (
                                                     <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200">
                                                         Disabled
-                                                    </span>
-                                                )}
-
-                                                {user.accountLocked && (
-                                                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-50 text-[#DF1F28] border border-red-200 flex items-center gap-1">
-                                                        <Lock size={12} /> Locked
                                                     </span>
                                                 )}
                                             </div>
@@ -433,21 +462,45 @@ export default function UsersPage() {
 
                                         {/* Roles & Permissions */}
                                         <td className="px-5 py-4">
-                                            <div className="flex items-center gap-2">
-                                                <button
-                                                    onClick={() => openRoleModal(user)}
-                                                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-semibold cursor-pointer transition-colors"
-                                                >
-                                                    <Shield size={13} />
-                                                    <span>Roles</span>
-                                                </button>
-                                                <button
-                                                    onClick={() => openPermModal(user)}
-                                                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold cursor-pointer transition-colors"
-                                                >
-                                                    <Key size={13} />
-                                                    <span>Permissions</span>
-                                                </button>
+                                            <div className="flex flex-wrap items-center gap-1.5">
+                                                {user.roles && user.roles.length > 0 ? (
+                                                    user.roles.map((r, i) => {
+                                                        const clean = r.replace(/^ROLE_/, '');
+                                                        const isAdm = clean === 'ADMIN' || clean === 'SYSTEM_ADMIN';
+                                                        return (
+                                                            <span
+                                                                key={i}
+                                                                className={`px-2.5 py-0.5 rounded-md text-xs font-bold uppercase tracking-wider border ${
+                                                                    isAdm
+                                                                        ? 'bg-blue-50 text-[#253C95] border-blue-200'
+                                                                        : 'bg-indigo-50 text-indigo-700 border-indigo-200'
+                                                                }`}
+                                                            >
+                                                                {clean}
+                                                            </span>
+                                                        );
+                                                    })
+                                                ) : (
+                                                    <span className="text-xs text-slate-400 font-medium italic">No roles</span>
+                                                )}
+                                                <div className="flex items-center gap-1 ml-1">
+                                                    <button
+                                                        onClick={() => openRoleModal(user)}
+                                                        className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-semibold cursor-pointer transition-colors"
+                                                        title={t('admin.users.assignRoles')}
+                                                    >
+                                                        <Shield size={13} />
+                                                        <span>Roles</span>
+                                                    </button>
+                                                    <button
+                                                        onClick={() => openPermModal(user)}
+                                                        className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold cursor-pointer transition-colors"
+                                                        title={t('admin.users.assignPerms')}
+                                                    >
+                                                        <Key size={13} />
+                                                        <span>Perms</span>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </td>
 
@@ -481,14 +534,14 @@ export default function UsersPage() {
                                                 {/* Lock/Unlock Toggle */}
                                                 <button
                                                     onClick={() => handleToggleLock(user)}
-                                                    className={`p-1.5 rounded-lg border transition-colors ${
+                                                    className={`p-1.5 rounded-lg border transition-all ${
                                                         user.accountLocked
-                                                            ? 'border-emerald-200 bg-emerald-50 text-emerald-600 hover:bg-emerald-100'
-                                                            : 'border-slate-200 text-slate-600 hover:bg-slate-100'
+                                                            ? 'border-emerald-300 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 shadow-xs'
+                                                            : 'border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-[#DF1F28]'
                                                     }`}
-                                                    title={user.accountLocked ? t('admin.users.unlockUser') : t('admin.users.lockUser')}
+                                                    title={user.accountLocked ? 'Account is LOCKED. Click to unlock.' : 'Click to lock user account.'}
                                                 >
-                                                    {user.accountLocked ? <Unlock size={16} /> : <Lock size={16} />}
+                                                    {user.accountLocked ? <Unlock size={16} className="text-emerald-700" /> : <Lock size={16} />}
                                                 </button>
 
                                                 {/* Enable/Disable Toggle */}
