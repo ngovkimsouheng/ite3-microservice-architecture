@@ -130,89 +130,89 @@ export default function SessionsPage() {
     };
 
     return (
-        <div className="space-y-5">
+        <div className="space-y-4">
             {/* Floating Toast Notification */}
             <Toast alert={alert} onClose={() => setAlert(null)} />
 
             {/* Header & Terminate All Actions */}
-            <div className="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/90 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="bg-white px-5 py-4 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <div>
-                    <div className="flex items-center gap-2.5">
-                        <Smartphone size={22} className="text-[#253C95]" />
-                        <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                    <div className="flex items-center gap-2">
+                        <Smartphone size={20} className="text-[#253C95]" />
+                        <h3 className="text-sm sm:text-base font-bold text-slate-900">
                             {i18n.language === 'en' ? 'Active User Sessions' : 'សម័យការងារសកម្ម'}
                         </h3>
                     </div>
-                    <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
+                    <p className="text-xs text-slate-500 font-medium mt-0.5">
                         {i18n.language === 'en'
                             ? 'Manage devices where your account is currently signed in via Redis session store.'
                             : 'គ្រប់គ្រងឧបករណ៍ដែលកំពុងចូលប្រើប្រាស់គណនីរបស់អ្នកតាមរយៈឃ្លាំងផ្ទុកទិន្នន័យ Redis។'}
                     </p>
                 </div>
 
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-2">
                     <button
                         onClick={fetchSessions}
                         disabled={loading}
-                        className="p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 transition-all cursor-pointer active:scale-95"
+                        className="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 transition-all cursor-pointer active:scale-95"
                         title="Reload Sessions"
                     >
-                        <RefreshCw size={17} className={loading ? 'animate-spin text-[#253C95]' : ''} />
+                        <RefreshCw size={15} className={loading ? 'animate-spin text-[#253C95]' : ''} />
                     </button>
 
                     {sessions.length > 1 && (
                         <button
                             type="button"
                             onClick={handleTerminateAllOthers}
-                            className="px-4 py-2.5 bg-[#DF1F28]/10 hover:bg-[#DF1F28]/20 text-[#DF1F28] border border-[#DF1F28]/30 font-semibold text-sm rounded-xl transition-all flex items-center gap-2 cursor-pointer active:scale-95 shrink-0"
+                            className="px-3 py-2 bg-[#DF1F28]/10 hover:bg-[#DF1F28]/20 text-[#DF1F28] border border-[#DF1F28]/30 font-semibold text-xs sm:text-sm rounded-xl transition-all flex items-center gap-1.5 cursor-pointer active:scale-95 shrink-0"
                         >
-                            <Trash2 size={16} />
-                            <span>{i18n.language === 'en' ? 'Log Out All Other Devices' : 'ចាកចេញពីឧបករណ៍ផ្សេងទៀតទាំងអស់'}</span>
+                            <Trash2 size={14} />
+                            <span>{i18n.language === 'en' ? 'Log Out Others' : 'ចាកចេញពីឧបករណ៍ផ្សេងទៀត'}</span>
                         </button>
                     )}
                 </div>
             </div>
 
             {/* Sessions List */}
-            <div className="space-y-4">
+            <div className="space-y-3">
                 {sessions.map((sess) => (
                     <div
                         key={sess.id}
-                        className={`bg-white p-6 rounded-3xl border transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 shadow-2xs ${
+                        className={`bg-white px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl border transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs ${
                             sess.isCurrent ? 'border-[#253C95]/40 bg-[#253C95]/[0.02]' : 'border-slate-200/80 hover:border-slate-300'
                         }`}
                     >
-                        <div className="flex items-start sm:items-center gap-4.5">
-                            <div className="w-13 h-13 rounded-2xl bg-[#253C95]/10 border border-[#253C95]/20 flex items-center justify-center shrink-0">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl bg-[#253C95]/10 border border-[#253C95]/20 flex items-center justify-center shrink-0">
                                 {getDeviceIcon(sess.deviceType)}
                             </div>
 
                             <div>
                                 <div className="flex flex-wrap items-center gap-2">
-                                    <h4 className="text-base font-bold text-slate-900">
+                                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-tight">
                                         {sess.deviceName}
                                     </h4>
-                                    <span className="text-xs sm:text-sm text-slate-500 font-medium">
+                                    <span className="text-xs text-slate-500 font-medium">
                                         • {sess.browser}
                                     </span>
                                     {sess.isCurrent && (
-                                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
                                             <span className="w-1.5 h-1.5 rounded-full bg-[#F9A825]" />
                                             {i18n.language === 'en' ? 'Current Session' : 'សម័យការងារបច្ចុប្បន្ន'}
                                         </span>
                                     )}
                                 </div>
 
-                                <div className="flex flex-wrap items-center gap-4 mt-2 text-xs sm:text-sm text-slate-500">
-                                    <div className="flex items-center gap-1.5 font-mono">
-                                        <Globe size={15} className="text-slate-400" />
+                                <div className="flex flex-wrap items-center gap-2.5 mt-1 text-xs text-slate-500">
+                                    <div className="flex items-center gap-1 font-mono text-[11px]">
+                                        <Globe size={13} className="text-slate-400" />
                                         <span>{sess.ipAddress}</span>
                                     </div>
-                                    <span>•</span>
-                                    <span>{sess.location}</span>
-                                    <span>•</span>
-                                    <div className="flex items-center gap-1.5">
-                                        <Clock size={15} className="text-slate-400" />
+                                    <span className="text-slate-300">•</span>
+                                    <span className="text-[11px]">{sess.location}</span>
+                                    <span className="text-slate-300">•</span>
+                                    <div className="flex items-center gap-1 text-[11px]">
+                                        <Clock size={13} className="text-slate-400" />
                                         <span>{sess.lastActive}</span>
                                     </div>
                                 </div>
@@ -223,9 +223,9 @@ export default function SessionsPage() {
                             <button
                                 type="button"
                                 onClick={() => handleTerminate(sess.id, sess.deviceName)}
-                                className="px-4 py-2 bg-slate-50 hover:bg-[#DF1F28]/10 text-slate-600 hover:text-[#DF1F28] border border-slate-200 hover:border-[#DF1F28]/30 font-semibold text-xs sm:text-sm rounded-xl transition-all flex items-center gap-2 cursor-pointer active:scale-95 shrink-0"
+                                className="px-3 py-1.5 bg-slate-50 hover:bg-[#DF1F28]/10 text-slate-600 hover:text-[#DF1F28] border border-slate-200 hover:border-[#DF1F28]/30 font-semibold text-xs rounded-xl transition-all flex items-center gap-1.5 cursor-pointer active:scale-95 shrink-0 ml-auto sm:ml-0"
                             >
-                                <LogOut size={16} />
+                                <LogOut size={14} />
                                 <span>{i18n.language === 'en' ? 'Terminate' : 'បញ្ចប់'}</span>
                             </button>
                         )}

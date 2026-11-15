@@ -1,14 +1,19 @@
     package kh.edu.istad.iam.restapi.controller;
 
+    import jakarta.servlet.http.HttpServletRequest;
     import jakarta.validation.Valid;
     import kh.edu.istad.iam.domain.dto.*;
     import kh.edu.istad.iam.domain.port.out.CurrentActorProvider;
     import kh.edu.istad.iam.domain.usecase.identity.ListUserIdentitiesUseCase;
     import kh.edu.istad.iam.domain.usecase.identity.UnlinkIdentityUseCase;
+    import kh.edu.istad.iam.domain.usecase.security.ListLoginHistoryUseCase;
+    import kh.edu.istad.iam.domain.usecase.security.ListSecurityActivityUseCase;
+    import kh.edu.istad.iam.domain.usecase.security.RecordSecurityEventUseCase;
     import kh.edu.istad.iam.domain.usecase.user.*;
     import kh.edu.istad.iam.restapi.dto.*;
     import kh.edu.istad.iam.restapi.mapper.IamWebMapper;
     import lombok.RequiredArgsConstructor;
+    import lombok.extern.slf4j.Slf4j;
     import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
     import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +22,7 @@
     import java.util.List;
     import java.util.UUID;
 
+    @Slf4j
     @RestController
     @RequestMapping("/api")
     @RequiredArgsConstructor
@@ -40,6 +46,9 @@
         private final GetUserAuthoritiesUseCase getUserAuthoritiesUseCase;
         private final ListUserIdentitiesUseCase listUserIdentitiesUseCase;
         private final UnlinkIdentityUseCase unlinkIdentityUseCase;
+        private final ListLoginHistoryUseCase listLoginHistoryUseCase;
+        private final ListSecurityActivityUseCase listSecurityActivityUseCase;
+        private final RecordSecurityEventUseCase recordSecurityEventUseCase;
         private final CurrentActorProvider currentActorProvider;
         private final IamWebMapper webMapper;
 
@@ -212,9 +221,11 @@
             UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
             UserResult result = updateUserProfileUseCase.execute(webMapper.toCommand(currentUuid, request));
 
-            // Sync updated username to Spring Security context and session if changed
             org.springframework.security.core.Authentication currentAuth =
                     org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+            String oldUsername = (currentAuth != null) ? currentAuth.getName() : null;
+
+            // Sync updated username to Spring Security context and session if changed
             if (currentAuth != null && currentAuth.getPrincipal() instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
                 if (!userDetails.getUsername().equals(result.username())) {
                     org.springframework.security.core.userdetails.UserDetails updatedUser =
@@ -249,13 +260,71 @@
                 }
             }
 
+            // Record real security activity
+            try {
+                String ip = extractClientIp(servletRequest);
+                if (oldUsername != null && !oldUsername.equals(result.username())) {
+                    recordSecurityEventUseCase.execute(
+                            currentUuid,
+                            result.username(),
+                            "ACTIVITY",
+                            "USERNAME_CHANGED",
+                            "SUCCESS",
+                            ip,
+                            null,
+                            "Phnom Penh, Cambodia",
+                            null,
+                            "Username Changed",
+                            "Changed username from @" + oldUsername + " to @" + result.username()
+                    );
+                } else {
+                    recordSecurityEventUseCase.execute(
+                            currentUuid,
+                            result.username(),
+                            "ACTIVITY",
+                            "PROFILE_UPDATED",
+                            "SUCCESS",
+                            ip,
+                            null,
+                            "Phnom Penh, Cambodia",
+                            null,
+                            "Profile Details Updated",
+                            "Updated profile information and preferences"
+                    );
+                }
+            } catch (Exception ex) {
+                log.error("Failed to record profile security activity: {}", ex.getMessage(), ex);
+            }
+
             return ResponseEntity.ok(toResponse(result));
         }
 
         @PutMapping("/me/password")
-        public ResponseEntity<Void> changeCurrentPassword(@Valid @RequestBody ChangePasswordRequest request) {
+        public ResponseEntity<Void> changeCurrentPassword(
+                @Valid @RequestBody ChangePasswordRequest request,
+                HttpServletRequest servletRequest
+        ) {
             UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
             changePasswordUseCase.execute(currentUuid, webMapper.toCommand(request));
+
+            try {
+                recordSecurityEventUseCase.execute(
+                        currentUuid,
+                        null,
+                        "ACTIVITY",
+                        "PASSWORD_CHANGED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        null,
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Password Changed",
+                        "Successfully changed account password"
+                );
+            } catch (Exception ex) {
+                log.error("Failed to record password security activity: {}", ex.getMessage(), ex);
+            }
+
             return ResponseEntity.noContent().build();
         }
 
@@ -267,10 +336,141 @@
         }
 
         @DeleteMapping("/me/identities/{identityUuid}")
-        public ResponseEntity<Void> unlinkCurrentUserIdentity(@PathVariable("identityUuid") UUID identityUuid) {
+        public ResponseEntity<Void> unlinkCurrentUserIdentity(
+                @PathVariable("identityUuid") UUID identityUuid,
+                HttpServletRequest servletRequest
+        ) {
             UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
+
+            // Identify which social account is being unlinked before deletion
+            String providerName = "Social";
+            String emailOrAccount = "";
+            try {
+                List<IdentityResult> identities = listUserIdentitiesUseCase.execute(currentUuid);
+                var target = identities.stream().filter(i -> i.uuid().equals(identityUuid)).findFirst();
+                if (target.isPresent()) {
+                    providerName = formatProviderTitle(target.get().provider());
+                    if (target.get().email() != null && !target.get().email().isBlank()) {
+                        emailOrAccount = " (" + target.get().email() + ")";
+                    } else if (target.get().displayName() != null && !target.get().displayName().isBlank()) {
+                        emailOrAccount = " (" + target.get().displayName() + ")";
+                    } else if (target.get().providerSubject() != null) {
+                        emailOrAccount = " (ID: " + target.get().providerSubject() + ")";
+                    }
+                }
+            } catch (Exception ex) {
+                log.warn("Could not inspect identity before unlinking: {}", ex.getMessage());
+            }
+
             unlinkIdentityUseCase.execute(currentUuid, identityUuid);
+
+            try {
+                recordSecurityEventUseCase.execute(
+                        currentUuid,
+                        null,
+                        "ACTIVITY",
+                        "IDENTITY_UNLINKED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        null,
+                        "Phnom Penh, Cambodia",
+                        providerName,
+                        providerName + " Account Unlinked",
+                        "Disconnected " + providerName + " single sign-on connection" + emailOrAccount
+                );
+            } catch (Exception ex) {
+                log.error("Failed to record unlink security activity: {}", ex.getMessage(), ex);
+            }
+
             return ResponseEntity.noContent().build();
+        }
+
+        @GetMapping("/me/login-history")
+        public ResponseEntity<List<LoginHistoryResponse>> getMyLoginHistory(
+                @RequestParam(name = "status", required = false, defaultValue = "all") String status,
+                @RequestParam(name = "limit", required = false, defaultValue = "50") int limit
+        ) {
+            UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
+            var results = listLoginHistoryUseCase.execute(currentUuid, status, limit);
+            List<LoginHistoryResponse> responses = results.stream().map(e -> new LoginHistoryResponse(
+                    e.uuid().toString(),
+                    e.status(),
+                    e.createdAt(),
+                    e.ipAddress(),
+                    e.device(),
+                    e.location(),
+                    e.authMethod() != null ? e.authMethod() : "Password"
+            )).toList();
+            return ResponseEntity.ok(responses);
+        }
+
+        @GetMapping("/me/security-activity")
+        public ResponseEntity<List<SecurityActivityResponse>> getMySecurityActivity(
+                @RequestParam(name = "limit", required = false, defaultValue = "50") int limit
+        ) {
+            UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
+            var results = listSecurityActivityUseCase.execute(currentUuid, limit);
+            List<SecurityActivityResponse> responses = results.stream().map(e -> {
+                String icon = "Activity";
+                String color = "text-[#253C95] bg-[#253C95]/10";
+                if ("PASSWORD_CHANGED".equalsIgnoreCase(e.eventType())) {
+                    icon = "KeyRound";
+                    color = "text-emerald-600 bg-emerald-50";
+                } else if ("USERNAME_CHANGED".equalsIgnoreCase(e.eventType()) || "PROFILE_UPDATED".equalsIgnoreCase(e.eventType())) {
+                    icon = "UserCheck";
+                    color = "text-[#253C95] bg-[#253C95]/10";
+                } else if ("IDENTITY_LINKED".equalsIgnoreCase(e.eventType())) {
+                    icon = "Activity";
+                    color = "text-[#253C95] bg-[#253C95]/10";
+                } else if ("IDENTITY_UNLINKED".equalsIgnoreCase(e.eventType()) || "SESSION_TERMINATED".equalsIgnoreCase(e.eventType())) {
+                    icon = "Lock";
+                    color = "text-[#DF1F28] bg-[#DF1F28]/10";
+                }
+
+                return new SecurityActivityResponse(
+                        e.uuid().toString(),
+                        e.description() != null ? e.description() : e.eventType(),
+                        e.details() != null ? e.details() : (e.description() != null ? e.description() : "Account updated"),
+                        e.createdAt(),
+                        icon,
+                        color
+                );
+            }).toList();
+            return ResponseEntity.ok(responses);
+        }
+
+        private String formatProviderTitle(String provider) {
+            if (provider == null || provider.isBlank()) return "Social";
+            String lower = provider.trim().toLowerCase();
+            return switch (lower) {
+                case "google" -> "Google";
+                case "github" -> "GitHub";
+                case "facebook" -> "Facebook";
+                case "telegram" -> "Telegram";
+                default -> provider.substring(0, 1).toUpperCase() + provider.substring(1).toLowerCase();
+            };
+        }
+
+        private String extractClientIp(HttpServletRequest request) {
+            if (request == null) return "127.0.0.1 (Localhost)";
+            String ip = null;
+            String xf = request.getHeader("X-Forwarded-For");
+            if (xf != null && !xf.isBlank() && !"unknown".equalsIgnoreCase(xf)) {
+                ip = xf.split(",")[0].trim();
+            }
+            if (ip == null || ip.isBlank()) {
+                String xr = request.getHeader("X-Real-IP");
+                if (xr != null && !xr.isBlank() && !"unknown".equalsIgnoreCase(xr)) {
+                    ip = xr.trim();
+                }
+            }
+            if (ip == null || ip.isBlank()) {
+                ip = request.getRemoteAddr();
+            }
+            if (ip == null || ip.equals("0:0:0:0:0:0:0:1") || ip.equals("::1") || ip.equals("127.0.0.1")) {
+                return "127.0.0.1 (Localhost)";
+            }
+            return ip;
         }
 
         // --- Helpers ---

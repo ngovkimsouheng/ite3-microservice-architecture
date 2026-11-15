@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { userService } from '../../services/userService';
 import Toast from '../../components/Toast';
+import ResetPasswordModal from '../../components/ResetPasswordModal';
 import {
     KeyRound, CheckCircle2, AlertCircle, Loader2,
     AlertTriangle, Trash2, Eye, EyeOff, ShieldCheck, Sparkles
@@ -21,6 +22,7 @@ export default function SecurityPage() {
     const [alert, setAlert] = useState(null);
     const [showDeactivateModal, setShowDeactivateModal] = useState(false);
     const [deactivateLoading, setDeactivateLoading] = useState(false);
+    const [showResetModal, setShowResetModal] = useState(false);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -115,9 +117,18 @@ export default function SecurityPage() {
                 <form onSubmit={handleSubmit} className="space-y-5 max-w-xl">
                     {/* Current Password */}
                     <div>
-                        <label className="block text-sm font-bold uppercase tracking-wider text-slate-600 mb-2">
-                            {t('security.currentPassword')}
-                        </label>
+                        <div className="flex items-center justify-between mb-2">
+                            <label className="block text-sm font-bold uppercase tracking-wider text-slate-600">
+                                {t('security.currentPassword')}
+                            </label>
+                            <button
+                                type="button"
+                                onClick={() => setShowResetModal(true)}
+                                className="text-xs font-semibold text-[#253C95] hover:underline cursor-pointer"
+                            >
+                                {i18n.language === 'en' ? 'Forgot current password?' : 'ភ្លេចពាក្យសម្ងាត់បច្ចុប្បន្ន?'}
+                            </button>
+                        </div>
                         <div className="relative">
                             <input
                                 type={showCurrent ? 'text' : 'password'}
@@ -279,6 +290,19 @@ export default function SecurityPage() {
                     </div>
                 </div>
             )}
+            {/* Self-Service Reset Password Modal */}
+            <ResetPasswordModal
+                isOpen={showResetModal}
+                onClose={() => setShowResetModal(false)}
+                onSuccess={() => {
+                    setAlert({
+                        type: 'success',
+                        message: i18n.language === 'en'
+                            ? 'Password has been successfully reset! You can now use your new password.'
+                            : 'ពាក្យសម្ងាត់ត្រូវបានកំណត់ឡើងវិញដោយជោគជ័យ!'
+                    });
+                }}
+            />
         </div>
     );
 }

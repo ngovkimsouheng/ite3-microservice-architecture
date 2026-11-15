@@ -2,17 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Lock, User, LogIn, AlertCircle, Eye, EyeOff,
-    Globe, ArrowRight, ShieldCheck, Sparkles, Check, X
+    Globe, ArrowRight, ShieldCheck, Sparkles, Check, X,
+    CheckCircle2
 } from 'lucide-react';
 import TelegramLoginModal from '../../components/TelegramLoginModal';
+import ResetPasswordModal from '../../components/ResetPasswordModal';
 
 export default function LoginPage() {
     const { t, i18n } = useTranslation();
-    const [username, setUsername] = useState('kungsovannda');
-    const [password, setPassword] = useState('supersecret');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
     const [telegramModalOpen, setTelegramModalOpen] = useState(false);
+    const [forgotModalOpen, setForgotModalOpen] = useState(false);
+    const [successMessage, setSuccessMessage] = useState(null);
 
     // Check if there is an error in URL params (e.g. /login?error)
     const searchParams = new URLSearchParams(window.location.search);
@@ -100,7 +104,32 @@ export default function LoginPage() {
                 </div>
             )}
 
-            {/* Top Navbar Header */}
+            {/* Success Toast Notification */}
+            {successMessage && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 transition-all duration-300">
+                    <div className="bg-white/95 backdrop-blur-md border border-emerald-200/90 rounded-2xl shadow-lg p-4 relative overflow-hidden flex items-start gap-3.5">
+                        <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0 text-emerald-600 border border-emerald-100">
+                            <CheckCircle2 size={20} />
+                        </div>
+                        <div className="flex-1 pr-1 pt-0.5">
+                            <h4 className="text-sm font-bold text-slate-900 leading-tight">
+                                {i18n.language === 'en' ? 'Success' : 'ជោគជ័យ'}
+                            </h4>
+                            <p className="text-xs sm:text-sm text-slate-600 font-medium mt-1 leading-snug">
+                                {successMessage}
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={() => setSuccessMessage(null)}
+                            className="text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg p-1 transition-all cursor-pointer shrink-0"
+                            title="Dismiss"
+                        >
+                            <X size={18} />
+                        </button>
+                    </div>
+                </div>
+            )}
             <header className="w-full px-6 py-4 flex items-center justify-end max-w-7xl mx-auto">
                 {/* Navbar Language Switcher */}
                 <button
@@ -152,18 +181,23 @@ export default function LoginPage() {
                     <form action="/login" method="POST" className="space-y-4">
                         {/* Username Input */}
                         <div>
-                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+                            <label htmlFor="username" className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5 cursor-pointer">
                                 {i18n.language === 'en' ? 'Username' : 'ឈ្មោះអ្នកប្រើប្រាស់'}
                             </label>
                             <div className="relative">
-                                <User size={19} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                                <User size={19} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
                                 <input
+                                    id="username"
                                     type="text"
                                     name="username"
                                     required
+                                    autoComplete="username"
+                                    autoCapitalize="none"
+                                    autoCorrect="off"
+                                    spellCheck="false"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
-                                    placeholder="e.g. kungsovannda"
+                                    placeholder={i18n.language === 'en' ? 'Enter username or email' : 'បញ្ចូលឈ្មោះអ្នកប្រើប្រាស់ ឬអ៊ីមែល'}
                                     className="w-full pl-11 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-white focus:bg-white focus:border-[#253C95] focus:ring-4 focus:ring-[#253C95]/10 outline-none text-sm sm:text-base font-medium text-slate-800 transition-all placeholder:text-slate-400"
                                 />
                             </div>
@@ -171,15 +205,17 @@ export default function LoginPage() {
 
                         {/* Password Input */}
                         <div>
-                            <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+                            <label htmlFor="password" className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5 cursor-pointer">
                                 {i18n.language === 'en' ? 'Password' : 'ពាក្យសម្ងាត់'}
                             </label>
                             <div className="relative">
-                                <Lock size={19} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                                <Lock size={19} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
                                 <input
+                                    id="password"
                                     type={showPassword ? 'text' : 'password'}
                                     name="password"
                                     required
+                                    autoComplete="current-password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
@@ -188,15 +224,16 @@ export default function LoginPage() {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer transition-colors"
                                     title={showPassword ? 'Hide password' : 'Show password'}
+                                    aria-label={showPassword ? 'Hide password' : 'Show password'}
                                 >
                                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                 </button>
                             </div>
                         </div>
 
-                        {/* Custom Styled Remember Me Checkbox with Primary Color */}
+                        {/* Custom Styled Remember Me Checkbox with Primary Color & Forgot Password Link */}
                         <div className="flex items-center justify-between text-xs sm:text-sm pt-1">
                             <label className="group flex items-center gap-2.5 text-slate-600 hover:text-slate-900 cursor-pointer select-none transition-colors">
                                 {/* Native input (visually hidden, handles change and form post) */}
@@ -225,10 +262,19 @@ export default function LoginPage() {
                                     />
                                 </div>
 
-                                <span className="font-medium text-slate-700 text-sm">
+                                <span className="font-medium text-slate-700 text-xs sm:text-sm">
                                     {i18n.language === 'en' ? 'Remember me for 7 days' : 'ចងចាំខ្ញុំរយៈពេល ៧ ថ្ងៃ'}
                                 </span>
                             </label>
+
+                            {/* Forgot Password Action */}
+                            <button
+                                type="button"
+                                onClick={() => setForgotModalOpen(true)}
+                                className="font-semibold text-xs sm:text-sm text-[#253C95] hover:text-[#1c2f78] hover:underline cursor-pointer transition-colors"
+                            >
+                                {i18n.language === 'en' ? 'Forgot password?' : 'ភ្លេចពាក្យសម្ងាត់?'}
+                            </button>
                         </div>
 
                         {/* Submit Button (Brand Blue #253C95 with interactive hover & active effects) */}
@@ -321,6 +367,21 @@ export default function LoginPage() {
                 isOpen={telegramModalOpen}
                 onClose={() => setTelegramModalOpen(false)}
                 mode="login"
+            />
+
+            {/* Reset Password Modal (Forgot Password Flow) */}
+            <ResetPasswordModal
+                isOpen={forgotModalOpen}
+                onClose={() => setForgotModalOpen(false)}
+                initialUsername={username}
+                onSuccess={(resetUser) => {
+                    setUsername(resetUser);
+                    setSuccessMessage(
+                        i18n.language === 'en'
+                            ? 'Password reset successfully! You can now sign in with your new password.'
+                            : 'បានកំណត់ពាក្យសម្ងាត់ឡើងវិញដោយជោគជ័យ! អ្នកអាចចូលប្រើប្រាស់ដោយប្រើពាក្យសម្ងាត់ថ្មីរបស់អ្នក។'
+                    );
+                }}
             />
         </div>
     );

@@ -9,6 +9,7 @@ import kh.edu.istad.iam.domain.port.out.CurrentActorProvider;
 import kh.edu.istad.iam.domain.usecase.identity.FindOrProvisionFederatedUserUseCase;
 import kh.edu.istad.iam.domain.usecase.identity.LinkIdentityUseCase;
 import kh.edu.istad.iam.domain.usecase.identity.VerifyTelegramLoginUseCase;
+import kh.edu.istad.iam.domain.usecase.security.RecordSecurityEventUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +38,7 @@ public class TelegramAuthController {
     private final FindOrProvisionFederatedUserUseCase federatedUserUseCase;
     private final LinkIdentityUseCase linkIdentityUseCase;
     private final CurrentActorProvider currentActorProvider;
+    private final RecordSecurityEventUseCase recordSecurityEventUseCase;
 
     @Value("${app.telegram.bot-token:}")
     private String botToken;
@@ -95,6 +97,23 @@ public class TelegramAuthController {
 
                 linkIdentityUseCase.execute(targetUserUuid, command);
                 log.info("Successfully linked Telegram user {} to IAM user {}", command.providerSubject(), targetUserUuid);
+
+                try {
+                    recordSecurityEventUseCase.execute(
+                            targetUserUuid,
+                            null,
+                            "ACTIVITY",
+                            "IDENTITY_LINKED",
+                            "SUCCESS",
+                            extractClientIp(request),
+                            parseDevice(request.getHeader("User-Agent")),
+                            "Phnom Penh, Cambodia",
+                            "Telegram",
+                            "Telegram Account Linked",
+                            "Connected Telegram messenger account (@" + (command.username() != null ? command.username() : command.providerSubject()) + ")"
+                    );
+                } catch (Exception ignored) {}
+
                 response.sendRedirect("/account/linked-accounts?linked=telegram");
             } else {
                 // LOGIN FLOW
@@ -130,6 +149,22 @@ public class TelegramAuthController {
                 HttpSession httpSession = request.getSession(true);
                 httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
 
+                try {
+                    recordSecurityEventUseCase.execute(
+                            authUser.uuid(),
+                            authUser.username(),
+                            "LOGIN",
+                            "LOGIN_SUCCESS",
+                            "SUCCESS",
+                            extractClientIp(request),
+                            parseDevice(request.getHeader("User-Agent")),
+                            "Phnom Penh, Cambodia",
+                            "Telegram",
+                            "Successful login via Telegram",
+                            null
+                    );
+                } catch (Exception ignored) {}
+
                 log.info("Telegram login successful for user: {}", authUser.username());
                 response.sendRedirect("/account/profile");
             }
@@ -137,5 +172,37 @@ public class TelegramAuthController {
             log.error("Telegram authentication failed: {}", ex.getMessage());
             response.sendRedirect("/login?error=telegram_failed");
         }
+    }
+
+    private String extractClientIp(HttpServletRequest request) {
+        if (request == null) return "127.0.0.1";
+        String xf = request.getHeader("X-Forwarded-For");
+        if (xf != null && !xf.isBlank() && !"unknown".equalsIgnoreCase(xf)) {
+            return xf.split(",")[0].trim();
+        }
+        String xr = request.getHeader("X-Real-IP");
+        if (xr != null && !xr.isBlank() && !"unknown".equalsIgnoreCase(xr)) {
+            return xr.trim();
+        }
+        return request.getRemoteAddr() != null ? request.getRemoteAddr() : "127.0.0.1";
+    }
+
+    private String parseDevice(String userAgent) {
+        if (userAgent == null || userAgent.isBlank()) return "Web Browser / Desktop";
+
+        String browser = "Browser";
+        if (userAgent.contains("Edg/")) browser = "Edge";
+        else if (userAgent.contains("Chrome/")) browser = "Chrome";
+        else if (userAgent.contains("Safari/") && !userAgent.contains("Chrome/")) browser = "Safari";
+        else if (userAgent.contains("Firefox/")) browser = "Firefox";
+
+        String os = "Desktop";
+        if (userAgent.contains("Windows")) os = "Windows";
+        else if (userAgent.contains("iPhone") || userAgent.contains("iPad")) os = "iOS";
+        else if (userAgent.contains("Android")) os = "Android";
+        else if (userAgent.contains("Macintosh") || userAgent.contains("Mac OS X")) os = "macOS";
+        else if (userAgent.contains("Linux")) os = "Linux";
+
+        return browser + " / " + os;
     }
 }

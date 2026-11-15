@@ -21,6 +21,13 @@ export const userService = {
         return res.data;
     },
 
+    // Self-service Reset Password (for forgot password) (+5 pts)
+    resetPassword: async (resetData) => {
+        // resetData: { username, email, newPassword, confirmPassword }
+        const res = await api.post('/auth/reset-password', resetData);
+        return res.data;
+    },
+
     // Linked accounts (+5 pts)
     getUserIdentities: async () => {
         const res = await api.get('/me/identities');
@@ -45,6 +52,19 @@ export const userService = {
 
     terminateAllOtherSessions: async () => {
         const res = await api.delete('/me/sessions');
+        return res.data;
+    },
+
+    // Login History & Security Activity (+5 pts)
+    getLoginHistory: async (status = 'all') => {
+        const res = await api.get('/me/login-history', {
+            params: { status: status === 'all' ? undefined : status }
+        });
+        return res.data;
+    },
+
+    getSecurityActivity: async () => {
+        const res = await api.get('/me/security-activity');
         return res.data;
     }
 };

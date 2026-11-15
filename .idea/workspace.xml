@@ -8,14 +8,68 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/adapter/FederatedUserProvisioner.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/adapter/FederatedUserProvisioner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/AdminUserInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/AdminUserInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-3Yz29BbN.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-B6IqhIfq.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-BCthGmu2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-BVJiT1-n.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-BWYoZBhz.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-BX-iQm6F.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-C2WNOYTI.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-CF6_laSr.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-Cdq-bT6B.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-CfOP5v5D.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-D9EUijTf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-D9KA9gNL.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-DGxWZIn9.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-DKNnFCtc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-DNaxTibF.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-DTgvoouR.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-DdgGYqSd.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-Dr97ACXF.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-DsslYazy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-JkdPirIr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-t1Pa--eq.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-wyZX241M.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/SessionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/SessionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/TelegramAuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/TelegramAuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-3Yz29BbN.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-B6IqhIfq.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-BCthGmu2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-BVJiT1-n.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-BWYoZBhz.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-BX-iQm6F.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-C2WNOYTI.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-CF6_laSr.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-Cdq-bT6B.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-CfOP5v5D.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-CpLgVNxK.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-D2hWJEfz.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-D9EUijTf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-D9KA9gNL.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-DAgIneJT.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-DGxWZIn9.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-DTgvoouR.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-DdgGYqSd.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-Dr97ACXF.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-DsslYazy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-JkdPirIr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-t1Pa--eq.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/assets/index-wyZX241M.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/LinkedAccountsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/LinkedAccountsPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/HistoryPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/HistoryPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/SecurityPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/SecurityPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/SessionsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/SessionsPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/auth/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/auth/LoginPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/services/userService.js" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/services/userService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ngrok.log" beforeDir="false" afterPath="$PROJECT_DIR$/ngrok.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -407,7 +461,8 @@
       <workItem from="1794592062088" duration="2273000" />
       <workItem from="1794594373325" duration="2054000" />
       <workItem from="1794671412836" duration="13977000" />
-      <workItem from="1794723839166" duration="15012000" />
+      <workItem from="1794723839166" duration="15301000" />
+      <workItem from="1794754888045" duration="7859000" />
     </task>
     <servers />
   </component>
@@ -441,7 +496,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/microservice/iam-service/iam-web/vite.config.js</url>
           <line>16</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

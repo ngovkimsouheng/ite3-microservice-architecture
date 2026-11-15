@@ -10,3 +10,6 @@ t=2026-11-15T18:00:14+0700 lvl=info msg="join connections" obj=join id=57bcb4fde
 t=2026-11-15T18:00:15+0700 lvl=info msg="join connections" obj=join id=42b94ad535e3 l=[::1]:9000 r=117.20.115.207:55222
 t=2026-11-15T18:00:18+0700 lvl=info msg="join connections" obj=join id=c7d2e6f6ec86 l=[::1]:9000 r=117.20.115.207:55222
 t=2026-11-15T18:01:10+0700 lvl=info msg="join connections" obj=join id=8ca39609bcb2 l=[::1]:9000 r=117.20.115.207:47270
+t=2026-11-15T18:17:07+0700 lvl=info msg="join connections" obj=join id=81d72cbd98d1 l=[::1]:9000 r=117.20.115.207:55222
+t=2026-11-15T18:17:08+0700 lvl=info msg="join connections" obj=join id=d42e6eca3bd0 l=[::1]:9000 r=117.20.115.207:55222
+t=2026-11-15T18:17:15+0700 lvl=info msg="join connections" obj=join id=d4a0cdf71928 l=[::1]:9000 r=117.20.115.207:55222
