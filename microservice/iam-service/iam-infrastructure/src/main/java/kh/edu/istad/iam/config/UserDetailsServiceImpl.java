@@ -33,14 +33,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             }
         }
 
-        return User.builder()
-                .username(authUser.username())
-                .password(authUser.passwordHash() != null ? authUser.passwordHash() : "")
-                .disabled(!authUser.enabled())
-                .accountExpired(!authUser.accountNonExpired())
-                .accountLocked(!authUser.accountNonLocked())
-                .credentialsExpired(!authUser.credentialsNonExpired())
-                .authorities(authorities)
-                .build();
+        return new IamUserDetails(
+                authUser.uuid(),
+                authUser.username(),
+                authUser.passwordHash() != null ? authUser.passwordHash() : "",
+                authUser.enabled(),
+                authUser.accountNonExpired(),
+                authUser.credentialsNonExpired(),
+                authUser.accountNonLocked(),
+                authorities
+        );
     }
 }

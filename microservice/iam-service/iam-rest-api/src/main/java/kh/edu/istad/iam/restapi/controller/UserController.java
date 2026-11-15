@@ -205,9 +205,50 @@
         }
 
         @PatchMapping("/me")
-        public ResponseEntity<UserResponse> updateCurrentUser(@Valid @RequestBody UpdateUserProfileRequest request) {
+        public ResponseEntity<UserResponse> updateCurrentUser(
+                @Valid @RequestBody UpdateUserProfileRequest request,
+                jakarta.servlet.http.HttpServletRequest servletRequest
+        ) {
             UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
             UserResult result = updateUserProfileUseCase.execute(webMapper.toCommand(currentUuid, request));
+
+            // Sync updated username to Spring Security context and session if changed
+            org.springframework.security.core.Authentication currentAuth =
+                    org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+            if (currentAuth != null && currentAuth.getPrincipal() instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
+                if (!userDetails.getUsername().equals(result.username())) {
+                    org.springframework.security.core.userdetails.UserDetails updatedUser =
+                            org.springframework.security.core.userdetails.User.builder()
+                                    .username(result.username())
+                                    .password(userDetails.getPassword() != null ? userDetails.getPassword() : "")
+                                    .authorities(userDetails.getAuthorities())
+                                    .accountExpired(!userDetails.isAccountNonExpired())
+                                    .accountLocked(!userDetails.isAccountNonLocked())
+                                    .credentialsExpired(!userDetails.isCredentialsNonExpired())
+                                    .disabled(!userDetails.isEnabled())
+                                    .build();
+
+                    org.springframework.security.authentication.UsernamePasswordAuthenticationToken newAuth =
+                            new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(
+                                    updatedUser,
+                                    currentAuth.getCredentials(),
+                                    currentAuth.getAuthorities()
+                            );
+                    newAuth.setDetails(currentAuth.getDetails());
+                    org.springframework.security.core.context.SecurityContext newContext =
+                            org.springframework.security.core.context.SecurityContextHolder.createEmptyContext();
+                    newContext.setAuthentication(newAuth);
+                    org.springframework.security.core.context.SecurityContextHolder.setContext(newContext);
+
+                    if (servletRequest.getSession(false) != null) {
+                        servletRequest.getSession(false).setAttribute(
+                                org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                                newContext
+                        );
+                    }
+                }
+            }
+
             return ResponseEntity.ok(toResponse(result));
         }
 

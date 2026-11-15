@@ -47,6 +47,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.Base64;
 import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
@@ -104,8 +105,9 @@ public class SecurityConfig {
         http
                 .securityMatcher("/api/**")
                 .csrf(csrf -> csrf.disable())
+                // Allow both browser session cookies and Bearer tokens:
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/**").permitAll()
@@ -124,45 +126,36 @@ public class SecurityConfig {
     @Order(3)
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable()) // <-- ADD THIS LINE to allow form login POST!
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/login.html", "/register", "/login/telegram/callback",
-                                "/css/**","/assets/**","/index.html/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/login",
+                                "/register",
+                                "/index.html",
+                                "/favicon.svg",
+                                "/icons.svg",
+                                "/logo.png",
+                                "/assets/**",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/oauth2/**",
+                                "/login/oauth2/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .defaultSuccessUrl("/account/profile", true)
                         .permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
-                        .failureHandler((request, response, exception) -> {
-                            log.error("OAuth2/OIDC Login Failed: {}", exception.getMessage(), exception);
-                            if (request.getSession(false) != null) {
-                                request.getSession(false).removeAttribute("iam.link-provider");
-                            }
-                            response.sendRedirect("/login?oauth2_error=" + oauth2FailureCode(exception));
-                        })
-                        .defaultSuccessUrl("/")
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userService(customOAuth2UserService)
-                                .oidcUserService(customOidcUserService)
-                        )
+                        .defaultSuccessUrl("/account/profile", true)
                 );
 
         return http.build();
-    }
-
-    private static String oauth2FailureCode(AuthenticationException exception) {
-        for (Throwable cause = exception; cause != null; cause = cause.getCause()) {
-            if (cause instanceof OAuth2AuthenticationException oauthException) {
-                String code = oauthException.getError().getErrorCode();
-                if (code != null && !code.isBlank()) {
-                    return code;
-                }
-            }
-        }
-        return "provider_login_failed";
     }
 
     @Bean

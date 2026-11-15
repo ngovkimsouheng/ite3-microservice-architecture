@@ -53,8 +53,8 @@ public class AdminUserInitializer implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args) {
-        if (userRepository.existsByUsername(adminUsername)) {
-            log.info("Admin user '{}' already exists. Skipping initialization.", adminUsername);
+        if (userRepository.existsByUsername(adminUsername) || userRepository.existsByEmail(adminEmail)) {
+            log.info("Admin user '{}' or email '{}' already exists. Skipping initialization.", adminUsername, adminEmail);
             return;
         }
 

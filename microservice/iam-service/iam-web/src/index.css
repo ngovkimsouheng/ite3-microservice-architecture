@@ -1,0 +1,79 @@
+@import url('https://fonts.cdnfonts.com/css/google-sans');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Google Sans', 'Product Sans', 'Noto Sans Khmer', system-ui, -apple-system, sans-serif;
+
+  --color-primary: #253C95;
+  --color-primary-hover: #1c2f78;
+  --color-primary-light: #ebf0ff;
+
+  --color-secondary: #DF1F28;
+  --color-secondary-hover: #b8141c;
+  --color-secondary-light: #fff1f2;
+
+  --color-accent: #F9A825;
+  --color-accent-hover: #d88f18;
+  --color-accent-light: #fffbeb;
+}
+
+:root {
+  font-family: 'Google Sans', 'Product Sans', 'Noto Sans Khmer', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: 'Google Sans', 'Product Sans', 'Noto Sans Khmer', system-ui, -apple-system, sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Universal Thin Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Specific class for ultra-sleek sidebar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 1px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

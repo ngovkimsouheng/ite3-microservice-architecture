@@ -8,19 +8,66 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/deployment/redis/docker-compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/RedisSessionConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SessionDetailsFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/SessionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/dto/SessionResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/service/SessionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/WebController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/customer-service/customer-service-main/src/main/java/kh/edu/istad/platform/customer/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/adapter/SecurityCurrentActorProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/adapter/SecurityCurrentActorProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/public/favicon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/favicon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/public/icons.svg" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/icons.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/src/assets/hero.png" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/hero.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/src/assets/react.svg" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/react.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/iam-frontend/src/assets/vite.svg" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/vite.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/IamServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/IamServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/AdminUserInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/java/kh/edu/istad/iam/init/AdminUserInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/hero-CLDdwZDr.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/hero.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-3hqRpb6O.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/index-DykytF2W.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/react-CHdo91hT.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/react.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/vite-BipodSl7.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/assets/vite.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/favicon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/icons.svg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/test/java/kh/edu/istad/iam/web/LoginControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/test/java/kh/edu/istad/iam/web/LoginControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/dto/UserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/dto/UserResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/api/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/api/axios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/i18n.js" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/i18n.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/layouts/AppLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/layouts/AppLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/ChangePasswordForm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/I18nViewModelAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/LoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/MvcLocaleConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/ProfileController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/ProfileEditForm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/RegisterForm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/java/kh/edu/istad/iam/web/TelegramLoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/change-password.jte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/connected-apps.jte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/consent.jte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/index.jte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/linked-accounts.jte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/login.jte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/profile-edit.jte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/jte/register.jte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/messages.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/messages_km.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/css/iam.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/css/page-typography.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/ProfilePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/ProfilePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/auth/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/auth/LoginPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/services/userService.js" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/services/userService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,6 +198,7 @@
     &quot;Docker.consul/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.postgres/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Build discovery-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build istad-common.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Build istad-ite-project.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.build-logic [dependencies].executor&quot;: &quot;Run&quot;,
@@ -174,8 +222,9 @@
     &quot;Spring Boot.OrderApplicationService.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.PaymentApplicationService.executor&quot;: &quot;Run&quot;,
     &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;iam-service&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;assignment__07&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/TUF/Desktop/istad-ite-project/microservice/iam-service/iam-web/public&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -190,6 +239,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\iam-web\public" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\iam-main\src\main\resources\static" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\iam-main\src\main\resources\static\assets" />
@@ -212,7 +264,6 @@
         <entry key="SpringBootApplicationConfigurationType">
           <value>
             <map>
-              <entry key="IamServiceApplication" value="STOPPED" />
               <entry key="IamServiceApplication (1)" value="STOPPED" />
             </map>
           </value>
@@ -220,7 +271,7 @@
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.consul/docker-compose.yaml: Compose Deployment">
+  <component name="RunManager" selected="Spring Boot.IamServiceApplication (1)">
     <configuration name="generated-requests | #50" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#50" index="50" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -407,7 +458,8 @@
       <workItem from="1794574582611" duration="1475000" />
       <workItem from="1794592062088" duration="2273000" />
       <workItem from="1794594373325" duration="2054000" />
-      <workItem from="1794671412836" duration="630000" />
+      <workItem from="1794671412836" duration="13977000" />
+      <workItem from="1794723839166" duration="11390000" />
     </task>
     <servers />
   </component>
@@ -437,6 +489,12 @@
           <url>file://$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/config/ClientConfig.java</url>
           <line>19</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/microservice/iam-service/iam-web/vite.config.js</url>
+          <line>16</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
