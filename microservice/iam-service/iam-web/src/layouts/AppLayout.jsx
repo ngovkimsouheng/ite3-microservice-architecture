@@ -135,7 +135,7 @@ export default function AppLayout() {
                             <div className="pt-2 border-t border-slate-100">
                                 <p className="px-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center justify-between">
                                     <span>{t('nav.managementGroup')}</span>
-                                    <span className="bg-[#253C95]/10 text-[#253C95] text-[10px] px-1.5 py-0.5 rounded font-bold">ADMIN</span>
+                                    <span className="bg-[#253C95]/10 text-[#253C95] text-xs px-2 py-0.5 rounded font-bold">ADMIN</span>
                                 </p>
                                 <nav className="space-y-1">
                                     {adminNav.map((item) => {
@@ -170,15 +170,15 @@ export default function AppLayout() {
                                     {currentUser.name ? currentUser.name[0].toUpperCase() : (currentUser.username?.[0]?.toUpperCase() || 'U')}
                                 </div>
                                 <div className="min-w-0">
-                                    <p className="text-xs font-bold text-slate-800 truncate">
+                                    <p className="text-sm font-bold text-slate-800 truncate">
                                         {currentUser.name || currentUser.username}
                                     </p>
-                                    <p className="text-[11px] text-slate-400 font-mono truncate">
+                                    <p className="text-xs text-slate-400 font-mono truncate">
                                         @{currentUser.username}
                                     </p>
                                 </div>
                             </div>
-                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase shrink-0 ${
+                            <span className={`px-2 py-0.5 rounded text-xs font-bold uppercase shrink-0 ${
                                 isAdmin
                                     ? 'bg-amber-50 text-[#F9A825] border border-amber-200/60'
                                     : 'bg-slate-200/70 text-slate-600'

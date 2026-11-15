@@ -165,6 +165,35 @@ export const adminService = {
     deactivatePermission: async (uuid) => {
         const res = await api.post(`/permissions/${uuid}/deactivate`);
         return res.data;
+    },
+
+    // --- OAuth2 Registered Clients Management ---
+    getClients: async () => {
+        const res = await api.get('/admin/clients');
+        return res.data;
+    },
+
+    // --- Enterprise Audit & Compliance ---
+    getEnterpriseLoginHistory: async (status = 'ALL') => {
+        const res = await api.get('/admin/audit/login-history', {
+            params: { status: status === 'ALL' ? undefined : status }
+        });
+        return res.data;
+    },
+
+    getEnterpriseSecurityActivity: async () => {
+        const res = await api.get('/admin/audit/security-activity');
+        return res.data;
+    },
+
+    getEnterpriseSessions: async () => {
+        const res = await api.get('/admin/audit/sessions');
+        return res.data;
+    },
+
+    terminateEnterpriseSession: async (sessionId) => {
+        const res = await api.delete(`/admin/audit/sessions/${sessionId}`);
+        return res.data;
     }
 };
 

@@ -8,6 +8,7 @@ import kh.edu.istad.iam.persistence.entity.RoleJpaEntity;
 import kh.edu.istad.iam.persistence.mapper.RolePersistenceMapper;
 import kh.edu.istad.iam.persistence.repository.RoleJpaRepository;
 import kh.edu.istad.iam.persistence.repository.RolePermissionAssignmentJpaRepository;
+import kh.edu.istad.iam.persistence.util.SortUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,23 +17,23 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 public class RoleRepositoryAdapter implements RoleRepository {
 
+    private static final Set<String> ALLOWED_SORT_PROPERTIES = Set.of(
+            "id", "uuid", "name", "description", "isSystem", "isActive", "createdAt"
+    );
+
     private final RoleJpaRepository roleJpaRepository;
     private final RolePermissionAssignmentJpaRepository rolePermRepo;
     private final RolePersistenceMapper roleMapper;
     @Override
     public PageResult<Role> findAll(int page, int size, String sort) {
-        Sort sortObj;
-        if (sort != null && !sort.isBlank()) {
-            sortObj = Sort.by(sort);
-        } else {
-            sortObj = Sort.by("id").ascending();
-        }
+        Sort sortObj = SortUtils.parseSort(sort, "id", Sort.Direction.ASC, ALLOWED_SORT_PROPERTIES);
         Pageable pageable = PageRequest.of(page, size, sortObj);
 
         Page<RoleJpaEntity> entityPage = roleJpaRepository.findAllByIsDeletedFalse(pageable);

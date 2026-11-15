@@ -163,7 +163,7 @@ export default function ResetPasswordModal({ isOpen, onClose, initialUsername = 
                                 {i18n.language === 'en' ? 'New Password' : 'ពាក្យសម្ងាត់ថ្មី'}
                             </label>
                             {strength.text && (
-                                <span className={`text-[10px] font-bold px-2 py-0.2 rounded ${
+                                <span className={`text-xs font-bold px-2 py-0.5 rounded ${
                                     strength.score === 1 ? 'bg-red-50 text-[#DF1F28]' : strength.score === 2 ? 'bg-amber-50 text-[#F9A825]' : 'bg-emerald-50 text-emerald-700'
                                 }`}>
                                     {strength.text}

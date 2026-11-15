@@ -60,6 +60,24 @@ public class UserSecurityEventRepositoryAdapter implements UserSecurityEventRepo
                 .stream().map(this::toDomain).toList();
     }
 
+    @Override
+    public List<UserSecurityEvent> findAllLoginHistory(String status, int limit) {
+        PageRequest pageRequest = PageRequest.of(0, limit);
+        if (status == null || status.isBlank() || status.equalsIgnoreCase("ALL")) {
+            return repository.findAllSystemLoginHistory(pageRequest)
+                    .stream().map(this::toDomain).toList();
+        } else {
+            return repository.findAllSystemLoginHistoryByStatus(status.toLowerCase(), pageRequest)
+                    .stream().map(this::toDomain).toList();
+        }
+    }
+
+    @Override
+    public List<UserSecurityEvent> findAllActivities(int limit) {
+        return repository.findAllSystemActivities(PageRequest.of(0, limit))
+                .stream().map(this::toDomain).toList();
+    }
+
     private UserSecurityEventJpaEntity toEntity(UserSecurityEvent d) {
         return UserSecurityEventJpaEntity.builder()
                 .id(d.getId())

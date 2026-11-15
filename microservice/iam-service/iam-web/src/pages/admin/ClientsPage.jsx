@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { adminService } from '../../services/adminService';
 import {
     ShieldCheck, Plus, Search, Key, Globe, Lock,
     CheckCircle2, AlertTriangle, RefreshCw, Copy, Check,
-    ExternalLink, Layers, Clock, Shield
+    ExternalLink, Layers, Clock, Shield, Loader2
 } from 'lucide-react';
 
 export default function ClientsPage() {
@@ -11,60 +12,27 @@ export default function ClientsPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [showRegisterModal, setShowRegisterModal] = useState(false);
     const [copiedId, setCopiedId] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // Initial seeded clients from Spring Authorization Server
-    const [clients, setClients] = useState([
-        {
-            id: '1',
-            clientId: 'front-bff-client',
-            clientName: 'Frontend BFF Gateway Client',
-            authMethod: 'none (Public PKCE)',
-            grantTypes: ['authorization_code', 'refresh_token'],
-            redirectUris: [
-                'http://localhost:9999/login/oauth2/code/front-bff-client',
-                'http://127.0.0.1:8080/login/oauth2/code/front-bff-client'
-            ],
-            postLogoutRedirectUris: ['http://localhost:9999'],
-            scopes: ['openid', 'profile'],
-            requirePkce: true,
-            requireConsent: true,
-            accessTokenTtl: '5 hours',
-            refreshTokenTtl: '7 days',
-            status: 'ACTIVE'
-        },
-        {
-            id: '2',
-            clientId: 'oidc-client',
-            clientName: 'Standard OIDC Web Client',
-            authMethod: 'none (Public PKCE)',
-            grantTypes: ['authorization_code', 'refresh_token'],
-            redirectUris: [
-                'http://127.0.0.1:8080/login/oauth2/code/oidc-client'
-            ],
-            postLogoutRedirectUris: ['http://127.0.0.1:8080/'],
-            scopes: ['openid', 'profile'],
-            requirePkce: true,
-            requireConsent: true,
-            accessTokenTtl: '5 hours',
-            refreshTokenTtl: '7 days',
-            status: 'ACTIVE'
-        },
-        {
-            id: '3',
-            clientId: 'customer-client',
-            clientName: 'Customer Service Backend (M2M)',
-            authMethod: 'client_secret_basic (Confidential)',
-            grantTypes: ['client_credentials'],
-            redirectUris: [],
-            postLogoutRedirectUris: [],
-            scopes: ['openid', 'profile', 'customer:read'],
-            requirePkce: false,
-            requireConsent: false,
-            accessTokenTtl: '5 hours',
-            refreshTokenTtl: '7 days',
-            status: 'ACTIVE'
+    const [clients, setClients] = useState([]);
+
+    const fetchClients = async () => {
+        setLoading(true);
+        try {
+            const data = await adminService.getClients();
+            if (Array.isArray(data) && data.length > 0) {
+                setClients(data);
+            }
+        } catch (err) {
+            console.error('Failed to load registered clients', err);
+        } finally {
+            setLoading(false);
         }
-    ]);
+    };
+
+    useEffect(() => {
+        fetchClients();
+    }, []);
 
     // Toast
     const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
@@ -152,6 +120,13 @@ export default function ClientsPage() {
                 </div>
                 <div className="flex items-center gap-3">
                     <button
+                        onClick={fetchClients}
+                        className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-all cursor-pointer"
+                        title="Refresh"
+                    >
+                        <RefreshCw size={18} className={loading ? 'animate-spin text-[#253C95]' : ''} />
+                    </button>
+                    <button
                         onClick={() => setShowRegisterModal(true)}
                         className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#253C95] hover:bg-[#1d2f77] text-white font-semibold text-sm shadow-md shadow-[#253C95]/20 transition-all cursor-pointer active:scale-95"
                     >
@@ -176,7 +151,17 @@ export default function ClientsPage() {
             </div>
 
             {/* Clients Cards Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            {loading ? (
+                <div className="bg-white p-12 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col items-center justify-center gap-2 text-slate-400">
+                    <Loader2 size={32} className="animate-spin text-[#253C95]" />
+                    <span className="text-xs font-medium">Loading registered OAuth2 clients...</span>
+                </div>
+            ) : filteredClients.length === 0 ? (
+                <div className="bg-white p-10 rounded-2xl border border-slate-200/90 text-center text-slate-400 text-xs sm:text-sm font-medium">
+                    No OAuth2 clients match your search.
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                 {filteredClients.map(client => (
                     <div key={client.id} className="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-4 hover:border-[#253C95]/40 transition-all">
                         {/* Title & Status */}
@@ -262,6 +247,7 @@ export default function ClientsPage() {
                     </div>
                 ))}
             </div>
+            )}
 
             {/* --- MODAL: REGISTER CLIENT --- */}
             {showRegisterModal && (

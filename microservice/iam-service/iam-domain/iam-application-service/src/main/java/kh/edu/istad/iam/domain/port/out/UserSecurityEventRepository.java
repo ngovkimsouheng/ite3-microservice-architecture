@@ -10,4 +10,8 @@ public interface UserSecurityEventRepository {
     List<UserSecurityEvent> findUserLoginHistoryByUsername(String username, String status, int limit);
     List<UserSecurityEvent> findUserActivities(Long userId, int limit);
     List<UserSecurityEvent> findUserActivitiesByUsername(String username, int limit);
+
+    // System-wide enterprise admin queries
+    List<UserSecurityEvent> findAllLoginHistory(String status, int limit);
+    List<UserSecurityEvent> findAllActivities(int limit);
 }

@@ -168,7 +168,7 @@ export default function HistoryPage() {
                             </div>
                         ) : (
                             <table className="w-full text-left text-xs sm:text-sm">
-                                <thead className="bg-slate-50/80 text-slate-500 text-[11px] uppercase font-bold tracking-wider border-b border-slate-100">
+                                <thead className="bg-slate-50/80 text-slate-500 text-xs uppercase font-bold tracking-wider border-b border-slate-100">
                                     <tr>
                                         <th className="px-4 py-2.5 w-28">{i18n.language === 'en' ? 'Status' : 'ស្ថានភាព'}</th>
                                         <th className="px-4 py-2.5">{i18n.language === 'en' ? 'Device & Method' : 'ឧបករណ៍ & វិធីសាស្ត្រ'}</th>
@@ -199,7 +199,7 @@ export default function HistoryPage() {
                                                         {row.device || 'Web Browser'}
                                                     </div>
                                                     <div className="mt-0.5">
-                                                        <span className="inline-block bg-slate-100 text-slate-600 px-2 py-0.2 rounded text-[10px] font-semibold uppercase tracking-wider">
+                                                        <span className="inline-block bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wider">
                                                             {row.method || 'Password'}
                                                         </span>
                                                     </div>
@@ -208,14 +208,14 @@ export default function HistoryPage() {
                                                     <div className="font-mono text-xs text-slate-700 font-medium leading-tight">
                                                         {formatIp(row.ipAddress)}
                                                     </div>
-                                                    <div className="text-[11px] text-slate-400 mt-0.5 flex items-center gap-1">
+                                                    <div className="text-xs text-slate-400 mt-0.5 flex items-center gap-1">
                                                         <MapPin size={11} className="text-slate-400 shrink-0" />
                                                         <span className="truncate max-w-[220px]">{row.location}</span>
                                                     </div>
                                                 </td>
                                                 <td className="px-4 py-2.5 whitespace-nowrap text-right">
                                                     <div className="text-xs text-slate-700 font-medium">{date}</div>
-                                                    <div className="text-[11px] text-slate-400 font-mono">{time}</div>
+                                                    <div className="text-xs text-slate-400 font-mono">{time}</div>
                                                 </td>
                                             </tr>
                                         );
@@ -279,14 +279,14 @@ export default function HistoryPage() {
                                         </div>
                                         <div className="flex-1 bg-slate-50/70 hover:bg-slate-50 px-3.5 py-2.5 rounded-xl border border-slate-100/90 flex flex-col sm:flex-row sm:items-center justify-between gap-1 transition-colors">
                                             <div>
-                                                <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-tight">
+                                                <h4 className="text-sm font-bold text-slate-900 leading-tight">
                                                     {act.event}
                                                 </h4>
-                                                <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
+                                                <p className="text-xs text-slate-500 mt-0.5">
                                                     {act.description}
                                                 </p>
                                             </div>
-                                            <div className="text-[11px] text-slate-400 font-mono flex items-center gap-1.5 shrink-0 sm:text-right">
+                                            <div className="text-xs text-slate-400 font-mono flex items-center gap-1.5 shrink-0 sm:text-right">
                                                 <Clock size={12} className="text-slate-400 shrink-0" />
                                                 <span>{date} {time}</span>
                                             </div>

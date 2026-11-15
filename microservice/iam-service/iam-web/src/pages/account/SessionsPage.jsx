@@ -196,7 +196,7 @@ export default function SessionsPage() {
                                         • {sess.browser}
                                     </span>
                                     {sess.isCurrent && (
-                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
                                             <span className="w-1.5 h-1.5 rounded-full bg-[#F9A825]" />
                                             {i18n.language === 'en' ? 'Current Session' : 'សម័យការងារបច្ចុប្បន្ន'}
                                         </span>
@@ -204,14 +204,14 @@ export default function SessionsPage() {
                                 </div>
 
                                 <div className="flex flex-wrap items-center gap-2.5 mt-1 text-xs text-slate-500">
-                                    <div className="flex items-center gap-1 font-mono text-[11px]">
+                                    <div className="flex items-center gap-1 font-mono text-xs">
                                         <Globe size={13} className="text-slate-400" />
                                         <span>{sess.ipAddress}</span>
                                     </div>
                                     <span className="text-slate-300">•</span>
-                                    <span className="text-[11px]">{sess.location}</span>
+                                    <span className="text-xs">{sess.location}</span>
                                     <span className="text-slate-300">•</span>
-                                    <div className="flex items-center gap-1 text-[11px]">
+                                    <div className="flex items-center gap-1 text-xs">
                                         <Clock size={13} className="text-slate-400" />
                                         <span>{sess.lastActive}</span>
                                     </div>
