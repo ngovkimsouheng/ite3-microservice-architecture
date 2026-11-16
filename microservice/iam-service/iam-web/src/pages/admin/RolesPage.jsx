@@ -98,8 +98,14 @@ export default function RolesPage() {
     };
 
     const handleToggleRoleActive = async (role) => {
+        const isSystem = role.isSystem ?? role.system ?? (role.name === 'ADMIN' || role.name === 'USER');
+        if (isSystem) {
+            showToast('System roles cannot be deactivated.', 'error');
+            return;
+        }
+        const isActive = role.isActive ?? role.active ?? true;
         try {
-            if (role.isActive) {
+            if (isActive) {
                 await adminService.deactivateRole(role.uuid);
                 showToast(`Deactivated role ${role.name}`);
             } else {
@@ -108,30 +114,40 @@ export default function RolesPage() {
             }
             fetchData();
         } catch (err) {
-            showToast('Failed to toggle role state.', 'error');
+            showToast(err.response?.data?.message || 'Failed to toggle role state.', 'error');
         }
     };
 
     const openRolePermsModal = async (role) => {
         setSelectedRole(role);
         try {
-            const fullRole = await adminService.getRoleByUuid(role.uuid);
-            const currentPermUuids = fullRole.permissions ? fullRole.permissions.map(p => p.uuid) : [];
+            const rolePerms = await adminService.getRolePermissions(role.uuid);
+            const currentPermUuids = Array.isArray(rolePerms) ? rolePerms.map(p => p.uuid) : [];
             setRolePermUuids(currentPermUuids);
             setShowRolePermsModal(true);
         } catch (err) {
-            showToast('Failed to fetch role permissions details.', 'error');
+            console.error('Failed to fetch role permissions from dedicated endpoint:', err);
+            try {
+                const fullRole = await adminService.getRoleByUuid(role.uuid);
+                const currentPermUuids = fullRole.permissions ? fullRole.permissions.map(p => p.uuid) : [];
+                setRolePermUuids(currentPermUuids);
+                setShowRolePermsModal(true);
+            } catch (fallbackErr) {
+                showToast('Failed to fetch role permissions details.', 'error');
+            }
         }
     };
 
     const handleSaveRolePerms = async () => {
         try {
             await adminService.assignPermissionsToRole(selectedRole.uuid, rolePermUuids);
-            showToast('Role permissions updated.');
+            showToast('Role permissions updated successfully.');
             setShowRolePermsModal(false);
             fetchData();
         } catch (err) {
-            showToast('Failed to update role permissions.', 'error');
+            console.error('Failed to update role permissions:', err);
+            const msg = err.response?.data?.message || err.response?.data?.error || err.message || 'Failed to update role permissions.';
+            showToast(msg, 'error');
         }
     };
 
@@ -307,81 +323,115 @@ export default function RolesPage() {
                                         </td>
                                     </tr>
                                 ) : (
-                                    filteredRoles.map(role => (
-                                        <tr key={role.uuid} className="hover:bg-slate-50/70 transition-colors">
-                                            <td className="px-5 py-4 font-bold text-slate-800 flex items-center gap-2.5">
-                                                <div className="p-2 rounded-lg bg-indigo-50 text-indigo-700">
-                                                    <Shield size={18} />
-                                                </div>
-                                                <span>{role.name}</span>
-                                            </td>
-                                            <td className="px-5 py-4 text-xs sm:text-sm text-slate-600">
-                                                {role.description || '—'}
-                                            </td>
-                                            <td className="px-5 py-4">
-                                                {role.isSystem ? (
-                                                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-[#F9A825] border border-amber-200 flex items-center gap-1 w-fit">
-                                                        <Lock size={12} /> System
-                                                    </span>
-                                                ) : (
-                                                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200">
-                                                        Custom
-                                                    </span>
-                                                )}
-                                            </td>
-                                            <td className="px-5 py-4">
-                                                {role.isActive ? (
-                                                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                                                        Active
-                                                    </span>
-                                                ) : (
-                                                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-500 border border-slate-200">
-                                                        Inactive
-                                                    </span>
-                                                )}
-                                            </td>
-                                            <td className="px-5 py-4 text-right">
-                                                <div className="flex items-center justify-end gap-2">
-                                                    {/* Manage Permissions */}
-                                                    <button
-                                                        onClick={() => openRolePermsModal(role)}
-                                                        className="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold flex items-center gap-1 transition-colors"
-                                                    >
-                                                        <Key size={13} />
-                                                        <span>Permissions</span>
-                                                    </button>
+                                    filteredRoles.map(role => {
+                                        const isSystem = role.isSystem ?? role.system ?? (role.name === 'ADMIN' || role.name === 'USER');
+                                        const isActive = role.isActive ?? role.active ?? true;
+                                        return (
+                                            <tr key={role.uuid} className="hover:bg-slate-50/70 transition-colors">
+                                                <td className="px-5 py-4 font-bold text-slate-800 flex items-center gap-2.5 whitespace-nowrap">
+                                                    <div className={`p-2 rounded-lg ${isSystem ? 'bg-amber-50 text-[#F9A825]' : 'bg-indigo-50 text-indigo-700'}`}>
+                                                        <Shield size={18} />
+                                                    </div>
+                                                    <span className="text-sm font-bold">{role.name}</span>
+                                                </td>
+                                                <td className="px-5 py-4 text-sm text-slate-600">
+                                                    {role.description || (isSystem ? 'Built-in system role' : '—')}
+                                                </td>
+                                                <td className="px-5 py-4 whitespace-nowrap">
+                                                    {isSystem ? (
+                                                        <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-[#F9A825] border border-amber-200 flex items-center gap-1 w-fit">
+                                                            <Lock size={12} /> System
+                                                        </span>
+                                                    ) : (
+                                                        <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200">
+                                                            Custom
+                                                        </span>
+                                                    )}
+                                                </td>
+                                                <td className="px-5 py-4 whitespace-nowrap">
+                                                    {isSystem ? (
+                                                        <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5 w-fit" title="System role is permanently active">
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active
+                                                        </span>
+                                                    ) : (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleToggleRoleActive(role)}
+                                                            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border transition-all cursor-pointer ${
+                                                                isActive
+                                                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                                                                    : 'bg-slate-100 text-slate-500 border-slate-200 hover:bg-slate-200'
+                                                            }`}
+                                                            title={isActive ? 'Click to deactivate role' : 'Click to activate role'}
+                                                        >
+                                                            <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-emerald-500' : 'bg-slate-400'}`}></span>
+                                                            {isActive ? 'Active' : 'Inactive'}
+                                                        </button>
+                                                    )}
+                                                </td>
+                                                <td className="px-5 py-4 text-right whitespace-nowrap">
+                                                    <div className="flex items-center justify-end gap-1.5">
+                                                        {/* Manage Permissions */}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => openRolePermsModal(role)}
+                                                            className="px-2.5 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold flex items-center gap-1 transition-colors cursor-pointer"
+                                                        >
+                                                            <Key size={14} />
+                                                            <span>Permissions</span>
+                                                        </button>
 
-                                                    {/* Edit Role */}
-                                                    <button
-                                                        disabled={role.isSystem}
-                                                        onClick={() => {
-                                                            setSelectedRole(role);
-                                                            setIsEditingRole(true);
-                                                            setRoleForm({ name: role.name, description: role.description || '' });
-                                                            setShowRoleModal(true);
-                                                        }}
-                                                        className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-30"
-                                                        title="Edit Role"
-                                                    >
-                                                        <Edit size={16} />
-                                                    </button>
+                                                        {/* Toggle Active / Inactive */}
+                                                        <button
+                                                            type="button"
+                                                            disabled={isSystem}
+                                                            onClick={() => handleToggleRoleActive(role)}
+                                                            className={`p-1.5 rounded-lg border transition-colors cursor-pointer ${
+                                                                isSystem
+                                                                    ? 'opacity-30 cursor-not-allowed border-slate-200 text-slate-400'
+                                                                    : isActive
+                                                                    ? 'border-emerald-200 bg-emerald-50 text-emerald-600 hover:bg-emerald-100'
+                                                                    : 'border-slate-200 text-slate-400 hover:bg-slate-100'
+                                                            }`}
+                                                            title={isSystem ? 'System roles cannot be deactivated' : isActive ? 'Deactivate role' : 'Activate role'}
+                                                        >
+                                                            {isActive ? <CheckCircle2 size={16} /> : <XCircle size={16} />}
+                                                        </button>
 
-                                                    {/* Delete Role */}
-                                                    <button
-                                                        disabled={role.isSystem}
-                                                        onClick={() => {
-                                                            setDeleteTarget({ type: 'ROLE', item: role });
-                                                            setShowDeleteModal(true);
-                                                        }}
-                                                        className="p-1.5 rounded-lg border border-red-100 text-[#DF1F28] hover:bg-red-50 disabled:opacity-30"
-                                                        title="Delete Role"
-                                                    >
-                                                        <Trash2 size={16} />
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))
+                                                        {/* Edit Role */}
+                                                        <button
+                                                            type="button"
+                                                            disabled={isSystem}
+                                                            onClick={() => {
+                                                                setSelectedRole(role);
+                                                                setIsEditingRole(true);
+                                                                setRoleForm({ name: role.name, description: role.description || '' });
+                                                                setShowRoleModal(true);
+                                                            }}
+                                                            className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-30 cursor-pointer"
+                                                            title="Edit Role"
+                                                        >
+                                                            <Edit size={16} />
+                                                        </button>
+
+                                                        {/* Delete Role */}
+                                                        <button
+                                                            type="button"
+                                                            disabled={isSystem}
+                                                            onClick={() => {
+                                                                setDeleteTarget({ type: 'ROLE', item: role });
+                                                                setShowDeleteModal(true);
+                                                            }}
+                                                            className="p-1.5 rounded-lg border border-red-100 text-[#DF1F28] hover:bg-red-50 disabled:opacity-30 cursor-pointer"
+                                                            title="Delete Role"
+                                                        >
+                                                            <Trash2 size={16} />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })
                                 )}
                             </tbody>
                         </table>
@@ -439,7 +489,7 @@ export default function RolesPage() {
                                                 {perm.description || '—'}
                                             </td>
                                             <td className="px-5 py-4">
-                                                {perm.isActive ? (
+                                                {(perm.isActive ?? perm.active ?? true) ? (
                                                     <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                                                         Active
                                                     </span>
@@ -551,14 +601,47 @@ export default function RolesPage() {
                     <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-5 animate-in fade-in zoom-in duration-150">
                         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                             <div>
-                                <h3 className="text-lg font-bold text-slate-800">{t('admin.roles.managePerms')}</h3>
-                                <p className="text-xs text-slate-400">Configuring permissions for role: <strong>{selectedRole.name}</strong></p>
+                                <div className="flex items-center gap-2">
+                                    <h3 className="text-lg font-bold text-slate-800">{t('admin.roles.managePerms')}</h3>
+                                    {(selectedRole.isSystem || selectedRole.name === 'ADMIN' || selectedRole.name === 'USER') ? (
+                                        <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-50 text-[#F9A825] border border-amber-200">
+                                            System Role
+                                        </span>
+                                    ) : (
+                                        <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
+                                            Custom Role
+                                        </span>
+                                    )}
+                                </div>
+                                <p className="text-xs text-slate-400 mt-0.5">Role: <strong className="text-slate-700">{selectedRole.name}</strong> &bull; {rolePermUuids.length} of {permissions.length} permissions assigned</p>
                             </div>
-                            <button onClick={() => setShowRolePermsModal(false)} className="text-slate-400 hover:text-slate-600">
+                            <button onClick={() => setShowRolePermsModal(false)} className="text-slate-400 hover:text-slate-600 cursor-pointer">
                                 <X size={20} />
                             </button>
                         </div>
-                        <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
+
+                        {/* Quick Selection Toolbar */}
+                        <div className="flex items-center justify-between px-1 py-1 bg-slate-50 rounded-xl text-xs font-semibold text-slate-600">
+                            <span className="pl-2">Permissions Selection</span>
+                            <div className="flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    onClick={() => setRolePermUuids(permissions.map(p => p.uuid))}
+                                    className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-[#253C95] hover:bg-blue-50 transition-colors cursor-pointer"
+                                >
+                                    Select All
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setRolePermUuids([])}
+                                    className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+                                >
+                                    Clear All
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
                             {permissions.map(perm => {
                                 const isChecked = rolePermUuids.includes(perm.uuid);
                                 return (
@@ -570,7 +653,7 @@ export default function RolesPage() {
                                                 : 'border-slate-200 hover:bg-slate-50 text-slate-700'
                                         }`}
                                     >
-                                        <div className="flex items-center gap-3">
+                                        <div className="flex items-center gap-3 min-w-0">
                                             <input
                                                 type="checkbox"
                                                 checked={isChecked}
@@ -581,11 +664,18 @@ export default function RolesPage() {
                                                         setRolePermUuids(rolePermUuids.filter(id => id !== perm.uuid));
                                                     }
                                                 }}
-                                                className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500"
+                                                className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer"
                                             />
-                                            <div>
-                                                <p className="text-sm font-bold font-mono">{perm.name}</p>
-                                                <p className="text-xs text-slate-400">{perm.description || `${perm.resource}:${perm.action}`}</p>
+                                            <div className="min-w-0">
+                                                <div className="flex items-center gap-2">
+                                                    <p className="text-sm font-bold font-mono text-slate-900">{perm.name}</p>
+                                                    {perm.resource && (
+                                                        <span className="px-1.5 py-0.2 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-500 border border-slate-200">
+                                                            {perm.resource}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <p className="text-xs text-slate-400 mt-0.5 truncate">{perm.description || `${perm.resource}:${perm.action}`}</p>
                                             </div>
                                         </div>
                                     </label>
@@ -596,14 +686,14 @@ export default function RolesPage() {
                             <button
                                 type="button"
                                 onClick={() => setShowRolePermsModal(false)}
-                                className="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50"
+                                className="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 cursor-pointer"
                             >
                                 {t('common.cancel')}
                             </button>
                             <button
                                 type="button"
                                 onClick={handleSaveRolePerms}
-                                className="px-5 py-2 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 shadow-md shadow-indigo-600/20"
+                                className="px-5 py-2 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 shadow-md shadow-indigo-600/20 cursor-pointer"
                             >
                                 {t('common.save')}
                             </button>

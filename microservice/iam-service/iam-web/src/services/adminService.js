@@ -119,6 +119,11 @@ export const adminService = {
         return res.data;
     },
 
+    getRolePermissions: async (roleUuid) => {
+        const res = await api.get(`/roles/${roleUuid}/permissions`);
+        return res.data;
+    },
+
     assignPermissionsToRole: async (roleUuid, permissionUuids) => {
         const res = await api.post(`/roles/${roleUuid}/permissions`, { permissionUuids });
         return res.data;

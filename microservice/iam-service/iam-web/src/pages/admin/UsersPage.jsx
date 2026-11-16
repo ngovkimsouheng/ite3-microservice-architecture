@@ -247,14 +247,20 @@ export default function UsersPage() {
     const openRoleModal = async (user) => {
         setSelectedUser(user);
         try {
-            const auths = await adminService.getUserAuthorities(user.uuid);
+            // Freshly fetch roles so statuses (Active/Inactive) are 100% in sync
+            const [rolesRes, auths] = await Promise.all([
+                adminService.getRoles(0, 100),
+                adminService.getUserAuthorities(user.uuid)
+            ]);
+            const freshRoles = rolesRes.content || [];
+            setAvailableRoles(freshRoles);
             setUserAuthorities(auths);
             let matchedUuids = [];
             if (auths.roleDetails && auths.roleDetails.length > 0) {
                 matchedUuids = auths.roleDetails.map(r => r.uuid);
             } else if (auths.roles) {
                 const roleNameSet = new Set(Array.from(auths.roles).map(rn => rn.replace(/^ROLE_/, '')));
-                matchedUuids = availableRoles
+                matchedUuids = freshRoles
                     .filter(r => roleNameSet.has(r.name) || roleNameSet.has(r.name.replace(/^ROLE_/, '')))
                     .map(r => r.uuid);
             }
@@ -896,21 +902,28 @@ export default function UsersPage() {
                                 <X size={20} />
                             </button>
                         </div>
-                        <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+                        <div className="space-y-2.5 max-h-72 overflow-y-auto pr-1">
                             {availableRoles.map(role => {
                                 const isChecked = selectedRoleUuids.includes(role.uuid);
+                                const isSystem = role.isSystem ?? role.system ?? (role.name === 'ADMIN' || role.name === 'USER');
+                                const isActive = role.isActive ?? role.active ?? true;
+                                const canToggle = isActive || isChecked; // If inactive and not currently assigned, disable selection
+
                                 return (
                                     <label
                                         key={role.uuid}
-                                        className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
-                                            isChecked
-                                                ? 'bg-indigo-50/70 border-indigo-200 text-indigo-900'
-                                                : 'border-slate-200 hover:bg-slate-50 text-slate-700'
+                                        className={`flex items-center justify-between p-3.5 rounded-xl border transition-all ${
+                                            !isActive && !isChecked
+                                                ? 'bg-slate-50/70 border-slate-200 opacity-60 cursor-not-allowed'
+                                                : isChecked
+                                                ? 'bg-indigo-50/70 border-indigo-200 text-indigo-900 cursor-pointer'
+                                                : 'border-slate-200 hover:bg-slate-50 text-slate-700 cursor-pointer'
                                         }`}
                                     >
-                                        <div className="flex items-center gap-3">
+                                        <div className="flex items-center gap-3 min-w-0">
                                             <input
                                                 type="checkbox"
+                                                disabled={!canToggle}
                                                 checked={isChecked}
                                                 onChange={(e) => {
                                                     if (e.target.checked) {
@@ -919,11 +932,31 @@ export default function UsersPage() {
                                                         setSelectedRoleUuids(selectedRoleUuids.filter(id => id !== role.uuid));
                                                     }
                                                 }}
-                                                className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500"
+                                                className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer disabled:cursor-not-allowed"
                                             />
-                                            <div>
-                                                <p className="text-sm font-bold">{role.name}</p>
-                                                <p className="text-xs text-slate-400">{role.description || 'System Role'}</p>
+                                            <div className="min-w-0">
+                                                <div className="flex items-center gap-2 flex-wrap">
+                                                    <p className="text-sm font-bold text-slate-900">{role.name}</p>
+                                                    {isSystem ? (
+                                                        <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-50 text-[#F9A825] border border-amber-200">
+                                                            System Role
+                                                        </span>
+                                                    ) : (
+                                                        <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
+                                                            Custom
+                                                        </span>
+                                                    )}
+                                                    {!isActive && (
+                                                        <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-red-50 text-[#DF1F28] border border-red-200">
+                                                            Inactive
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <p className="text-xs text-slate-500 mt-0.5 truncate">
+                                                    {!isActive && !isChecked
+                                                        ? 'Inactive role cannot be assigned. Activate it in Roles & Permissions.'
+                                                        : role.description || (isSystem ? 'System authority role' : 'Custom application role')}
+                                                </p>
                                             </div>
                                         </div>
                                     </label>

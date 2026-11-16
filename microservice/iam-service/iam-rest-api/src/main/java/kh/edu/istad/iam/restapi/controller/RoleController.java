@@ -35,6 +35,7 @@ public class RoleController {
     private final DeleteRoleUseCase deleteRoleUseCase;
     private final AssignPermissionsToRoleUseCase assignPermissionsToRoleUseCase;
     private final RevokePermissionFromRoleUseCase revokePermissionFromRoleUseCase;
+    private final GetRolePermissionsUseCase getRolePermissionsUseCase;
     private final IamWebMapper webMapper;
 
     @GetMapping
@@ -91,6 +92,16 @@ public class RoleController {
     public ResponseEntity<Void> deleteRole(@PathVariable("uuid") UUID uuid) {
         deleteRoleUseCase.execute(uuid);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{uuid}/permissions")
+    @PreAuthorize("hasAuthority('role:read')")
+    public ResponseEntity<List<PermissionResponse>> getRolePermissions(@PathVariable("uuid") UUID uuid) {
+        List<PermissionResult> results = getRolePermissionsUseCase.execute(uuid);
+        List<PermissionResponse> response = results.stream()
+                .map(webMapper::toPermissionResponse)
+                .toList();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/{uuid}/permissions")
