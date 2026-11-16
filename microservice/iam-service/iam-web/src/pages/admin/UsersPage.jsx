@@ -31,6 +31,19 @@ export default function UsersPage() {
     const [showPasswordModal, setShowPasswordModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+    // Three-dot action menu state
+    const [actionMenuUserId, setActionMenuUserId] = useState(null);
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (!e.target.closest('.user-action-dropdown')) {
+                setActionMenuUserId(null);
+            }
+        };
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, []);
+
     // Selected user for action
     const [selectedUser, setSelectedUser] = useState(null);
     const [userAuthorities, setUserAuthorities] = useState({ roles: [], permissions: [] });
@@ -391,8 +404,8 @@ export default function UsersPage() {
             </div>
 
             {/* Users Table */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-                <div className="overflow-x-auto">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs">
+                <div className="overflow-x-auto min-h-[340px] pb-8 rounded-2xl">
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-slate-50/80 border-b border-slate-200 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-500 whitespace-nowrap">
@@ -418,8 +431,9 @@ export default function UsersPage() {
                                     </td>
                                 </tr>
                             ) : (
-                                filteredUsers.map((user) => {
+                                filteredUsers.map((user, rowIndex) => {
                                     const isLocked = isUserLocked(user);
+                                    const isNearBottom = rowIndex >= filteredUsers.length - 2 && filteredUsers.length > 2;
                                     return (
                                         <tr
                                             key={user.uuid}
@@ -505,11 +519,12 @@ export default function UsersPage() {
                                                 <p className="text-slate-400">{user.locale || 'en-US'}</p>
                                             </td>
 
-                                            {/* Actions */}
+                                            {/* Actions Column */}
                                             <td className="px-5 py-4 text-right whitespace-nowrap">
                                                 <div className="flex items-center justify-end gap-1.5">
-                                                    {/* Assign / Edit Roles */}
+                                                    {/* Primary 1: Assign Roles */}
                                                     <button
+                                                        type="button"
                                                         onClick={() => openRoleModal(user)}
                                                         className="p-1.5 rounded-lg border border-indigo-200 bg-indigo-50/70 hover:bg-indigo-100 text-indigo-700 transition-colors cursor-pointer"
                                                         title={t('admin.users.assignRoles')}
@@ -517,17 +532,9 @@ export default function UsersPage() {
                                                         <Shield size={16} />
                                                     </button>
 
-                                                    {/* Direct Permissions */}
+                                                    {/* Primary 2: Edit Profile */}
                                                     <button
-                                                        onClick={() => openPermModal(user)}
-                                                        className="p-1.5 rounded-lg border border-purple-200 bg-purple-50/70 hover:bg-purple-100 text-purple-700 transition-colors cursor-pointer"
-                                                        title={t('admin.users.assignPerms')}
-                                                    >
-                                                        <Key size={16} />
-                                                    </button>
-
-                                                    {/* Edit Profile */}
-                                                    <button
+                                                        type="button"
                                                         onClick={() => openEditModal(user)}
                                                         className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-600 transition-colors cursor-pointer"
                                                         title={t('admin.users.editUser')}
@@ -535,17 +542,9 @@ export default function UsersPage() {
                                                         <Edit size={16} />
                                                     </button>
 
-                                                    {/* Reset Password */}
+                                                    {/* Primary 3: Lock / Unlock Security Toggle */}
                                                     <button
-                                                        onClick={() => openPasswordModal(user)}
-                                                        className="p-1.5 rounded-lg border border-slate-200 hover:bg-amber-50 text-[#F9A825] transition-colors cursor-pointer"
-                                                        title={t('admin.users.resetPassword')}
-                                                    >
-                                                        <KeyRound size={16} />
-                                                    </button>
-
-                                                    {/* Lock / Unlock Toggle */}
-                                                    <button
+                                                        type="button"
                                                         onClick={() => handleToggleLock(user)}
                                                         className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
                                                             isLocked
@@ -557,27 +556,101 @@ export default function UsersPage() {
                                                         {isLocked ? <Unlock size={16} className="text-emerald-700" /> : <Lock size={16} />}
                                                     </button>
 
-                                                    {/* Enable / Disable Toggle */}
-                                                    <button
-                                                        onClick={() => handleToggleEnable(user)}
-                                                        className={`p-1.5 rounded-lg border transition-colors cursor-pointer ${
-                                                            user.enabled
-                                                                ? 'border-slate-200 text-slate-600 hover:bg-slate-100'
-                                                                : 'border-emerald-200 bg-emerald-50 text-emerald-600 hover:bg-emerald-100'
-                                                        }`}
-                                                        title={user.enabled ? t('admin.users.disableUser') : t('admin.users.enableUser')}
-                                                    >
-                                                        {user.enabled ? <XCircle size={16} /> : <CheckCircle2 size={16} />}
-                                                    </button>
+                                                    {/* Secondary Actions: Collapsed in Three-Dot Menu */}
+                                                    <div className="relative inline-block user-action-dropdown">
+                                                        <button
+                                                            type="button"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                setActionMenuUserId(prev => prev === user.uuid ? null : user.uuid);
+                                                            }}
+                                                            className={`p-1.5 rounded-lg border transition-colors cursor-pointer ${
+                                                                actionMenuUserId === user.uuid
+                                                                    ? 'bg-slate-200 border-slate-300 text-slate-900 shadow-2xs'
+                                                                    : 'border-slate-200 hover:bg-slate-100 text-slate-600'
+                                                            }`}
+                                                            title="More actions"
+                                                        >
+                                                            <MoreVertical size={16} />
+                                                        </button>
 
-                                                    {/* Delete Button */}
-                                                    <button
-                                                        onClick={() => { setSelectedUser(user); setShowDeleteModal(true); }}
-                                                        className="p-1.5 rounded-lg border border-red-100 text-[#DF1F28] hover:bg-red-50 transition-colors cursor-pointer"
-                                                        title={t('admin.users.deleteUser')}
-                                                    >
-                                                        <Trash2 size={16} />
-                                                    </button>
+                                                        {actionMenuUserId === user.uuid && (
+                                                            <div
+                                                                className={`absolute right-0 z-40 w-52 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 text-left animate-in fade-in zoom-in-95 duration-100 ${
+                                                                    isNearBottom ? 'bottom-full mb-1.5' : 'top-full mt-1.5'
+                                                                }`}
+                                                                onClick={(e) => e.stopPropagation()}
+                                                            >
+                                                                {/* Direct Permissions */}
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        setActionMenuUserId(null);
+                                                                        openPermModal(user);
+                                                                    }}
+                                                                    className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm text-slate-700 hover:bg-purple-50 hover:text-purple-700 transition-colors text-left font-medium cursor-pointer"
+                                                                >
+                                                                    <Key size={15} className="text-purple-600 shrink-0" />
+                                                                    <span>{t('admin.users.assignPerms')}</span>
+                                                                </button>
+
+                                                                {/* Reset Password */}
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        setActionMenuUserId(null);
+                                                                        openPasswordModal(user);
+                                                                    }}
+                                                                    className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm text-slate-700 hover:bg-amber-50 hover:text-amber-800 transition-colors text-left font-medium cursor-pointer"
+                                                                >
+                                                                    <KeyRound size={15} className="text-[#F9A825] shrink-0" />
+                                                                    <span>{t('admin.users.resetPassword')}</span>
+                                                                </button>
+
+                                                                {/* Enable / Disable */}
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        setActionMenuUserId(null);
+                                                                        handleToggleEnable(user);
+                                                                    }}
+                                                                    className={`w-full flex items-center gap-2.5 px-3.5 py-2 text-sm transition-colors text-left font-medium cursor-pointer ${
+                                                                        user.enabled
+                                                                            ? 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
+                                                                            : 'text-emerald-700 hover:bg-emerald-50'
+                                                                    }`}
+                                                                >
+                                                                    {user.enabled ? (
+                                                                        <>
+                                                                            <XCircle size={15} className="text-slate-500 shrink-0" />
+                                                                            <span>{t('admin.users.disableUser')}</span>
+                                                                        </>
+                                                                    ) : (
+                                                                        <>
+                                                                            <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                                                                            <span>{t('admin.users.enableUser')}</span>
+                                                                        </>
+                                                                    )}
+                                                                </button>
+
+                                                                <div className="my-1 border-t border-slate-100"></div>
+
+                                                                {/* Delete Account */}
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        setActionMenuUserId(null);
+                                                                        setSelectedUser(user);
+                                                                        setShowDeleteModal(true);
+                                                                    }}
+                                                                    className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm text-[#DF1F28] hover:bg-red-50 transition-colors text-left font-medium cursor-pointer"
+                                                                >
+                                                                    <Trash2 size={15} className="text-[#DF1F28] shrink-0" />
+                                                                    <span>{t('admin.users.deleteUser')}</span>
+                                                                </button>
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
