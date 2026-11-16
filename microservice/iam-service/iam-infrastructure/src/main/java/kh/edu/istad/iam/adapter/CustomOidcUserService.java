@@ -41,6 +41,10 @@ public class CustomOidcUserService extends OidcUserService {
         }
         userInfoClaims.putIfAbsent("sub", oidcUser.getIdToken().getSubject());
         userInfoClaims.put("iam_user_id", authUser.uuid().toString());
+        if (authUser.username() != null) {
+            userInfoClaims.put("iam_username", authUser.username());
+            userInfoClaims.put("preferred_username", authUser.username());
+        }
 
         return new DefaultOidcUser(
                 CustomOAuth2UserService.authorities(authUser),

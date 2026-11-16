@@ -30,16 +30,18 @@ export default function OverviewPage() {
         totalActivities: 0
     });
     const [recentActivities, setRecentActivities] = useState([]);
+    const [deactivationRequests, setDeactivationRequests] = useState([]);
 
     const fetchOverviewData = async () => {
         setLoading(true);
         try {
-            const [usersData, rolesData, permsData, clientsData, activitiesData] = await Promise.all([
+            const [usersData, rolesData, permsData, clientsData, activitiesData, deactData] = await Promise.all([
                 adminService.getUsers(0, 100).catch(() => ({ content: [], totalElements: 0 })),
                 adminService.getRoles(0, 100).catch(() => ({ content: [], totalElements: 0 })),
                 adminService.getPermissions(0, 200).catch(() => ({ content: [], totalElements: 0 })),
                 adminService.getClients().catch(() => []),
-                adminService.getEnterpriseSecurityActivity().catch(() => [])
+                adminService.getEnterpriseSecurityActivity().catch(() => []),
+                adminService.getDeactivationRequests().catch(() => [])
             ]);
 
             const users = usersData.content || [];
@@ -47,6 +49,7 @@ export default function OverviewPage() {
             const perms = permsData.content || [];
             const clients = Array.isArray(clientsData) ? clientsData : [];
             const activities = Array.isArray(activitiesData) ? activitiesData : [];
+            const deactivations = Array.isArray(deactData) ? deactData : [];
 
             const activeCount = users.filter(u => u.enabled && !u.accountLocked && u.accountNonLocked !== false).length;
 
@@ -60,6 +63,7 @@ export default function OverviewPage() {
             });
 
             setRecentActivities(activities.slice(0, 6));
+            setDeactivationRequests(deactivations);
         } catch (err) {
             console.error('Failed to load overview data', err);
         } finally {
@@ -184,6 +188,31 @@ export default function OverviewPage() {
                     </button>
                 </div>
             </div>
+
+            {/* Deactivation Requests Alert Banner */}
+            {deactivationRequests.length > 0 && (
+                <div className="bg-red-50 border border-red-200/90 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
+                    <div className="flex items-center gap-3.5">
+                        <div className="p-2.5 rounded-xl bg-red-100 text-[#DF1F28] shrink-0">
+                            <ShieldAlert size={22} />
+                        </div>
+                        <div>
+                            <p className="text-sm sm:text-base font-bold text-red-950">
+                                {deactivationRequests.length} Pending Account Deactivation {deactivationRequests.length === 1 ? 'Request' : 'Requests'}
+                            </p>
+                            <p className="text-xs sm:text-sm text-red-700 mt-0.5 font-medium">
+                                User accounts have requested deactivation. Review accounts in User Management or check Audit Logs.
+                            </p>
+                        </div>
+                    </div>
+                    <Link
+                        to="/admin/users"
+                        className="px-4 py-2.5 rounded-xl bg-[#DF1F28] hover:bg-red-700 text-white font-semibold text-xs sm:text-sm whitespace-nowrap transition-all shadow-xs cursor-pointer"
+                    >
+                        Review Users &rarr;
+                    </Link>
+                </div>
+            )}
 
             {/* Metrics Grid (5 Real Dynamic Metrics) */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">

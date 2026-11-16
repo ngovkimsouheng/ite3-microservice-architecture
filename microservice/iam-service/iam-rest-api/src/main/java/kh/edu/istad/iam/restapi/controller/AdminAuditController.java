@@ -76,6 +76,24 @@ public class AdminAuditController {
         return ResponseEntity.ok(sessions);
     }
 
+    @GetMapping("/deactivation-requests")
+    @PreAuthorize("hasAuthority('role:read') or hasRole('ADMIN')")
+    public ResponseEntity<List<SecurityActivityResponse>> getDeactivationRequests(
+            @RequestParam(name = "limit", required = false, defaultValue = "50") int limit
+    ) {
+        List<UserSecurityEvent> events = securityEventRepository.findDeactivationRequests(limit);
+        List<SecurityActivityResponse> response = events.stream().map(e -> new SecurityActivityResponse(
+                String.valueOf(e.getId()),
+                e.getDescription() != null ? e.getDescription() : "Account Deactivation Requested",
+                (e.getUsername() != null ? "@" + e.getUsername() + " — " : "") + (e.getDetails() != null ? e.getDetails() : "Account deactivation requested"),
+                e.getCreatedAt(),
+                "ShieldAlert",
+                "bg-red-50 text-[#DF1F28]"
+        )).toList();
+
+        return ResponseEntity.ok(response);
+    }
+
     @DeleteMapping("/sessions/{sessionId}")
     @PreAuthorize("hasAuthority('role:update')")
     public ResponseEntity<Void> terminateSession(@PathVariable("sessionId") String sessionId) {
@@ -96,7 +114,7 @@ public class AdminAuditController {
             case "PASSWORD_CHANGED", "PASSWORD_RESET" -> "KeyRound";
             case "PROFILE_UPDATED", "USERNAME_CHANGED" -> "UserCheck";
             case "IDENTITY_LINKED", "IDENTITY_UNLINKED" -> "Lock";
-            case "SESSION_TERMINATED" -> "ShieldAlert";
+            case "SESSION_TERMINATED", "DEACTIVATION_REQUESTED", "ACCOUNT_DEACTIVATED" -> "ShieldAlert";
             default -> "Activity";
         };
     }
@@ -107,7 +125,7 @@ public class AdminAuditController {
             case "PASSWORD_CHANGED", "PASSWORD_RESET" -> "bg-[#F9A825]/10 text-[#F9A825]";
             case "PROFILE_UPDATED", "USERNAME_CHANGED" -> "bg-emerald-50 text-emerald-600";
             case "IDENTITY_LINKED", "IDENTITY_UNLINKED" -> "bg-purple-50 text-purple-600";
-            case "SESSION_TERMINATED" -> "bg-[#DF1F28]/10 text-[#DF1F28]";
+            case "SESSION_TERMINATED", "DEACTIVATION_REQUESTED", "ACCOUNT_DEACTIVATED" -> "bg-[#DF1F28]/10 text-[#DF1F28]";
             default -> "bg-[#253C95]/10 text-[#253C95]";
         };
     }

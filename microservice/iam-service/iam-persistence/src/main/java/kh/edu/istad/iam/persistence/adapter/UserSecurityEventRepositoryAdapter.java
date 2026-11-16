@@ -78,6 +78,12 @@ public class UserSecurityEventRepositoryAdapter implements UserSecurityEventRepo
                 .stream().map(this::toDomain).toList();
     }
 
+    @Override
+    public List<UserSecurityEvent> findDeactivationRequests(int limit) {
+        return repository.findDeactivationRequests(PageRequest.of(0, limit))
+                .stream().map(this::toDomain).toList();
+    }
+
     private UserSecurityEventJpaEntity toEntity(UserSecurityEvent d) {
         return UserSecurityEventJpaEntity.builder()
                 .id(d.getId())

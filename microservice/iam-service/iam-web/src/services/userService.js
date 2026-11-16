@@ -66,5 +66,11 @@ export const userService = {
     getSecurityActivity: async () => {
         const res = await api.get('/me/security-activity');
         return res.data;
+    },
+
+    // Account Deactivation Request
+    requestDeactivation: async (reason = 'User requested account deactivation') => {
+        const res = await api.post('/me/deactivate-request', { reason });
+        return res.data;
     }
 };

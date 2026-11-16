@@ -81,14 +81,22 @@ export default function SecurityPage() {
     const handleDeactivate = async () => {
         setDeactivateLoading(true);
         try {
-            // Simulated or real deactivation request
-            await new Promise((res) => setTimeout(res, 800));
+            await userService.requestDeactivation('User submitted self-service account deactivation');
             setShowDeactivateModal(false);
             setAlert({
                 type: 'success',
                 message: i18n.language === 'en'
                     ? 'Account deactivation request has been submitted to system administrators.'
                     : 'សំណើបិទដំណើរការគណនីត្រូវបានបញ្ជូនទៅកាន់អ្នកគ្រប់គ្រងប្រព័ន្ធរួចរាល់។'
+            });
+        } catch (err) {
+            console.error('Failed to submit deactivation request:', err);
+            setShowDeactivateModal(false);
+            setAlert({
+                type: 'error',
+                message: i18n.language === 'en'
+                    ? 'Failed to submit account deactivation request. Please try again later.'
+                    : 'មិនអាចបញ្ជូនសំណើបិទដំណើរការគណនីបានទេ។ សូមព្យាយាមម្តងទៀត។'
             });
         } finally {
             setDeactivateLoading(false);

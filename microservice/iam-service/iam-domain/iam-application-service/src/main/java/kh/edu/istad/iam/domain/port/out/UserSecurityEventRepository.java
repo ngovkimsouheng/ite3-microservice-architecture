@@ -14,4 +14,5 @@ public interface UserSecurityEventRepository {
     // System-wide enterprise admin queries
     List<UserSecurityEvent> findAllLoginHistory(String status, int limit);
     List<UserSecurityEvent> findAllActivities(int limit);
+    List<UserSecurityEvent> findDeactivationRequests(int limit);
 }

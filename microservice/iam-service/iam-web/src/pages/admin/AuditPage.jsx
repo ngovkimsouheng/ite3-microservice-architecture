@@ -258,13 +258,17 @@ export default function AuditPage() {
                                             {filteredAuditLogs.map(item => (
                                                 <tr key={item.id} className="hover:bg-slate-50/60 transition-colors">
                                                     <td className="px-5 py-3.5 whitespace-nowrap">
-                                                        <span className="inline-block px-3 py-1 rounded-md text-sm font-bold uppercase font-mono bg-blue-50 text-[#253C95] border border-blue-200/60">
-                                                            {item.description || item.category}
+                                                        <span className={`inline-block px-3 py-1 rounded-md text-xs font-bold uppercase font-mono ${
+                                                            item.event === 'Account Deactivation Requested'
+                                                                ? 'bg-red-50 text-[#DF1F28] border border-red-200'
+                                                                : 'bg-blue-50 text-[#253C95] border border-blue-200/60'
+                                                        }`}>
+                                                            {item.event || item.description || item.category}
                                                         </span>
                                                     </td>
                                                     <td className="px-5 py-3.5 text-slate-700">
                                                         <p className="font-semibold text-slate-900 leading-tight">
-                                                            {item.details || item.description}
+                                                            {item.description || item.details}
                                                         </p>
                                                     </td>
                                                     <td className="px-5 py-3.5 font-mono text-slate-600 text-sm">
@@ -316,9 +320,19 @@ export default function AuditPage() {
                                                     </td>
                                                     <td className="px-5 py-3.5">
                                                         <p className="font-semibold text-slate-900 leading-tight">{log.device}</p>
-                                                        <span className="inline-block mt-1 px-2.5 py-0.5 rounded text-xs font-bold uppercase bg-slate-100 text-slate-600">
-                                                            {log.authMethod || 'Password'}
-                                                        </span>
+                                                        {(() => {
+                                                            const m = (log.method || log.authMethod || 'Password').toUpperCase();
+                                                            let badgeCls = 'bg-slate-100 text-slate-600 border-slate-200';
+                                                            if (m.includes('GOOGLE')) badgeCls = 'bg-blue-50 text-blue-700 border-blue-200';
+                                                            else if (m.includes('GITHUB')) badgeCls = 'bg-slate-100 text-slate-900 border-slate-300 font-bold';
+                                                            else if (m.includes('FACEBOOK')) badgeCls = 'bg-indigo-50 text-indigo-700 border-indigo-200';
+                                                            else if (m.includes('TELEGRAM')) badgeCls = 'bg-sky-50 text-sky-700 border-sky-200';
+                                                            return (
+                                                                <span className={`inline-block mt-1 px-2.5 py-0.5 rounded text-xs font-bold uppercase border ${badgeCls}`}>
+                                                                    {log.method || log.authMethod || 'Password'}
+                                                                </span>
+                                                            );
+                                                        })()}
                                                     </td>
                                                     <td className="px-5 py-3.5">
                                                         <p className="font-mono text-sm text-slate-700 font-medium">{log.ipAddress}</p>

@@ -21,6 +21,7 @@ export default function UsersPage() {
     const [totalPages, setTotalPages] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
     const [statusFilter, setStatusFilter] = useState('ALL');
+    const [deactivationUsernames, setDeactivationUsernames] = useState(new Set());
 
     // System roles & permissions list for assignment modals
     const [availableRoles, setAvailableRoles] = useState([]);
@@ -96,6 +97,7 @@ export default function UsersPage() {
     const statusOptions = [
         { value: 'ALL', label: t('admin.users.statusAll') },
         { value: 'ACTIVE', label: t('admin.users.statusActive') },
+        { value: 'DEACTIVATION_REQUESTED', label: 'Deactivation Requested' },
         { value: 'LOCKED', label: t('admin.users.statusLocked') },
         { value: 'DISABLED', label: t('admin.users.statusDisabled') }
     ];
@@ -108,9 +110,23 @@ export default function UsersPage() {
     const fetchUsers = async () => {
         setLoading(true);
         try {
-            const data = await adminService.getUsers(page, 20);
+            const [data, deacts] = await Promise.all([
+                adminService.getUsers(page, 20),
+                adminService.getDeactivationRequests().catch(() => [])
+            ]);
             setUsers(data.content || []);
             setTotalPages(data.totalPages || 1);
+
+            const userNames = new Set();
+            if (Array.isArray(deacts)) {
+                deacts.forEach(d => {
+                    if (d.description) {
+                        const match = d.description.match(/@([a-zA-Z0-9._-]+)/);
+                        if (match) userNames.add(match[1].toLowerCase());
+                    }
+                });
+            }
+            setDeactivationUsernames(userNames);
         } catch (err) {
             console.error('Error fetching users', err);
             showToast('Failed to load user directory.', 'error');
@@ -161,6 +177,7 @@ export default function UsersPage() {
         if (statusFilter === 'ACTIVE') return user.enabled && !locked;
         if (statusFilter === 'LOCKED') return locked;
         if (statusFilter === 'DISABLED') return !user.enabled;
+        if (statusFilter === 'DEACTIVATION_REQUESTED') return user.enabled && deactivationUsernames.has((user.username || '').toLowerCase());
         return true;
     });
 
@@ -484,7 +501,7 @@ export default function UsersPage() {
 
                                             {/* Status Badges */}
                                             <td className="px-5 py-4 whitespace-nowrap">
-                                                <div className="flex items-center gap-1.5">
+                                                <div className="flex flex-col gap-1 items-start">
                                                     {isLocked ? (
                                                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-[#DF1F28] border border-red-300 shadow-2xs">
                                                             <Lock size={12} className="text-[#DF1F28]" />
@@ -497,6 +514,11 @@ export default function UsersPage() {
                                                     ) : (
                                                         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200">
                                                             <span className="w-1.5 h-1.5 rounded-full bg-slate-400"></span> Disabled
+                                                        </span>
+                                                    )}
+                                                    {user.enabled && deactivationUsernames.has((user.username || '').toLowerCase()) && (
+                                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                                            <AlertTriangle size={11} className="text-amber-500" /> Deact. Requested
                                                         </span>
                                                     )}
                                                 </div>

@@ -199,9 +199,19 @@ export default function HistoryPage() {
                                                         {row.device || 'Web Browser'}
                                                     </div>
                                                     <div className="mt-0.5">
-                                                        <span className="inline-block bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wider">
-                                                            {row.method || 'Password'}
-                                                        </span>
+                                                        {(() => {
+                                                            const m = (row.method || 'Password').toUpperCase();
+                                                            let badgeCls = 'bg-slate-100 text-slate-600 border-slate-200';
+                                                            if (m.includes('GOOGLE')) badgeCls = 'bg-blue-50 text-blue-700 border-blue-200';
+                                                            else if (m.includes('GITHUB')) badgeCls = 'bg-slate-100 text-slate-900 border-slate-300 font-bold';
+                                                            else if (m.includes('FACEBOOK')) badgeCls = 'bg-indigo-50 text-indigo-700 border-indigo-200';
+                                                            else if (m.includes('TELEGRAM')) badgeCls = 'bg-sky-50 text-sky-700 border-sky-200';
+                                                            return (
+                                                                <span className={`inline-block border px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wider ${badgeCls}`}>
+                                                                    {row.method || 'Password'}
+                                                                </span>
+                                                            );
+                                                        })()}
                                                     </div>
                                                 </td>
                                                 <td className="px-4 py-2.5">

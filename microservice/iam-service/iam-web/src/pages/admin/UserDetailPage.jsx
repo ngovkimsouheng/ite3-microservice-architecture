@@ -21,6 +21,7 @@ export default function UserDetailPage() {
     const [identities, setIdentities] = useState([]);
     const [sessions, setSessions] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [hasDeactivationRequest, setHasDeactivationRequest] = useState(false);
     const [activeTab, setActiveTab] = useState('OVERVIEW'); // 'OVERVIEW' | 'ROLES' | 'IDENTITIES' | 'SESSIONS'
     const [permFilterQuery, setPermFilterQuery] = useState('');
 
@@ -102,17 +103,24 @@ export default function UserDetailPage() {
             setUser(userData);
 
             // Fetch authorities, identities, sessions and system meta concurrently
-            const [authsRes, idsRes, rolesRes, permsRes] = await Promise.all([
+            const [authsRes, idsRes, rolesRes, permsRes, deactRes] = await Promise.all([
                 adminService.getUserAuthorities(uuid).catch(() => ({ roles: [], permissions: [], roleDetails: [] })),
                 adminService.getUserIdentities(uuid).catch(() => []),
                 adminService.getRoles(0, 100).catch(() => ({ content: [] })),
-                adminService.getPermissions(0, 100).catch(() => ({ content: [] }))
+                adminService.getPermissions(0, 100).catch(() => ({ content: [] })),
+                adminService.getDeactivationRequests().catch(() => [])
             ]);
 
             setAuthorities(authsRes || { roles: [], permissions: [], roleDetails: [] });
             setIdentities(Array.isArray(idsRes) ? idsRes : []);
             setAvailableRoles(rolesRes.content || []);
             setAvailablePerms(permsRes.content || []);
+
+            const isRequested = Array.isArray(deactRes) && deactRes.some(d =>
+                (d.description && d.description.includes(`@${userData.username}`)) ||
+                (d.description && d.description.includes(userData.username))
+            );
+            setHasDeactivationRequest(isRequested && userData.enabled);
 
             // Sessions fetch by username
             if (userData.username) {
@@ -158,6 +166,7 @@ export default function UserDetailPage() {
                 await adminService.disableUser(user.uuid);
                 showToast(`Account @${user.username} has been disabled.`);
                 setUser(prev => ({ ...prev, enabled: false }));
+                setHasDeactivationRequest(false);
             } else {
                 await adminService.enableUser(user.uuid);
                 showToast(`Account @${user.username} has been enabled.`);
@@ -401,6 +410,31 @@ export default function UserDetailPage() {
                     </button>
                 </div>
             </div>
+
+            {/* Account Deactivation Request Banner */}
+            {hasDeactivationRequest && (
+                <div className="bg-red-50 border border-red-200/90 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
+                    <div className="flex items-center gap-3.5">
+                        <div className="p-2.5 rounded-xl bg-red-100 text-[#DF1F28] shrink-0">
+                            <AlertTriangle size={22} />
+                        </div>
+                        <div>
+                            <p className="text-sm sm:text-base font-bold text-red-950">
+                                User Submitted Account Deactivation Request
+                            </p>
+                            <p className="text-xs sm:text-sm text-red-700 mt-0.5 font-medium">
+                                @{user.username} requested their account to be deactivated. You can approve this by disabling the account.
+                            </p>
+                        </div>
+                    </div>
+                    <button
+                        onClick={handleToggleEnable}
+                        className="px-4 py-2.5 rounded-xl bg-[#DF1F28] hover:bg-red-700 text-white font-semibold text-xs sm:text-sm whitespace-nowrap transition-all shadow-xs cursor-pointer active:scale-95"
+                    >
+                        Disable Account Now
+                    </button>
+                </div>
+            )}
 
             {/* Hero Profile Banner Card */}
             <div className={`bg-white rounded-2xl border p-6 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-6 ${

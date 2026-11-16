@@ -107,8 +107,24 @@
 
         @PostMapping("/users/{uuid}/disable")
         @PreAuthorize("hasAuthority('user:update')")
-        public ResponseEntity<Void> disableUser(@PathVariable("uuid") UUID uuid) {
+        public ResponseEntity<Void> disableUser(@PathVariable("uuid") UUID uuid, HttpServletRequest servletRequest) {
             disableUserUseCase.execute(uuid);
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "ACCOUNT_DEACTIVATED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Account Disabled / Deactivated",
+                        "Administrator disabled account access for @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
@@ -437,6 +453,38 @@
                 );
             }).toList();
             return ResponseEntity.ok(responses);
+        }
+
+        @PostMapping("/me/deactivate-request")
+        public ResponseEntity<Void> requestAccountDeactivation(
+                @RequestBody(required = false) java.util.Map<String, String> body,
+                HttpServletRequest servletRequest
+        ) {
+            UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
+            UserResult user = getUserUseCase.execute(currentUuid);
+            String reason = (body != null && body.get("reason") != null && !body.get("reason").isBlank())
+                    ? body.get("reason")
+                    : "User requested account deactivation";
+
+            try {
+                recordSecurityEventUseCase.execute(
+                        currentUuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "DEACTIVATION_REQUESTED",
+                        "PENDING",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Account Deactivation Requested",
+                        "User @" + user.username() + " submitted an account deactivation request. Reason: " + reason
+                );
+            } catch (Exception ex) {
+                log.error("Failed to record deactivation request: {}", ex.getMessage());
+            }
+
+            return ResponseEntity.noContent().build();
         }
 
         private String formatProviderTitle(String provider) {

@@ -334,13 +334,46 @@ public class SecurityConfig {
             }
 
             UUID userUuid = null;
+            String username = null;
+
             if (authentication.getPrincipal() instanceof IamUserDetails iamUser) {
                 userUuid = iamUser.getUuid();
+                username = iamUser.getUsername();
+            } else if (authentication.getPrincipal() instanceof org.springframework.security.oauth2.core.oidc.user.OidcUser oidcUser) {
+                Object iamUserId = oidcUser.getAttribute("iam_user_id");
+                if (iamUserId != null) {
+                    try {
+                        userUuid = UUID.fromString(iamUserId.toString());
+                    } catch (Exception ignored) {}
+                }
+                username = (String) oidcUser.getAttribute("iam_username");
+                if (username == null) username = oidcUser.getPreferredUsername();
+                if (username == null) username = (String) oidcUser.getAttribute("name");
+            } else if (authentication.getPrincipal() instanceof org.springframework.security.oauth2.core.user.OAuth2User oAuth2User) {
+                Object iamUserId = oAuth2User.getAttribute("iam_user_id");
+                if (iamUserId == null) iamUserId = oAuth2User.getAttribute("sub");
+                if (iamUserId != null) {
+                    try {
+                        userUuid = UUID.fromString(iamUserId.toString());
+                    } catch (Exception ignored) {}
+                }
+                username = (String) oAuth2User.getAttribute("iam_username");
+                if (username == null) username = (String) oAuth2User.getAttribute("name");
+            }
+
+            if (userUuid == null && authentication.getName() != null) {
+                try {
+                    userUuid = UUID.fromString(authentication.getName());
+                } catch (Exception ignored) {}
+            }
+
+            if (username == null || username.isBlank() || (userUuid != null && username.equals(userUuid.toString()))) {
+                username = authentication.getName();
             }
 
             recordSecurityEventUseCase.execute(
                     userUuid,
-                    authentication.getName(),
+                    username,
                     "LOGIN",
                     "LOGIN_SUCCESS",
                     "SUCCESS",

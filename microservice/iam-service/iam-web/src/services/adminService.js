@@ -212,6 +212,11 @@ export const adminService = {
         return res.data;
     },
 
+    getDeactivationRequests: async () => {
+        const res = await api.get('/admin/audit/deactivation-requests');
+        return res.data;
+    },
+
     getEnterpriseSessions: async () => {
         const res = await api.get('/admin/audit/sessions');
         return res.data;

@@ -30,4 +30,7 @@ public interface UserSecurityEventJpaRepository extends JpaRepository<UserSecuri
 
     @Query("SELECT e FROM UserSecurityEventJpaEntity e WHERE e.category = 'ACTIVITY' ORDER BY e.createdAt DESC")
     List<UserSecurityEventJpaEntity> findAllSystemActivities(Pageable pageable);
+
+    @Query("SELECT e FROM UserSecurityEventJpaEntity e WHERE e.eventType = 'DEACTIVATION_REQUESTED' ORDER BY e.createdAt DESC")
+    List<UserSecurityEventJpaEntity> findDeactivationRequests(Pageable pageable);
 }
