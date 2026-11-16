@@ -1,5 +1,6 @@
 package kh.edu.istad.iam.restapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +22,7 @@ public record UserResponse(
         OffsetDateTime createdAt,
         OffsetDateTime updatedAt
 ) {
+    @JsonProperty("accountLocked")
     public boolean accountLocked() {
         return !accountNonLocked;
     }

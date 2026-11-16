@@ -124,6 +124,14 @@ export default function UsersPage() {
         fetchSystemMeta();
     }, []);
 
+    // Helper to accurately determine locked state from any property
+    const isUserLocked = (u) => {
+        if (!u) return false;
+        if (u.accountLocked === true || u.accountLocked === 'true') return true;
+        if (u.accountNonLocked === false || u.accountNonLocked === 'false') return true;
+        return false;
+    };
+
     // Filter users locally by search & status
     const filteredUsers = users.filter(user => {
         const matchesSearch =
@@ -133,8 +141,9 @@ export default function UsersPage() {
 
         if (!matchesSearch) return false;
 
-        if (statusFilter === 'ACTIVE') return user.enabled && !user.accountLocked;
-        if (statusFilter === 'LOCKED') return user.accountLocked;
+        const locked = isUserLocked(user);
+        if (statusFilter === 'ACTIVE') return user.enabled && !locked;
+        if (statusFilter === 'LOCKED') return locked;
         if (statusFilter === 'DISABLED') return !user.enabled;
         return true;
     });
@@ -191,7 +200,8 @@ export default function UsersPage() {
     // Toggle Lock / Unlock
     const handleToggleLock = async (user) => {
         try {
-            if (user.accountLocked) {
+            const currentlyLocked = isUserLocked(user);
+            if (currentlyLocked) {
                 await adminService.unlockUser(user.uuid);
                 showToast(`Account @${user.username} has been UNLOCKED.`, 'success');
             } else {
@@ -385,12 +395,12 @@ export default function UsersPage() {
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-slate-50/80 border-b border-slate-200 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-500">
-                                <th className="px-5 py-4">User</th>
-                                <th className="px-5 py-4">Account Status</th>
-                                <th className="px-5 py-4">Roles & Security</th>
-                                <th className="px-5 py-4">Contact Info</th>
-                                <th className="px-5 py-4 text-right">Actions</th>
+                            <tr className="bg-slate-50/80 border-b border-slate-200 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-500 whitespace-nowrap">
+                                <th className="px-5 py-3.5 whitespace-nowrap">User</th>
+                                <th className="px-5 py-3.5 whitespace-nowrap">Status</th>
+                                <th className="px-5 py-3.5 whitespace-nowrap">Roles</th>
+                                <th className="px-5 py-3.5 whitespace-nowrap">Contact</th>
+                                <th className="px-5 py-3.5 whitespace-nowrap text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100 text-sm sm:text-base">
@@ -408,167 +418,171 @@ export default function UsersPage() {
                                     </td>
                                 </tr>
                             ) : (
-                                filteredUsers.map((user) => (
-                                    <tr
-                                        key={user.uuid}
-                                        className={`transition-colors ${
-                                            user.accountLocked
-                                                ? 'bg-red-50/50 hover:bg-red-50/80 border-l-4 border-l-[#DF1F28]'
-                                                : 'hover:bg-slate-50/70'
-                                        }`}
-                                    >
-                                        {/* User Identity */}
-                                        <td className="px-5 py-4">
-                                            <div className="flex items-center gap-3">
-                                                <div className={`w-10 h-10 rounded-full font-bold text-base flex items-center justify-center shrink-0 ${
-                                                    user.accountLocked
-                                                        ? 'bg-red-100 text-[#DF1F28]'
-                                                        : 'bg-[#253C95]/10 text-[#253C95]'
-                                                }`}>
-                                                    {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
-                                                </div>
-                                                <div>
-                                                    <div className="flex items-center gap-2">
-                                                        <p className="font-bold text-slate-800 leading-snug">{user.name || user.username}</p>
-                                                        {user.accountLocked && (
-                                                            <span className="px-2 py-0.2 rounded text-[11px] font-black uppercase tracking-wider bg-red-100 text-[#DF1F28] border border-red-200">
-                                                                Locked
-                                                            </span>
-                                                        )}
+                                filteredUsers.map((user) => {
+                                    const isLocked = isUserLocked(user);
+                                    return (
+                                        <tr
+                                            key={user.uuid}
+                                            className={`transition-colors ${
+                                                isLocked
+                                                    ? 'bg-red-50/50 hover:bg-red-50/80 border-l-4 border-l-[#DF1F28]'
+                                                    : 'hover:bg-slate-50/70'
+                                            }`}
+                                        >
+                                            {/* User Identity */}
+                                            <td className="px-5 py-4 whitespace-nowrap">
+                                                <div className="flex items-center gap-3">
+                                                    <div className={`w-10 h-10 rounded-full font-bold text-base flex items-center justify-center shrink-0 ${
+                                                        isLocked
+                                                            ? 'bg-red-100 text-[#DF1F28] border border-red-200'
+                                                            : 'bg-[#253C95]/10 text-[#253C95]'
+                                                    }`}>
+                                                        {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
                                                     </div>
-                                                    <p className="text-xs sm:text-sm text-slate-400 font-normal">@{user.username} &bull; {user.email || 'No email'}</p>
+                                                    <div>
+                                                        <div className="flex items-center gap-2">
+                                                            <p className="font-bold text-slate-800 leading-snug">{user.name || user.username}</p>
+                                                            {isLocked && (
+                                                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-red-100 text-[#DF1F28] border border-red-200">
+                                                                    <Lock size={10} /> Locked
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                        <p className="text-xs sm:text-sm text-slate-400 font-normal">@{user.username} &bull; {user.email || 'No email'}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        {/* Status Badges */}
-                                        <td className="px-5 py-4">
-                                            <div className="flex flex-wrap items-center gap-1.5">
-                                                {user.accountLocked ? (
-                                                    <span className="px-3 py-1 rounded-full text-xs font-black bg-red-100 text-[#DF1F28] border-2 border-red-300 flex items-center gap-1.5 shadow-2xs animate-pulse">
-                                                        <Lock size={13} className="text-[#DF1F28]" /> ACCOUNT LOCKED
-                                                    </span>
-                                                ) : user.enabled ? (
-                                                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
-                                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active
-                                                    </span>
-                                                ) : (
-                                                    <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200">
-                                                        Disabled
-                                                    </span>
-                                                )}
-                                            </div>
-                                        </td>
+                                            {/* Status Badges */}
+                                            <td className="px-5 py-4 whitespace-nowrap">
+                                                <div className="flex items-center gap-1.5">
+                                                    {isLocked ? (
+                                                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-[#DF1F28] border border-red-300 shadow-2xs">
+                                                            <Lock size={12} className="text-[#DF1F28]" />
+                                                            Locked
+                                                        </span>
+                                                    ) : user.enabled ? (
+                                                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active
+                                                        </span>
+                                                    ) : (
+                                                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200">
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-slate-400"></span> Disabled
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </td>
 
-                                        {/* Roles & Permissions */}
-                                        <td className="px-5 py-4">
-                                            <div className="flex flex-wrap items-center gap-1.5">
-                                                {user.roles && user.roles.length > 0 ? (
-                                                    user.roles.map((r, i) => {
-                                                        const clean = r.replace(/^ROLE_/, '');
-                                                        const isAdm = clean === 'ADMIN' || clean === 'SYSTEM_ADMIN';
-                                                        return (
-                                                            <span
-                                                                key={i}
-                                                                className={`px-2.5 py-0.5 rounded-md text-xs font-bold uppercase tracking-wider border ${
-                                                                    isAdm
-                                                                        ? 'bg-blue-50 text-[#253C95] border-blue-200'
-                                                                        : 'bg-indigo-50 text-indigo-700 border-indigo-200'
-                                                                }`}
-                                                            >
-                                                                {clean}
-                                                            </span>
-                                                        );
-                                                    })
-                                                ) : (
-                                                    <span className="text-xs text-slate-400 font-medium italic">No roles</span>
-                                                )}
-                                                <div className="flex items-center gap-1 ml-1">
+                                            {/* Roles Column (ONLY renders roles) */}
+                                            <td className="px-5 py-4 whitespace-nowrap">
+                                                <div className="flex flex-wrap items-center gap-1.5">
+                                                    {user.roles && user.roles.length > 0 ? (
+                                                        user.roles.map((r, i) => {
+                                                            const clean = r.replace(/^ROLE_/, '');
+                                                            const isAdm = clean === 'ADMIN' || clean === 'SYSTEM_ADMIN';
+                                                            return (
+                                                                <span
+                                                                    key={i}
+                                                                    className={`inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold uppercase tracking-wider border ${
+                                                                        isAdm
+                                                                            ? 'bg-blue-50 text-[#253C95] border-blue-200'
+                                                                            : 'bg-indigo-50 text-indigo-700 border-indigo-200'
+                                                                    }`}
+                                                                >
+                                                                    {clean}
+                                                                </span>
+                                                            );
+                                                        })
+                                                    ) : (
+                                                        <span className="text-xs text-slate-400 font-medium italic">No roles</span>
+                                                    )}
+                                                </div>
+                                            </td>
+
+                                            {/* Contact Info */}
+                                            <td className="px-5 py-4 text-xs sm:text-sm text-slate-600 whitespace-nowrap">
+                                                <p>{user.phoneNumber || '—'}</p>
+                                                <p className="text-slate-400">{user.locale || 'en-US'}</p>
+                                            </td>
+
+                                            {/* Actions */}
+                                            <td className="px-5 py-4 text-right whitespace-nowrap">
+                                                <div className="flex items-center justify-end gap-1.5">
+                                                    {/* Assign / Edit Roles */}
                                                     <button
                                                         onClick={() => openRoleModal(user)}
-                                                        className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-semibold cursor-pointer transition-colors"
+                                                        className="p-1.5 rounded-lg border border-indigo-200 bg-indigo-50/70 hover:bg-indigo-100 text-indigo-700 transition-colors cursor-pointer"
                                                         title={t('admin.users.assignRoles')}
                                                     >
-                                                        <Shield size={13} />
-                                                        <span>Roles</span>
+                                                        <Shield size={16} />
                                                     </button>
+
+                                                    {/* Direct Permissions */}
                                                     <button
                                                         onClick={() => openPermModal(user)}
-                                                        className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold cursor-pointer transition-colors"
+                                                        className="p-1.5 rounded-lg border border-purple-200 bg-purple-50/70 hover:bg-purple-100 text-purple-700 transition-colors cursor-pointer"
                                                         title={t('admin.users.assignPerms')}
                                                     >
-                                                        <Key size={13} />
-                                                        <span>Perms</span>
+                                                        <Key size={16} />
+                                                    </button>
+
+                                                    {/* Edit Profile */}
+                                                    <button
+                                                        onClick={() => openEditModal(user)}
+                                                        className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-600 transition-colors cursor-pointer"
+                                                        title={t('admin.users.editUser')}
+                                                    >
+                                                        <Edit size={16} />
+                                                    </button>
+
+                                                    {/* Reset Password */}
+                                                    <button
+                                                        onClick={() => openPasswordModal(user)}
+                                                        className="p-1.5 rounded-lg border border-slate-200 hover:bg-amber-50 text-[#F9A825] transition-colors cursor-pointer"
+                                                        title={t('admin.users.resetPassword')}
+                                                    >
+                                                        <KeyRound size={16} />
+                                                    </button>
+
+                                                    {/* Lock / Unlock Toggle */}
+                                                    <button
+                                                        onClick={() => handleToggleLock(user)}
+                                                        className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
+                                                            isLocked
+                                                                ? 'border-emerald-300 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 shadow-xs ring-1 ring-emerald-400/50'
+                                                                : 'border-slate-200 text-slate-600 hover:bg-amber-50 hover:text-amber-700 hover:border-amber-200'
+                                                        }`}
+                                                        title={isLocked ? 'Account is LOCKED. Click to unlock.' : 'Click to lock user account.'}
+                                                    >
+                                                        {isLocked ? <Unlock size={16} className="text-emerald-700" /> : <Lock size={16} />}
+                                                    </button>
+
+                                                    {/* Enable / Disable Toggle */}
+                                                    <button
+                                                        onClick={() => handleToggleEnable(user)}
+                                                        className={`p-1.5 rounded-lg border transition-colors cursor-pointer ${
+                                                            user.enabled
+                                                                ? 'border-slate-200 text-slate-600 hover:bg-slate-100'
+                                                                : 'border-emerald-200 bg-emerald-50 text-emerald-600 hover:bg-emerald-100'
+                                                        }`}
+                                                        title={user.enabled ? t('admin.users.disableUser') : t('admin.users.enableUser')}
+                                                    >
+                                                        {user.enabled ? <XCircle size={16} /> : <CheckCircle2 size={16} />}
+                                                    </button>
+
+                                                    {/* Delete Button */}
+                                                    <button
+                                                        onClick={() => { setSelectedUser(user); setShowDeleteModal(true); }}
+                                                        className="p-1.5 rounded-lg border border-red-100 text-[#DF1F28] hover:bg-red-50 transition-colors cursor-pointer"
+                                                        title={t('admin.users.deleteUser')}
+                                                    >
+                                                        <Trash2 size={16} />
                                                     </button>
                                                 </div>
-                                            </div>
-                                        </td>
-
-                                        {/* Contact Info */}
-                                        <td className="px-5 py-4 text-xs sm:text-sm text-slate-600">
-                                            <p>{user.phoneNumber || '—'}</p>
-                                            <p className="text-slate-400">{user.locale || 'en-US'}</p>
-                                        </td>
-
-                                        {/* Actions */}
-                                        <td className="px-5 py-4 text-right">
-                                            <div className="flex items-center justify-end gap-1.5">
-                                                {/* Edit Profile */}
-                                                <button
-                                                    onClick={() => openEditModal(user)}
-                                                    className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-600 transition-colors"
-                                                    title={t('admin.users.editUser')}
-                                                >
-                                                    <Edit size={16} />
-                                                </button>
-
-                                                {/* Reset Password */}
-                                                <button
-                                                    onClick={() => openPasswordModal(user)}
-                                                    className="p-1.5 rounded-lg border border-slate-200 hover:bg-amber-50 text-[#F9A825] transition-colors"
-                                                    title={t('admin.users.resetPassword')}
-                                                >
-                                                    <KeyRound size={16} />
-                                                </button>
-
-                                                {/* Lock/Unlock Toggle */}
-                                                <button
-                                                    onClick={() => handleToggleLock(user)}
-                                                    className={`p-1.5 rounded-lg border transition-all ${
-                                                        user.accountLocked
-                                                            ? 'border-emerald-300 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 shadow-xs'
-                                                            : 'border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-[#DF1F28]'
-                                                    }`}
-                                                    title={user.accountLocked ? 'Account is LOCKED. Click to unlock.' : 'Click to lock user account.'}
-                                                >
-                                                    {user.accountLocked ? <Unlock size={16} className="text-emerald-700" /> : <Lock size={16} />}
-                                                </button>
-
-                                                {/* Enable/Disable Toggle */}
-                                                <button
-                                                    onClick={() => handleToggleEnable(user)}
-                                                    className={`p-1.5 rounded-lg border transition-colors ${
-                                                        user.enabled
-                                                            ? 'border-slate-200 text-slate-600 hover:bg-slate-100'
-                                                            : 'border-emerald-200 bg-emerald-50 text-emerald-600'
-                                                    }`}
-                                                    title={user.enabled ? t('admin.users.disableUser') : t('admin.users.enableUser')}
-                                                >
-                                                    {user.enabled ? <XCircle size={16} /> : <CheckCircle2 size={16} />}
-                                                </button>
-
-                                                {/* Delete Button */}
-                                                <button
-                                                    onClick={() => { setSelectedUser(user); setShowDeleteModal(true); }}
-                                                    className="p-1.5 rounded-lg border border-red-100 text-[#DF1F28] hover:bg-red-50 transition-colors"
-                                                    title={t('admin.users.deleteUser')}
-                                                >
-                                                    <Trash2 size={16} />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))
+                                            </td>
+                                        </tr>
+                                    );
+                                })
                             )}
                         </tbody>
                     </table>

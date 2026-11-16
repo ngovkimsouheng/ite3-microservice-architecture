@@ -48,7 +48,7 @@ export default function OverviewPage() {
             const clients = Array.isArray(clientsData) ? clientsData : [];
             const activities = Array.isArray(activitiesData) ? activitiesData : [];
 
-            const activeCount = users.filter(u => u.enabled && !u.accountLocked).length;
+            const activeCount = users.filter(u => u.enabled && !u.accountLocked && u.accountNonLocked !== false).length;
 
             setStats({
                 totalUsers: usersData.totalElements ?? users.length,
