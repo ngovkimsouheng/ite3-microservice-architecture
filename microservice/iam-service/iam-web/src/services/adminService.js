@@ -81,6 +81,27 @@ export const adminService = {
         return res.data;
     },
 
+    // --- User Federated Identities & Sessions ---
+    getUserIdentities: async (uuid) => {
+        const res = await api.get(`/users/${uuid}/identities`);
+        return res.data;
+    },
+
+    unlinkUserIdentity: async (uuid, identityUuid) => {
+        const res = await api.delete(`/users/${uuid}/identities/${identityUuid}`);
+        return res.data;
+    },
+
+    getUserSessions: async (username) => {
+        const res = await api.get(`/users/${username}/sessions`);
+        return res.data;
+    },
+
+    terminateUserSession: async (username, sessionId) => {
+        const res = await api.delete(`/users/${username}/sessions/${sessionId}`);
+        return res.data;
+    },
+
     // --- Roles Management ---
     getRoles: async (page = 0, size = 50, sort = 'name,asc') => {
         const res = await api.get('/roles', { params: { page, size, sort } });
@@ -198,6 +219,22 @@ export const adminService = {
 
     terminateEnterpriseSession: async (sessionId) => {
         const res = await api.delete(`/admin/audit/sessions/${sessionId}`);
+        return res.data;
+    },
+
+    // --- System Configuration & Policies ---
+    getSystemConfig: async () => {
+        const res = await api.get('/admin/system/config');
+        return res.data;
+    },
+
+    updateSystemConfig: async (configData) => {
+        const res = await api.put('/admin/system/config', configData);
+        return res.data;
+    },
+
+    resetSystemConfig: async () => {
+        const res = await api.post('/admin/system/config/reset');
         return res.data;
     }
 };

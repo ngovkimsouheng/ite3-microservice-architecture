@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { adminService } from '../../services/adminService';
 import {
@@ -6,12 +7,14 @@ import {
     Shield, Key, Lock, Unlock, CheckCircle2, XCircle,
     Trash2, Edit, RefreshCw, KeyRound, AlertTriangle,
     Eye, X, Check, ShieldAlert, ChevronLeft, ChevronRight,
-    Globe
+    Globe, User, Mail, Phone, Calendar, MapPin, Clock,
+    Smartphone, Laptop, Link2, Copy, ExternalLink, Loader2
 } from 'lucide-react';
 import CustomSelect from '../../components/CustomSelect';
 
 export default function UsersPage() {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
@@ -384,7 +387,7 @@ export default function UsersPage() {
             </div>
 
             {/* Filters Bar */}
-            <div className="bg-white p-4 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
+            <div className="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
                 {/* Search Input */}
                 <div className="relative w-full sm:w-96">
                     <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -451,8 +454,12 @@ export default function UsersPage() {
                                         >
                                             {/* User Identity */}
                                             <td className="px-5 py-4 whitespace-nowrap">
-                                                <div className="flex items-center gap-3">
-                                                    <div className={`w-10 h-10 rounded-full font-bold text-base flex items-center justify-center shrink-0 ${
+                                                <div
+                                                    onClick={() => navigate(`/admin/users/${user.uuid}`)}
+                                                    className="flex items-center gap-3 cursor-pointer group"
+                                                    title="Click to view full user profile & security details"
+                                                >
+                                                    <div className={`w-10 h-10 rounded-full font-bold text-base flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 ${
                                                         isLocked
                                                             ? 'bg-red-100 text-[#DF1F28] border border-red-200'
                                                             : 'bg-[#253C95]/10 text-[#253C95]'
@@ -461,7 +468,9 @@ export default function UsersPage() {
                                                     </div>
                                                     <div>
                                                         <div className="flex items-center gap-2">
-                                                            <p className="font-bold text-slate-800 leading-snug">{user.name || user.username}</p>
+                                                            <p className="font-bold text-slate-800 leading-snug group-hover:text-[#253C95] group-hover:underline">
+                                                                {user.name || user.username}
+                                                            </p>
                                                             {isLocked && (
                                                                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-red-100 text-[#DF1F28] border border-red-200">
                                                                     <Lock size={10} /> Locked
@@ -587,6 +596,21 @@ export default function UsersPage() {
                                                                 }`}
                                                                 onClick={(e) => e.stopPropagation()}
                                                             >
+                                                                {/* View Full Details */}
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        setActionMenuUserId(null);
+                                                                        navigate(`/admin/users/${user.uuid}`);
+                                                                    }}
+                                                                    className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-[#253C95] transition-colors text-left font-medium cursor-pointer"
+                                                                >
+                                                                    <Eye size={15} className="text-[#253C95] shrink-0" />
+                                                                    <span>View User Details</span>
+                                                                </button>
+
+                                                                <div className="my-1 border-t border-slate-100"></div>
+
                                                                 {/* Direct Permissions */}
                                                                 <button
                                                                     type="button"

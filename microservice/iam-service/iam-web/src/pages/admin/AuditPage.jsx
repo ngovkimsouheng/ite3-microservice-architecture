@@ -142,7 +142,7 @@ export default function AuditPage() {
     });
 
     return (
-        <div className="space-y-5">
+        <div className="space-y-6">
             {/* Toast Notification */}
             {toast.show && (
                 <div className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-xl text-white font-medium text-sm transition-all duration-300 ${

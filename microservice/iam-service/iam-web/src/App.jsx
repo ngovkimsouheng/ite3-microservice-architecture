@@ -11,6 +11,7 @@ import LoginPage from './pages/auth/LoginPage';
 // Admin Module Pages (+50 pts)
 import OverviewPage from './pages/admin/OverviewPage';
 import UsersPage from './pages/admin/UsersPage';
+import UserDetailPage from './pages/admin/UserDetailPage';
 import RolesPage from './pages/admin/RolesPage';
 import ClientsPage from './pages/admin/ClientsPage';
 import AuditPage from './pages/admin/AuditPage';
@@ -38,6 +39,7 @@ export default function App() {
                     {/* Management Module */}
                     <Route path="/admin/overview" element={<OverviewPage />} />
                     <Route path="/admin/users" element={<UsersPage />} />
+                    <Route path="/admin/users/:uuid" element={<UserDetailPage />} />
                     <Route path="/admin/roles" element={<RolesPage />} />
                     <Route path="/admin/clients" element={<ClientsPage />} />
                     <Route path="/admin/audit" element={<AuditPage />} />

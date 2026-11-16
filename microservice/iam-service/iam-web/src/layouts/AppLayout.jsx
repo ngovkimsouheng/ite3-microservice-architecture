@@ -61,8 +61,11 @@ export default function AppLayout() {
     ];
 
     const allNavs = [...accountNav, ...adminNav];
-    const currentNav = allNavs.find(item => location.pathname === item.path);
-    const pageTitle = currentNav ? currentNav.name : t('nav.profile');
+    const currentNav = allNavs.find(item => location.pathname === item.path) ||
+        (location.pathname.startsWith('/admin/users') ? adminNav.find(n => n.path === '/admin/users') : null);
+    const pageTitle = location.pathname.startsWith('/admin/users/')
+        ? 'User Details'
+        : (currentNav ? currentNav.name : t('nav.profile'));
 
     // Route Protection: If non-admin tries to access /admin/** routes, redirect to profile
     if (!loadingUser && !isAdmin && location.pathname.startsWith('/admin')) {
@@ -227,8 +230,8 @@ export default function AppLayout() {
                 </header>
 
                 {/* Content Area */}
-                <main className="flex-1 overflow-y-auto px-6 py-5 sm:px-4 sm:py-4">
-                    <div className="max-w-7xl container mx-auto space-y-4">
+                <main className="flex-1 overflow-y-auto p-5 sm:p-7">
+                    <div className="max-w-7xl container mx-auto">
                         <Outlet context={{ currentUser, isAdmin }} />
                     </div>
                 </main>

@@ -42,8 +42,8 @@ public class AssignPermissionsToRoleUseCase {
                 : java.util.Collections.emptySet();
 
         // 1. Revoke any currently active assignments that were unchecked by admin
-        List<RolePermissionAssignment> existingAssignments =
-                roleRepository.findPermissionAssignmentsByRoleId(role.getId());
+        List<RolePermissionAssignment> existingAssignments = roleRepository
+                .findPermissionAssignmentsByRoleId(role.getId());
         for (RolePermissionAssignment assignment : existingAssignments) {
             if (assignment.getRevokedAt() == null) {
                 Permission perm = permissionRepository.findById(assignment.getPermissionId()).orElse(null);

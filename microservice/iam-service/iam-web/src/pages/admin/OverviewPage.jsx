@@ -156,7 +156,7 @@ export default function OverviewPage() {
     };
 
     return (
-        <div className="space-y-5">
+        <div className="space-y-6">
             {/* Header with Live Status & Refresh button */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/90 shadow-2xs">
                 <div>
