@@ -53,7 +53,7 @@ public class AdminAuditController {
         List<SecurityActivityResponse> response = events.stream().map(e -> {
             String icon = resolveIcon(e.getEventType());
             String color = resolveColor(e.getEventType());
-            String desc = (e.getUsername() != null ? "@" + e.getUsername() + " — " : "")
+            String desc = (e.getUsername() != null && !e.getUsername().isBlank() ? "@" + e.getUsername() + " — " : "")
                     + (e.getDetails() != null ? e.getDetails() : (e.getDescription() != null ? e.getDescription() : e.getEventType()));
             return new SecurityActivityResponse(
                     String.valueOf(e.getId()),
@@ -61,7 +61,10 @@ public class AdminAuditController {
                     desc,
                     e.getCreatedAt(),
                     icon,
-                    color
+                    color,
+                    formatIp(e.getIpAddress()),
+                    e.getEventType(),
+                    e.getUsername()
             );
         }).toList();
 
@@ -112,7 +115,12 @@ public class AdminAuditController {
         if (eventType == null) return "Activity";
         return switch (eventType.toUpperCase()) {
             case "PASSWORD_CHANGED", "PASSWORD_RESET" -> "KeyRound";
-            case "PROFILE_UPDATED", "USERNAME_CHANGED" -> "UserCheck";
+            case "PROFILE_UPDATED", "USERNAME_CHANGED", "USER_CREATED", "USER_ENABLED", "USER_UNLOCKED" -> "UserCheck";
+            case "USER_LOCKED", "USER_DISABLED", "USER_DELETED" -> "UserX";
+            case "ROLE_ASSIGNED", "ROLE_REVOKED", "ROLE_CREATED", "ROLE_UPDATED", "ROLE_DELETED" -> "Shield";
+            case "PERMISSION_GRANTED", "PERMISSION_REVOKED", "ROLE_PERMISSION_ASSIGNED", "ROLE_PERMISSION_REVOKED" -> "Key";
+            case "CLIENT_REGISTERED", "CLIENT_UPDATED", "CLIENT_DELETED" -> "Layers";
+            case "SYSTEM_CONFIG_UPDATED", "SYSTEM_CONFIG_RESET" -> "Settings";
             case "IDENTITY_LINKED", "IDENTITY_UNLINKED" -> "Lock";
             case "SESSION_TERMINATED", "DEACTIVATION_REQUESTED", "ACCOUNT_DEACTIVATED" -> "ShieldAlert";
             default -> "Activity";
@@ -123,9 +131,12 @@ public class AdminAuditController {
         if (eventType == null) return "bg-[#253C95]/10 text-[#253C95]";
         return switch (eventType.toUpperCase()) {
             case "PASSWORD_CHANGED", "PASSWORD_RESET" -> "bg-[#F9A825]/10 text-[#F9A825]";
-            case "PROFILE_UPDATED", "USERNAME_CHANGED" -> "bg-emerald-50 text-emerald-600";
+            case "PROFILE_UPDATED", "USERNAME_CHANGED", "USER_CREATED", "USER_ENABLED", "USER_UNLOCKED" -> "bg-emerald-50 text-emerald-600";
+            case "ROLE_ASSIGNED", "ROLE_REVOKED", "ROLE_CREATED", "ROLE_UPDATED" -> "bg-blue-50 text-[#253C95]";
+            case "PERMISSION_GRANTED", "PERMISSION_REVOKED", "ROLE_PERMISSION_ASSIGNED", "ROLE_PERMISSION_REVOKED" -> "bg-purple-50 text-purple-600";
+            case "CLIENT_REGISTERED", "CLIENT_UPDATED" -> "bg-indigo-50 text-indigo-600";
             case "IDENTITY_LINKED", "IDENTITY_UNLINKED" -> "bg-purple-50 text-purple-600";
-            case "SESSION_TERMINATED", "DEACTIVATION_REQUESTED", "ACCOUNT_DEACTIVATED" -> "bg-[#DF1F28]/10 text-[#DF1F28]";
+            case "USER_LOCKED", "USER_DISABLED", "USER_DELETED", "SESSION_TERMINATED", "DEACTIVATION_REQUESTED", "ACCOUNT_DEACTIVATED", "CLIENT_DELETED" -> "bg-[#DF1F28]/10 text-[#DF1F28]";
             default -> "bg-[#253C95]/10 text-[#253C95]";
         };
     }

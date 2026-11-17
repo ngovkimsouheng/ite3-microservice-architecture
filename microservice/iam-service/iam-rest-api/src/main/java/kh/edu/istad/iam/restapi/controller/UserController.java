@@ -56,8 +56,26 @@
 
         @PostMapping("/users")
         @PreAuthorize("hasAuthority('user:create')")
-        public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request) {
+        public ResponseEntity<UserResponse> createUser(
+                @Valid @RequestBody CreateUserRequest request,
+                HttpServletRequest servletRequest
+        ) {
             UserResult result = createUserUseCase.execute(webMapper.toCommand(request));
+            try {
+                recordSecurityEventUseCase.execute(
+                        result.uuid(),
+                        result.username(),
+                        "ACTIVITY",
+                        "USER_CREATED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "User Created",
+                        "Created new user account @" + result.username() + " (" + result.email() + ")"
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(result));
         }
 
@@ -91,8 +109,28 @@
 
         @DeleteMapping("/users/{uuid}")
         @PreAuthorize("hasAuthority('user:delete')")
-        public ResponseEntity<Void> deleteUser(@PathVariable("uuid") UUID uuid) {
+        public ResponseEntity<Void> deleteUser(@PathVariable("uuid") UUID uuid, HttpServletRequest servletRequest) {
+            String username = "user";
+            try {
+                UserResult u = getUserUseCase.execute(uuid);
+                username = u.username();
+            } catch (Exception ignored) {}
             deleteUserUseCase.execute(uuid);
+            try {
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        username,
+                        "ACTIVITY",
+                        "USER_DELETED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "User Deleted",
+                        "Permanently deleted user account @" + username
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
@@ -100,8 +138,24 @@
 
         @PostMapping("/users/{uuid}/enable")
         @PreAuthorize("hasAuthority('user:update')")
-        public ResponseEntity<Void> enableUser(@PathVariable("uuid") UUID uuid) {
+        public ResponseEntity<Void> enableUser(@PathVariable("uuid") UUID uuid, HttpServletRequest servletRequest) {
             enableUserUseCase.execute(uuid);
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "USER_ENABLED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "User Enabled",
+                        "Administrator enabled account access for @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
@@ -130,15 +184,47 @@
 
         @PostMapping("/users/{uuid}/lock")
         @PreAuthorize("hasAuthority('user:update')")
-        public ResponseEntity<Void> lockUser(@PathVariable("uuid") UUID uuid) {
+        public ResponseEntity<Void> lockUser(@PathVariable("uuid") UUID uuid, HttpServletRequest servletRequest) {
             lockUserUseCase.execute(uuid);
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "USER_LOCKED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "User Locked",
+                        "Administrator locked account for @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
         @PostMapping("/users/{uuid}/unlock")
         @PreAuthorize("hasAuthority('user:update')")
-        public ResponseEntity<Void> unlockUser(@PathVariable("uuid") UUID uuid) {
+        public ResponseEntity<Void> unlockUser(@PathVariable("uuid") UUID uuid, HttpServletRequest servletRequest) {
             unlockUserUseCase.execute(uuid);
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "USER_UNLOCKED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "User Unlocked",
+                        "Administrator unlocked account for @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
@@ -146,9 +232,26 @@
         @PreAuthorize("hasAuthority('user:update')")
         public ResponseEntity<Void> resetPassword(
                 @PathVariable("uuid") UUID uuid,
-                @Valid @RequestBody ResetUserPasswordRequest request
+                @Valid @RequestBody ResetUserPasswordRequest request,
+                HttpServletRequest servletRequest
         ) {
             resetUserPasswordUseCase.execute(webMapper.toCommand(uuid, request));
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "PASSWORD_RESET",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Password Reset",
+                        "Administrator reset password for @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
@@ -165,10 +268,27 @@
         @PreAuthorize("hasAuthority('user:assign')")
         public ResponseEntity<List<RoleAssignmentResult>> assignRoles(
                 @PathVariable("uuid") UUID uuid,
-                @Valid @RequestBody AssignRolesToUserRequest request
+                @Valid @RequestBody AssignRolesToUserRequest request,
+                HttpServletRequest servletRequest
         ) {
             List<RoleAssignmentResult> results =
                     assignRolesToUserUseCase.execute(webMapper.toCommand(uuid, request));
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "ROLE_ASSIGNED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Roles Assigned",
+                        "Assigned " + results.size() + " role(s) to @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.ok(results);
         }
 
@@ -177,8 +297,26 @@
         public ResponseEntity<Void> revokeRole(
                 @PathVariable("uuid") UUID uuid,
                 @PathVariable("roleUuid") UUID roleUuid,
-                @RequestParam(name = "reason", required = false) String reason        ) {
+                @RequestParam(name = "reason", required = false) String reason,
+                HttpServletRequest servletRequest
+        ) {
             revokeRoleFromUserUseCase.execute(uuid, roleUuid, reason);
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "ROLE_REVOKED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Role Revoked",
+                        "Revoked role from @" + user.username() + (reason != null ? " (Reason: " + reason + ")" : "")
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
@@ -186,10 +324,27 @@
         @PreAuthorize("hasAuthority('user:assign')")
         public ResponseEntity<List<PermissionGrantResult>> grantPermissions(
                 @PathVariable("uuid") UUID uuid,
-                @Valid @RequestBody GrantPermissionsToUserRequest request
+                @Valid @RequestBody GrantPermissionsToUserRequest request,
+                HttpServletRequest servletRequest
         ) {
             List<PermissionGrantResult> results =
                     grantPermissionsToUserUseCase.execute(webMapper.toCommand(uuid, request));
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "PERMISSION_GRANTED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Permissions Granted",
+                        "Granted " + results.size() + " direct permission(s) to @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.ok(results);
         }
 
@@ -198,9 +353,26 @@
         public ResponseEntity<Void> revokePermission(
                 @PathVariable("uuid") UUID uuid,
                 @PathVariable("permissionUuid") UUID permissionUuid,
-                @RequestParam(name = "reason", required = false, defaultValue = "Revoked by admin") String reason
+                @RequestParam(name = "reason", required = false, defaultValue = "Revoked by admin") String reason,
+                HttpServletRequest servletRequest
         ) {
             revokePermissionFromUserUseCase.execute(uuid, permissionUuid, reason);
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "PERMISSION_REVOKED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Permission Revoked",
+                        "Revoked permission from @" + user.username() + " (Reason: " + reason + ")"
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 

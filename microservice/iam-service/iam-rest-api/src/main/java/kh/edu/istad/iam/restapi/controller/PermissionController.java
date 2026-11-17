@@ -1,9 +1,11 @@
 package kh.edu.istad.iam.restapi.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import kh.edu.istad.iam.domain.dto.PageResult;
 import kh.edu.istad.iam.domain.dto.PermissionResult;
 import kh.edu.istad.iam.domain.usecase.permission.*;
+import kh.edu.istad.iam.domain.usecase.security.RecordSecurityEventUseCase;
 import kh.edu.istad.iam.restapi.dto.CreatePermissionRequest;
 import kh.edu.istad.iam.restapi.dto.PermissionResponse;
 import kh.edu.istad.iam.restapi.dto.UpdatePermissionRequest;
@@ -27,13 +29,29 @@ public class PermissionController {
     private final ActivatePermissionUseCase activatePermissionUseCase;
     private final DeactivatePermissionUseCase deactivatePermissionUseCase;
     private final DeletePermissionUseCase deletePermissionUseCase;
+    private final RecordSecurityEventUseCase recordSecurityEventUseCase;
     private final IamWebMapper webMapper;
 
     // POST /api/permissions
     @PostMapping
     @PreAuthorize("hasAuthority('permission:create')")
-    public ResponseEntity<PermissionResponse> createPermission(@Valid @RequestBody CreatePermissionRequest req) {
+    public ResponseEntity<PermissionResponse> createPermission(@Valid @RequestBody CreatePermissionRequest req, HttpServletRequest servletRequest) {
         PermissionResult result = createPermissionUseCase.execute(webMapper.toCommand(req));
+        try {
+            recordSecurityEventUseCase.execute(
+                    null,
+                    "admin",
+                    "ACTIVITY",
+                    "PERMISSION_CREATED",
+                    "SUCCESS",
+                    extractClientIp(servletRequest),
+                    servletRequest.getHeader("User-Agent"),
+                    "Phnom Penh, Cambodia",
+                    null,
+                    "Permission Created",
+                    "Created permission: " + result.name() + " (" + result.resource() + ":" + result.action() + ")"
+            );
+        } catch (Exception ignored) {}
         return ResponseEntity.status(HttpStatus.CREATED).body(webMapper.toPermissionResponse(result));
     }
 
@@ -87,9 +105,51 @@ public class PermissionController {
     // DELETE /api/permissions/{uuid}
     @DeleteMapping("/{uuid}")
     @PreAuthorize("hasAuthority('permission:delete')")
-    public ResponseEntity<Void> deletePermission(@PathVariable("uuid") UUID uuid) {
+    public ResponseEntity<Void> deletePermission(@PathVariable("uuid") UUID uuid, HttpServletRequest servletRequest) {
+        String permName = uuid.toString();
+        try {
+            PermissionResult p = getPermissionUseCase.execute(uuid);
+            permName = p.name();
+        } catch (Exception ignored) {}
         deletePermissionUseCase.execute(uuid);
+        try {
+            recordSecurityEventUseCase.execute(
+                    null,
+                    "admin",
+                    "ACTIVITY",
+                    "PERMISSION_DELETED",
+                    "SUCCESS",
+                    extractClientIp(servletRequest),
+                    servletRequest.getHeader("User-Agent"),
+                    "Phnom Penh, Cambodia",
+                    null,
+                    "Permission Deleted",
+                    "Deleted permission: " + permName
+            );
+        } catch (Exception ignored) {}
         return ResponseEntity.noContent().build();
+    }
+
+    private String extractClientIp(HttpServletRequest request) {
+        if (request == null) return "127.0.0.1 (Localhost)";
+        String ip = null;
+        String xf = request.getHeader("X-Forwarded-For");
+        if (xf != null && !xf.isBlank() && !"unknown".equalsIgnoreCase(xf)) {
+            ip = xf.split(",")[0].trim();
+        }
+        if (ip == null || ip.isBlank()) {
+            String xr = request.getHeader("X-Real-IP");
+            if (xr != null && !xr.isBlank() && !"unknown".equalsIgnoreCase(xr)) {
+                ip = xr.trim();
+            }
+        }
+        if (ip == null || ip.isBlank()) {
+            ip = request.getRemoteAddr();
+        }
+        if (ip == null || ip.equals("0:0:0:0:0:0:0:1") || ip.equals("::1") || ip.equals("127.0.0.1")) {
+            return "127.0.0.1 (Localhost)";
+        }
+        return ip.trim();
     }
 
 }

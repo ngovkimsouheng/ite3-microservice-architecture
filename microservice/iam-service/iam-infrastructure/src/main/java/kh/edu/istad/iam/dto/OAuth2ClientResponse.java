@@ -7,6 +7,7 @@ public record OAuth2ClientResponse(
         String id,
         String clientId,
         String clientName,
+        String clientType, // "PUBLIC" or "CONFIDENTIAL"
         OffsetDateTime clientIssuedAt,
         List<String> authMethods,
         List<String> grantTypes,

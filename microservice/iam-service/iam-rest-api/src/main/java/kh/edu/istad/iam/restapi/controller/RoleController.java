@@ -1,11 +1,13 @@
 package kh.edu.istad.iam.restapi.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import kh.edu.istad.iam.domain.dto.*;
 import kh.edu.istad.iam.domain.dto.PageResult;
 import kh.edu.istad.iam.domain.dto.RoleResult;
 import kh.edu.istad.iam.domain.dto.RoleSummary;
 import kh.edu.istad.iam.domain.usecase.role.*;
+import kh.edu.istad.iam.domain.usecase.security.RecordSecurityEventUseCase;
 import kh.edu.istad.iam.restapi.dto.*;
 import kh.edu.istad.iam.restapi.mapper.IamWebMapper;
 import kh.edu.istad.iam.restapi.dto.AssignPermissionsToRoleRequest;
@@ -36,6 +38,7 @@ public class RoleController {
     private final AssignPermissionsToRoleUseCase assignPermissionsToRoleUseCase;
     private final RevokePermissionFromRoleUseCase revokePermissionFromRoleUseCase;
     private final GetRolePermissionsUseCase getRolePermissionsUseCase;
+    private final RecordSecurityEventUseCase recordSecurityEventUseCase;
     private final IamWebMapper webMapper;
 
     @GetMapping
@@ -51,8 +54,23 @@ public class RoleController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('role:create')")
-    public ResponseEntity<RoleResponse> createRole(@Valid @RequestBody CreateRoleRequest req) {
+    public ResponseEntity<RoleResponse> createRole(@Valid @RequestBody CreateRoleRequest req, HttpServletRequest servletRequest) {
         RoleResult result = createRoleUseCase.execute(webMapper.toCommand(req));
+        try {
+            recordSecurityEventUseCase.execute(
+                    null,
+                    "admin",
+                    "ACTIVITY",
+                    "ROLE_CREATED",
+                    "SUCCESS",
+                    extractClientIp(servletRequest),
+                    servletRequest.getHeader("User-Agent"),
+                    "Phnom Penh, Cambodia",
+                    null,
+                    "Role Created",
+                    "Created new role: " + result.name()
+            );
+        } catch (Exception ignored) {}
         return ResponseEntity.status(HttpStatus.CREATED).body(webMapper.toRoleResponse(result));
     }
 
@@ -89,8 +107,28 @@ public class RoleController {
 
     @DeleteMapping("/{uuid}")
     @PreAuthorize("hasAuthority('role:delete')")
-    public ResponseEntity<Void> deleteRole(@PathVariable("uuid") UUID uuid) {
+    public ResponseEntity<Void> deleteRole(@PathVariable("uuid") UUID uuid, HttpServletRequest servletRequest) {
+        String roleName = uuid.toString();
+        try {
+            RoleResult r = getRoleUseCase.execute(uuid);
+            roleName = r.name();
+        } catch (Exception ignored) {}
         deleteRoleUseCase.execute(uuid);
+        try {
+            recordSecurityEventUseCase.execute(
+                    null,
+                    "admin",
+                    "ACTIVITY",
+                    "ROLE_DELETED",
+                    "SUCCESS",
+                    extractClientIp(servletRequest),
+                    servletRequest.getHeader("User-Agent"),
+                    "Phnom Penh, Cambodia",
+                    null,
+                    "Role Deleted",
+                    "Deleted role: " + roleName
+            );
+        } catch (Exception ignored) {}
         return ResponseEntity.noContent().build();
     }
 
@@ -108,10 +146,27 @@ public class RoleController {
     @PreAuthorize("hasAuthority('role:assign')")
     public ResponseEntity<List<PermissionAssignmentResult>> assignPermissions(
             @PathVariable("uuid") UUID uuid,
-            @Valid @RequestBody AssignPermissionsToRoleRequest req
+            @Valid @RequestBody AssignPermissionsToRoleRequest req,
+            HttpServletRequest servletRequest
     ) {
         List<PermissionAssignmentResult> results =
                 assignPermissionsToRoleUseCase.execute(webMapper.toCommand(uuid, req));
+        try {
+            RoleResult r = getRoleUseCase.execute(uuid);
+            recordSecurityEventUseCase.execute(
+                    null,
+                    "admin",
+                    "ACTIVITY",
+                    "ROLE_PERMISSION_ASSIGNED",
+                    "SUCCESS",
+                    extractClientIp(servletRequest),
+                    servletRequest.getHeader("User-Agent"),
+                    "Phnom Penh, Cambodia",
+                    null,
+                    "Role Permissions Modified",
+                    "Assigned " + results.size() + " permission(s) to role: " + r.name()
+            );
+        } catch (Exception ignored) {}
         return ResponseEntity.ok(results);
     }
 
@@ -120,9 +175,48 @@ public class RoleController {
     public ResponseEntity<Void> revokePermission(
             @PathVariable("uuid") UUID uuid,
             @PathVariable("permUuid") UUID permUuid,
-            @RequestParam(name = "reason", required = false) String reason
+            @RequestParam(name = "reason", required = false) String reason,
+            HttpServletRequest servletRequest
     ) {
         revokePermissionFromRoleUseCase.execute(uuid, permUuid, reason);
+        try {
+            RoleResult r = getRoleUseCase.execute(uuid);
+            recordSecurityEventUseCase.execute(
+                    null,
+                    "admin",
+                    "ACTIVITY",
+                    "ROLE_PERMISSION_REVOKED",
+                    "SUCCESS",
+                    extractClientIp(servletRequest),
+                    servletRequest.getHeader("User-Agent"),
+                    "Phnom Penh, Cambodia",
+                    null,
+                    "Role Permissions Modified",
+                    "Revoked permission from role: " + r.name() + (reason != null ? " (" + reason + ")" : "")
+            );
+        } catch (Exception ignored) {}
         return ResponseEntity.noContent().build();
+    }
+
+    private String extractClientIp(HttpServletRequest request) {
+        if (request == null) return "127.0.0.1 (Localhost)";
+        String ip = null;
+        String xf = request.getHeader("X-Forwarded-For");
+        if (xf != null && !xf.isBlank() && !"unknown".equalsIgnoreCase(xf)) {
+            ip = xf.split(",")[0].trim();
+        }
+        if (ip == null || ip.isBlank()) {
+            String xr = request.getHeader("X-Real-IP");
+            if (xr != null && !xr.isBlank() && !"unknown".equalsIgnoreCase(xr)) {
+                ip = xr.trim();
+            }
+        }
+        if (ip == null || ip.isBlank()) {
+            ip = request.getRemoteAddr();
+        }
+        if (ip == null || ip.equals("0:0:0:0:0:0:0:1") || ip.equals("::1") || ip.equals("127.0.0.1")) {
+            return "127.0.0.1 (Localhost)";
+        }
+        return ip.trim();
     }
 }

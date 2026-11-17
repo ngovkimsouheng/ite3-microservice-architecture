@@ -7,7 +7,7 @@ const resources = {
             appTitle: "ISTAD IAM Platform",
             nav: {
                 accountGroup: "Account Settings",
-                managementGroup: "Administration",
+                managementGroup: "  Administration",
                 profile: "My Profile",
                 security: "Security & Password",
                 linkedAccounts: "Linked Accounts",

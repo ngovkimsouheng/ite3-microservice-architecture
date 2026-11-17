@@ -199,6 +199,21 @@ export const adminService = {
         return res.data;
     },
 
+    createClient: async (clientData) => {
+        const res = await api.post('/admin/clients', clientData);
+        return res.data;
+    },
+
+    updateClient: async (id, clientData) => {
+        const res = await api.put(`/admin/clients/${id}`, clientData);
+        return res.data;
+    },
+
+    deleteClient: async (id) => {
+        const res = await api.delete(`/admin/clients/${id}`);
+        return res.data;
+    },
+
     // --- Enterprise Audit & Compliance ---
     getEnterpriseLoginHistory: async (status = 'ALL') => {
         const res = await api.get('/admin/audit/login-history', {
