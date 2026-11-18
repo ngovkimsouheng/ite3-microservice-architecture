@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import kh.edu.istad.iam.domain.core.entity.SystemConfiguration;
 import kh.edu.istad.iam.domain.port.out.SystemConfigurationRepository;
 import kh.edu.istad.iam.domain.usecase.security.RecordSecurityEventUseCase;
+import kh.edu.istad.iam.restapi.dto.PasswordPolicyResponse;
 import kh.edu.istad.iam.restapi.dto.SystemConfigRequest;
 import kh.edu.istad.iam.restapi.dto.SystemConfigResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,19 @@ public class SystemConfigController {
 
     private final SystemConfigurationRepository systemConfigurationRepository;
     private final RecordSecurityEventUseCase recordSecurityEventUseCase;
+
+    @GetMapping("/password-policy")
+    public ResponseEntity<PasswordPolicyResponse> getPasswordPolicy() {
+        SystemConfiguration config = systemConfigurationRepository.getConfiguration();
+        return ResponseEntity.ok(new PasswordPolicyResponse(
+                config.getMinPasswordLength() != null ? config.getMinPasswordLength() : 8,
+                Boolean.TRUE.equals(config.getRequireUppercase()),
+                Boolean.TRUE.equals(config.getRequireLowercase()),
+                Boolean.TRUE.equals(config.getRequireDigits()),
+                Boolean.TRUE.equals(config.getRequireSpecialChar()),
+                config.getPasswordExpireDays() != null ? config.getPasswordExpireDays() : 90
+        ));
+    }
 
     @GetMapping
     @PreAuthorize("hasAuthority('role:read') or hasRole('ADMIN')")

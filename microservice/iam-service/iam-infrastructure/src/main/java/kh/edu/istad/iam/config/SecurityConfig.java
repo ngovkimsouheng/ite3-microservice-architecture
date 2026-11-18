@@ -113,7 +113,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/admin/system/config/password-policy").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
@@ -151,6 +151,11 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .successHandler((request, response, authentication) -> {
+                            jakarta.servlet.http.HttpSession session = request.getSession(true);
+                            if (session != null) {
+                                session.setAttribute("IP_ADDRESS", extractClientIp(request));
+                                session.setAttribute("USER_AGENT", parseDevice(request.getHeader("User-Agent")));
+                            }
                             recordLoginEvent(request, authentication, true, null);
                             response.sendRedirect("/account/profile");
                         })
@@ -168,11 +173,15 @@ public class SecurityConfig {
                         )
                         .successHandler((request, response, authentication) -> {
                             jakarta.servlet.http.HttpSession session = request.getSession(false);
-                            if (session != null && session.getAttribute("iam.link-success") != null) {
-                                String linkedProv = (String) session.getAttribute("iam.link-success");
-                                session.removeAttribute("iam.link-success");
-                                response.sendRedirect("/account/linked-accounts?linked=" + linkedProv.toLowerCase(java.util.Locale.ROOT));
-                                return;
+                            if (session != null) {
+                                session.setAttribute("IP_ADDRESS", extractClientIp(request));
+                                session.setAttribute("USER_AGENT", parseDevice(request.getHeader("User-Agent")));
+                                if (session.getAttribute("iam.link-success") != null) {
+                                    String linkedProv = (String) session.getAttribute("iam.link-success");
+                                    session.removeAttribute("iam.link-success");
+                                    response.sendRedirect("/account/linked-accounts?linked=" + linkedProv.toLowerCase(java.util.Locale.ROOT));
+                                    return;
+                                }
                             }
                             recordOAuth2LoginEvent(request, authentication);
                             response.sendRedirect("/account/profile");

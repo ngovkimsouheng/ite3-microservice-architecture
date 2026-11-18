@@ -10,9 +10,7 @@ import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +20,43 @@ public class SessionService {
     private final UserRepository userRepository;
 
     /**
-     * Get all active sessions for a user from Redis
+     * Get all active sessions for a user from Redis.
+     * Searches by both username and user UUID to guarantee complete resolution.
      */
-    public List<SessionResponse> getActiveSessions(String username, String currentSessionId) {
-        Map<String, ? extends Session> sessions = sessionRepository.findByPrincipalName(username);
-        List<SessionResponse> result = new ArrayList<>();
+    public List<SessionResponse> getActiveSessions(String usernameOrUuid, String currentSessionId) {
+        Map<String, Session> allSessions = new HashMap<>();
 
-        for (Session session : sessions.values()) {
+        if (usernameOrUuid != null && !usernameOrUuid.isBlank()) {
+            Map<String, ? extends Session> byPrincipal = sessionRepository.findByPrincipalName(usernameOrUuid);
+            if (byPrincipal != null) {
+                allSessions.putAll(byPrincipal);
+            }
+
+            // Cross-resolve between UUID and username in case principal was indexed under the other key
+            try {
+                UUID uuid = UUID.fromString(usernameOrUuid);
+                userRepository.findByUuid(uuid).ifPresent(u -> {
+                    if (u.getUsername() != null) {
+                        Map<String, ? extends Session> byName = sessionRepository.findByPrincipalName(u.getUsername());
+                        if (byName != null) {
+                            allSessions.putAll(byName);
+                        }
+                    }
+                });
+            } catch (IllegalArgumentException ignored) {
+                userRepository.findByUsername(usernameOrUuid).ifPresent(u -> {
+                    if (u.getUuid() != null) {
+                        Map<String, ? extends Session> byUuid = sessionRepository.findByPrincipalName(u.getUuid().toString());
+                        if (byUuid != null) {
+                            allSessions.putAll(byUuid);
+                        }
+                    }
+                });
+            }
+        }
+
+        List<SessionResponse> result = new ArrayList<>();
+        for (Session session : allSessions.values()) {
             if (!session.isExpired()) {
                 String ip = session.getAttribute("IP_ADDRESS");
                 String userAgent = session.getAttribute("USER_AGENT");
@@ -36,13 +64,24 @@ public class SessionService {
                 result.add(new SessionResponse(
                         session.getId(),
                         ip != null ? ip : "127.0.0.1 (Localhost)",
-                        userAgent != null ? userAgent : "Desktop Browser",
+                        userAgent != null ? userAgent : "Web Browser",
                         session.getCreationTime(),
                         session.getLastAccessedTime(),
                         session.getId().equals(currentSessionId)
                 ));
             }
         }
+
+        // Sort: current session first, then most recently accessed
+        result.sort((a, b) -> {
+            if (a.isCurrent()) return -1;
+            if (b.isCurrent()) return 1;
+            if (b.lastAccessedAt() != null && a.lastAccessedAt() != null) {
+                return b.lastAccessedAt().compareTo(a.lastAccessedAt());
+            }
+            return 0;
+        });
+
         return result;
     }
 
@@ -57,30 +96,22 @@ public class SessionService {
         if (users != null) {
             for (User u : users) {
                 if (u.getUsername() != null && !u.isDeleted()) {
-                    Map<String, ? extends Session> userSessions = sessionRepository.findByPrincipalName(u.getUsername());
-                    if (userSessions != null) {
-                        for (Session session : userSessions.values()) {
-                            if (!session.isExpired()) {
-                                String ip = session.getAttribute("IP_ADDRESS");
-                                String userAgent = session.getAttribute("USER_AGENT");
-
-                                result.add(new AdminSessionResponse(
-                                        session.getId(),
-                                        u.getUsername(),
-                                        ip != null ? ip : "127.0.0.1 (Localhost)",
-                                        userAgent != null ? userAgent : "Web Browser",
-                                        session.getCreationTime(),
-                                        session.getLastAccessedTime(),
-                                        session.getId().equals(currentSessionId)
-                                ));
-                            }
-                        }
+                    List<SessionResponse> userSessions = getActiveSessions(u.getUsername(), currentSessionId);
+                    for (SessionResponse s : userSessions) {
+                        result.add(new AdminSessionResponse(
+                                s.sessionId(),
+                                u.getUsername(),
+                                s.ipAddress(),
+                                s.device(),
+                                s.createdAt(),
+                                s.lastAccessedAt(),
+                                s.isCurrent()
+                        ));
                     }
                 }
             }
         }
 
-        // If no active sessions in Redis, return empty list
         return result;
     }
 
@@ -94,11 +125,11 @@ public class SessionService {
     /**
      * Terminate all other sessions except the current device
      */
-    public void terminateAllOtherSessions(String username, String currentSessionId) {
-        Map<String, ? extends Session> sessions = sessionRepository.findByPrincipalName(username);
-        for (String id : sessions.keySet()) {
-            if (!id.equals(currentSessionId)) {
-                sessionRepository.deleteById(id);
+    public void terminateAllOtherSessions(String usernameOrUuid, String currentSessionId) {
+        List<SessionResponse> sessions = getActiveSessions(usernameOrUuid, currentSessionId);
+        for (SessionResponse s : sessions) {
+            if (!s.sessionId().equals(currentSessionId)) {
+                sessionRepository.deleteById(s.sessionId());
             }
         }
     }

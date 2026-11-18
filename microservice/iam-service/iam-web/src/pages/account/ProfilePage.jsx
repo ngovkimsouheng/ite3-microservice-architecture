@@ -89,6 +89,7 @@ export default function ProfilePage() {
             const updated = await userService.updateCurrentUser(form);
             setAlert({ type: 'success', message: t('profile.successMsg') });
             setIsEditing(false);
+            window.dispatchEvent(new Event('user-profile-updated'));
             if (updated) {
                 setUser(updated);
                 setForm({

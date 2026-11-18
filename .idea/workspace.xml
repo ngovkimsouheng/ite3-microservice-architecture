@@ -8,20 +8,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/build-logic/src/main/groovy/java-publications.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/kafka/docker-compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/nexus/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/istad-common-bom/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/istad-common/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/controller/AdminClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/controller/AdminClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/dto/OAuth2ClientResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/dto/OAuth2ClientResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/istad-common/istad-common-domain/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/istad-common/istad-common-domain/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/istad-common/istad-common-swagger/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/istad-common/istad-common-swagger/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/usecase/user/UpdateUserProfileUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/usecase/user/UpdateUserProfileUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/AdminAuditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/AdminAuditController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/PermissionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/PermissionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/RoleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/RoleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/dto/SecurityActivityResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/dto/SecurityActivityResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/i18n.js" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/i18n.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/mapper/IamWebMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/mapper/IamWebMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/service/SessionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/service/SessionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/layouts/AppLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/layouts/AppLayout.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/admin/AuditPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/admin/AuditPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/admin/ClientsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/admin/ClientsPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/services/adminService.js" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/services/adminService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/ProfilePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/ProfilePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/SessionsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/SessionsPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +79,11 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="istad-ite-project" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="istad-ite-project" type="f1a62948:ProjectNode" />
+                <item name="istad-common" type="2d1252cf:ModuleNode" />
               </path>
             </expand>
             <select />
@@ -150,6 +160,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Docker.consul/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.kafka/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.postgres/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Build discovery-service.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Build istad-common.executor&quot;: &quot;Run&quot;,
@@ -218,17 +229,14 @@
         <entry key="SpringBootApplicationConfigurationType">
           <value>
             <map>
-              <entry key="IamServiceApplication (1)" value="STOPPED" />
+              <entry key="IamServiceApplication (1)" value="FAILED" />
             </map>
           </value>
         </entry>
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.IamServiceApplication (1)">
-    <configuration name="generated-requests | #50" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#50" index="50" runType="Run single request">
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Docker.kafka/docker-compose.yaml: Compose Deployment">
     <configuration name="BusinessApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="business-service.business-service-main.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.business.BusinessApplication" />
@@ -334,9 +342,17 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="kafka/docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="deployment/kafka/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
       <item itemvalue="Docker.consul/docker-compose.yaml: Compose Deployment" />
-      <item itemvalue="HTTP Request.generated-requests | #50" />
       <item itemvalue="Spring Boot.IamServiceApplication (1)" />
       <item itemvalue="Spring Boot.BusinessApplication" />
       <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
@@ -347,11 +363,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
         <item itemvalue="Spring Boot.CustomerApplicationService" />
         <item itemvalue="Spring Boot.OrderApplicationService" />
         <item itemvalue="Docker.consul/docker-compose.yaml: Compose Deployment" />
         <item itemvalue="Spring Boot.GatewayServerApplication" />
-        <item itemvalue="HTTP Request.generated-requests | #50" />
       </list>
     </recent_temporary>
   </component>
@@ -416,7 +432,11 @@
       <workItem from="1794723839166" duration="15301000" />
       <workItem from="1794754888045" duration="13133000" />
       <workItem from="1794821672426" duration="17043000" />
-      <workItem from="1794879346768" duration="3143000" />
+      <workItem from="1794879346768" duration="7996000" />
+      <workItem from="1794898714209" duration="5128000" />
+      <workItem from="1794912943126" duration="346000" />
+      <workItem from="1794985803717" duration="6279000" />
+      <workItem from="1795003002466" duration="36000" />
     </task>
     <servers />
   </component>

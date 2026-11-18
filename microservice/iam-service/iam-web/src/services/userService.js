@@ -72,5 +72,11 @@ export const userService = {
     requestDeactivation: async (reason = 'User requested account deactivation') => {
         const res = await api.post('/me/deactivate-request', { reason });
         return res.data;
+    },
+
+    // Enterprise Password Policy
+    getPasswordPolicy: async () => {
+        const res = await api.get('/admin/system/config/password-policy');
+        return res.data;
     }
 };

@@ -19,7 +19,7 @@ export default function SessionsPage() {
         setLoading(true);
         try {
             const data = await userService.getActiveSessions();
-            if (Array.isArray(data) && data.length > 0) {
+            if (Array.isArray(data)) {
                 const formatted = data.map(s => {
                     const dev = (s.device || '').toLowerCase();
                     let deviceType = 'desktop';
@@ -31,56 +31,21 @@ export default function SessionsPage() {
                         deviceType,
                         deviceName: s.device || 'Web Browser',
                         browser: dev.includes('chrome') ? 'Chrome' : dev.includes('safari') ? 'Safari' : dev.includes('firefox') ? 'Firefox' : 'Browser',
-                        ipAddress: s.ipAddress || '127.0.0.1',
+                        ipAddress: s.ipAddress || '127.0.0.1 (Localhost)',
                         location: 'Phnom Penh, Cambodia',
                         lastActive: s.lastAccessedAt ? new Date(s.lastAccessedAt).toLocaleTimeString() : 'Active now',
-                        isCurrent: s.isCurrent,
+                        isCurrent: Boolean(s.isCurrent),
                         createdAt: s.createdAt
                     };
                 });
                 setSessions(formatted);
-            } else {
-                // Default fallback if single local session
-                setSessions([
-                    {
-                        id: 'sess-current-local',
-                        deviceType: 'desktop',
-                        deviceName: 'Desktop Web Browser',
-                        browser: 'Active Session',
-                        ipAddress: '127.0.0.1 (Localhost)',
-                        location: 'Phnom Penh, Cambodia',
-                        lastActive: 'Active now',
-                        isCurrent: true,
-                        createdAt: new Date().toISOString()
-                    }
-                ]);
             }
         } catch (err) {
-            console.warn('Could not fetch sessions from backend, using fallback:', err.message);
-            setSessions([
-                {
-                    id: 'sess-curr-1',
-                    deviceType: 'desktop',
-                    deviceName: 'Windows 11 PC',
-                    browser: 'Chrome 131.0',
-                    ipAddress: '127.0.0.1 (Localhost)',
-                    location: 'Phnom Penh, Cambodia',
-                    lastActive: 'Active now',
-                    isCurrent: true,
-                    createdAt: '2026-11-15T00:30:00Z'
-                },
-                {
-                    id: 'sess-mob-2',
-                    deviceType: 'mobile',
-                    deviceName: 'iPhone 15 Pro',
-                    browser: 'Mobile Safari 18.1',
-                    ipAddress: '110.74.214.15',
-                    location: 'Siem Reap, Cambodia',
-                    lastActive: '2 hours ago',
-                    isCurrent: false,
-                    createdAt: '2026-11-14T18:15:00Z'
-                }
-            ]);
+            console.error('Could not fetch sessions from backend:', err);
+            setAlert({
+                type: 'error',
+                message: 'Failed to load active sessions from server.'
+            });
         } finally {
             setLoading(false);
         }
@@ -93,31 +58,39 @@ export default function SessionsPage() {
     const handleTerminate = async (id, name) => {
         try {
             await userService.terminateSession(id);
+            setSessions(prev => prev.filter((s) => s.id !== id));
+            setAlert({
+                type: 'success',
+                message: i18n.language === 'en'
+                    ? `Successfully terminated session for ${name}.`
+                    : `បានបញ្ចប់សម័យការងារសម្រាប់ ${name} ដោយជោគជ័យ។`
+            });
         } catch (e) {
-            console.warn('Backend terminate call:', e.message);
+            console.error('Failed to terminate session:', e);
+            setAlert({
+                type: 'error',
+                message: e.response?.data?.detail || 'Failed to terminate session on server.'
+            });
         }
-        setSessions(sessions.filter((s) => s.id !== id));
-        setAlert({
-            type: 'success',
-            message: i18n.language === 'en'
-                ? `Successfully terminated session for ${name}.`
-                : `បានបញ្ចប់សម័យការងារសម្រាប់ ${name} ដោយជោគជ័យ។`
-        });
     };
 
     const handleTerminateAllOthers = async () => {
         try {
             await userService.terminateAllOtherSessions();
+            setSessions(prev => prev.filter((s) => s.isCurrent));
+            setAlert({
+                type: 'success',
+                message: i18n.language === 'en'
+                    ? 'All other active sessions have been successfully terminated.'
+                    : 'បានបញ្ចប់សម័យការងារលើឧបករណ៍ផ្សេងទៀតទាំងអស់ដោយជោគជ័យ។'
+            });
         } catch (e) {
-            console.warn('Backend terminate all call:', e.message);
+            console.error('Failed to terminate all sessions:', e);
+            setAlert({
+                type: 'error',
+                message: e.response?.data?.detail || 'Failed to terminate other sessions.'
+            });
         }
-        setSessions(sessions.filter((s) => s.isCurrent));
-        setAlert({
-            type: 'success',
-            message: i18n.language === 'en'
-                ? 'All other active sessions have been successfully terminated.'
-                : 'បានបញ្ចប់សម័យការងារលើឧបករណ៍ផ្សេងទៀតទាំងអស់ដោយជោគជ័យ។'
-        });
     };
 
     const getDeviceIcon = (type) => {

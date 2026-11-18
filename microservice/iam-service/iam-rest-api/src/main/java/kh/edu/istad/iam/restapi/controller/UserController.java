@@ -101,9 +101,50 @@
         @PreAuthorize("hasAuthority('user:update')")
         public ResponseEntity<UserResponse> updateUserProfile(
                 @PathVariable("uuid") UUID uuid,
-                @Valid @RequestBody UpdateUserProfileRequest request
+                @Valid @RequestBody UpdateUserProfileRequest request,
+                HttpServletRequest servletRequest
         ) {
+            UserResult existingUser = getUserUseCase.execute(uuid);
             UserResult result = updateUserProfileUseCase.execute(webMapper.toCommand(uuid, request));
+
+            try {
+                java.util.List<String> modifiedFields = new java.util.ArrayList<>();
+                if (request.username() != null && !request.username().equals(existingUser.username())) {
+                    modifiedFields.add("username to @" + result.username());
+                }
+                if (request.phoneNumber() != null && !java.util.Objects.equals(result.phoneNumber(), existingUser.phoneNumber())) {
+                    modifiedFields.add("phone number to " + result.phoneNumber());
+                }
+                if (request.givenName() != null && !java.util.Objects.equals(result.givenName(), existingUser.givenName())) {
+                    modifiedFields.add("given name to \"" + result.givenName() + "\"");
+                }
+                if (request.nickname() != null && !java.util.Objects.equals(result.nickname(), existingUser.nickname())) {
+                    modifiedFields.add("nickname to \"" + result.nickname() + "\"");
+                }
+                if (request.locale() != null && !java.util.Objects.equals(result.locale(), existingUser.locale())) {
+                    modifiedFields.add("language to " + result.locale());
+                }
+                String details = modifiedFields.isEmpty()
+                        ? "Updated profile information for @" + result.username()
+                        : "Administrator updated " + String.join(", ", modifiedFields) + " for @" + result.username();
+
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        result.username(),
+                        "ACTIVITY",
+                        "PROFILE_UPDATED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Profile Details Updated",
+                        details
+                );
+            } catch (Exception ex) {
+                log.error("Failed to record admin profile update security event: {}", ex.getMessage(), ex);
+            }
+
             return ResponseEntity.ok(toResponse(result));
         }
 
@@ -407,15 +448,18 @@
                 jakarta.servlet.http.HttpServletRequest servletRequest
         ) {
             UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
+            UserResult existingUser = getUserUseCase.execute(currentUuid);
             UserResult result = updateUserProfileUseCase.execute(webMapper.toCommand(currentUuid, request));
 
-            org.springframework.security.core.Authentication currentAuth =
-                    org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
-            String oldUsername = (currentAuth != null) ? currentAuth.getName() : null;
+            String oldUsername = existingUser.username();
+            String newUsername = result.username();
+            boolean usernameChanged = (newUsername != null && !newUsername.equals(oldUsername));
 
             // Sync updated username to Spring Security context and session if changed
-            if (currentAuth != null && currentAuth.getPrincipal() instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
-                if (!userDetails.getUsername().equals(result.username())) {
+            if (usernameChanged) {
+                org.springframework.security.core.Authentication currentAuth =
+                        org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+                if (currentAuth != null && currentAuth.getPrincipal() instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
                     org.springframework.security.core.userdetails.UserDetails updatedUser =
                             org.springframework.security.core.userdetails.User.builder()
                                     .username(result.username())
@@ -448,38 +492,69 @@
                 }
             }
 
-            // Record real security activity
+            // Record real security activity detailing exactly what changed
             try {
                 String ip = extractClientIp(servletRequest);
-                if (oldUsername != null && !oldUsername.equals(result.username())) {
-                    recordSecurityEventUseCase.execute(
-                            currentUuid,
-                            result.username(),
-                            "ACTIVITY",
-                            "USERNAME_CHANGED",
-                            "SUCCESS",
-                            ip,
-                            null,
-                            "Phnom Penh, Cambodia",
-                            null,
-                            "Username Changed",
-                            "Changed username from @" + oldUsername + " to @" + result.username()
-                    );
-                } else {
-                    recordSecurityEventUseCase.execute(
-                            currentUuid,
-                            result.username(),
-                            "ACTIVITY",
-                            "PROFILE_UPDATED",
-                            "SUCCESS",
-                            ip,
-                            null,
-                            "Phnom Penh, Cambodia",
-                            null,
-                            "Profile Details Updated",
-                            "Updated profile information and preferences"
-                    );
+                java.util.List<String> modifiedFields = new java.util.ArrayList<>();
+                if (usernameChanged) {
+                    modifiedFields.add("username from @" + oldUsername + " to @" + newUsername);
                 }
+                if (request.phoneNumber() != null && !java.util.Objects.equals(result.phoneNumber(), existingUser.phoneNumber())) {
+                    if (result.phoneNumber() != null && !result.phoneNumber().isBlank()) {
+                        modifiedFields.add("phone number to " + result.phoneNumber());
+                    } else {
+                        modifiedFields.add("removed phone number");
+                    }
+                }
+                if (request.givenName() != null && !java.util.Objects.equals(result.givenName(), existingUser.givenName())) {
+                    modifiedFields.add("given name to \"" + result.givenName() + "\"");
+                }
+                if (request.nickname() != null && !java.util.Objects.equals(result.nickname(), existingUser.nickname())) {
+                    modifiedFields.add("nickname to \"" + result.nickname() + "\"");
+                }
+                if (request.locale() != null && !java.util.Objects.equals(result.locale(), existingUser.locale())) {
+                    modifiedFields.add("language to " + ("km".equalsIgnoreCase(result.locale()) ? "Khmer" : "English"));
+                }
+
+                String eventType = usernameChanged ? "USERNAME_CHANGED" : "PROFILE_UPDATED";
+                String eventTitle;
+                String eventDetails;
+
+                if (usernameChanged && modifiedFields.size() == 1) {
+                    eventTitle = "Username Changed";
+                    eventDetails = "Changed username from @" + oldUsername + " to @" + newUsername;
+                } else if (!usernameChanged && modifiedFields.size() == 1 && request.phoneNumber() != null && !java.util.Objects.equals(result.phoneNumber(), existingUser.phoneNumber())) {
+                    eventTitle = "Phone Number Updated";
+                    eventDetails = (result.phoneNumber() != null && !result.phoneNumber().isBlank())
+                            ? "Updated phone number to " + result.phoneNumber()
+                            : "Removed phone number from account";
+                } else if (!usernameChanged && modifiedFields.size() == 1 && request.givenName() != null && !java.util.Objects.equals(result.givenName(), existingUser.givenName())) {
+                    eventTitle = "Given Name Updated";
+                    eventDetails = "Updated given name to \"" + result.givenName() + "\"";
+                } else if (!usernameChanged && modifiedFields.size() == 1 && request.nickname() != null && !java.util.Objects.equals(result.nickname(), existingUser.nickname())) {
+                    eventTitle = "Nickname Updated";
+                    eventDetails = "Updated nickname to \"" + result.nickname() + "\"";
+                } else if (modifiedFields.isEmpty()) {
+                    eventTitle = "Profile Details Updated";
+                    eventDetails = "Profile details verified and saved";
+                } else {
+                    eventTitle = usernameChanged ? "Username & Profile Updated" : "Profile Details Updated";
+                    eventDetails = "Updated " + String.join(", ", modifiedFields);
+                }
+
+                recordSecurityEventUseCase.execute(
+                        currentUuid,
+                        result.username(),
+                        "ACTIVITY",
+                        eventType,
+                        "SUCCESS",
+                        ip,
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        eventTitle,
+                        eventDetails
+                );
             } catch (Exception ex) {
                 log.error("Failed to record profile security activity: {}", ex.getMessage(), ex);
             }

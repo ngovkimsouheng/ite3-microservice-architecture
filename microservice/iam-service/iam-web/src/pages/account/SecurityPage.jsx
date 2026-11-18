@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { userService } from '../../services/userService';
 import Toast from '../../components/Toast';
 import ResetPasswordModal from '../../components/ResetPasswordModal';
 import {
     KeyRound, CheckCircle2, AlertCircle, Loader2,
-    AlertTriangle, Trash2, Eye, EyeOff, ShieldCheck, Sparkles
+    AlertTriangle, Trash2, Eye, EyeOff, ShieldCheck, Sparkles, Check
 } from 'lucide-react';
 
 export default function SecurityPage() {
@@ -14,6 +14,13 @@ export default function SecurityPage() {
         currentPassword: '',
         newPassword: '',
         confirmPassword: ''
+    });
+    const [policy, setPolicy] = useState({
+        minPasswordLength: 8,
+        requireUppercase: true,
+        requireLowercase: true,
+        requireDigits: true,
+        requireSpecialChar: true
     });
     const [showCurrent, setShowCurrent] = useState(false);
     const [showNew, setShowNew] = useState(false);
@@ -24,18 +31,33 @@ export default function SecurityPage() {
     const [deactivateLoading, setDeactivateLoading] = useState(false);
     const [showResetModal, setShowResetModal] = useState(false);
 
+    useEffect(() => {
+        userService.getPasswordPolicy()
+            .then(data => {
+                if (data) setPolicy(data);
+            })
+            .catch(err => console.error('Failed to load password policy:', err));
+    }, []);
+
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
+
+    // Policy rules check
+    const checkLength = form.newPassword.length >= (policy.minPasswordLength || 8);
+    const checkUpper = /[A-Z]/.test(form.newPassword);
+    const checkLower = /[a-z]/.test(form.newPassword);
+    const checkDigits = /[0-9]/.test(form.newPassword);
+    const checkSpecial = /[^A-Za-z0-9]/.test(form.newPassword);
 
     // Live password strength indicator
     const getStrength = (pass) => {
         if (!pass) return { score: 0, text: '', color: 'bg-slate-200' };
         let score = 0;
-        if (pass.length >= 8) score++;
-        if (/[A-Z]/.test(pass)) score++;
-        if (/[0-9]/.test(pass)) score++;
-        if (/[^A-Za-z0-9]/.test(pass)) score++;
+        if (checkLength) score++;
+        if (checkUpper) score++;
+        if (checkDigits) score++;
+        if (checkSpecial) score++;
 
         if (score <= 1) return { score: 1, text: i18n.language === 'en' ? 'Weak' : 'ខ្សោយ', color: 'bg-[#DF1F28]' };
         if (score <= 3) return { score: 2, text: i18n.language === 'en' ? 'Medium' : 'មធ្យម', color: 'bg-[#F9A825]' };
@@ -53,12 +75,52 @@ export default function SecurityPage() {
             return;
         }
 
-        if (form.newPassword.length < 8) {
+        if (!checkLength) {
             setAlert({
                 type: 'error',
                 message: i18n.language === 'en'
-                    ? 'Password must be at least 8 characters long.'
-                    : 'ពាក្យសម្ងាត់ត្រូវមានយ៉ាងហោចណាស់ 8 តួអក្សរ។'
+                    ? `Password must be at least ${policy.minPasswordLength || 8} characters long.`
+                    : `ពាក្យសម្ងាត់ត្រូវមានយ៉ាងហោចណាស់ ${policy.minPasswordLength || 8} តួអក្សរ។`
+            });
+            return;
+        }
+
+        if (policy.requireUppercase && !checkUpper) {
+            setAlert({
+                type: 'error',
+                message: i18n.language === 'en'
+                    ? 'Password must contain at least one uppercase letter (A-Z).'
+                    : 'ពាក្យសម្ងាត់ត្រូវមានអក្សរធំយ៉ាងហោចណាស់មួយ (A-Z)។'
+            });
+            return;
+        }
+
+        if (policy.requireLowercase && !checkLower) {
+            setAlert({
+                type: 'error',
+                message: i18n.language === 'en'
+                    ? 'Password must contain at least one lowercase letter (a-z).'
+                    : 'ពាក្យសម្ងាត់ត្រូវមានអក្សរតូចយ៉ាងហោចណាស់មួយ (a-z)។'
+            });
+            return;
+        }
+
+        if (policy.requireDigits && !checkDigits) {
+            setAlert({
+                type: 'error',
+                message: i18n.language === 'en'
+                    ? 'Password must contain at least one numerical digit (0-9).'
+                    : 'ពាក្យសម្ងាត់ត្រូវមានលេខយ៉ាងហោចណាស់មួយ (0-9)។'
+            });
+            return;
+        }
+
+        if (policy.requireSpecialChar && !checkSpecial) {
+            setAlert({
+                type: 'error',
+                message: i18n.language === 'en'
+                    ? 'Password must contain at least one special character (@$!%*?&).'
+                    : 'ពាក្យសម្ងាត់ត្រូវមានតួអក្សរពិសេសយ៉ាងហោចណាស់មួយ (@$!%*?&)។'
             });
             return;
         }
@@ -194,6 +256,44 @@ export default function SecurityPage() {
                                 </span>
                             </div>
                         )}
+
+                        {/* Enterprise Password Policy Checklist */}
+                        <div className="mt-3 p-3.5 rounded-xl bg-slate-50 border border-slate-100 space-y-2 text-xs">
+                            <p className="font-bold text-slate-600 uppercase tracking-wider text-[11px] flex items-center justify-between">
+                                <span>{i18n.language === 'en' ? 'Password Requirements' : 'លក្ខខណ្ឌសុវត្ថិភាពពាក្យសម្ងាត់'}</span>
+                                <span className="font-mono text-slate-400 font-normal">Min {policy.minPasswordLength || 8} chars</span>
+                            </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 pt-0.5">
+                                <div className={`flex items-center gap-2 ${checkLength ? 'text-emerald-700 font-semibold' : 'text-slate-500'}`}>
+                                    <CheckCircle2 size={14} className={checkLength ? 'text-emerald-500 shrink-0' : 'text-slate-300 shrink-0'} />
+                                    <span>{i18n.language === 'en' ? `At least ${policy.minPasswordLength || 8} characters` : `យ៉ាងហោច ${policy.minPasswordLength || 8} តួអក្សរ`}</span>
+                                </div>
+                                {policy.requireUppercase && (
+                                    <div className={`flex items-center gap-2 ${checkUpper ? 'text-emerald-700 font-semibold' : 'text-slate-500'}`}>
+                                        <CheckCircle2 size={14} className={checkUpper ? 'text-emerald-500 shrink-0' : 'text-slate-300 shrink-0'} />
+                                        <span>{i18n.language === 'en' ? 'Uppercase letter (A-Z)' : 'អក្សរធំ (A-Z)'}</span>
+                                    </div>
+                                )}
+                                {policy.requireLowercase && (
+                                    <div className={`flex items-center gap-2 ${checkLower ? 'text-emerald-700 font-semibold' : 'text-slate-500'}`}>
+                                        <CheckCircle2 size={14} className={checkLower ? 'text-emerald-500 shrink-0' : 'text-slate-300 shrink-0'} />
+                                        <span>{i18n.language === 'en' ? 'Lowercase letter (a-z)' : 'អក្សរតូច (a-z)'}</span>
+                                    </div>
+                                )}
+                                {policy.requireDigits && (
+                                    <div className={`flex items-center gap-2 ${checkDigits ? 'text-emerald-700 font-semibold' : 'text-slate-500'}`}>
+                                        <CheckCircle2 size={14} className={checkDigits ? 'text-emerald-500 shrink-0' : 'text-slate-300 shrink-0'} />
+                                        <span>{i18n.language === 'en' ? 'Numerical digit (0-9)' : 'លេខ (0-9)'}</span>
+                                    </div>
+                                )}
+                                {policy.requireSpecialChar && (
+                                    <div className={`flex items-center gap-2 ${checkSpecial ? 'text-emerald-700 font-semibold' : 'text-slate-500'}`}>
+                                        <CheckCircle2 size={14} className={checkSpecial ? 'text-emerald-500 shrink-0' : 'text-slate-300 shrink-0'} />
+                                        <span>{i18n.language === 'en' ? 'Special character (@$!%*?&)' : 'តួអក្សរពិសេស (@$!%*?&)'}</span>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
 
                     {/* Confirm Password */}

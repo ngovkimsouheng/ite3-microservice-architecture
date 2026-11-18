@@ -17,16 +17,30 @@ export default function AppLayout() {
     const [loadingUser, setLoadingUser] = useState(true);
 
     useEffect(() => {
-        userService.getCurrentUser()
-            .then(data => {
-                setCurrentUser(data);
-            })
-            .catch(err => {
-                console.warn('Could not load current user profile:', err.message);
-            })
-            .finally(() => {
-                setLoadingUser(false);
-            });
+        const fetchUser = () => {
+            userService.getCurrentUser()
+                .then(data => {
+                    setCurrentUser(data);
+                })
+                .catch(err => {
+                    console.warn('Could not load current user profile:', err.message);
+                })
+                .finally(() => {
+                    setLoadingUser(false);
+                });
+        };
+        fetchUser();
+
+        // Check session validity whenever user focuses tab or every 30 seconds
+        window.addEventListener('focus', fetchUser);
+        window.addEventListener('user-profile-updated', fetchUser);
+        const interval = setInterval(fetchUser, 30000);
+
+        return () => {
+            window.removeEventListener('focus', fetchUser);
+            window.removeEventListener('user-profile-updated', fetchUser);
+            clearInterval(interval);
+        };
     }, []);
 
     // Check if current authenticated user has ADMIN privileges

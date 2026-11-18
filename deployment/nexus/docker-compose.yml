@@ -1,0 +1,17 @@
+services:
+  nexus:
+    image: sonatype/nexus3:latest
+    container_name: istad-nexus
+    ports:
+      - "8081:8081"
+    volumes:
+      - nexus-data:/nexus-data
+    networks:
+      - ite-net
+
+volumes:
+  nexus-data:
+
+networks:
+  ite-net:
+    external: true
