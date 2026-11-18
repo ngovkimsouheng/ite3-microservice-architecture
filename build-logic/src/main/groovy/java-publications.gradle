@@ -33,7 +33,7 @@ publishing {
         mavenJava(MavenPublication) {
             from components.findByName('javaPlatform') ?: components.findByName('java')
         }
-    }x
+    }
 }
 
 //plugins {

@@ -151,7 +151,7 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/istad-common/istad-common-bom" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/istad-common-bom" />
         <option name="gradleJvm" value="21 (2)" />
       </GradleProjectSettings>
     </option>
