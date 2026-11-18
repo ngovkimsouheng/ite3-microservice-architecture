@@ -11,6 +11,7 @@ import kh.edu.istad.iam.domain.core.entity.Role;
 import kh.edu.istad.iam.domain.core.entity.User;
 import kh.edu.istad.iam.domain.core.entity.UserRoleAssignment;
 import kh.edu.istad.iam.domain.core.valueobject.EmailAddress;
+import kh.edu.istad.iam.domain.service.PasswordPolicyValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +29,15 @@ public class CreateUserUseCase {
     private final PasswordHasher passwordHasher;
     private final CurrentActorProvider currentActorProvider;
     private final DomainDtoMapper domainDtoMapper;
+    private final PasswordPolicyValidator passwordPolicyValidator;
+
     @Transactional
     public UserResult execute(CreateUserCommand command) {
+
+        // Validate password against configured enterprise policies
+        if (command.password() != null && !command.password().isBlank()) {
+            passwordPolicyValidator.validate(command.password());
+        }
 
         // 1. Normalize and validate user information
         String email = new EmailAddress(command.email()).value();

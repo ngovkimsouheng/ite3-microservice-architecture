@@ -35,26 +35,26 @@ public class AdminUserInitializer implements ApplicationRunner {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${app.bootstrap.admin.username:kungsovannda}")
+    @Value("${app.bootstrap.admin.username:ngovkimsouheng}")
     private String adminUsername;
 
-    @Value("${app.bootstrap.admin.email:kungsovannda@gmail.com}")
+    @Value("${app.bootstrap.admin.email:ngovkimsouheng@gmail.com}")
     private String adminEmail;
 
     @Value("${app.bootstrap.admin.password:supersecret}")
     private String adminPassword;
 
-    @Value("${app.bootstrap.admin.given-name:Sovannda}")
+    @Value("${app.bootstrap.admin.given-name:kimsouheng}")
     private String adminGivenName;
 
-    @Value("${app.bootstrap.admin.family-name:Kung}")
+    @Value("${app.bootstrap.admin.family-name:Ngov}")
     private String adminFamilyName;
 
     @Override
     @Transactional
     public void run(ApplicationArguments args) {
-        if (userRepository.existsByUsername(adminUsername)) {
-            log.info("Admin user '{}' already exists. Skipping initialization.", adminUsername);
+        if (userRepository.existsByUsername(adminUsername) || userRepository.existsByEmail(adminEmail)) {
+            log.info("Admin user '{}' or email '{}' already exists. Skipping initialization.", adminUsername, adminEmail);
             return;
         }
 

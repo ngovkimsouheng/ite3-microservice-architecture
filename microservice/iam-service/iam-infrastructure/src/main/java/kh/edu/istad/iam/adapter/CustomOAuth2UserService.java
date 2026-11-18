@@ -27,12 +27,18 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         AuthUserResult authUser = federatedUserProvisioner.provision(
                 userRequest, oAuth2User.getAttributes(), oAuth2User.getName());
 
+        Map<String, Object> attributes = new java.util.HashMap<>();
+        if (oAuth2User.getAttributes() != null) {
+            attributes.putAll(oAuth2User.getAttributes());
+        }
+        attributes.put("sub", authUser.uuid().toString());
+        attributes.put("iam_user_id", authUser.uuid().toString());
+        attributes.put("iam_username", authUser.username() != null ? authUser.username() : "");
+        attributes.put("name", authUser.username() != null ? authUser.username() : authUser.uuid().toString());
+
         return new DefaultOAuth2User(
                 authorities(authUser),
-                Map.of(
-                        "sub", authUser.uuid().toString(),
-                        "name", authUser.username() != null ? authUser.username() : authUser.uuid().toString()
-                ),
+                attributes,
                 "sub"
         );
     }

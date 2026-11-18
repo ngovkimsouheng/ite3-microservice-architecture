@@ -1,14 +1,19 @@
     package kh.edu.istad.iam.restapi.controller;
 
+    import jakarta.servlet.http.HttpServletRequest;
     import jakarta.validation.Valid;
     import kh.edu.istad.iam.domain.dto.*;
     import kh.edu.istad.iam.domain.port.out.CurrentActorProvider;
     import kh.edu.istad.iam.domain.usecase.identity.ListUserIdentitiesUseCase;
     import kh.edu.istad.iam.domain.usecase.identity.UnlinkIdentityUseCase;
+    import kh.edu.istad.iam.domain.usecase.security.ListLoginHistoryUseCase;
+    import kh.edu.istad.iam.domain.usecase.security.ListSecurityActivityUseCase;
+    import kh.edu.istad.iam.domain.usecase.security.RecordSecurityEventUseCase;
     import kh.edu.istad.iam.domain.usecase.user.*;
     import kh.edu.istad.iam.restapi.dto.*;
     import kh.edu.istad.iam.restapi.mapper.IamWebMapper;
     import lombok.RequiredArgsConstructor;
+    import lombok.extern.slf4j.Slf4j;
     import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
     import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +22,7 @@
     import java.util.List;
     import java.util.UUID;
 
+    @Slf4j
     @RestController
     @RequestMapping("/api")
     @RequiredArgsConstructor
@@ -40,6 +46,9 @@
         private final GetUserAuthoritiesUseCase getUserAuthoritiesUseCase;
         private final ListUserIdentitiesUseCase listUserIdentitiesUseCase;
         private final UnlinkIdentityUseCase unlinkIdentityUseCase;
+        private final ListLoginHistoryUseCase listLoginHistoryUseCase;
+        private final ListSecurityActivityUseCase listSecurityActivityUseCase;
+        private final RecordSecurityEventUseCase recordSecurityEventUseCase;
         private final CurrentActorProvider currentActorProvider;
         private final IamWebMapper webMapper;
 
@@ -47,8 +56,26 @@
 
         @PostMapping("/users")
         @PreAuthorize("hasAuthority('user:create')")
-        public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request) {
+        public ResponseEntity<UserResponse> createUser(
+                @Valid @RequestBody CreateUserRequest request,
+                HttpServletRequest servletRequest
+        ) {
             UserResult result = createUserUseCase.execute(webMapper.toCommand(request));
+            try {
+                recordSecurityEventUseCase.execute(
+                        result.uuid(),
+                        result.username(),
+                        "ACTIVITY",
+                        "USER_CREATED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "User Created",
+                        "Created new user account @" + result.username() + " (" + result.email() + ")"
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(result));
         }
 
@@ -74,16 +101,77 @@
         @PreAuthorize("hasAuthority('user:update')")
         public ResponseEntity<UserResponse> updateUserProfile(
                 @PathVariable("uuid") UUID uuid,
-                @Valid @RequestBody UpdateUserProfileRequest request
+                @Valid @RequestBody UpdateUserProfileRequest request,
+                HttpServletRequest servletRequest
         ) {
+            UserResult existingUser = getUserUseCase.execute(uuid);
             UserResult result = updateUserProfileUseCase.execute(webMapper.toCommand(uuid, request));
+
+            try {
+                java.util.List<String> modifiedFields = new java.util.ArrayList<>();
+                if (request.username() != null && !request.username().equals(existingUser.username())) {
+                    modifiedFields.add("username to @" + result.username());
+                }
+                if (request.phoneNumber() != null && !java.util.Objects.equals(result.phoneNumber(), existingUser.phoneNumber())) {
+                    modifiedFields.add("phone number to " + result.phoneNumber());
+                }
+                if (request.givenName() != null && !java.util.Objects.equals(result.givenName(), existingUser.givenName())) {
+                    modifiedFields.add("given name to \"" + result.givenName() + "\"");
+                }
+                if (request.nickname() != null && !java.util.Objects.equals(result.nickname(), existingUser.nickname())) {
+                    modifiedFields.add("nickname to \"" + result.nickname() + "\"");
+                }
+                if (request.locale() != null && !java.util.Objects.equals(result.locale(), existingUser.locale())) {
+                    modifiedFields.add("language to " + result.locale());
+                }
+                String details = modifiedFields.isEmpty()
+                        ? "Updated profile information for @" + result.username()
+                        : "Administrator updated " + String.join(", ", modifiedFields) + " for @" + result.username();
+
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        result.username(),
+                        "ACTIVITY",
+                        "PROFILE_UPDATED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Profile Details Updated",
+                        details
+                );
+            } catch (Exception ex) {
+                log.error("Failed to record admin profile update security event: {}", ex.getMessage(), ex);
+            }
+
             return ResponseEntity.ok(toResponse(result));
         }
 
         @DeleteMapping("/users/{uuid}")
         @PreAuthorize("hasAuthority('user:delete')")
-        public ResponseEntity<Void> deleteUser(@PathVariable("uuid") UUID uuid) {
+        public ResponseEntity<Void> deleteUser(@PathVariable("uuid") UUID uuid, HttpServletRequest servletRequest) {
+            String username = "user";
+            try {
+                UserResult u = getUserUseCase.execute(uuid);
+                username = u.username();
+            } catch (Exception ignored) {}
             deleteUserUseCase.execute(uuid);
+            try {
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        username,
+                        "ACTIVITY",
+                        "USER_DELETED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "User Deleted",
+                        "Permanently deleted user account @" + username
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
@@ -91,29 +179,93 @@
 
         @PostMapping("/users/{uuid}/enable")
         @PreAuthorize("hasAuthority('user:update')")
-        public ResponseEntity<Void> enableUser(@PathVariable("uuid") UUID uuid) {
+        public ResponseEntity<Void> enableUser(@PathVariable("uuid") UUID uuid, HttpServletRequest servletRequest) {
             enableUserUseCase.execute(uuid);
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "USER_ENABLED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "User Enabled",
+                        "Administrator enabled account access for @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
         @PostMapping("/users/{uuid}/disable")
         @PreAuthorize("hasAuthority('user:update')")
-        public ResponseEntity<Void> disableUser(@PathVariable("uuid") UUID uuid) {
+        public ResponseEntity<Void> disableUser(@PathVariable("uuid") UUID uuid, HttpServletRequest servletRequest) {
             disableUserUseCase.execute(uuid);
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "ACCOUNT_DEACTIVATED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Account Disabled / Deactivated",
+                        "Administrator disabled account access for @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
         @PostMapping("/users/{uuid}/lock")
         @PreAuthorize("hasAuthority('user:update')")
-        public ResponseEntity<Void> lockUser(@PathVariable("uuid") UUID uuid) {
+        public ResponseEntity<Void> lockUser(@PathVariable("uuid") UUID uuid, HttpServletRequest servletRequest) {
             lockUserUseCase.execute(uuid);
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "USER_LOCKED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "User Locked",
+                        "Administrator locked account for @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
         @PostMapping("/users/{uuid}/unlock")
         @PreAuthorize("hasAuthority('user:update')")
-        public ResponseEntity<Void> unlockUser(@PathVariable("uuid") UUID uuid) {
+        public ResponseEntity<Void> unlockUser(@PathVariable("uuid") UUID uuid, HttpServletRequest servletRequest) {
             unlockUserUseCase.execute(uuid);
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "USER_UNLOCKED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "User Unlocked",
+                        "Administrator unlocked account for @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
@@ -121,9 +273,26 @@
         @PreAuthorize("hasAuthority('user:update')")
         public ResponseEntity<Void> resetPassword(
                 @PathVariable("uuid") UUID uuid,
-                @Valid @RequestBody ResetUserPasswordRequest request
+                @Valid @RequestBody ResetUserPasswordRequest request,
+                HttpServletRequest servletRequest
         ) {
             resetUserPasswordUseCase.execute(webMapper.toCommand(uuid, request));
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "PASSWORD_RESET",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Password Reset",
+                        "Administrator reset password for @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
@@ -140,10 +309,27 @@
         @PreAuthorize("hasAuthority('user:assign')")
         public ResponseEntity<List<RoleAssignmentResult>> assignRoles(
                 @PathVariable("uuid") UUID uuid,
-                @Valid @RequestBody AssignRolesToUserRequest request
+                @Valid @RequestBody AssignRolesToUserRequest request,
+                HttpServletRequest servletRequest
         ) {
             List<RoleAssignmentResult> results =
                     assignRolesToUserUseCase.execute(webMapper.toCommand(uuid, request));
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "ROLE_ASSIGNED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Roles Assigned",
+                        "Assigned " + results.size() + " role(s) to @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.ok(results);
         }
 
@@ -152,8 +338,26 @@
         public ResponseEntity<Void> revokeRole(
                 @PathVariable("uuid") UUID uuid,
                 @PathVariable("roleUuid") UUID roleUuid,
-                @RequestParam(name = "reason", required = false) String reason        ) {
+                @RequestParam(name = "reason", required = false) String reason,
+                HttpServletRequest servletRequest
+        ) {
             revokeRoleFromUserUseCase.execute(uuid, roleUuid, reason);
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "ROLE_REVOKED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Role Revoked",
+                        "Revoked role from @" + user.username() + (reason != null ? " (Reason: " + reason + ")" : "")
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
@@ -161,10 +365,27 @@
         @PreAuthorize("hasAuthority('user:assign')")
         public ResponseEntity<List<PermissionGrantResult>> grantPermissions(
                 @PathVariable("uuid") UUID uuid,
-                @Valid @RequestBody GrantPermissionsToUserRequest request
+                @Valid @RequestBody GrantPermissionsToUserRequest request,
+                HttpServletRequest servletRequest
         ) {
             List<PermissionGrantResult> results =
                     grantPermissionsToUserUseCase.execute(webMapper.toCommand(uuid, request));
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "PERMISSION_GRANTED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Permissions Granted",
+                        "Granted " + results.size() + " direct permission(s) to @" + user.username()
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.ok(results);
         }
 
@@ -173,9 +394,26 @@
         public ResponseEntity<Void> revokePermission(
                 @PathVariable("uuid") UUID uuid,
                 @PathVariable("permissionUuid") UUID permissionUuid,
-                @RequestParam(name = "reason", required = false, defaultValue = "Revoked by admin") String reason
+                @RequestParam(name = "reason", required = false, defaultValue = "Revoked by admin") String reason,
+                HttpServletRequest servletRequest
         ) {
             revokePermissionFromUserUseCase.execute(uuid, permissionUuid, reason);
+            try {
+                UserResult user = getUserUseCase.execute(uuid);
+                recordSecurityEventUseCase.execute(
+                        uuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "PERMISSION_REVOKED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Permission Revoked",
+                        "Revoked permission from @" + user.username() + " (Reason: " + reason + ")"
+                );
+            } catch (Exception ignored) {}
             return ResponseEntity.noContent().build();
         }
 
@@ -205,16 +443,151 @@
         }
 
         @PatchMapping("/me")
-        public ResponseEntity<UserResponse> updateCurrentUser(@Valid @RequestBody UpdateUserProfileRequest request) {
+        public ResponseEntity<UserResponse> updateCurrentUser(
+                @Valid @RequestBody UpdateUserProfileRequest request,
+                jakarta.servlet.http.HttpServletRequest servletRequest
+        ) {
             UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
+            UserResult existingUser = getUserUseCase.execute(currentUuid);
             UserResult result = updateUserProfileUseCase.execute(webMapper.toCommand(currentUuid, request));
+
+            String oldUsername = existingUser.username();
+            String newUsername = result.username();
+            boolean usernameChanged = (newUsername != null && !newUsername.equals(oldUsername));
+
+            // Sync updated username to Spring Security context and session if changed
+            if (usernameChanged) {
+                org.springframework.security.core.Authentication currentAuth =
+                        org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+                if (currentAuth != null && currentAuth.getPrincipal() instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
+                    org.springframework.security.core.userdetails.UserDetails updatedUser =
+                            org.springframework.security.core.userdetails.User.builder()
+                                    .username(result.username())
+                                    .password(userDetails.getPassword() != null ? userDetails.getPassword() : "")
+                                    .authorities(userDetails.getAuthorities())
+                                    .accountExpired(!userDetails.isAccountNonExpired())
+                                    .accountLocked(!userDetails.isAccountNonLocked())
+                                    .credentialsExpired(!userDetails.isCredentialsNonExpired())
+                                    .disabled(!userDetails.isEnabled())
+                                    .build();
+
+                    org.springframework.security.authentication.UsernamePasswordAuthenticationToken newAuth =
+                            new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(
+                                    updatedUser,
+                                    currentAuth.getCredentials(),
+                                    currentAuth.getAuthorities()
+                            );
+                    newAuth.setDetails(currentAuth.getDetails());
+                    org.springframework.security.core.context.SecurityContext newContext =
+                            org.springframework.security.core.context.SecurityContextHolder.createEmptyContext();
+                    newContext.setAuthentication(newAuth);
+                    org.springframework.security.core.context.SecurityContextHolder.setContext(newContext);
+
+                    if (servletRequest.getSession(false) != null) {
+                        servletRequest.getSession(false).setAttribute(
+                                org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                                newContext
+                        );
+                    }
+                }
+            }
+
+            // Record real security activity detailing exactly what changed
+            try {
+                String ip = extractClientIp(servletRequest);
+                java.util.List<String> modifiedFields = new java.util.ArrayList<>();
+                if (usernameChanged) {
+                    modifiedFields.add("username from @" + oldUsername + " to @" + newUsername);
+                }
+                if (request.phoneNumber() != null && !java.util.Objects.equals(result.phoneNumber(), existingUser.phoneNumber())) {
+                    if (result.phoneNumber() != null && !result.phoneNumber().isBlank()) {
+                        modifiedFields.add("phone number to " + result.phoneNumber());
+                    } else {
+                        modifiedFields.add("removed phone number");
+                    }
+                }
+                if (request.givenName() != null && !java.util.Objects.equals(result.givenName(), existingUser.givenName())) {
+                    modifiedFields.add("given name to \"" + result.givenName() + "\"");
+                }
+                if (request.nickname() != null && !java.util.Objects.equals(result.nickname(), existingUser.nickname())) {
+                    modifiedFields.add("nickname to \"" + result.nickname() + "\"");
+                }
+                if (request.locale() != null && !java.util.Objects.equals(result.locale(), existingUser.locale())) {
+                    modifiedFields.add("language to " + ("km".equalsIgnoreCase(result.locale()) ? "Khmer" : "English"));
+                }
+
+                String eventType = usernameChanged ? "USERNAME_CHANGED" : "PROFILE_UPDATED";
+                String eventTitle;
+                String eventDetails;
+
+                if (usernameChanged && modifiedFields.size() == 1) {
+                    eventTitle = "Username Changed";
+                    eventDetails = "Changed username from @" + oldUsername + " to @" + newUsername;
+                } else if (!usernameChanged && modifiedFields.size() == 1 && request.phoneNumber() != null && !java.util.Objects.equals(result.phoneNumber(), existingUser.phoneNumber())) {
+                    eventTitle = "Phone Number Updated";
+                    eventDetails = (result.phoneNumber() != null && !result.phoneNumber().isBlank())
+                            ? "Updated phone number to " + result.phoneNumber()
+                            : "Removed phone number from account";
+                } else if (!usernameChanged && modifiedFields.size() == 1 && request.givenName() != null && !java.util.Objects.equals(result.givenName(), existingUser.givenName())) {
+                    eventTitle = "Given Name Updated";
+                    eventDetails = "Updated given name to \"" + result.givenName() + "\"";
+                } else if (!usernameChanged && modifiedFields.size() == 1 && request.nickname() != null && !java.util.Objects.equals(result.nickname(), existingUser.nickname())) {
+                    eventTitle = "Nickname Updated";
+                    eventDetails = "Updated nickname to \"" + result.nickname() + "\"";
+                } else if (modifiedFields.isEmpty()) {
+                    eventTitle = "Profile Details Updated";
+                    eventDetails = "Profile details verified and saved";
+                } else {
+                    eventTitle = usernameChanged ? "Username & Profile Updated" : "Profile Details Updated";
+                    eventDetails = "Updated " + String.join(", ", modifiedFields);
+                }
+
+                recordSecurityEventUseCase.execute(
+                        currentUuid,
+                        result.username(),
+                        "ACTIVITY",
+                        eventType,
+                        "SUCCESS",
+                        ip,
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        eventTitle,
+                        eventDetails
+                );
+            } catch (Exception ex) {
+                log.error("Failed to record profile security activity: {}", ex.getMessage(), ex);
+            }
+
             return ResponseEntity.ok(toResponse(result));
         }
 
         @PutMapping("/me/password")
-        public ResponseEntity<Void> changeCurrentPassword(@Valid @RequestBody ChangePasswordRequest request) {
+        public ResponseEntity<Void> changeCurrentPassword(
+                @Valid @RequestBody ChangePasswordRequest request,
+                HttpServletRequest servletRequest
+        ) {
             UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
             changePasswordUseCase.execute(currentUuid, webMapper.toCommand(request));
+
+            try {
+                recordSecurityEventUseCase.execute(
+                        currentUuid,
+                        null,
+                        "ACTIVITY",
+                        "PASSWORD_CHANGED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        null,
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Password Changed",
+                        "Successfully changed account password"
+                );
+            } catch (Exception ex) {
+                log.error("Failed to record password security activity: {}", ex.getMessage(), ex);
+            }
+
             return ResponseEntity.noContent().build();
         }
 
@@ -226,10 +599,173 @@
         }
 
         @DeleteMapping("/me/identities/{identityUuid}")
-        public ResponseEntity<Void> unlinkCurrentUserIdentity(@PathVariable("identityUuid") UUID identityUuid) {
+        public ResponseEntity<Void> unlinkCurrentUserIdentity(
+                @PathVariable("identityUuid") UUID identityUuid,
+                HttpServletRequest servletRequest
+        ) {
             UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
+
+            // Identify which social account is being unlinked before deletion
+            String providerName = "Social";
+            String emailOrAccount = "";
+            try {
+                List<IdentityResult> identities = listUserIdentitiesUseCase.execute(currentUuid);
+                var target = identities.stream().filter(i -> i.uuid().equals(identityUuid)).findFirst();
+                if (target.isPresent()) {
+                    providerName = formatProviderTitle(target.get().provider());
+                    if (target.get().email() != null && !target.get().email().isBlank()) {
+                        emailOrAccount = " (" + target.get().email() + ")";
+                    } else if (target.get().displayName() != null && !target.get().displayName().isBlank()) {
+                        emailOrAccount = " (" + target.get().displayName() + ")";
+                    } else if (target.get().providerSubject() != null) {
+                        emailOrAccount = " (ID: " + target.get().providerSubject() + ")";
+                    }
+                }
+            } catch (Exception ex) {
+                log.warn("Could not inspect identity before unlinking: {}", ex.getMessage());
+            }
+
             unlinkIdentityUseCase.execute(currentUuid, identityUuid);
+
+            try {
+                recordSecurityEventUseCase.execute(
+                        currentUuid,
+                        null,
+                        "ACTIVITY",
+                        "IDENTITY_UNLINKED",
+                        "SUCCESS",
+                        extractClientIp(servletRequest),
+                        null,
+                        "Phnom Penh, Cambodia",
+                        providerName,
+                        providerName + " Account Unlinked",
+                        "Disconnected " + providerName + " single sign-on connection" + emailOrAccount
+                );
+            } catch (Exception ex) {
+                log.error("Failed to record unlink security activity: {}", ex.getMessage(), ex);
+            }
+
             return ResponseEntity.noContent().build();
+        }
+
+        @GetMapping("/me/login-history")
+        public ResponseEntity<List<LoginHistoryResponse>> getMyLoginHistory(
+                @RequestParam(name = "status", required = false, defaultValue = "all") String status,
+                @RequestParam(name = "limit", required = false, defaultValue = "50") int limit
+        ) {
+            UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
+            var results = listLoginHistoryUseCase.execute(currentUuid, status, limit);
+            List<LoginHistoryResponse> responses = results.stream().map(e -> new LoginHistoryResponse(
+                    e.uuid().toString(),
+                    e.status(),
+                    e.createdAt(),
+                    e.ipAddress(),
+                    e.device(),
+                    e.location(),
+                    e.authMethod() != null ? e.authMethod() : "Password"
+            )).toList();
+            return ResponseEntity.ok(responses);
+        }
+
+        @GetMapping("/me/security-activity")
+        public ResponseEntity<List<SecurityActivityResponse>> getMySecurityActivity(
+                @RequestParam(name = "limit", required = false, defaultValue = "50") int limit
+        ) {
+            UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
+            var results = listSecurityActivityUseCase.execute(currentUuid, limit);
+            List<SecurityActivityResponse> responses = results.stream().map(e -> {
+                String icon = "Activity";
+                String color = "text-[#253C95] bg-[#253C95]/10";
+                if ("PASSWORD_CHANGED".equalsIgnoreCase(e.eventType())) {
+                    icon = "KeyRound";
+                    color = "text-emerald-600 bg-emerald-50";
+                } else if ("USERNAME_CHANGED".equalsIgnoreCase(e.eventType()) || "PROFILE_UPDATED".equalsIgnoreCase(e.eventType())) {
+                    icon = "UserCheck";
+                    color = "text-[#253C95] bg-[#253C95]/10";
+                } else if ("IDENTITY_LINKED".equalsIgnoreCase(e.eventType())) {
+                    icon = "Activity";
+                    color = "text-[#253C95] bg-[#253C95]/10";
+                } else if ("IDENTITY_UNLINKED".equalsIgnoreCase(e.eventType()) || "SESSION_TERMINATED".equalsIgnoreCase(e.eventType())) {
+                    icon = "Lock";
+                    color = "text-[#DF1F28] bg-[#DF1F28]/10";
+                }
+
+                return new SecurityActivityResponse(
+                        e.uuid().toString(),
+                        e.description() != null ? e.description() : e.eventType(),
+                        e.details() != null ? e.details() : (e.description() != null ? e.description() : "Account updated"),
+                        e.createdAt(),
+                        icon,
+                        color
+                );
+            }).toList();
+            return ResponseEntity.ok(responses);
+        }
+
+        @PostMapping("/me/deactivate-request")
+        public ResponseEntity<Void> requestAccountDeactivation(
+                @RequestBody(required = false) java.util.Map<String, String> body,
+                HttpServletRequest servletRequest
+        ) {
+            UUID currentUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
+            UserResult user = getUserUseCase.execute(currentUuid);
+            String reason = (body != null && body.get("reason") != null && !body.get("reason").isBlank())
+                    ? body.get("reason")
+                    : "User requested account deactivation";
+
+            try {
+                recordSecurityEventUseCase.execute(
+                        currentUuid,
+                        user.username(),
+                        "ACTIVITY",
+                        "DEACTIVATION_REQUESTED",
+                        "PENDING",
+                        extractClientIp(servletRequest),
+                        servletRequest.getHeader("User-Agent"),
+                        "Phnom Penh, Cambodia",
+                        null,
+                        "Account Deactivation Requested",
+                        "User @" + user.username() + " submitted an account deactivation request. Reason: " + reason
+                );
+            } catch (Exception ex) {
+                log.error("Failed to record deactivation request: {}", ex.getMessage());
+            }
+
+            return ResponseEntity.noContent().build();
+        }
+
+        private String formatProviderTitle(String provider) {
+            if (provider == null || provider.isBlank()) return "Social";
+            String lower = provider.trim().toLowerCase();
+            return switch (lower) {
+                case "google" -> "Google";
+                case "github" -> "GitHub";
+                case "facebook" -> "Facebook";
+                case "telegram" -> "Telegram";
+                default -> provider.substring(0, 1).toUpperCase() + provider.substring(1).toLowerCase();
+            };
+        }
+
+        private String extractClientIp(HttpServletRequest request) {
+            if (request == null) return "127.0.0.1 (Localhost)";
+            String ip = null;
+            String xf = request.getHeader("X-Forwarded-For");
+            if (xf != null && !xf.isBlank() && !"unknown".equalsIgnoreCase(xf)) {
+                ip = xf.split(",")[0].trim();
+            }
+            if (ip == null || ip.isBlank()) {
+                String xr = request.getHeader("X-Real-IP");
+                if (xr != null && !xr.isBlank() && !"unknown".equalsIgnoreCase(xr)) {
+                    ip = xr.trim();
+                }
+            }
+            if (ip == null || ip.isBlank()) {
+                ip = request.getRemoteAddr();
+            }
+            if (ip == null || ip.equals("0:0:0:0:0:0:0:1") || ip.equals("::1") || ip.equals("127.0.0.1")) {
+                return "127.0.0.1 (Localhost)";
+            }
+            return ip;
         }
 
         // --- Helpers ---

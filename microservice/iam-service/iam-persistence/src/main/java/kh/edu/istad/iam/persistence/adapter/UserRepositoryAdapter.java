@@ -10,6 +10,7 @@ import kh.edu.istad.iam.persistence.mapper.UserPersistenceMapper;
 import kh.edu.istad.iam.persistence.repository.UserJpaRepository;
 import kh.edu.istad.iam.persistence.repository.UserPermissionAssignmentJpaRepository;
 import kh.edu.istad.iam.persistence.repository.UserRoleAssignmentJpaRepository;
+import kh.edu.istad.iam.persistence.util.SortUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,11 +19,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 public class UserRepositoryAdapter implements UserRepository {
+
+    private static final Set<String> ALLOWED_SORT_PROPERTIES = Set.of(
+            "id", "uuid", "username", "email", "givenName", "familyName", "nickname", "gender", "locale", "createdAt"
+    );
 
     private final UserJpaRepository userJpaRepository;
     private final UserRoleAssignmentJpaRepository userRoleRepo;
@@ -31,7 +37,7 @@ public class UserRepositoryAdapter implements UserRepository {
 
     @Override
     public PageResult<User> findAll(int page, int size, String sort) {
-        Sort sortObj = (sort != null && !sort.isBlank()) ? Sort.by(sort) : Sort.by("id").ascending();
+        Sort sortObj = SortUtils.parseSort(sort, "id", Sort.Direction.ASC, ALLOWED_SORT_PROPERTIES);
         Pageable pageable = PageRequest.of(page, size, sortObj);
 
         Page<UserJpaEntity> entityPage = userJpaRepository.findAllByIsDeletedFalse(pageable);

@@ -5,8 +5,10 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import jakarta.servlet.http.HttpServletRequest;
 import kh.edu.istad.iam.adapter.CustomOAuth2UserService;
 import kh.edu.istad.iam.adapter.CustomOidcUserService;
+import kh.edu.istad.iam.domain.usecase.security.RecordSecurityEventUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -47,6 +49,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.Base64;
 import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
@@ -63,6 +66,7 @@ public class SecurityConfig {
     private final CustomOidcUserService customOidcUserService;
     private final IamJwtAuthenticationConverter iamJwtAuthenticationConverter;
     private final ApiProblemDetailHandler apiProblemDetailHandler;
+    private final RecordSecurityEventUseCase recordSecurityEventUseCase;
 
     @Bean
     @Order(1)
@@ -104,11 +108,12 @@ public class SecurityConfig {
         http
                 .securityMatcher("/api/**")
                 .csrf(csrf -> csrf.disable())
+                // Allow both browser session cookies and Bearer tokens:
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/admin/system/config/password-policy").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
@@ -124,45 +129,76 @@ public class SecurityConfig {
     @Order(3)
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable()) // <-- ADD THIS LINE to allow form login POST!
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/login.html", "/register", "/login/telegram/callback",
-                                "/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/login",
+                                "/register",
+                                "/index.html",
+                                "/favicon.svg",
+                                "/icons.svg",
+                                "/logo.png",
+                                "/assets/**",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/oauth2/**",
+                                "/login/oauth2/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .successHandler((request, response, authentication) -> {
+                            jakarta.servlet.http.HttpSession session = request.getSession(true);
+                            if (session != null) {
+                                session.setAttribute("IP_ADDRESS", extractClientIp(request));
+                                session.setAttribute("USER_AGENT", parseDevice(request.getHeader("User-Agent")));
+                            }
+                            recordLoginEvent(request, authentication, true, null);
+                            response.sendRedirect("/account/profile");
+                        })
+                        .failureHandler((request, response, exception) -> {
+                            recordLoginEvent(request, null, false, exception.getMessage());
+                            response.sendRedirect("/login?error");
+                        })
                         .permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
-                        .failureHandler((request, response, exception) -> {
-                            log.error("OAuth2/OIDC Login Failed: {}", exception.getMessage(), exception);
-                            if (request.getSession(false) != null) {
-                                request.getSession(false).removeAttribute("iam.link-provider");
-                            }
-                            response.sendRedirect("/login?oauth2_error=" + oauth2FailureCode(exception));
-                        })
-                        .defaultSuccessUrl("/")
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService)
                                 .oidcUserService(customOidcUserService)
                         )
+                        .successHandler((request, response, authentication) -> {
+                            jakarta.servlet.http.HttpSession session = request.getSession(false);
+                            if (session != null) {
+                                session.setAttribute("IP_ADDRESS", extractClientIp(request));
+                                session.setAttribute("USER_AGENT", parseDevice(request.getHeader("User-Agent")));
+                                if (session.getAttribute("iam.link-success") != null) {
+                                    String linkedProv = (String) session.getAttribute("iam.link-success");
+                                    session.removeAttribute("iam.link-success");
+                                    response.sendRedirect("/account/linked-accounts?linked=" + linkedProv.toLowerCase(java.util.Locale.ROOT));
+                                    return;
+                                }
+                            }
+                            recordOAuth2LoginEvent(request, authentication);
+                            response.sendRedirect("/account/profile");
+                        })
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            if (authentication != null) {
+                                recordLogoutEvent(request, authentication);
+                            }
+                            response.sendRedirect("/login?logout");
+                        })
+                        .permitAll()
                 );
 
         return http.build();
-    }
-
-    private static String oauth2FailureCode(AuthenticationException exception) {
-        for (Throwable cause = exception; cause != null; cause = cause.getCause()) {
-            if (cause instanceof OAuth2AuthenticationException oauthException) {
-                String code = oauthException.getError().getErrorCode();
-                if (code != null && !code.isBlank()) {
-                    return code;
-                }
-            }
-        }
-        return "provider_login_failed";
     }
 
     @Bean
@@ -242,5 +278,203 @@ public class SecurityConfig {
         return AuthorizationServerSettings.builder()
                 .issuer(issuer)
                 .build();
+    }
+
+    private void recordLoginEvent(HttpServletRequest request, org.springframework.security.core.Authentication authentication, boolean success, String error) {
+        try {
+            String ip = extractClientIp(request);
+            String userAgent = request.getHeader("User-Agent");
+            String device = parseDevice(userAgent);
+            String location = "Phnom Penh, Cambodia";
+
+            if (success && authentication != null) {
+                UUID userUuid = null;
+                if (authentication.getPrincipal() instanceof IamUserDetails iamUser) {
+                    userUuid = iamUser.getUuid();
+                }
+                recordSecurityEventUseCase.execute(
+                        userUuid,
+                        authentication.getName(),
+                        "LOGIN",
+                        "LOGIN_SUCCESS",
+                        "SUCCESS",
+                        ip,
+                        device,
+                        location,
+                        "Password",
+                        "Successful sign-in via Password",
+                        null
+                );
+            } else {
+                String attemptedUsername = request.getParameter("username");
+                if (attemptedUsername == null || attemptedUsername.isBlank()) {
+                    attemptedUsername = "Unknown";
+                }
+                recordSecurityEventUseCase.execute(
+                        null,
+                        attemptedUsername,
+                        "LOGIN",
+                        "LOGIN_FAILED",
+                        "FAILED",
+                        ip,
+                        device,
+                        location,
+                        "Password",
+                        "Failed sign-in attempt: " + (error != null ? error : "Bad credentials"),
+                        null
+                );
+            }
+        } catch (Exception ex) {
+            log.error("Failed to record login event: {}", ex.getMessage());
+        }
+    }
+
+    private void recordOAuth2LoginEvent(HttpServletRequest request, org.springframework.security.core.Authentication authentication) {
+        try {
+            if (authentication == null) return;
+            String ip = extractClientIp(request);
+            String userAgent = request.getHeader("User-Agent");
+            String device = parseDevice(userAgent);
+            String location = "Phnom Penh, Cambodia";
+
+            String provider = "Social SSO";
+            if (authentication instanceof org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken oauthToken) {
+                provider = formatProvider(oauthToken.getAuthorizedClientRegistrationId());
+            }
+
+            UUID userUuid = null;
+            String username = null;
+
+            if (authentication.getPrincipal() instanceof IamUserDetails iamUser) {
+                userUuid = iamUser.getUuid();
+                username = iamUser.getUsername();
+            } else if (authentication.getPrincipal() instanceof org.springframework.security.oauth2.core.oidc.user.OidcUser oidcUser) {
+                Object iamUserId = oidcUser.getAttribute("iam_user_id");
+                if (iamUserId != null) {
+                    try {
+                        userUuid = UUID.fromString(iamUserId.toString());
+                    } catch (Exception ignored) {}
+                }
+                username = (String) oidcUser.getAttribute("iam_username");
+                if (username == null) username = oidcUser.getPreferredUsername();
+                if (username == null) username = (String) oidcUser.getAttribute("name");
+            } else if (authentication.getPrincipal() instanceof org.springframework.security.oauth2.core.user.OAuth2User oAuth2User) {
+                Object iamUserId = oAuth2User.getAttribute("iam_user_id");
+                if (iamUserId == null) iamUserId = oAuth2User.getAttribute("sub");
+                if (iamUserId != null) {
+                    try {
+                        userUuid = UUID.fromString(iamUserId.toString());
+                    } catch (Exception ignored) {}
+                }
+                username = (String) oAuth2User.getAttribute("iam_username");
+                if (username == null) username = (String) oAuth2User.getAttribute("name");
+            }
+
+            if (userUuid == null && authentication.getName() != null) {
+                try {
+                    userUuid = UUID.fromString(authentication.getName());
+                } catch (Exception ignored) {}
+            }
+
+            if (username == null || username.isBlank() || (userUuid != null && username.equals(userUuid.toString()))) {
+                username = authentication.getName();
+            }
+
+            recordSecurityEventUseCase.execute(
+                    userUuid,
+                    username,
+                    "LOGIN",
+                    "LOGIN_SUCCESS",
+                    "SUCCESS",
+                    ip,
+                    device,
+                    location,
+                    provider,
+                    "Successful sign-in via " + provider,
+                    null
+            );
+        } catch (Exception ex) {
+            log.error("Failed to record OAuth2 login event: {}", ex.getMessage());
+        }
+    }
+
+    private void recordLogoutEvent(HttpServletRequest request, org.springframework.security.core.Authentication authentication) {
+        try {
+            if (authentication == null) return;
+            String ip = extractClientIp(request);
+            UUID userUuid = null;
+            if (authentication.getPrincipal() instanceof IamUserDetails iamUser) {
+                userUuid = iamUser.getUuid();
+            }
+
+            recordSecurityEventUseCase.execute(
+                    userUuid,
+                    authentication.getName(),
+                    "ACTIVITY",
+                    "SESSION_TERMINATED",
+                    "SUCCESS",
+                    ip,
+                    null,
+                    "Phnom Penh, Cambodia",
+                    null,
+                    "Account Signed Out",
+                    "User signed out of web session"
+            );
+        } catch (Exception ex) {
+            log.error("Failed to record logout event: {}", ex.getMessage());
+        }
+    }
+
+    private String extractClientIp(HttpServletRequest request) {
+        if (request == null) return "127.0.0.1 (Localhost)";
+        String ip = null;
+        String xf = request.getHeader("X-Forwarded-For");
+        if (xf != null && !xf.isBlank() && !"unknown".equalsIgnoreCase(xf)) {
+            ip = xf.split(",")[0].trim();
+        }
+        if (ip == null || ip.isBlank()) {
+            String xr = request.getHeader("X-Real-IP");
+            if (xr != null && !xr.isBlank() && !"unknown".equalsIgnoreCase(xr)) {
+                ip = xr.trim();
+            }
+        }
+        if (ip == null || ip.isBlank()) {
+            ip = request.getRemoteAddr();
+        }
+        if (ip == null || ip.equals("0:0:0:0:0:0:0:1") || ip.equals("::1") || ip.equals("127.0.0.1")) {
+            return "127.0.0.1 (Localhost)";
+        }
+        return ip;
+    }
+
+    private String parseDevice(String userAgent) {
+        if (userAgent == null || userAgent.isBlank()) return "Web Browser / Desktop";
+
+        String browser = "Browser";
+        if (userAgent.contains("Edg/")) browser = "Edge";
+        else if (userAgent.contains("Chrome/")) browser = "Chrome";
+        else if (userAgent.contains("Safari/") && !userAgent.contains("Chrome/")) browser = "Safari";
+        else if (userAgent.contains("Firefox/")) browser = "Firefox";
+
+        String os = "Desktop";
+        if (userAgent.contains("Windows NT 10.0")) os = "Windows 11/10";
+        else if (userAgent.contains("Windows")) os = "Windows";
+        else if (userAgent.contains("iPhone") || userAgent.contains("iPad")) os = "iOS";
+        else if (userAgent.contains("Android")) os = "Android";
+        else if (userAgent.contains("Macintosh") || userAgent.contains("Mac OS X")) os = "macOS";
+        else if (userAgent.contains("Linux")) os = "Linux";
+
+        return browser + " / " + os;
+    }
+
+    private String formatProvider(String providerId) {
+        if (providerId == null) return "Social SSO";
+        return switch (providerId.toLowerCase()) {
+            case "google" -> "Google SSO";
+            case "github" -> "GitHub SSO";
+            case "facebook" -> "Facebook SSO";
+            case "telegram" -> "Telegram";
+            default -> providerId.substring(0, 1).toUpperCase() + providerId.substring(1) + " SSO";
+        };
     }
 }

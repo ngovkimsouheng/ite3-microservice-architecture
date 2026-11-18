@@ -50,11 +50,11 @@ public interface IamWebMapper {
     @Mapping(target = "permissionUuid", source = "uuid")
     UpdatePermissionCommand toCommand(UUID uuid, UpdatePermissionRequest request);
 
-    @Mapping(target = "name", expression = "java(result.givenName() + \" \" + result.familyName())")
+    @Mapping(target = "name", expression = "java((result.givenName() != null ? result.givenName() : \"\") + (result.familyName() != null && !result.familyName().isBlank() ? \" \" + result.familyName() : \"\"))")
     @Mapping(target = "roles", expression = "java(java.util.List.of())")
     UserResponse toUserResponse(UserResult result);
 
-    @Mapping(target = "name", expression = "java(result.givenName() + \" \" + result.familyName())")
+    @Mapping(target = "name", expression = "java((result.givenName() != null ? result.givenName() : \"\") + (result.familyName() != null && !result.familyName().isBlank() ? \" \" + result.familyName() : \"\"))")
     @Mapping(target = "roles", source = "authorities.roleDetails")
     UserResponse toUserResponse(UserResult result, UserAuthoritiesResult authorities);
 

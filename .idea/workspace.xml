@@ -8,9 +8,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10f6d67e-457c-4ccc-a6fb-a45b02d24fe0" name="Changes" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7eb79392-cae7-43a9-a963-3d6d3ad74b63.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/7ec51cb9-1088-402f-b343-9a64360f36c4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7ec51cb9-1088-402f-b343-9a64360f36c4.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/build-logic/src/main/groovy/java-publications.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/kafka/docker-compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/nexus/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/istad-common-bom/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/istad-common/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/istad-common/istad-common-domain/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/istad-common/istad-common-domain/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/istad-common/istad-common-swagger/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/istad-common/istad-common-swagger/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/usecase/user/UpdateUserProfileUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-domain/iam-application-service/src/main/java/kh/edu/istad/iam/domain/usecase/user/UpdateUserProfileUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-infrastructure/src/main/java/kh/edu/istad/iam/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-main/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/mapper/IamWebMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/mapper/IamWebMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/service/SessionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-rest-api/src/main/java/kh/edu/istad/iam/restapi/service/SessionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/layouts/AppLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/layouts/AppLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/ProfilePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/ProfilePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/SessionsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/microservice/iam-service/iam-web/src/pages/account/SessionsPage.jsx" afterDir="false" />
+>>>>>>> 37d2fafdf381139e046137d7f1c3f1f63ce4193c
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +85,11 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="istad-ite-project" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="istad-ite-project" type="f1a62948:ProjectNode" />
+                <item name="istad-common" type="2d1252cf:ModuleNode" />
               </path>
             </expand>
             <select />
@@ -136,6 +163,7 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Docker.consul/docker-compose.yaml: Compose Deployment.executor": "Run",
@@ -177,15 +205,64 @@
     "run.configurations.included.in.services": "true",
     "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.consul/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.kafka/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.postgres/docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build discovery-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build istad-common.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build istad-ite-project.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.build-logic [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #50.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BusinessApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.CustomerApplicationService.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DiscoveryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GatewayServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.IamServiceApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.IamServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.OrderApplicationService.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PaymentApplicationService.executor&quot;: &quot;Run&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;assignment__07&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/TUF/Desktop/istad-ite-project/microservice/iam-service/iam-web/public&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+>>>>>>> 37d2fafdf381139e046137d7f1c3f1f63ce4193c
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\iam-web\public" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\iam-main\src\main\resources\static" />
+      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\iam-main\src\main\resources\static\assets" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\iam-main" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\src\main\resources\templates" />
       <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\src\main\resources" />
-      <recent name="C:\Users\TUF\Desktop\istad-ite-project\microservice\iam-service\src\main\resources\thymeleaf" />
-      <recent name="C:\Users\TUF\Desktop\istad-ite-project\istad-common\istad-common-webflux\src\main\resources\META-INF\spring" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -202,22 +279,14 @@
         <entry key="SpringBootApplicationConfigurationType">
           <value>
             <map>
-              <entry key="BusinessApplication" value="STOPPED" />
-              <entry key="CustomerApplicationService" value="STOPPED" />
-              <entry key="GatewayServerApplication" value="STOPPED" />
-              <entry key="IamServiceApplication (1)" value="STOPPED" />
-              <entry key="OrderApplicationService" value="STOPPED" />
-              <entry key="PaymentApplicationService" value="STOPPED" />
+              <entry key="IamServiceApplication (1)" value="FAILED" />
             </map>
           </value>
         </entry>
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.consul/docker-compose.yaml: Compose Deployment">
-    <configuration name="generated-requests | #50" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#50" index="50" runType="Run single request">
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Docker.kafka/docker-compose.yaml: Compose Deployment">
     <configuration name="BusinessApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="business-service.business-service-main.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.platform.business.BusinessApplication" />
@@ -282,28 +351,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IamServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <envs>
-        <env name="DATASOURCE_PASSWORD" value="qwerqwer" />
-        <env name="FACEBOOK_OAUTH_CLIENT_ID" value="1171995958599035" />
-        <env name="FACEBOOK_OAUTH_CLIENT_SECRET" value="b0c1a4ebcedab803cefe79e87637b196" />
-        <env name="GATEWAY_CLIENT_SECRET" value="gateway-secret" />
-        <env name="GITHUB_OAUTH_CLIENT_ID" value="Ov23liNdS9E6DIN3a5XN" />
-        <env name="GITHUB_OAUTH_CLIENT_SECRET" value="284e9f445be4d61e5b9316bf7c721b2eb32d406b" />
-        <env name="GOOGLE_OAUTH_CLIENT_ID" value="352289978674-k5vt9j5q8e85bdmevueg1uuu8ceovljc.apps.googleusercontent.com" />
-        <env name="GOOGLE_OAUTH_CLIENT_SECRET" value="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" />
-        <env name="REGISTRAR_CLIENT_SECRET" value="registrar-secret" />
-        <env name="TELEGRAM_BOT_USERNAME" value="istad_iam_dev_bot" />
-        <env name="WEB_CLIENT_SECRET" value="FTtH4JFxOpe//OGasSU1ZmjTbV2U/EhbMgBhZkKaHoY=" />
-        <env name="TELEGRAM_BOT_TOKEN" value="9295858162:AAGkfDGGi-xmdrI29a8r_Hxfe6T55_h0BfM" />
-      </envs>
-      <module name="iam-service.iam-main.main" />
-      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="kh.edu.istad.iam.IamServiceApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="OrderApplicationService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="order-service.order-service-main.main" />
       <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
@@ -345,11 +392,18 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="kafka/docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="deployment/kafka/docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
       <item itemvalue="Docker.consul/docker-compose.yaml: Compose Deployment" />
-      <item itemvalue="HTTP Request.generated-requests | #50" />
       <item itemvalue="Spring Boot.IamServiceApplication (1)" />
-      <item itemvalue="Spring Boot.IamServiceApplication" />
       <item itemvalue="Spring Boot.BusinessApplication" />
       <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
       <item itemvalue="Spring Boot.PaymentApplicationService" />
@@ -359,11 +413,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
         <item itemvalue="Spring Boot.CustomerApplicationService" />
         <item itemvalue="Spring Boot.OrderApplicationService" />
         <item itemvalue="Docker.consul/docker-compose.yaml: Compose Deployment" />
         <item itemvalue="Spring Boot.GatewayServerApplication" />
-        <item itemvalue="HTTP Request.generated-requests | #50" />
       </list>
     </recent_temporary>
   </component>
@@ -421,11 +475,34 @@
       <workItem from="1794555184528" duration="9603000" />
       <workItem from="1794567859364" duration="728000" />
       <workItem from="1794568616549" duration="4390000" />
+      <workItem from="1794574582611" duration="1475000" />
+      <workItem from="1794592062088" duration="2273000" />
+      <workItem from="1794594373325" duration="2054000" />
+      <workItem from="1794671412836" duration="13977000" />
+      <workItem from="1794723839166" duration="15301000" />
+      <workItem from="1794754888045" duration="13133000" />
+      <workItem from="1794821672426" duration="17043000" />
+      <workItem from="1794879346768" duration="7996000" />
+      <workItem from="1794898714209" duration="5128000" />
+      <workItem from="1794912943126" duration="346000" />
+      <workItem from="1794985803717" duration="6279000" />
+      <workItem from="1795003002466" duration="36000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -439,6 +516,11 @@
           <url>file://$PROJECT_DIR$/microservice/order-service/order-service-client/src/main/java/kh/edu/istad/platform/order/client/config/ClientConfig.java</url>
           <line>19</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/microservice/iam-service/iam-web/vite.config.js</url>
+          <line>16</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

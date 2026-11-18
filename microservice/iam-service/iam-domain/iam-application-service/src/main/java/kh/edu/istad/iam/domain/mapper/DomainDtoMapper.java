@@ -11,13 +11,15 @@ public interface DomainDtoMapper {
 
     UserResult toUserResult(User user);
 
+    @Mapping(target = "roles", expression = "java(java.util.List.of())")
     UserSummary toUserSummary(User user);
 
     @Mapping(target = "isSystem", expression = "java(role.isSystem())")
     @Mapping(target = "active", expression = "java(role.isActive())")
     RoleResult toRoleResult(Role role);
 
-    @Mapping(target = "active", expression = "java(role.isActive())")
+    @Mapping(target = "isSystem", expression = "java(role.isSystem())")
+    @Mapping(target = "isActive", expression = "java(role.isActive())")
     RoleSummary toRoleSummary(Role role);
 
     @Mapping(target = "isSystem", expression = "java(permission.isSystem())")

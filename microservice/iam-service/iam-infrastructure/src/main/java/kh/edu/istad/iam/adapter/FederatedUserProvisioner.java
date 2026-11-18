@@ -5,6 +5,7 @@ import kh.edu.istad.iam.domain.dto.FederatedIdentityCommand;
 import kh.edu.istad.iam.domain.port.out.CurrentActorProvider;
 import kh.edu.istad.iam.domain.usecase.identity.FindOrProvisionFederatedUserUseCase;
 import kh.edu.istad.iam.domain.usecase.identity.LinkIdentityUseCase;
+import kh.edu.istad.iam.domain.usecase.security.RecordSecurityEventUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
@@ -37,6 +38,7 @@ public class FederatedUserProvisioner {
     private final FindOrProvisionFederatedUserUseCase federatedUserUseCase;
     private final LinkIdentityUseCase linkIdentityUseCase;
     private final CurrentActorProvider currentActorProvider;
+    private final RecordSecurityEventUseCase recordSecurityEventUseCase;
     private final RestClient restClient = RestClient.create();
 
     public AuthUserResult provision(OAuth2UserRequest userRequest, Map<String, Object> attributes,
@@ -100,7 +102,45 @@ public class FederatedUserProvisioner {
                 if (!isValidLinkRequest(linkRequest, provider)) {
                     throw new IllegalArgumentException("The identity-link request is invalid or expired.");
                 }
-                linkIdentityUseCase.execute(UUID.fromString(currentActorProvider.getCurrentActorSub()), command);
+                String[] parts = linkRequest.split(":", 3);
+                UUID targetUserUuid;
+                if (parts.length >= 3 && !parts[2].isBlank()) {
+                    targetUserUuid = UUID.fromString(parts[2]);
+                } else {
+                    targetUserUuid = UUID.fromString(currentActorProvider.getCurrentActorSub());
+                }
+
+                linkIdentityUseCase.execute(targetUserUuid, command);
+
+                try {
+                    String cleanProvider = formatProviderName(provider);
+                    String accountInfo = (command.email() != null && !command.email().isBlank())
+                            ? " (" + command.email() + ")"
+                            : (command.displayName() != null ? " (" + command.displayName() + ")" : "");
+
+                    recordSecurityEventUseCase.execute(
+                            targetUserUuid,
+                            null,
+                            "ACTIVITY",
+                            "IDENTITY_LINKED",
+                            "SUCCESS",
+                            "127.0.0.1",
+                            null,
+                            "Phnom Penh, Cambodia",
+                            cleanProvider,
+                            cleanProvider + " Account Linked",
+                            "Connected " + cleanProvider + " single sign-on authentication" + accountInfo
+                    );
+                } catch (Exception ignored) {}
+
+                // Flag link success in session so OAuth2 success handler redirects to linked-accounts page
+                if (RequestContextHolder.getRequestAttributes() instanceof ServletRequestAttributes reqAttr) {
+                    HttpSession session = reqAttr.getRequest().getSession(false);
+                    if (session != null) {
+                        session.setAttribute("iam.link-success", provider);
+                    }
+                }
+
                 authUser = federatedUserUseCase.execute(command);
             } else {
                 authUser = federatedUserUseCase.execute(command);
@@ -161,8 +201,8 @@ public class FederatedUserProvisioner {
     }
 
     private boolean isValidLinkRequest(String linkRequest, String provider) {
-        String[] parts = linkRequest.split(":", 2);
-        if (parts.length != 2 || !provider.equals(parts[0])) {
+        String[] parts = linkRequest.split(":", 3);
+        if (parts.length < 2 || !provider.equalsIgnoreCase(parts[0])) {
             return false;
         }
         try {
@@ -207,5 +247,17 @@ public class FederatedUserProvisioner {
 
     private String value(Object value, String fallback) {
         return value == null ? fallback : value.toString();
+    }
+
+    private String formatProviderName(String provider) {
+        if (provider == null || provider.isBlank()) return "Social";
+        String lower = provider.trim().toLowerCase();
+        return switch (lower) {
+            case "google" -> "Google";
+            case "github" -> "GitHub";
+            case "facebook" -> "Facebook";
+            case "telegram" -> "Telegram";
+            default -> provider.substring(0, 1).toUpperCase() + provider.substring(1).toLowerCase();
+        };
     }
 }

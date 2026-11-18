@@ -1,0 +1,58 @@
+plugins {
+    id 'maven-publish'
+}
+
+publishing {
+    repositories {
+        // Your existing GitHub Packages config (if needed)
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/ngovkimsouheng/ite3-microservice-architecture")
+            credentials {
+                username = providers.gradleProperty("gpr.user").getOrNull() ?: System.getenv("USERNAME")
+                password = providers.gradleProperty("gpr.key").getOrNull() ?: System.getenv("TOKEN")
+            }
+        }
+
+        // Nexus Repository
+        maven {
+            name = "Nexus"
+            def releasesRepoUrl = uri("http://localhost:8081/repository/maven-releases/")
+            def snapshotsRepoUrl = uri("http://localhost:8081/repository/maven-snapshots/")
+            url = version.toString().endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            allowInsecureProtocol = true
+
+            credentials {
+                username = providers.gradleProperty("nexusUser").getOrNull() ?: System.getenv("NEXUS_USER")
+                password = providers.gradleProperty("nexusPassword").getOrNull() ?: System.getenv("NEXUS_PASSWORD")
+            }
+        }
+    }
+
+    publications {
+        mavenJava(MavenPublication) {
+            from components.findByName('javaPlatform') ?: components.findByName('java')
+        }
+    }x
+}
+
+//plugins {
+//    id 'maven-publish'
+//}
+//publishing {
+//    repositories {
+//        maven {
+//            name = "GitHubPackages"
+//            url = uri("https://maven.pkg.github.com/ngovkimsouheng/ite3-microservice-architecture")
+//            credentials {
+//                username = providers.gradleProperty("gpr.user").getOrNull() ?: System.getenv("USERNAME")
+//                password = providers.gradleProperty("gpr.key").getOrNull() ?: System.getenv("TOKEN")
+//            }
+//        }
+//    }
+//    publications {
+//        gpr(MavenPublication) {
+//            from(components.java)
+//        }
+//    }
+//}

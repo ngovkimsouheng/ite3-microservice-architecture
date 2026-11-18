@@ -1,4 +1,4 @@
-package kh.edu.istad.platform.business.config;
+package kh.edu.istad.platform.customer.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

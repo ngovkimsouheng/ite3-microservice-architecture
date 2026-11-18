@@ -6,6 +6,7 @@ import kh.edu.istad.iam.domain.core.entity.Permission;
 import kh.edu.istad.iam.persistence.entity.PermissionJpaEntity;
 import kh.edu.istad.iam.persistence.mapper.PermissionPersistenceMapper;
 import kh.edu.istad.iam.persistence.repository.PermissionJpaRepository;
+import kh.edu.istad.iam.persistence.util.SortUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,17 +15,22 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 public class PermissionRepositoryAdapter implements PermissionRepository {
 
+    private static final Set<String> ALLOWED_SORT_PROPERTIES = Set.of(
+            "id", "uuid", "name", "resource", "action", "description", "isSystem", "isActive", "createdAt"
+    );
+
     private final PermissionJpaRepository permissionJpaRepository;
     private final PermissionPersistenceMapper permissionMapper;
     @Override
     public PageResult<Permission> findAll(int page, int size, String sort) {
-        Sort sortObj = (sort != null && !sort.isBlank()) ? Sort.by(sort) : Sort.by("id").ascending();
+        Sort sortObj = SortUtils.parseSort(sort, "id", Sort.Direction.ASC, ALLOWED_SORT_PROPERTIES);
         Pageable pageable = PageRequest.of(page, size, sortObj);
 
         Page<PermissionJpaEntity> entityPage = permissionJpaRepository.findAllByIsDeletedFalse(pageable);

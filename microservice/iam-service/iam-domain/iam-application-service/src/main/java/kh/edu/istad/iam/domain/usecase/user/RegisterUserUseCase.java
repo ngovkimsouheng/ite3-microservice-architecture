@@ -9,6 +9,7 @@ import kh.edu.istad.iam.domain.port.out.UserRepository;
 import kh.edu.istad.iam.domain.core.entity.User;
 import kh.edu.istad.iam.domain.core.entity.UserRoleAssignment;
 import kh.edu.istad.iam.domain.core.valueobject.EmailAddress;
+import kh.edu.istad.iam.domain.service.PasswordPolicyValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,12 +24,17 @@ public class RegisterUserUseCase {
     private final PasswordHasher passwordHasher;
     private final DomainDtoMapper domainDtoMapper;
     private final RoleRepository roleRepository;
+    private final PasswordPolicyValidator passwordPolicyValidator;
+
     @Transactional
     public UserResult execute(RegisterUserCommand command) {
         String email = new EmailAddress(command.email()).value();
         if (!command.password().equals(command.confirmPassword())) {
             throw new IllegalArgumentException("Passwords do not match.");
         }
+
+        // Validate password against configured enterprise complexity policies
+        passwordPolicyValidator.validate(command.password());
         if (userRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("Email already registered.");
         }

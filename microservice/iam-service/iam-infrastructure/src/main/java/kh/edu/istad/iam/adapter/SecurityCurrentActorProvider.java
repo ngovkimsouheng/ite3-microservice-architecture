@@ -29,6 +29,9 @@ public class SecurityCurrentActorProvider implements CurrentActorProvider {
             return java.util.UUID.fromString(authentication.getName()).toString();
         } catch (IllegalArgumentException ignored) {
             Object principal = authentication.getPrincipal();
+            if (principal instanceof kh.edu.istad.iam.config.IamUserDetails iamUser) {
+                return iamUser.getUuid().toString();
+            }
             if (principal instanceof UserDetails userDetails) {
                 AuthUserResult user = loadUserForAuthenticationUseCase.execute(userDetails.getUsername());
                 if (user != null) {

@@ -30,19 +30,19 @@ public class UpdateUserProfileUseCase {
                     .isPresent()) {
                 throw new IllegalArgumentException("Username already taken.");
             }
-            user.setUsername(command.username());
+            user.setUsername(command.username().trim());
         }
-        if (command.givenName() != null && !command.givenName().isBlank()) {
-            user.setGivenName(command.givenName());
+        if (command.givenName() != null) {
+            user.setGivenName(command.givenName().trim());
         }
         if (command.nickname() != null) {
-            user.setNickname(command.nickname());
+            user.setNickname(command.nickname().isBlank() ? null : command.nickname().trim());
         }
         if (command.phoneNumber() != null) {
             user.setPhoneNumber(command.phoneNumber().isBlank() ? null : command.phoneNumber().trim());
         }
         if (command.locale() != null && !command.locale().isBlank()) {
-            user.setLocale(command.locale());
+            user.setLocale(command.locale().trim());
         }
 
         user.setUpdatedAt(OffsetDateTime.now());

@@ -32,6 +32,20 @@ spring:
   messages:
     basename: messages
 
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 2000ms
+
+    session:
+      store-type: redis
+      redis:
+        namespace: istad:iam
+        flush-mode: on_save
+        save-mode: on_set_attribute
+      timeout: 7d # Session lasts 7 days
+
   security:
     oauth2:
       authorizationserver:
@@ -85,8 +99,8 @@ app:
       web:
         secret: ${WEB_CLIENT_SECRET}
   telegram:
-    bot-token: ${TELEGRAM_BOT_TOKEN}
-    bot-username: ${TELEGRAM_BOT_USERNAME}
+    bot-token: ${TELEGRAM_BOT_TOKEN:9295858162:AAGkfDGGi-xmdrI29a8r_Hxfe6T55_h0BfM}
+    bot-username: ${TELEGRAM_BOT_USERNAME:istad_iam_dev_bot}
 
 gg:
   jte:
