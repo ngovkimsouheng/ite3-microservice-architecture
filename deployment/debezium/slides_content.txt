@@ -1,0 +1,3686 @@
+﻿Spring Authorization Server
+Change Data Capture with Debezium
+ណែនាំដោយ៖ លោក ចាន់ ឆៃយ៉ា និង លោក គង់ សុវណ្ណដា
+
+Contents
+1. Introduction to CDC
+What is Change Data Capture?
+Why do we need CDC?
+2. Introduction to Debezium
+What is Kafka Connect?
+What is Debezium?
+Why Debezium?
+Debezium Architecture
+3. Deploying Debezium
+3.1. Kafka Connect
+3.2. Debezium Connectors
+
+Contents
+4. Capturing Data Changes
+4.1. From Oracle to PostgreSQL
+4.2. From CSV to PostgreSQL
+4.3. From PostgreSQL to MongoDB
+4.4. From PostgreSQL to Elasticsearch
+4.5. From PostgreSQL to Oracle
+4.6. From PostgreSQL to Data Lakehouse - IBM watsonx.data
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+
+1. Getting started with Spring Data JPA
+a
+b
+c
+d
+e
+note: for question use red color
+4
+រៀបរៀងដោយ៖ ឡូញ​ រស្មី 
+4
+
+Introduction to CDC
+What is Change Data Capture?
+Change Data Capture (CDC) គឺជា Design Pattern មួយដែលប្រើសម្រាប់កំណត់ អត្តសញ្ញាណ (Identify) និងចាប់យក (Capture) រាល់ការផ្លាស់ប្តូរទិន្នន័យនៅក្នុង Database បន្ទាប់មកបញ្ជូនការផ្លាស់ប្តូរទាំងនោះទៅកាន់ Downstream Systems ក្នុងលក្ខណៈ Real-time ឬ Near Real-time។
+Types of Change Data Capture (CDC)
+Change Data Capture (CDC) មានវិធីសាស្ត្រសំខាន់ៗចំនួន 4 Types :
+Log-Based CDC
+Trigger-Based CDC
+Query-Based CDC (Polling-Based)
+Snapshot-Based CDC (Table Comparison)
+រៀបរៀងដោយ៖ ធឿន សីហា
+
+
+Introduction to CDC
+Why Change Data Capture Matters
+យើងត្រូវការ Change Data Capture (CDC) ព្រោះវាជួយឱ្យប្រព័ន្ធផ្សេងៗអាចដឹងពីការផ្លាស់ ប្តូរទិន្នន័យនៅក្នុង Database ក្នុងលក្ខណៈ Real-time ឬ Near Real-time ដោយមិនចាំបាច់ធ្វើ Query ទៅ Database ជាប្រចាំ។
+CDC ដោះស្រាយបញ្ហាសំខាន់ៗចំនួន 5៖
+Real-time Data Synchronization យើងត្រូវការ CDC ដើម្បីធ្វើ Data Synchronization រវាង Multiple Systems។
+ឧទាហរណ៍៖ នៅពេល Customer ធ្វើការ Update ព័ត៌មាននៅក្នុង Customer Service ប្រព័ន្ធផ្សេងៗក៏ត្រូវដឹងពីការផ្លាស់ប្តូរនេះដែរ។
+រៀបរៀងដោយ៖ ធឿន សីហា
+
+
+Introduction to CDC
+Why Change Data Capture Matters
+យើងត្រូវការ Change Data Capture (CDC) ព្រោះវាជួយឱ្យប្រព័ន្ធផ្សេងៗអាចដឹងពីការផ្លាស់ ប្តូរទិន្នន័យនៅក្នុង Database ក្នុងលក្ខណៈ Real-time ឬ Near Real-time ដោយមិនចាំបាច់ធ្វើ Query ទៅ Database ជាប្រចាំ។
+CDC ដោះស្រាយបញ្ហាសំខាន់ៗចំនួន 5៖
+Reduce Database Load
+Capture INSERT, UPDATE, DELETE
+CDC អាចចាប់យក Database Changes ដូចជា៖
+INSERT: បញ្ចូល Record ថ្មី
+UPDATE: កែប្រែ Record
+DELETE: លុប Record
+រៀបរៀងដោយ៖ ធឿន សីហា
+
+
+Introduction to CDC
+Why Change Data Capture Matters
+យើងត្រូវការ Change Data Capture (CDC) ព្រោះវាជួយឱ្យប្រព័ន្ធផ្សេងៗអាចដឹងពីការផ្លាស់ ប្តូរទិន្នន័យនៅក្នុង Database ក្នុងលក្ខណៈ Real-time ឬ Near Real-time ដោយមិនចាំបាច់ធ្វើ Query ទៅ Database ជាប្រចាំ។
+CDC ដោះស្រាយបញ្ហាសំខាន់ៗចំនួន 5៖
+Support Event-Driven Microservices : CDC អនុញ្ញាតឱ្យ Microservices ទទួលបាន Database Change Events ដោយមិនចាំបាច់ហៅ REST API ទៅគ្នាសម្រាប់ការផ្លាស់ប្តូរទិន្នន័យទាំងអស់។
+រៀបរៀងដោយ៖ ធឿន សីហា
+
+
+Introduction to CDC
+Why Change Data Capture Matters
+យើងត្រូវការ Change Data Capture (CDC) ព្រោះវាជួយឱ្យប្រព័ន្ធផ្សេងៗអាចដឹងពីការផ្លាស់ ប្តូរទិន្នន័យនៅក្នុង Database ក្នុងលក្ខណៈ Real-time ឬ Near Real-time ដោយមិនចាំបាច់ធ្វើ Query ទៅ Database ជាប្រចាំ។
+CDC ដោះស្រាយបញ្ហាសំខាន់ៗចំនួន 5៖
+Keep Data Up to Date : CDC ជួយកាត់បន្ថយ Data Latency ដើម្បីឱ្យ Analytics Dashboards, Search Indexes និង Reporting Systems ទទួលបានទិន្នន័យថ្មីបានឆាប់រហ័ស។
+រៀបរៀងដោយ៖ ធឿន សីហា
+
+
+What is Kafka Connect?
+Apache Kafka Connect គឺជា Framework របស់ Apache Kafka ដែលត្រូវបានបង្កើត
+ឡើងសម្រាប់ភ្ជាប់ និងផ្ទេរទិន្នន័យរវាង Apache Kafka និង External Systems ឱ្យមាន
+ប្រសិទ្ធភាព, Scalable និងអាចស្ដារការងារឡើងវិញពេលមានបញ្ហា (Fault Tolerant)។
+External Systems អាចជា៖
+Relational Databases: PostgreSQL, MySQL
+NoSQL Databases: MongoDB
+Data Warehouses
+File Systems និងប្រព័ន្ធផ្ទុកទិន្នន័យផ្សេងៗ
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+
+
+What is Kafka Connect?
+ឧទាហរណ៍៖ នៅក្នុង Online Shopping Application នៅពេល Customer ទិញទំនិញមួយ។
+PostgreSQL: រក្សាទុក Order ថ្មីរបស់ Customer។
+Kafka Connect (Debezium Source Connector): ចាប់យក Order ថ្មី ហើយបញ្ជូន Event ទៅ Kafka។
+Apache Kafka: ទទួល និងរក្សាទុក Order Event។
+Notification Service: អាន Event ពី Kafka ហើយផ្ញើសារជូន Customer។
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+
+
+Benefits of Kafka Connect
+Data-centric Pipeline: ផ្តោតលើការផ្ទេរទិន្នន័យចូល និងចេញពី Kafka ដោយប្រើ Connectors ដែលជួយកាត់បន្ថយការសរសេរ Code ដោយខ្លួនឯង។
+Flexibility and Scalability: អាចដំណើរការជាមួយ Streaming និង Batch-oriented Systems ដោយប្រើ Worker តែមួយ (Standalone) ឬ Workers ច្រើន (Distributed) ដើម្បីពង្រីកសមត្ថភាព។
+Reusability and Extensibility: អាចប្រើ Connectors ដែលមានស្រាប់ ឬបង្កើត Custom Connectors តាមតម្រូវការ ដើម្បីកាត់បន្ថយពេលវេលាអភិវឌ្ឍន៍ និងដាក់ប្រើប្រាស់។
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+
+
+Kafka Connect Execution Modes
+Kafka Connect Execution Modes សំដៅលើរបៀបដែល Kafka Connect ដំណើរការ Workers, Connectors និង Tasks ដើម្បីផ្ទេរទិន្នន័យរវាង External Systems និង Apache Kafka។
+Kafka Connect មាន Execution Modes សំខាន់ៗចំនួន 2៖
+Standalone Mode: ដំណើរការលើ Machine តែមួយ សាកសមសម្រាប់ Development, Testing និងការងារតូចៗ ដូចជា Log Collection។
+Distributed Mode: អាចដំណើរការលើ Machines ឬ Workers ច្រើន ដើម្បី Scalability, ចែកចាយការងារ និងគាំទ្រ Fault Tolerance សម្រាប់ប្រព័ន្ធធំៗ។
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+
+
+Main Components of Kafka Connect
+
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+Component
+Responsibility
+Worker
+ដំណើរការ Connectors និង Tasks
+Connector
+គ្រប់គ្រងការភ្ជាប់ទៅ External System និង Task Configuration
+Task
+អនុវត្តការអាន ឬសរសេរ Records
+
+
+Main Components of Kafka Connect
+
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+Component
+Responsibility
+Converter
+បម្លែង Kafka Connect Data ទៅទម្រង់ JSON, Avro ជាដើម
+Transforms (SMTs)
+កែប្រែ Records នីមួយៗ ដូចជា Rename Fields, Filter ឬ Remove Fields
+Dead Letter Queue (DLQ)
+Kafka Topic សម្រាប់រក្សាទុក Records ដែល Sink Connector មិនអាច Process បានដោយសារកំហុសដែលបានកំណត់ឱ្យអាចរំលងបាន
+
+
+Connectors
+Connector គឺជា Component មួយរបស់ Kafka Connect ដែលកំណត់ថា ត្រូវផ្ទេរទិន្នន័យ
+ពីប្រព័ន្ធណា ទៅប្រព័ន្ធណា ហើយគ្រប់គ្រង Tasks សម្រាប់អនុវត្តការផ្ទេរទិន្នន័យនោះយ៉ាងដូចម្តេច។
+
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+
+
+Connectors
+Kafka Connect មាន Connector សំខាន់ៗពីរប្រភេទ៖
+Source Connector ៖ មានតួនាទីទាញយកទិន្នន័យពី External System ហើយបញ្ជូនចូល
+ទៅ Kafka Topics។
+ឧទាហរណ៍៖ PostgreSQL → Source Connector → Kafka Topic
+
+Sink Connector ៖ មានតួនាទីអានទិន្នន័យពី Kafka Topics ហើយបញ្ជូនទៅកាន់ External System។
+ឧទាហរណ៍៖ Kafka Topic → Sink Connector → Elasticsearch
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+
+
+Task
+Task គឺជា Component សំខាន់មួយក្នុង Kafka Connect ដែលមានតួនាទី អនុវត្តការផ្ទេរទិន្នន័យ
+ជាក់ស្តែង (Data Copying) ដោយអានទិន្នន័យពី External Systems ឬសរសេរទិន្នន័យទៅ External Systems។ Connector នីមួយៗមានតួនាទីរៀបចំ និងគ្រប់គ្រង Tasks មួយ ឬច្រើន។
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+
+
+Task
+Kafka Connect មាន Tasks សំខាន់ៗចំនួន 2 ប្រភេទ៖
+Source Task 
+អានទិន្នន័យពី External Systems ដូចជា PostgreSQL, MySQL ឬ Log Files។
+បង្កើត SourceRecord ដែល Kafka Connect អាចបញ្ជូនទៅ Kafka Topics។
+ប្រើសម្រាប់ Data Ingestion និង Change Data Capture (CDC)។
+
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+
+
+Task
+Kafka Connect មាន Tasks សំខាន់ៗចំនួន 2 ប្រភេទ៖
+Sink Task 
+ទទួល Records ពី Kafka Connect Runtime ដែលបានអានពី Kafka Topics។
+សរសេរទិន្នន័យទៅ External Systems ដូចជា Elasticsearch ឬ Data Warehouse។
+ប្រើសម្រាប់ Data Export និង Data Synchronization។
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+
+
+Worker
+Worker គឺជា Process ដែលមានតួនាទីដំណើរការ Connectors និង Tasks ដើម្បីផ្ទេរទិន្នន័យចូល និងចេញពី Apache Kafka។
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+
+
+Worker
+Worker គឺជា Process ដែលមានតួនាទីដំណើរការ Connectors និង Tasks ដើម្បីផ្ទេរទិន្នន័យចូល និងចេញពី Apache Kafka។
+រៀបរៀងដោយ៖ សំ ស្រីនិច
+Introduction To Debezium
+
+
+Introduction To Debezium
+What is Debezium ? 
+Debezium គឺជា open source distributed platform សម្រាប់ change data capture។ ចាប់ផ្តើមដំណើរការវា ចង្អុលវាទៅកាន់ databases ហើយ apps អាចចាប់ផ្តើមឆ្លើយតបទៅនឹង inserts, updates និង deletes ទាំងអស់ ដែល apps ផ្សេងទៀត commit ទៅកាន់ databases។ Debezium មានភាពធន់ និងលឿន ដូច្នេះ apps អាចឆ្លើយតបបានយ៉ាងរហ័ស ហើយមិនដែលខកខាន event ណាមួយឡើយ សូម្បីតែនៅពេលមានបញ្ហាកើតឡើងក៏ដោយ។
+រៀបរៀងដោយ៖   វ៉ន​ សុរ័ត្ន
+
+
+Introduction To Debezium
+Why Debezium ? 
+Real-time Data Streaming
+Automatic Change Detection
+Low Latency
+Reliable Data Capture
+Scalable Architecture
+Open-source and Free
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+Debezium គឺជា Open-source CDC Platform ដែលអាចចាប់យកការផ្លាស់ប្ដូរទិន្នន័យពី Database Transaction Logs ហើយបម្លែងវាទៅជា Change Events។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Real-time Data Streaming
+Debezium អាចចាប់យកការផ្លាស់ប្ដូរទិន្នន័យ ហើយបញ្ជូនវាទៅកាន់ Kafka ក្នុងរយៈពេលខ្លី បន្ទាប់ពី Database Commit Transaction។
+ឧទាហរណ៍៖
+User បង្កើត Product ថ្មី។
+PostgreSQL រក្សាទុក Product។
+Debezium ចាប់យក INSERT Event។
+Debezium ផ្ញើ Event ទៅ Kafka Topic។
+Consumer ទទួលបាន Event។
+Consumer Update ទិន្នន័យទៅ MongoDB។
+
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+
+
+Introduction To Debezium
+Why Debezium ? 
+Real-time Data Streaming
+
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+
+
+Introduction To Debezium
+Why Debezium ? 
+Real-time Data Streaming
+អត្ថប្រយោជន៍៖
+Data Updates បានលឿន។
+មិនចាំបាច់ Query Database ជាបន្តបន្ទាប់។
+ប្រព័ន្ធផ្សេងៗអាចទទួលបាន Change Events។
+
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Automatic Change Detection
+Debezium អាចចាប់យកការផ្លាស់ប្ដូរទិន្នន័យដោយស្វ័យប្រវត្តិ តាមរយៈ Database Transaction Logs។
+ការផ្លាស់ប្ដូរមាន 3 ប្រភេទសំខាន់ៗ៖
+
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+Operation
+Meaning
+Example
+INSERT
+បញ្ចូលទិន្នន័យថ្មី
+Create Product
+UPDATE
+កែប្រែទិន្នន័យ
+Change Product Price
+DELETE
+លុបទិន្នន័យ
+Delete Product
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Automatic Change Detection
+Debezium អាចចាប់យក Operation ទាំងនេះ និងបង្កើត Change Event សម្រាប់ Operation នីមួយៗ។
+
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Log-based CDC
+នេះគឺជាចំណុចសំខាន់បំផុតមួយរបស់ Debezium។ Debezium មិនចាំបាច់ SELECT ទិន្នន័យពី Table ម្តងហើយម្តងទៀត ដើម្បីស្វែងរកការផ្លាស់ប្ដូរនោះទេ។ វាអានពី Database Transaction Logs។
+ឧទាហរណ៍៖
+PostgreSQL → Write-Ahead Log (WAL)
+MySQL → Binary Log (Binlog)
+Oracle → Redo Logs / LogMiner ឬ XStream អាស្រ័យលើ Connector Configuration
+MongoDB → Oplog 
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Log-based CDC
+អត្ថប្រយោជន៍៖
+កាត់បន្ថយការសួរ Database ដោយផ្ទាល់។
+អាចចាប់យក INSERT, UPDATE និង DELETE។
+អាចរក្សាលំដាប់នៃ Change Events តាម Transaction Log។
+អាចដំណើរការបានល្អសម្រាប់ប្រព័ន្ធដែលមាន Data Changes ច្រើន។
+ចំណាំ៖ Log-based CDC នៅតែប្រើ Resource របស់ Database និងត្រូវការការកំណត់ Retention និង Permissions ឱ្យត្រឹមត្រូវ។
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Reliability and Fault Tolerance
+Debezium អាចបន្តដំណើរការពីទីតាំងដែលបានអានចុងក្រោយ បន្ទាប់ពី Connector ឬ Kafka Connect Restart ប្រសិនបើ Offset និង Database Logs នៅមានសុពលភាព។
+ឧទាហរណ៍៖
+Debezium បាន Read Event រហូតដល់ Offset 100។
+Connector បិទដោយសារបញ្ហា។
+Connector Restart ឡើងវិញ។
+វាអាចបន្ត Read ពី Offset ដែលបានរក្សាទុក។
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Reliability and Fault Tolerance
+អត្ថប្រយោជន៍៖
+កាត់បន្ថយហានិភ័យ Missing Events។
+អាច Recover ពីការបិទប្រព័ន្ធដោយមិនបានគ្រោងទុក។
+ជួយធ្វើឱ្យ Data Synchronization មានភាពជឿជាក់។
+ចំណាំ៖ ការបន្តបានឬអត់ អាស្រ័យលើ Log Retention, Offset Storage និង Configuration។ Consumer ក៏ត្រូវរៀបចំការគ្រប់គ្រង Duplicate Events ផងដែរ។
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Scalability
+Debezium ដំណើរការជាមួយ Kafka និង Kafka Connect ដែលអាចពង្រីកប្រព័ន្ធទៅតាមតម្រូវការ។
+ឧទាហរណ៍៖
+ដំបូងយើងមាន៖
+1 PostgreSQL
+1 Debezium Connector
+1 Kafka Broker
+1 MongoDB Consumer
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Scalability
+នៅពេលប្រព័ន្ធធំឡើង យើងអាចបន្ថែម៖
+Kafka Brokers
+Kafka Consumers
+Kafka Topics និង Partitions
+Database Connectors
+Downstream Applications
+អត្ថប្រយោជន៍៖ អាចគាំទ្រប្រព័ន្ធធំៗ និង Consumer ច្រើនប្រភេទ។
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Open-source and Cost-effective
+Debezium គឺជា Open-source Project ដែលអាចប្រើប្រាស់ និងកែប្រែតាមតម្រូវការរបស់ប្រព័ន្ធ។
+អត្ថប្រយោជន៍៖
+មិនចាំបាច់បង់ License Fee សម្រាប់ Debezium ខ្លួនវា។
+អាចសិក្សា Source Code។
+មាន Community និង Documentation។
+អាច Deploy នៅលើ Local Server, VM, Docker និង Kubernetes។
+ប៉ុន្តែ Infrastructure ដូចជា Kafka, Servers, Storage និង Cloud Services អាចនៅតែមានថ្លៃចំណាយ។
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Database Flexibility
+Debezium គាំទ្រ Database ជាច្រើនប្រភេទ។
+ឧទាហរណ៍៖
+PostgreSQL, MySQL, MongoDB, Oracle, SQL Server, Db2, Cassandra (អាស្រ័យលើ Connector និង Version)
+នេះធ្វើឱ្យយើងអាចភ្ជាប់ Database ផ្សេងៗគ្នា និងបញ្ជូន Change Events ទៅកាន់ប្រព័ន្ធផ្សេងៗបាន។
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Snapshot Existing Data
+Debezium មិនត្រឹមតែចាប់យកការផ្លាស់ប្ដូរថ្មីៗប៉ុណ្ណោះទេ។ វាក៏អាចធ្វើ Initial Snapshot ដើម្បីយកទិន្នន័យដែលមានស្រាប់ពី Database មកបង្កើត Events ផងដែរ។
+ឧទាហរណ៍៖
+PostgreSQL មាន Product ចំនួន 1,000 Records។
+
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Snapshot Existing Data
+នៅពេលយើង Start Debezium Connector ជាលើកដំបូង៖
+Debezium ចាប់ផ្ដើម Initial Snapshot។
+អានទិន្នន័យដែលមានស្រាប់។
+បញ្ជូន Snapshot Records ទៅ Kafka។
+បន្ទាប់មកបន្ត Capture Changes ថ្មីៗពី Transaction Logs។
+អត្ថប្រយោជន៍៖ Database គោលដៅអាចទទួលបានទាំងទិន្នន័យចាស់ និងការផ្លាស់ប្ដូរថ្មី។
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+ចំណាំ៖ Real-time នៅទីនេះមានន័យថា Near Real-time ព្រោះអាចមាន Latency ពី Database, Kafka និង Network។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Debezium vs Traditional Polling
+What is Traditional Polling?
+Polling គឺជាវិធីសាស្ត្រដែល Application Query Database ជាបន្តបន្ទាប់ ដើម្បីរកមើលការផ្លាស់ប្ដូរទិន្នន័យ។
+ឧទាហរណ៍៖
+
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+SELECT *
+FROM products
+WHERE updated_at > :last_checked_time;
+WHERE updated_at > :last_checked_time: ជាលក្ខខណ្ឌសម្រាប់ចម្រោះយកតែទិន្នន័យណាដែលមានម៉ោងកែប្រែចុងក្រោយ (updated_at) ធំជាង ឬក្រោយពេលវេលាដែលយើងបានពិនិត្យលើកចុងក្រោយ (:last_checked_time)។
+:last_checked_time: គឺជា Parameter (អថេរតំណាង) ដែលកូដកម្មវិធីរបស់អ្នកនឹងបញ្ចូលតម្លៃកាលបរិច្ឆេទ និងម៉ោងជាក់ស្តែង (ឧទាហរណ៍ '2026-11-15 00:00:00') នៅពេលដំណើរការកូដនេះ។ ការប្រើសញ្ញា : បែបនេះជួយការពារការវាយប្រហារតាមរយៈ SQL Injection ផងដែរ។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Debezium vs Traditional Polling
+What is Traditional Polling?
+Application អាច Execute Query រៀងរាល់ 5 វិនាទី។
+បញ្ហាគឺ៖
+ប្រសិនបើគ្មាន Data Changes ក៏ Application នៅតែ Query Database ដដែល។
+
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+WHERE updated_at > :last_checked_time: ជាលក្ខខណ្ឌសម្រាប់ចម្រោះយកតែទិន្នន័យណាដែលមានម៉ោងកែប្រែចុងក្រោយ (updated_at) ធំជាង ឬក្រោយពេលវេលាដែលយើងបានពិនិត្យលើកចុងក្រោយ (:last_checked_time)។
+:last_checked_time: គឺជា Parameter (អថេរតំណាង) ដែលកូដកម្មវិធីរបស់អ្នកនឹងបញ្ចូលតម្លៃកាលបរិច្ឆេទ និងម៉ោងជាក់ស្តែង (ឧទាហរណ៍ '2026-11-15 00:00:00') នៅពេលដំណើរការកូដនេះ។ ការប្រើសញ្ញា : បែបនេះជួយការពារការវាយប្រហារតាមរយៈ SQL Injection ផងដែរ។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Debezium vs Traditional Polling
+
+
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+Criteria
+Traditional Polling
+Debezium
+Change Detection
+Query Database
+Read Transaction Logs
+Latency
+អាស្រ័យលើ Interval
+Near real-time
+Database Load
+អាចខ្ពស់
+ជាទូទៅកាត់បន្ថយ Query Load
+INSERT
+Supported
+Supported
+WHERE updated_at > :last_checked_time: ជាលក្ខខណ្ឌសម្រាប់ចម្រោះយកតែទិន្នន័យណាដែលមានម៉ោងកែប្រែចុងក្រោយ (updated_at) ធំជាង ឬក្រោយពេលវេលាដែលយើងបានពិនិត្យលើកចុងក្រោយ (:last_checked_time)។
+:last_checked_time: គឺជា Parameter (អថេរតំណាង) ដែលកូដកម្មវិធីរបស់អ្នកនឹងបញ្ចូលតម្លៃកាលបរិច្ឆេទ និងម៉ោងជាក់ស្តែង (ឧទាហរណ៍ '2026-11-15 00:00:00') នៅពេលដំណើរការកូដនេះ។ ការប្រើសញ្ញា : បែបនេះជួយការពារការវាយប្រហារតាមរយៈ SQL Injection ផងដែរ។
+
+
+Introduction To Debezium
+Why Debezium ? 
+Debezium vs Traditional Polling
+
+
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+Criteria
+Traditional Polling
+Debezium
+UPDATE 
+ត្រូវការ Tracking 
+Supported 
+DELETE 
+ពិបាករកដោយ Query ធម្មតា 
+Supported 
+Recovery 
+ត្រូវសរសេរគ្រប់គ្រងផ្ទាល់ 
+Offset Management 
+Scalability 
+ត្រូវអភិវឌ្ឍបន្ថែម 
+Kafka Integration 
+Complexity
+សាមញ្ញដំបូង 
+ត្រូវ Setup Infrastructure 
+WHERE updated_at > :last_checked_time: ជាលក្ខខណ្ឌសម្រាប់ចម្រោះយកតែទិន្នន័យណាដែលមានម៉ោងកែប្រែចុងក្រោយ (updated_at) ធំជាង ឬក្រោយពេលវេលាដែលយើងបានពិនិត្យលើកចុងក្រោយ (:last_checked_time)។
+:last_checked_time: គឺជា Parameter (អថេរតំណាង) ដែលកូដកម្មវិធីរបស់អ្នកនឹងបញ្ចូលតម្លៃកាលបរិច្ឆេទ និងម៉ោងជាក់ស្តែង (ឧទាហរណ៍ '2026-11-15 00:00:00') នៅពេលដំណើរការកូដនេះ។ ការប្រើសញ្ញា : បែបនេះជួយការពារការវាយប្រហារតាមរយៈ SQL Injection ផងដែរ។
+
+
+Introduction To Debezium
+Why Debezium ? 
+ក្រៅពី Debezium ក៏មាន CDC Tools ផ្សេងទៀតដែរ។
+AWS DMS
+Oracle GoldenGate
+JDBC Polling
+
+រៀបរៀងដោយ៖   សន សុភីរ៉ាម
+WHERE updated_at > :last_checked_time: ជាលក្ខខណ្ឌសម្រាប់ចម្រោះយកតែទិន្នន័យណាដែលមានម៉ោងកែប្រែចុងក្រោយ (updated_at) ធំជាង ឬក្រោយពេលវេលាដែលយើងបានពិនិត្យលើកចុងក្រោយ (:last_checked_time)។
+:last_checked_time: គឺជា Parameter (អថេរតំណាង) ដែលកូដកម្មវិធីរបស់អ្នកនឹងបញ្ចូលតម្លៃកាលបរិច្ឆេទ និងម៉ោងជាក់ស្តែង (ឧទាហរណ៍ '2026-11-15 00:00:00') នៅពេលដំណើរការកូដនេះ។ ការប្រើសញ្ញា : បែបនេះជួយការពារការវាយប្រហារតាមរយៈ SQL Injection ផងដែរ។
+
+
+Introduction To Debezium
+Debezium Architecture 
+Debezium ជាមួយ Kafka Connect គឺជារបៀបដំណើរការ Debezium Connector នៅក្នុង Kafka Connect Worker ដើម្បីចាប់ការផ្លាស់ប្តូរពី Database ហើយបញ្ជូនជា Change Events ទៅ Kafka Topics។ 
+Main Components :
+Source Database : រក្សាទុកទិន្នន័យដើមរបស់ Application។
+Debezium Source Connector : ភ្ជាប់ទៅ Database និងចាប់យកការផ្លាស់ប្តូរទិន្នន័យ។
+Kafka Connect Worker : ផ្តល់ Runtime សម្រាប់ដំណើរការ Connector។ វាដំណើរការជា Service ដាច់ដោយឡែកពី Kafka Brokers។
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+Introduction To CDC
+Debezium Architecture 
+Debezium with Kafka Connector 
+Main Components
+Apache Kafka : រក្សាទុក Change Events នៅក្នុង Topics។
+Sink Connector : អាន Events ពី Kafka ហើយសរសេរទិន្នន័យទៅកាន់ Destination System។
+Destination System : ប្រព័ន្ធដែលទទួលទិន្នន័យ ដូចជា Elasticsearch, Analytics System ឬ Cache។
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+Introduction To CDC
+Debezium Architecture 
+Debezium with Kafka Connector
+How the data flows 
+Application ធ្វើការផ្លាស់ប្តូរ Record នៅក្នុង Source Database។
+Debezium ចាប់យកការផ្លាស់ប្តូរនោះ តាមរយៈ binlog របស់ MySQL ឬ Logical Replication Stream របស់ PostgreSQL។
+Kafka Connect បញ្ជូន Change Event ទៅកាន់ Kafka Topic។
+Sink Connector អាន Event ហើយសរសេរទិន្នន័យទៅកាន់ Destination System។
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+Introduction To CDC
+Debezium Architecture 
+Debezium with kafka connector
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+Introduction To CDC
+Debezium Architecture 
+Debezium Server គឺជា Application ដែលត្រៀមរួចជាស្រេចសម្រាប់ប្រើប្រាស់ និងអាចកំណត់ Configuration ដើម្បីចាប់យកការផ្លាស់ប្តូរទិន្នន័យពី Source Database ហើយបញ្ជូន Change Events ទៅកាន់ Messaging System។ វាអាចដំណើរការដោយមិនចាំបាច់មាន Kafka ឬ Kafka Connect។ 
+Main Components : 
+Source Database : រក្សាទុកទិន្នន័យដើម និងជាប្រភពនៃការផ្លាស់ប្តូរ។
+Debezium Source Connector : ចាប់យកការផ្លាស់ប្តូរទិន្នន័យពី Database។
+Debezium Server : 	ដំណើរការ Connector និងគ្រប់គ្រងការបញ្ជូន Change Events ទៅ Messaging System។
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+Introduction To CDC
+Debezium Architecture 
+Debezium Server
+Main Components : 
+Event Serialization : បម្លែង Events ទៅជា Format ដូចជា JSON ឬ Apache Avro។
+Messaging System : ទទួល Change Events ដូចជា Amazon Kinesis, Google Cloud Pub/Sub ឬ Apache Pulsar។
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+Introduction To CDC
+Debezium Architecture 
+Debezium Server
+How the data flows 
+Application ធ្វើការ INSERT, UPDATE ឬ DELETE នៅក្នុង Source Database។
+Debezium Source Connector ចាប់យកការផ្លាស់ប្តូរនោះ។
+Debezium Server បម្លែង Change Events ទៅជា Format ដែលបានកំណត់។
+Events ត្រូវបានបញ្ជូនទៅ Messaging System គោលដៅ។
+Consumer Applications អាន Events ដើម្បីយកទៅដំណើរការបន្ត។
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+Introduction To CDC
+Debezium Architecture 
+Debezium Server
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+Introduction To CDC
+Debezium Architecture 
+Debezium Engine គឺជា Library ដែលយើងបញ្ចូលទៅក្នុង Java Application ដើម្បីឱ្យ Application អាចទទួល និងដំណើរការ Database Change Events ដោយផ្ទាល់។ វាប្រើ Debezium Connectors ដើម្បីចាប់យក Changes ហើយមិនតម្រូវឱ្យមាន Kafka ឬ Kafka Connect Cluster ទេ។
+Main Component
+Source Database : Database ដែលយើងចង់តាមដានការផ្លាស់ប្តូរ ដូចជា PostgreSQL។
+Debezium Connector : ប្រើវិធី CDC របស់ Database ដើម្បីចាប់យក Changes។
+Debezium Engine : ដំណើរការ Connector ហើយប្រគល់ Events ទៅ Application។
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+Introduction To CDC
+Debezium Architecture 
+Debezium Engine
+Main Component
+Event Handler / Callback : Code របស់យើងដែលទទួល និងដំណើរការ Events។
+Offset Storage : រក្សាទុកទីតាំងដែលបានដំណើរការ ដើម្បីអាចបន្តពីទីតាំងដែលបានរក្សាទុក ពេល Restart។
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+Introduction To CDC
+Debezium Architecture 
+Debezium Engine
+របៀបដំណើរការរបស់ Debezium Engine ៖
+កំណត់ Configuration : Application ផ្តល់ព័ត៌មាន Database Connection, Connector, Tables ដែលចង់តាមដាន និង Offset Storage។
+ចាប់ផ្តើម Engine : Engine ដំណើរការ PostgreSQL Connector ដើម្បីភ្ជាប់ទៅ Database។
+ចាប់យកទិន្នន័យ : អាស្រ័យលើ Snapshot Configuration Connector អាចអានទិន្នន័យដែលមានស្រាប់ជាមុន ហើយបន្តចាប់យក Changes ថ្មីៗ។
+ប្រគល់ Event ទៅ Application : នៅពេលមាន Change Engine ហៅ Event Handler ដែល Developer បានកំណត់។
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+Introduction To CDC
+Debezium Architecture 
+Debezium Engine
+របៀបដំណើរការរបស់ Debezium Engine ៖
+ដំណើរការ និងរក្សាទុក Progress : Application ដំណើរការ Event ហើយ Engine រក្សាទុក Progress តាមការកំណត់ និងការបញ្ជាក់ថា Events ត្រូវបានដំណើរការរួច។
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+Introduction To CDC
+Debezium Architecture 
+Debezium Engine
+អ្វីដែល Developer ត្រូវគ្រប់គ្រង ៖
+Lifecycle: ចាប់ផ្តើម និងបិទ Engine។
+Event Processing: កំណត់ Logic សម្រាប់ Events។
+Error Handling: ដោះស្រាយពេល Processing បរាជ័យ។
+Offset Storage: រក្សាទុក Progress ឱ្យបានជាប់លាប់។
+Duplicate Handling: រៀបចំ Processing ឱ្យអាចទទួល Event ដដែលម្តងទៀតដោយមិនបង្កលទ្ធផលខុស។
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+
+3.  Deploying Debezium
+3.1. Kafka Connect
+What is Kafka Connect?
+Kafka Connect គឺជា tool មួយសម្រាប់ streaming data រវាង Apache Kafka និង external systems ផ្សេងៗ ដោយមានភាព reliable និងអាច scale បាន។ វាជួយឱ្យយើងងាយស្រួលបង្កើត និងគ្រប់គ្រង Connectors ដើម្បីផ្ទេរទិន្នន័យចូល និងចេញពី Kafka។ 
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+
+
+3.  Deploying Debezium
+3.1. Kafka Connect
+Kafka Connect Features (ចំណុចសំខាន់ៗ) 
+A common framework for Kafka connectors:  kafka connect ផ្ដល់នូវ framework ស្តង់ដារមួយសម្រាប់ភ្ជាប់ external systems ជាមួយ Kafka ដែលធ្វើឱ្យការអភិវឌ្ឍន៍ Deployment និង Management របស់ Connectors កាន់តែងាយស្រួល។
+Distributed and standalone modes: 
+Kafka Connect មានពីរ modes៖
+Standalone Mode: សម្រាប់ Development, Testing និងការប្រើប្រាស់តូចៗ។
+Distributed Mode: សម្រាប់ប្រព័ន្ធធំៗ ដែលត្រូវការគ្រប់គ្រង និង Scale Connectors លើ Workers ច្រើន។
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+
+
+3.  Deploying Debezium
+3.1. Kafka Connect
+Kafka Connect Features (ចំណុចសំខាន់ៗ) (ត)
+REST interface : Kafka Connect ផ្ដល់ REST API សម្រាប់បង្កើត Register និងគ្រប់គ្រង Connectors តាមរយៈ HTTP Requests។  
+Automatic offset management: Kafka Connect គ្រប់គ្រង Offset Commit ដោយស្វ័យប្រវត្តិ ដោយផ្អែកលើព័ត៌មានដែល Connectors ផ្ដល់ឱ្យ។ វាជួយកាត់បន្ថយភាពស្មុគស្មាញ និងកំហុសក្នុងការគ្រប់គ្រង Offset។
+ Distributed and scalable by default : Kafka Connect ប្រើ Group Management Protocol ដើម្បីអនុញ្ញាតឱ្យបន្ថែម Workers ចូលក្នុង Cluster ដើម្បីបង្កើនសមត្ថភាព និងការងារដែលអាចដំណើរការបាន។
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+
+
+3.  Deploying Debezium
+3.1. Kafka Connect
+Kafka Connect Features (ចំណុចសំខាន់ៗ) (ត)
+Streaming/batch integration: ដោយប្រើប្រាស់សមត្ថភាពដែលមានស្រាប់របស់ Kafka, Kafka Connect គឺជាដំណោះស្រាយដ៏សមស្របមួយសម្រាប់ភ្ជាប់ និងធ្វើសមាហរណកម្មរវាងប្រព័ន្ធ Streaming Data និង Batch Data ឱ្យអាចធ្វើការជាមួយគ្នាបាន។
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+
+
+3.  Deploying Debezium
+3.2. Debezium Connectors
+What are Debezium Connectors?
+Debezium Connector គឺជា Database-specific Source Connector ដែលចាប់យក ការផ្លាស់ប្តូរទិន្នន័យពី Source Database ហើយបង្កើត Change Event Records សម្រាប់ផ្ញើទៅ Kafka ឬប្រព័ន្ធគោលដៅផ្សេងទៀត។
+Debezium ផ្តល់ Connectors សម្រាប់ Database Engines ជាច្រើន។
+រៀបរៀងដោយ៖ ឆាយ​ គង្គា
+
+
+3.  Deploying Debezium
+3.2. Debezium Connectors
+Common Debezium Connectors
+
+រៀបរៀងដោយ៖ ឆាយ​ គង្គា
+Connector
+Source Database
+Capture Mechanism
+PostgreSQL Connector
+PostgreSQL
+WAL + Logical Decoding
+MySQL Connector
+MySQL
+Binlog
+MongoDB Connector
+MongoDB
+Change Streams
+SQL Server Connector
+SQL Server
+SQL Server CDC
+Oracle Connector
+Oracle
+Redo Logs / LogMiner
+MariaDB Connector
+MariaDB
+Binary Log
+
+
+3.  Deploying Debezium
+3.2. Debezium Connectors
+Debezium Connector Lifecycle
+Install Plugin: ផ្ទុក Connector Libraries ទៅក្នុង Kafka Connect Worker។
+Configure Source: បញ្ជាក់ Database Host, Port, Credentials និង Tables។
+Register Connector: ផ្ញើ Connector Configuration តាម Kafka Connect REST API។
+Initial Snapshot: ចាប់យក Existing Records ប្រសិនបើបាន Enable។
+Stream Changes: បន្តចាប់យក Committed Changes ពី Database Log។
+Monitor and Recover:  តាមដាន Connector Tasks, Offsets, Errors និង Replication Lag។
+
+រៀបរៀងដោយ៖ ឆាយ​ គង្គា
+
+
+3.  Deploying Debezium
+3.2. Debezium Connectors
+Configure PostgreSQL Connector
+បង្កើត File៖
+រៀបរៀងដោយ៖ ឆាយ​ គង្គា
+{
+   "name": "postgres-cdc",
+      "config": {
+   "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+         "tasks.max": "1",
+         "database.hostname": "postgres",
+         "database.port": "5432",
+         "database.user": "postgres",
+         "database.password": "postgres",
+         "database.dbname": "shopdb",
+         "topic.prefix": "shopdb",
+         "plugin.name": "pgoutput",
+
+
+3.  Deploying Debezium
+3.2. Debezium Connectors
+Configure PostgreSQL Connector
+រៀបរៀងដោយ៖ ឆាយ​ គង្គា
+         
+         "slot.name": "debezium_slot",
+         "publication.name": "dbz_publication",
+         "publication.autocreate.mode": "disabled",
+
+         "table.include.list": "public.products",
+         "snapshot.mode": "initial",
+
+         "schema.history.internal.kafka.bootstrap.servers": "kafka:9092"
+  }
+}
+
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+3.  Deploying Debezium
+3.2. Debezium Connectors
+Register Debezium Connector
+រៀបរៀងដោយ៖ ឆាយ​ គង្គា
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+3.  Deploying Debezium
+3.2. Debezium Connectors
+Test Debezium CDC
+រៀបរៀងដោយ៖ ឆាយ​ គង្គា
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+3.  Deploying Debezium
+3.2. Debezium Connectors
+Monitor and Manage Debezium Connectors
+Kafka Connect មាន REST API សម្រាប់គ្រប់គ្រង Connectors។
+រៀបរៀងដោយ៖ ឆាយ​ គង្គា
+Action
+Method
+Endpoint
+List Connectors
+GET
+/connectors
+Connector Status
+GET
+/connectors/postgres-cdc/status
+Connector Configuration
+GET
+/connectors/postgres-cdc/config
+Pause Connector
+PUT
+/connectors/postgres-cdc/pause
+Resume Connector
+PUT
+/connectors/postgres-cdc/resume
+Restart Connector
+POST
+/connectors/postgres-cdc/restart
+Delete Connector
+DELETE
+/connectors/postgres-cdc
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+4.  Capturing Data Changes
+4.1. From Oracle to PostgreSQL
+Deployment Order 
+Prerequisite: រៀបចំ Shared Docker Network និង Volumes ជាមុនសិន។ 
+File 1: deployment/kafka/docker-compose.yamlសម្រាប់ដំណើរការ Message Bus និង Schema Registry។
+File 2: deployment/oracle/docker-compose.yamlសម្រាប់ដំណើរការ Source Database (Oracle)។
+File 3: deployment/postgres/docker-compose.yamlសម្រាប់ដំណើរការ Target Database (PostgreSQL)។
+File 4: deployment/debezium/Dockerfile និង docker-compose.yamlសម្រាប់ដំណើរការ CDC Connect Cluster (Debezium Kafka Connect)។
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+4.  Capturing Data Changes
+4.1. From Oracle to PostgreSQL
+Deployment Files
+https://github.com/Phoeurnsolyta/microservices-lessons/tree/main/deployment/kafka
+https://github.com/Phoeurnsolyta/microservices-lessons/tree/main/deployment/postgres
+https://github.com/Phoeurnsolyta/microservices-lessons/tree/main/deployment/oracle
+https://github.com/Phoeurnsolyta/microservices-lessons/tree/main/deployment/debezium
+
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+4.  Capturing Data Changes
+4.1. From Oracle to PostgreSQL
+Deployment Files
+deployment/debezium/Dockerfile 
+
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+ARG DEBEZIUM_VERSION=3.7.1.Final
+ARG ORACLE_JDBC_VERSION=23.26.4.0.0
+ARG POSTGRES_JDBC_VERSION=42.7.14
+
+# ---------- Stage 1: download plugins ----------
+FROM alpine:3.20 AS downloader
+ARG DEBEZIUM_VERSION
+ARG ORACLE_JDBC_VERSION
+ARG POSTGRES_JDBC_VERSION
+
+RUN apk add --no-cache curl tar gzip
+
+RUN mkdir -p /out/debezium-oracle /out/debezium-jdbc \
+&& curl -fSL --retry 3 \
+     "https://repo.maven.apache.org/maven2/io/debezium/debezium-connector-oracle/${DEBEZIUM_VERSION}/debezium-connector-oracle-${DEBEZIUM_VERSION}-plugin.tar.gz" \
+   | tar -xz --strip-components=1 -C /out/debezium-oracle \
+&& curl -fSL --retry 3 \
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+4.  Capturing Data Changes
+4.1. From Oracle to PostgreSQL
+Deployment Files
+deployment/debezium/Dockerfile 
+
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+"https://repo.maven.apache.org/maven2/io/debezium/debezium-connector-jdbc/${DEBEZIUM_VERSION}/debezium-connector-jdbc-${DEBEZIUM_VERSION}-plugin.tar.gz" \
+  | tar -xz --strip-components=1 -C /out/debezium-jdbc \
+&& curl -fSL --retry 3 \
+    "https://repo.maven.apache.org/maven2/com/oracle/database/jdbc/ojdbc11/${ORACLE_JDBC_VERSION}/ojdbc11-${ORACLE_JDBC_VERSION}.jar" \
+    -o /out/debezium-oracle/ojdbc11.jar \
+&& curl -fSL --retry 3 \
+    "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/${POSTGRES_JDBC_VERSION}/postgresql-${POSTGRES_JDBC_VERSION}.jar" \
+    -o /out/debezium-jdbc/postgresql.jar
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+4.  Capturing Data Changes
+4.1. From Oracle to PostgreSQL
+Deployment Files
+deployment/debezium/Dockerfile 
+
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+# ---------- Stage 2: Kafka Connect ----------
+FROM confluentinc/cp-kafka-connect:8.4.1
+
+COPY --from=downloader /out/debezium-oracle /usr/share/java/debezium-oracle
+COPY --from=downloader /out/debezium-jdbc   /usr/share/java/debezium-jdbc
+
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+4.  Capturing Data Changes
+4.1. From Oracle to PostgreSQL
+Oracle CDC Configuration (LogMiner Setup) 
+ការបើកដំណើរការ Log Mining (Log Mining Activation): 
+បើក ARCHIVELOG mode ដើម្បីធានាថា Transactions ត្រូវបានរក្សាទុកក្នុង Log Files។
+បើក Supplemental Logging ដោយប្រើ Command៖
+ALTER DATABASE ADD SUPPLEMENTAL LOG DATA;
+ការកំណត់រចនាសម្ព័ន្ធ User សម្រាប់ Multitenant: 
+បង្កើត Common User ឈ្មោះ c##dbzuser ដែលអាចប្រើប្រាស់បាននៅគ្រប់ Containers ដោយកំណត់ CONTAINER=ALL។
+ផ្ដល់សិទ្ធិ LogMiner និង DBA Permissions ដើម្បីអាចប្ដូររវាង CDB និង PDB បាន។
+
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+4.  Capturing Data Changes
+4.1. From Oracle to PostgreSQL
+Oracle CDC Configuration (LogMiner Setup) 
+ការបង្កើត Test Table នៅក្នុង FREEPDB1: 
+ប្ដូរ Session ទៅកាន់ FREEPDB1 រួចបង្កើត Table ឈ្មោះ products នៅក្នុង Schema iteuser។ ALTER SESSION SET CONTAINER = FREEPDB1;
+
+
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+ALTER SESSION SET CONTAINER = FREEPDB1;
+CREATE TABLE iteuser.products (
+    id NUMBER(10) PRIMARY KEY,
+    name VARCHAR2(100),
+    price NUMBER(10,2)
+);
+ALTER TABLE iteuser.products ADD SUPPLEMENTAL LOG DATA (ALL) COLUMNS;
+
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+4.  Capturing Data Changes
+4.1. From Oracle to PostgreSQL
+Oracle CDC Configuration (LogMiner Setup) 
+ការបន្ថែម Supplemental Log Data (ALL) COLUMNS ធ្វើឱ្យ Oracle កត់ត្រាព័ត៌មានរបស់ Columns ទាំងអស់នៅពេលមានការផ្លាស់ប្ដូរទិន្នន័យ (INSERT, UPDATE, DELETE) ដើម្បីឱ្យ Debezium អាចចាប់យកការផ្លាស់ប្ដូរទាំងនោះតាមរយៈ LogMiner បាន។ 
+
+
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+4.  Capturing Data Changes
+4.1. From Oracle to PostgreSQL
+Register Oracle Source Connector via Postman
+Method: POST | http://localhost:8083/connectors 
+ប្រើ HTTP POST Method ដើម្បីផ្ញើ Configuration និងបង្កើត Oracle CDC Connector ទៅកាន់ Kafka Connect។
+Register PostgreSQL Sink Connector via Postman
+Method: POST | http://localhost:8083/connectors
+ប្រើ HTTP POST Method ដើម្បីផ្ញើ Configuration និងចុះឈ្មោះ PostgreSQL Sink Connector ទៅកាន់ Kafka Connect។
+
+រៀបរៀងដោយ៖ ភឿន សូលីតា
+Property
+Purpose
+name
+ឈ្មោះ Connector ដែល Register នៅ Kafka Connect
+connector.class
+Java Class របស់ PostgreSQL Connector
+tasks.max
+ចំនួន Tasks អតិបរមា ដែល Kafka Connect អាចស្នើបាន
+database.hostname
+Hostname របស់ PostgreSQL
+database.port
+PostgreSQL Port
+database.user
+Database Username
+database.password
+Database Password
+database.dbname
+Database ដែលត្រូវ Capture
+topic.prefix
+Prefix សម្រាប់ Kafka Topic Names
+plugin.name
+Logical Decoding Plugin របស់ PostgreSQL
+slot.name
+PostgreSQL Replication Slot Name
+publication.name
+PostgreSQL Publication Name
+publication.autocreate.mode
+កំណត់ថា Connector ត្រូវបង្កើត Publication ដោយស្វ័យប្រវត្តិឬអត់
+table.include.list
+កំណត់ Tables ដែលត្រូវ Capture
+snapshot.mode
+កំណត់របៀប Initial Snapshot
+
+
+Capturing Data Changes
+4.3 From PostgreSQL to MongoDB
+PostgreSQL to MongoDB គឺជា Process នៃការ Transfer ឬ Synchronize Data ពី PostgreSQL ដែលជា Relational Database ទៅកាន់ MongoDB ដែលជា NoSQL Database។
+ដោយប្រើ Debezium និង Change Data Capture (CDC) យើងអាចធ្វើ Data Synchronization ដោយស្វ័យប្រវត្តិក្នុងពេលជិត Real-time។
+រៀបរៀងដោយ៖ ធឿន សីហា
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+ហេតុអ្វីបានជាយើងត្រូវធ្វើ?
+Near Real-time Synchronization: រក្សា Data ក្នុង MongoDB ឱ្យមានភាព Up-to-date ជាមួយ PostgreSQL នៅពេលមាន Data Changes។
+Eliminate Batch Processing: មិនចាំបាច់ប្រើ Batch Jobs ដើម្បី Copy Data ម្តងហើយម្តងទៀត។
+Reduce Custom Code: កាត់បន្ថយការសរសេរ Custom Synchronization Code។
+Automatic Change Detection: អាច Capture Data Changes ដូចជា INSERT, UPDATE និង DELETE ដោយស្វ័យប្រវត្តិ។
+Support Microservices Architecture: អនុញ្ញាតឱ្យ Microservices ផ្សេងៗប្រើ Database ដែលសមស្របទៅនឹង Requirements របស់ខ្លួន។
+រៀបរៀងដោយ៖ ធឿន សីហា
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Setup PostgreSQL → Debezium → Apache Kafka → MongoDB
+រៀបរៀងដោយ៖ ធឿន សីហា
+services:
+  postgres:
+    image: postgres:17
+    command:
+      - postgres
+      - -c
+      - wal_level=logical
+      - -c
+      - max_replication_slots=10
+      - -c
+      - max_wal_senders=10
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Setup PostgreSQL → Debezium → Apache Kafka → MongoDB
+រៀបរៀងដោយ៖ ធឿន សីហា
+    environment:
+      POSTGRES_DB: db_order
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_demo
+    ports:
+      - "127.0.0.1:15432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Setup PostgreSQL → Debezium → Apache Kafka → MongoDB
+រៀបរៀងដោយ៖ ធឿន សីហា
+    volumes:
+      - mongo_data:/data/db
+  kafka:
+    image: quay.io/debezium/kafka:3.7
+    environment:
+      CLUSTER_ID: oh-sxaDRTcyAr6pFRbXyzA
+      NODE_ID: 1
+      NODE_ROLE: combined
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Setup PostgreSQL → Debezium → Apache Kafka → MongoDB
+រៀបរៀងដោយ៖ ធឿន សីហា
+KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+KAFKA_LISTENERS: PLAINTEXT://kafka:9092,CONTROLLER://kafka:9093
+KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+ connect:
+    image: quay.io/debezium/connect:3.7
+    depends_on:
+      postgres:
+        condition: service_healthy
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Setup PostgreSQL → Debezium → Apache Kafka → MongoDB
+រៀបរៀងដោយ៖ ធឿន សីហា
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d db_order"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  mongodb:
+    image: mongo:8.0
+    ports:
+      - "127.0.0.1:27018:27017"
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Setup PostgreSQL → Debezium → Apache Kafka → MongoDB
+រៀបរៀងដោយ៖ ធឿន សីហា
+      mongodb:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+    ports:
+      - "127.0.0.1:18084:8083"
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Setup PostgreSQL → Debezium → Apache Kafka → MongoDB
+រៀបរៀងដោយ៖ ធឿន សីហា
+ environment:
+      BOOTSTRAP_SERVERS: kafka:9092
+      GROUP_ID: pgmongo-demo-connect
+      CONFIG_STORAGE_TOPIC: pgmongo_demo_connect_configs
+      OFFSET_STORAGE_TOPIC: pgmongo_demo_connect_offsets
+      STATUS_STORAGE_TOPIC: pgmongo_demo_connect_statuses
+      CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      STATUS_STORAGE_REPLICATION_FACTOR: 1
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Setup PostgreSQL → Debezium → Apache Kafka → MongoDB
+រៀបរៀងដោយ៖ ធឿន សីហា
+volumes:
+  pg_data:
+  mongo_data:
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Run Docker Compose
+នៅក្នុង Project Directory ដែលមាន docker-compose.yml និង init.sql៖
+docker compose up -d
+Check Debezium Connector Plugins:
+curl -s http://localhost:18084/connector-plugins | jq
+រៀបរៀងដោយ៖ ធឿន សីហា
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Connector Configuration
+Debezium Source Connector គឺជា Connector ដែលមានតួនាទីចាប់យកការផ្លាស់ប្ដូរទិន្នន័យ (INSERT, UPDATE, DELETE) ពី Source Database ដោយអាន Transaction Log (WAL ក្នុង PostgreSQL) ហើយបញ្ជូនការផ្លាស់ប្ដូរទាំងនោះទៅកាន់ Kafka Topics ជា Events។
+MongoDB Sink Connector គឺជា Connector ដែលមានតួនាទីទទួលយក Change Events ពី Kafka Topics ហើយសរសេរ ឬអនុវត្តការផ្លាស់ប្ដូរទាំងនោះទៅក្នុង MongoDB Collections។
+រៀបរៀងដោយ៖ ធឿន សីហា
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+4.4 From PostgreSQL to Elasticsearch
+ Change Data Capture (CDC) គឺជាបច្ចេកវិទ្យាដែលប្រើសម្រាប់ចាប់យកការផ្លាស់ប្តូរទិន្នន័យ (Data Changes) ដែលកើតឡើងនៅក្នុង Database ដូចជា៖
+INSERT: ការបញ្ចូលទិន្នន័យថ្មី។
+UPDATE: ការកែប្រែទិន្នន័យដែលមានស្រាប់។
+DELETE: ការលុបទិន្នន័យចេញ។
+
+រៀបរៀងដោយ៖  វ៉ន សុរ័ត្ន
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+4.4 From PostgreSQL to Elasticsearch
+ក្នុង Architecture នេះ CDC ត្រូវបានប្រើដើម្បីចាប់យកការផ្លាស់ប្តូរទិន្នន័យពី PostgreSQL ហើយបញ្ជូនទៅ Elasticsearch ដោយស្វ័យប្រវត្តិ និងជិត Real-time។
+Example:
+នៅពេលយើងបញ្ចូល Customer ថ្មីក្នុង PostgreSQL នោះ Debezium នឹងចាប់យកការផ្លាស់ប្តូរនេះ ហើយបញ្ជូនតាម Kafka ទៅ Elasticsearch ដើម្បីបង្កើត Document ថ្មី។
+
+រៀបរៀងដោយ៖  វ៉ន សុរ័ត្ន
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+4.4 From PostgreSQL to Elasticsearch
+ហេតុអ្វីបានជាយើងត្រូវប្រើ PostgreSQL ជាមួយ Elasticsearch?
+PostgreSQL ល្អសម្រាប់ Transactions ប៉ុន្តែមិនមែនជាជម្រើសល្អបំផុតសម្រាប់ Full-Text Search
+PostgreSQL មានសមត្ថភាពខ្ពស់ក្នុងការគ្រប់គ្រង ACID Transactions, Data Integrity និង Relational Data។
+វាសាកសមសម្រាប់ការរក្សាទុកទិន្នន័យសំខាន់ៗ ដូចជា Users, Orders, Payments និង Business Data។
+ទោះបីជា PostgreSQL គាំទ្រ Full-Text Search ក៏ដោយ ប៉ុន្តែពេលទិន្នន័យមានទំហំធំ និង Query ស្វែងរកមានភាពស្មុគស្មាញ វាអាចមិនលឿនដូច Elasticsearch ទេ។
+
+រៀបរៀងដោយ៖  វ៉ន សុរ័ត្ន
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+4.4 From PostgreSQL to Elasticsearch
+ហេតុអ្វីបានជាយើងត្រូវប្រើ PostgreSQL ជាមួយ Elasticsearch?
+Elasticsearch ផ្តល់នូវ Search, Filtering និង Analytics លឿនជាង
+Elasticsearch ត្រូវបានបង្កើតឡើងជាពិសេសសម្រាប់ Search Engine។
+ស្វែងរកលឿនលើកំណត់ត្រារាប់លាន ដោយសារ inverted index
+គាំទ្រ full-text search, fuzzy search, filtering និង analytics 
+រៀបរៀងដោយ៖  វ៉ន សុរ័ត្ន
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Setup PostgreSQL → Debezium → Apache Kafka → Elasticsearch
+step 1 : PostgreSQL
+រៀបរៀងដោយ៖ វ៉ន សុរ័ត្ន 
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
+    ports:
+      - "5432:5432"
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Setup PostgreSQL → Debezium → Apache Kafka → Elasticsearch
+step 2 : Kafka
+រៀបរៀងដោយ៖ វ៉ន សុរ័ត្ន 
+  kafka:
+    image: apache/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Setup PostgreSQL → Debezium → Apache Kafka → Elasticsearch
+step 3: Debezium
+រៀបរៀងដោយ៖ វ៉ន សុរ័ត្ន 
+  debezium:
+    image: quay.io/debezium/connect:3.2
+    container_name: debezium
+    ports:
+      - "8083:8083"
+    environment:
+      BOOTSTRAP_SERVERS: kafka:9092
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: connect_configs
+      OFFSET_STORAGE_TOPIC: connect_offsets
+      STATUS_STORAGE_TOPIC: connect_statuses
+    depends_on:
+      - kafka
+      - postgres
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+Setup PostgreSQL → Debezium → Apache Kafka → Elasticsearch
+step 4: Elasticsearch	
+រៀបរៀងដោយ៖ វ៉ន សុរ័ត្ន 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.0
+    container_name: elasticsearch
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 1 : Kafka + Kafbat UI
+kafka/docker-compose.yml : បង្កើត kafka cluster ចំនួន ៣ និង kafbat UI
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+services:
+istad-kafka-1:
+image: confluentinc/cp-kafka:latest
+container_name: istad-kafka-1
+ports:
+      - "29092:9092"
+environment:
+KAFKA_NODE_ID: 1
+KAFKA_PROCESS_ROLES: "broker,controller"
+KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT"
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 1 : Kafka + Kafbat UI
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+KAFKA_CONTROLLER_QUORUM_VOTERS: "1@istad-kafka-1:9091,2@istad-kafka-2:9091,3@istad-kafka-3:9091"
+KAFKA_LISTENERS: "PLAINTEXT://:9090,CONTROLLER://istad-kafka-1:9091,EXTERNAL://:9092"
+KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://istad-kafka-1:9090,EXTERNAL://localhost:29092"
+KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+CLUSTER_ID: "4L6g3nShT-eMCtK--X86sw"
+KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 3000
+KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 1 : Kafka + Kafbat UI
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+KAFKA_LOG_DIRS: "/var/lib/kafka/data"
+volumes:
+      - istad-kafka-1-vol:/var/lib/kafka/data
+networks:
+      - ite-net
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 1 : Kafka + Kafbat UI
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+istad-kafbat-ui:
+image: ghcr.io/kafbat/kafka-ui:latest
+container_name: istad-kafbat-ui
+ports:
+      - "28080:8080"
+depends_on:
+      - istad-kafka-1
+      - istad-kafka-2
+      - istad-kafka-3
+      - istad-schema-registry
+environment:
+KAFKA_CLUSTERS_0_NAME: "local"
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 1 : Kafka + Kafbat UI
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "istad-kafka-1:9090,istad-kafka-2:9090,istad-kafka-3:9090"
+KAFKA_CLUSTERS_0_SCHEMAREGISTRY: "http://istad-schema-registry:8081"
+DYNAMIC_CONFIG_ENABLED: "true"
+networks:
+      - ite-net
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 2 : Set Up Confluent Schema Registry
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+services:
+istad-schema-registry:
+image: confluentinc/cp-schema-registry:7.8.0
+container_name: istad-schema-registry
+ports:
+      - "28081:8081"
+depends_on:
+      - istad-kafka-1
+      - istad-kafka-2
+      - istad-kafka-3
+environment:
+SCHEMA_REGISTRY_HOST_NAME: istad-schema-registry
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 2 : Set Up Confluent Schema Registry
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+SCHEMA_REGISTRY_LISTENERS: "http://0.0.0.0:8081"
+SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "PLAINTEXT://istad-kafka-1:9090,PLAINTEXT://istad-kafka-2:9090,PLAINTEXT://istad-kafka-3:9090"
+SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 3
+networks:
+      - ite-net
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 3 : Kafka Connect + connector plugins
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+services:
+istad-debezium-kafka-connect:
+build:
+context: .
+dockerfile: Dockerfile
+container_name: istad-debezium-kafka-connect
+ports:
+      - "18083:8083"
+environment:
+CONNECT_BOOTSTRAP_SERVERS: "istad-kafka-1:9090,istad-kafka-2:9090,istad-kafka-3:9090"
+CONNECT_REST_ADVERTISED_HOST_NAME: istad-debezium-kafka-connect
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 3 : Kafka Connect + connector plugins
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+CONNECT_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+
+CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: "http://istad-schema-registry:8081"
+CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: "http://istad-schema-registry:8081"
+
+CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
+KAFKA_HEAP_OPTS: "-Xms512m -Xmx1g"
+networks:
+      - ite-net
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 3 : Kafka Connect + connector plugins
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+networks:
+  ite-net:
+    external: true
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 3 : Kafka Connect + connector plugins
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+CONNECT_REST_PORT: 8083
+CONNECT_GROUP_ID: istad-connect-cluster
+
+CONNECT_CONFIG_STORAGE_TOPIC: istad-connect-configs
+CONNECT_OFFSET_STORAGE_TOPIC: istad-connect-offsets
+CONNECT_STATUS_STORAGE_TOPIC: istad-connect-status
+
+CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 3
+CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 3
+CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 3
+
+CONNECT_KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 4 : Prepare the PostgreSQL Source Database
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+services:
+kafka-postgres:
+container_name: kafka-postgres
+image: postgres:18.4
+ports:
+      - "2543:5432"
+environment:
+POSTGRES_PASSWORD: "1234"
+POSTGRES_USER: postgres
+POSTGRES_DB: kafka_db
+command:
+      - postgres
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 4 : Prepare the PostgreSQL Source Database
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+    - -c
+    - wal_level=logical
+    - -c
+    - max_replication_slots=10
+      - -c
+    - max_wal_senders=10
+volumes:
+      - ite-pg-vol:/var/lib/postgresql
+    - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+networks:
+      - ite-net
+
+
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 5 : Oracle target database
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+services:
+kafka-oracle:
+container_name: kafka-oracle
+image: gvenzl/oracle-free:23-slim
+ports:
+      - "1521:1521"
+environment:
+ORACLE_PASSWORD: "OracleAdmin123"
+APP_USER: kafka_sink
+APP_USER_PASSWORD: "KafkaSink123"
+volumes:
+      - kafka-oracle-vol:/opt/oracle/oradata
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 5 : Oracle target database
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+healthcheck:
+test: ["CMD", "healthcheck.sh"]
+interval: 10s
+timeout: 5s
+retries: 30
+start_period: 60s
+networks:
+      - ite-net
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 6 : Debezium PostgreSQL source connector
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+{
+   "name": "postgres-source",
+      "config": {
+   "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+         "tasks.max": "1",
+         "database.hostname": "kafka-postgres",
+         "database.port": "5432",
+         "database.user": "debezium",
+         "database.password": "debezium_local_password",
+         "database.dbname": "kafka_db",
+         "topic.prefix": "kafka",
+
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 6 : Debezium PostgreSQL source connector
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+
+"plugin.name": "pgoutput",
+"slot.name": "kafka_customers_slot",
+"publication.name": "kafka_publication",
+"publication.autocreate.mode": "disabled",
+"table.include.list": "public.customers",
+"snapshot.mode": "initial",
+"key.converter": "io.confluent.connect.avro.AvroConverter",
+"key.converter.schema.registry.url": "http://istad-schema-registry:8081",
+"value.converter": "io.confluent.connect.avro.AvroConverter",
+"value.converter.schema.registry.url": "http://istad-schema-registry:8081"}}
+
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 7 : Debezium JDBC sink connector
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+{
+   "name": "oracle-sink",
+      "config": {
+   "connector.class": "io.debezium.connector.jdbc.JdbcSinkConnector",
+         "tasks.max": "1",
+         "topics": "kafka.public.customers",
+         "connection.url": "jdbc:oracle:thin:@//kafka-oracle:1521/FREEPDB1",
+         "connection.username": "kafka_sink",
+         "connection.password": "KafkaSink123",
+         "insert.mode": "upsert",
+         "primary.key.mode": "record_key",
+
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 7 : Debezium JDBC sink connector
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+   "primary.key.fields": "id",
+         "delete.enabled": "true",
+         "schema.evolution": "none",
+         "quote.identifiers": "false",
+         "transforms": "route",
+         "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+         "transforms.route.regex": ".*",
+         "transforms.route.replacement": "CUSTOMERS",
+         "key.converter": "io.confluent.connect.avro.AvroConverter",
+         "key.converter.schema.registry.url": "http://istad-schema-registry:8081",
+         "value.converter": "io.confluent.connect.avro.AvroConverter",
+         "value.converter.schema.registry.url": "http://istad-schema-registry:8081"
+}}
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+From PostgreSQL to Oracle
+Step 7 : Debezium JDBC sink connector
+
+
+រៀបរៀងដោយ៖ ស៊ីម មេងហ៊
+    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "value.converter.schema.registry.url": "http://istad-schema-registry:8081"
+  }
+}
+
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+What is Databricks?
+Databricks គឺជា Unified Data and AI Platform ដែលរួមបញ្ចូល Analytical Workloads (ការវិភាគទិន្នន័យ) និង Operational Workloads (ការងារប្រតិបត្តិការប្រចាំថ្ងៃ) នៅលើមូលដ្ឋានគ្រឹះតែមួយដែលមានភាពបើកចំហ (Open) និងមានការគ្រប់គ្រងសុវត្ថិភាព (Governed)។
+វាអនុញ្ញាតឱ្យស្ថាប័ន និងក្រុមហ៊ុននានា អាចបង្កើតកម្មវិធី BI (Business Intelligence) និង AI (Artificial Intelligence) ធ្វើការផ្ទេរទិន្នន័យជាបន្តបន្ទាប់ (Data Streaming) វិភាគទិន្នន័យ និងដំណើរការការងារប្រចាំថ្ងៃ ដោយប្រើប្រាស់ប្រព័ន្ធសុវត្ថិភាព ដំណើរការលឿន និងការគ្រប់គ្រងទិន្នន័យ (Data Governance) ដូចគ្នា។
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+What is Databricks?
+ អ្វីដែលពិសេសនោះគឺ Databricks អាចធ្វើការងារទាំងនេះបានដោយមិនចាំបាច់បន្ថែមភាពស្មុគស្មាញដល់ប្រព័ន្ធ ឬចម្លងទិន្នន័យ (Data Copying) ទៅកាន់ប្រព័ន្ធផ្សេងៗឡើយ។
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Databricks គឺជា Platform សម្រាប់ធ្វើការជាមួយទិន្នន័យធំៗ ដែលអាចប្រើសម្រាប់៖
+Data Engineering
+Data Processing
+Data Analytics
+Machine Learning
+Artificial Intelligence
+Data Lakehouse
+
+សំណួរដែលគ្រូអាចសួរ៖
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Why Do We Use Databricks?
+យើងប្រើប្រាស់ Databricks ពីព្រោះវាផ្តល់នូវ Features និង Tools ជាច្រើន ដែលជួយឱ្យយើងអាចគ្រប់គ្រង ដំណើរការ រក្សាទុក និងវិភាគទិន្នន័យបានយ៉ាងមានប្រសិទ្ធភាព។
+Main Features of Databricks
+Apache Spark : ដំណើរការទិន្នន័យដែលមានចំនួនច្រើន និងទំហំធំបានយ៉ាងលឿន។ 
+Delta Lake : ផ្តល់ការរក្សាទុកទិន្នន័យដែលមានភាពជឿទុកចិត្ត និងគាំទ្រ ACID Transactions។
+Notebooks : អនុញ្ញាតឱ្យ Developer សរសេរ និងដំណើរការ Code ដោយប្រើ Python, SQL និង Scala នៅកន្លែងតែមួយ។
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Scala (Scalable Language) គឺជា Programming Language មួយដែលរួមបញ្ចូលគ្នារវាង Object-Oriented Programming (OOP) និង Functional Programming (FP)។ វាដំណើរការលើ JVM (Java Virtual Machine) ហើយអាចប្រើប្រាស់ Java Libraries បាន។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Why Do We Use Databricks?
+Main Features of Databricks ( ត)
+Data Engineering​ : បង្កើត Data Pipelines សម្រាប់ប្រមូល សម្អាត បម្លែង និងផ្ទេរទិន្នន័យ។
+Streaming : ដំណើរការទិន្នន័យដែលចូលមកជាបន្តបន្ទាប់ ដោយមិនចាំបាច់រង់ចាំឱ្យទិន្នន័យ ទាំងអស់មកដល់។
+Analytics: វិភាគទិន្នន័យអាជីវកម្ម ដើម្បីបង្កើតរបាយការណ៍ និងជួយដល់ការសម្រេចចិត្ត។
+Analytics: វិភាគទិន្នន័យអាជីវកម្ម ដើម្បីបង្កើតរបាយការណ៍ និងជួយដល់ការសម្រេចចិត្ត។
+ML/AI : បង្កើត និងដំណើរការ Machine Learning និង AI Models ដើម្បីព្យាករណ៍ និងស្វែងរកលំនាំក្នុងទិន្នន័យ។
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Scala (Scalable Language) គឺជា Programming Language មួយដែលរួមបញ្ចូលគ្នារវាង Object-Oriented Programming (OOP) និង Functional Programming (FP)។ វាដំណើរការលើ JVM (Java Virtual Machine) ហើយអាចប្រើប្រាស់ Java Libraries បាន។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+ឧទាហរណ៍៖
+យើងមាន Customer រាប់លាន Records នៅក្នុង PostgreSQL។ យើងចង់ផ្ញើទិន្នន័យទៅ Databricks ដើម្បី៖
+វិភាគចំនួន Customer។
+គណនាចំនួន Order។
+គណនា Revenue។
+បង្កើត Dashboard។
+ធ្វើការវិភាគទិន្នន័យតាមពេលវេលា។
+Databricks អាចប្រើ Apache Spark ដើម្បីដំណើរការទិន្នន័យទាំងនេះ។
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Scala (Scalable Language) គឺជា Programming Language មួយដែលរួមបញ្ចូលគ្នារវាង Object-Oriented Programming (OOP) និង Functional Programming (FP)។ វាដំណើរការលើ JVM (Java Virtual Machine) ហើយអាចប្រើប្រាស់ Java Libraries បាន។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Important Technologies in This Project
+មុនចាប់ផ្តើម Project ត្រូវយល់ពី Technology មួយចំនួនជាមុនសិន។
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Scala (Scalable Language) គឺជា Programming Language មួយដែលរួមបញ្ចូលគ្នារវាង Object-Oriented Programming (OOP) និង Functional Programming (FP)។ វាដំណើរការលើ JVM (Java Virtual Machine) ហើយអាចប្រើប្រាស់ Java Libraries បាន។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Important Technologies in This Project
+Apache Spark គឺជា Distributed Data Processing Engine ដែលអាចដំណើរការទិន្នន័យក្នុងបរិមាណច្រើន។
+យើងប្រើ Spark នៅក្នុង Databricks ដើម្បី៖
+Read CDC Events from Kafka។
+Parse JSON Events។
+Transform Data។
+Handle INSERT, UPDATE, DELETE។
+Write Data into Delta Lake។
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Scala (Scalable Language) គឺជា Programming Language មួយដែលរួមបញ្ចូលគ្នារវាង Object-Oriented Programming (OOP) និង Functional Programming (FP)។ វាដំណើរការលើ JVM (Java Virtual Machine) ហើយអាចប្រើប្រាស់ Java Libraries បាន។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Important Technologies in This Project
+Delta Lake គឺជា Open-source Storage Framework ដែលបន្ថែមសមត្ថភាព Data Management និង ACID Transactions លើ Data Lake Storage។
+វាគាំទ្រ៖
+ACID Transactions
+Schema Enforcement
+chema Evolution
+Time Travel
+MERGE / UPDATE / DELETE
+Batch and Streaming Processing
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Scala (Scalable Language) គឺជា Programming Language មួយដែលរួមបញ្ចូលគ្នារវាង Object-Oriented Programming (OOP) និង Functional Programming (FP)។ វាដំណើរការលើ JVM (Java Virtual Machine) ហើយអាចប្រើប្រាស់ Java Libraries បាន។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Apache Spark Structured Streaming
+Structured Streaming គឺជា Feature របស់ Apache Spark ដែលអនុញ្ញាតឱ្យយើងអាន និងដំណើរការទិន្នន័យដែលចូលមកជាបន្តបន្ទាប់។ 
+ឧទាហរណ៍៖
+Kafka Events
+Application Logs
+Sensor Data
+CDC Events
+Real-time Transactions
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Apache Spark Structured Streaming
+Batch Processing vs Streaming Processing
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Batch Processing
+Streaming Processing
+Process data in groups
+Process arriving data continuously
+Runs periodically
+Runs continuously
+Higher latency in many cases
+Lower latency in many cases
+Example: Daily report
+Example: Live transaction updates
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Apache Spark Structured Streaming
+Batch Processing vs Streaming Processing
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Architecture Overview
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Scala (Scalable Language) គឺជា Programming Language មួយដែលរួមបញ្ចូលគ្នារវាង Object-Oriented Programming (OOP) និង Functional Programming (FP)។ វាដំណើរការលើ JVM (Java Virtual Machine) ហើយអាចប្រើប្រាស់ Java Libraries បាន។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Explain Each Step
+Step 1: PostgreSQL – Source Database
+PostgreSQL រក្សាទុកទិន្នន័យដើម។
+ឧទាហរណ៍៖
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+INSERT INTO customers
+(name, email, city)
+VALUES
+('Dara', 'dara@gmail.com', 'Phnom Penh');
+Scala (Scalable Language) គឺជា Programming Language មួយដែលរួមបញ្ចូលគ្នារវាង Object-Oriented Programming (OOP) និង Functional Programming (FP)។ វាដំណើរការលើ JVM (Java Virtual Machine) ហើយអាចប្រើប្រាស់ Java Libraries បាន។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Explain Each Step
+Step 2: WAL – Write-Ahead Log
+WAL គឺជា Log ដែល PostgreSQL ប្រើដើម្បីកត់ត្រាការផ្លាស់ប្តូរ Database។
+ឧទាហរណ៍៖
+INSERT customer
+UPDATE customer
+DELETE customer
+Debezium ប្រើ PostgreSQL Logical Decoding ដើម្បីអាន Change Events ពី WAL។
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Scala (Scalable Language) គឺជា Programming Language មួយដែលរួមបញ្ចូលគ្នារវាង Object-Oriented Programming (OOP) និង Functional Programming (FP)។ វាដំណើរការលើ JVM (Java Virtual Machine) ហើយអាចប្រើប្រាស់ Java Libraries បាន។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Explain Each Step
+Step 3: Debezium – Capture Changes
+Debezium PostgreSQL Connector អានការផ្លាស់ប្តូរ Database ហើយបម្លែងវាទៅជា CDC Events។
+Step 4: Kafka – Stream Events
+Debezium ផ្ញើ Events ទៅ Kafka Topic។
+ឧទាហរណ៍៖
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+dbserver1.public.customers
+Scala (Scalable Language) គឺជា Programming Language មួយដែលរួមបញ្ចូលគ្នារវាង Object-Oriented Programming (OOP) និង Functional Programming (FP)។ វាដំណើរការលើ JVM (Java Virtual Machine) ហើយអាចប្រើប្រាស់ Java Libraries បាន។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Explain Each Step
+Step 5: Spark – Process Events
+Spark Structured Streaming អាន Kafka Events ហើយបម្លែង JSON ទៅជា Structured Data។
+Step 6: Databricks – Process and Store
+Databricks ប្រើ Spark ដើម្បីរៀបចំ Data ហើយរក្សាទុកជា Delta Tables។
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Scala (Scalable Language) គឺជា Programming Language មួយដែលរួមបញ្ចូលគ្នារវាង Object-Oriented Programming (OOP) និង Functional Programming (FP)។ វាដំណើរការលើ JVM (Java Virtual Machine) ហើយអាចប្រើប្រាស់ Java Libraries បាន។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Explain Each Step
+Step 7: Analytics
+យើងអាចប្រើ SQL ដើម្បីវិភាគ Data៖
+
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+SELECT city, COUNT(*)
+FROM customers
+GROUP BY city;
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Project Goal
+យើងបង្កើតប្រព័ន្ធមួយដើម្បី Sync Customer Data ពី PostgreSQL ទៅ Databricks Delta Lake។
+Use case:
+ក្រុមហ៊ុនមាន E-commerce Database។
+នៅពេល Customer បង្កើត Account ឬកែប្រែព័ត៌មាន ឬលុប Account យើងចង់ឱ្យ Databricks ទទួលបានការផ្លាស់ប្តូរនោះ។
+
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Project Goal
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Deploy Apache Kafka, Debezium Kafka Connect 
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+docker-compose.yml
+services:
+  istad-kafka-1:
+    image: confluentinc/cp-kafka:latest
+    container_name: istad-kafka-1
+    ports:
+      - "39092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@istad-kafka-1:9091'
+      KAFKA_LISTENERS: 'PLAINTEXT://0.0.0.0:9090,CONTROLLER://0.0.0.0:9091,EXTERNAL://0.0.0.0:9092'
+      # ⚠️ ប្តូរ URL Pinggy ខាងក្រោមនេះ បើផ្ទាំង PowerShell Pinggy របស់អ្នកផ្តល់លេខថ្មី
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://istad-kafka-1:9090,EXTERNAL://iwbrh-136-228-158-126.run.pinggy-free.link:36589'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+ssh -p 443 -R0:localhost:39092 tcp@a.pinggy.io
+
+ជំហានទី ២៖ ឆែកមើលផ្ទាំង PowerShell របស់ Pinggy
+មើលផ្ទាំង PowerShell ដែលអ្នកបើក ssh -p 443 -R0:localhost:39092 tcp@a.pinggy.io ថា៖
+
+តើវានៅដើរធម្មតា ឬបិទបាត់ហើយ (ព្រោះ Pinggy Free ដើរបាន ៦០ នាទី)?
+
+ប្រសិនបើវាបិទ ឬប្តូរលេខ Port ថ្មី៖ សូមបើកវាឡើងវិញ យកលេខ ...pinggy-free.link:XXXXX ថ្មីទៅដាក់ក្នុង docker-compose.yml (KAFKA_ADVERTISED_LISTENERS) ➔ docker compose up -d ➔ និងដាក់ក្នុង Databricks Notebook។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Deploy Apache Kafka, Debezium Kafka Connect 
+
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+ CLUSTER_ID: '4L6g3nShT-eMCtK--X86sw'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_LOG_DIRS: '/var/lib/kafka/data'
+    volumes:
+      - istad-kafka-1-vol:/var/lib/kafka/data
+    networks:
+      - ite-net
+
+  istad-kafbat-ui:
+    container_name: istad-kafbat-ui
+    image: ghcr.io/kafbat/kafka-ui:latest
+    ports:
+      - "18080:8080"
+    depends_on:
+      - istad-kafka-1
+      - istad-debezium-kafka-connect
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: istad-kafka-1:9090
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: debezium-connect
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Deploy Apache Kafka, Debezium Kafka Connect 
+
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://istad-debezium-kafka-connect:8083
+      DYNAMIC_CONFIG_ENABLED: 'true'
+    networks:
+      - ite-net
+  istad-debezium-kafka-connect:
+    image: quay.io/debezium/connect:3.3
+    container_name: istad-debezium-kafka-connect
+    ports:
+      - "8083:8083"
+    depends_on:
+      istad-kafka-1:
+        condition: service_started
+    environment:
+      BOOTSTRAP_SERVERS: istad-kafka-1:9090
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: connect_configs
+      OFFSET_STORAGE_TOPIC: connect_offsets
+      STATUS_STORAGE_TOPIC: connect_statuses
+      CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      STATUS_STORAGE_REPLICATION_FACTOR: 1
+    networks:
+      - ite-net
+volumes:
+  istad-kafka-1-vol:
+
+networks:
+  ite-net:
+    external: true
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Deploy PostgreSQL (docker-compose.yaml)
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+services:
+  postgres:
+    image: postgres:18.4
+    container_name: cdc-postgres
+    environment:
+      POSTGRES_DB: ecommerce
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5432:5432"
+    command:
+      - postgres
+      - -c
+      - wal_level=logical # ប្រើសម្រាប់ Logical Decoding និង Logical Replication
+      - -c
+      - max_replication_slots=10
+      - -c
+      - max_wal_senders=10
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Deploy PostgreSQL (docker-compose.yaml)
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+   volumes:
+      - postgres_data:/var/lib/postgresql
+    networks:
+      - ite-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d customer_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  ite-net:
+    external: true
+
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Start Services
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+docker compose up -d
+docker ps
+istad-kafka-1
+istad-debezium-kafka-connect
+istad-kafbat-ui
+output:
+Check PostgreSQL:
+docker exec -it cdc-postgres \
+psql -U admin -d ecommerce -c 
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Create Customer Table
+Inside PostgreSQL:
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+CREATE TABLE IF NOT EXISTS public.customers (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE,
+    city VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Insert sample data:
+
+
+
+
+
+Check:
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+INSERT INTO public.customers
+(name, email, city)
+VALUES
+('Dara', 'dara@gmail.com', 'Phnom Penh'),
+('Sophea', 'sophea@gmail.com', 'Siem Reap'),
+('Vanna', 'vanna@gmail.com', 'Battambang');
+SELECT * FROM customers;
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Create Publication
+PostgreSQL Publication គឺជា Object ដែលកំណត់ថា Table ណាខ្លះត្រូវបានផ្សព្វផ្សាយតាម Logical Replication។
+
+
+បើប្រើ pgoutput ដែលជាធម្មតា Debezium PostgreSQL Connector ប្រើវា នេះជាការកំណត់សំខាន់។
+
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+DROP PUBLICATION IF EXISTS dbz_publication;
+CREATE PUBLICATION dbz_publication FOR TABLE public.customers;
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Understand Replication Slot
+Replication Slot ជា Object ដែល PostgreSQL ប្រើដើម្បីរក្សាតាមដានថា Logical Replication Consumer បានអាន WAL ដល់ទីតាំងណា។
+Debezium ប្រើ Replication Slot ដើម្បីអាន WAL ដោយមិនរំលង Change Events។
+ឧទាហរណ៍៖
+ចំណាំ៖ Replication Slot អាចរក្សាទុក WAL យូរ ប្រសិនបើ Consumer ឈប់ដំណើរការ។ វាអាចធ្វើឱ្យ Disk ពេញ ដូច្នេះត្រូវ Monitor ជានិច្ច។
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+SELECT slot_name, plugin, active
+FROM pg_replication_slots;
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Configure Debezium PostgreSQL Connector
+Connector គឺជា Plugin ដែល Kafka Connect ប្រើដើម្បីភ្ជាប់ទៅ Data Source ឬ Data Destination។
+ឧទាហរណ៍៖
+PostgreSQL Connector
+MySQL Connector
+MongoDB Connector
+Oracle Connector
+ក្នុង Project យើងប្រើ PostgreSQL Connector។
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Configure Debezium PostgreSQL Connector
+Register Connector
+debezium/register-connector.json
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+{
+  // Connector name
+  "name": "postgres-connector",
+  "config": {
+    // PostgreSQL Debezium Connector class
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    // Maximum number of connector tasks
+    "tasks.max": "1",
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Configure Debezium PostgreSQL Connector
+Register Connector
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "admin",
+    "database.password": "admin123",
+    "database.dbname": "ecommerce",
+
+    // Prefix for Kafka topics
+    // Topic: dbserver1.public.customers
+    "topic.prefix": "ecommerce",
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Configure Debezium PostgreSQL Connector
+Register Connector
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+    "plugin.name": "pgoutput", // Logical decoding plugin
+    "slot.name": "debezium_slot",     // PostgreSQL Replication Slot name
+    "publication.name": "dbz_publication",     // PostgreSQL Publication name
+    "publication.autocreate.mode": "disabled",     // Disable automatic Publication creation
+    // Capture changes only from public.customers
+    "table.include.list": "public.customers",
+    // Take an initial snapshot before streaming new changes
+    "snapshot.mode": "initial"
+  }
+}
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Register Connector Using REST API
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+curl -i -X POST http://localhost:8083/connectors \
+  -H "Content-Type: application/json" \
+  -d @deployment/debezium/register-connector.json
+Check Connector:
+curl http://localhost:8083/connectors
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Register Connector Using REST API
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Check Connector:
+curl http://localhost:8083/connectors/postgres-connector/status
+{
+  "name": "postgres-connector",
+  "connector": {
+    "state": "RUNNING",
+    "worker_id": "172.20.0.6:8083",
+    "version": "3.3.2.Final"
+  },
+Output: 
+"tasks": [
+    {
+      "id": 0,
+      "state": "RUNNING",
+      "worker_id": "172.20.0.6:8083",
+      "version": "3.3.2.Final"
+    }
+  ],
+  "type": "source"
+}
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Register Connector Using REST API
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+List Kafka Topics
+docker exec -i istad-kafka-1 kafka-topics \
+  --bootstrap-server istad-kafka-1:9090 \
+  --list
+__consumer_offsets
+connect_configs
+connect_offsets
+connect_statuses
+ecommerce.public.customers
+ecommerce.public.products
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Register Connector Using REST API
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Consume Events
+docker exec -i istad-kafka-1 kafka-console-consumer \
+  --bootstrap-server istad-kafka-1:9090 \
+  --topic ecommerce.public.customers \
+  --from-beginning
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Register Connector Using REST API
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Consume Events
+Why don't we connect PostgreSQL directly to Databricks?
+ចម្លើយ៖
+We can connect PostgreSQL directly using JDBC for batch ingestion. However, if we want to capture individual database changes continuously with low latency, CDC with Debezium and Kafka provides a more suitable event-driven architecture.
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Connect Kafka to Databricks
+Create Databricks Account
+https://www.databricks.com/learn/free-edition
+ធ្វើតាមជំហាន៖
+1. Sign up។
+2. Login ទៅ Databricks។
+3. Create Workspace។
+4. Open Workspace។
+5. Create Notebook។
+6. Select Python។
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+ការជ្រើសរើស Python (PySpark) នៅក្នុង Databricks Notebook សម្រាប់គម្រោង PostgreSQL + Debezium + Kafka CDC របស់អ្នក គឺដោយសារមូលហេតុសំខាន់ៗ ៥ យ៉ាងដូចខាងក្រោម៖
+PySpark គឺជាភាសាស្តង់ដារសម្រាប់ Data Engineering លើ Databricks
+Databricks ត្រូវបានបង្កើតឡើងនៅលើ Apache Spark។ ការសរសេរកូដ PySpark (Python + Spark) អនុញ្ញាតឱ្យអ្នកទាញទិន្នន័យពី Kafka Stream (spark.readStream) បំប្លែងទិន្នន័យ (Transform) និងសរសេរចូលទៅកាន់ Delta Lake ដោយប្រើកូដខ្លី ងាយអាន និងមានល្បឿនលឿនបំផុត។
+ងាយស្រួលបំបែក JSON របស់ Debezium (before, after, op)
+ទិន្នន័យ CDC ដែលចេញពី Debezium មានទម្រង់ជា Nested JSON ស្មុគស្មាញ (ដូចជា payload.before, payload.after, payload.op សម្រាប់ c = create, u = update, d = delete)។ នៅក្នុង Python/PySpark អ្នកអាចប្រើ from_json() និង StructType ដើម្បីចាប់យកទិន្នន័យ និងបំបែកជួរឈរ (Columns) បានយ៉ាងងាយស្រួលជាង SQL ធម្មតា។
+គាំទ្រ Structured Streaming & Delta Lake Merge (UPSERT) ពេញលេញ
+នៅពេលទិន្នន័យមានការ UPDATE ឬ DELETE នៅក្នុង PostgreSQL អ្នកត្រូវការប្រើមុខងារ foreachBatch ជាមួយ DeltaTable.merge() ដើម្បីធ្វើបច្ចុប្បន្នភាព (Upsert/Delete) តារាងនៅក្នុង Databricks ឱ្យត្រូវតាម Postgres ភ្លាមៗ ដែល Python អាចគ្រប់គ្រង Logic ទាំងនេះបានយ៉ាងបត់បែន។
+សម្បូរ Library និងឯកសារជំនួយ (Ecosystem)
+បើអ្នកត្រូវការតភ្ជាប់ API បន្ថែម បង្កើត Schema ស្វ័យប្រវត្តិ ឬធ្វើ Data Cleaning/AI/Machine Learning បន្តទៀត Python មាន Library រាប់ពាន់ដែលអាចប្រើរួមគ្នាបានភ្លាមៗនៅក្នុង Notebook តែមួយ។
+អាចប្រើលាយជាមួយ SQL បានគ្រប់ពេល (Magic Commands)
+ទោះបីជាអ្នកជ្រើសរើស Python ជាភាសាគោលរបស់ Notebook ក៏ដោយ ក៏អ្នកនៅតែអាចសរសេរកូដ SQL ក្នុង Cell ណាមួយបានគ្រប់ពេល ដោយគ្រាន់តែវាយ %sql នៅបន្ទាត់ខាងលើបង្អស់នៃ Cell នោះ (ឧទាហរណ៍៖ %sql SELECT * FROM products)។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Connect Kafka to Databricks
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+ការជ្រើសរើស Python (PySpark) នៅក្នុង Databricks Notebook សម្រាប់គម្រោង PostgreSQL + Debezium + Kafka CDC របស់អ្នក គឺដោយសារមូលហេតុសំខាន់ៗ ៥ យ៉ាងដូចខាងក្រោម៖
+PySpark គឺជាភាសាស្តង់ដារសម្រាប់ Data Engineering លើ Databricks
+Databricks ត្រូវបានបង្កើតឡើងនៅលើ Apache Spark។ ការសរសេរកូដ PySpark (Python + Spark) អនុញ្ញាតឱ្យអ្នកទាញទិន្នន័យពី Kafka Stream (spark.readStream) បំប្លែងទិន្នន័យ (Transform) និងសរសេរចូលទៅកាន់ Delta Lake ដោយប្រើកូដខ្លី ងាយអាន និងមានល្បឿនលឿនបំផុត។
+ងាយស្រួលបំបែក JSON របស់ Debezium (before, after, op)
+ទិន្នន័យ CDC ដែលចេញពី Debezium មានទម្រង់ជា Nested JSON ស្មុគស្មាញ (ដូចជា payload.before, payload.after, payload.op សម្រាប់ c = create, u = update, d = delete)។ នៅក្នុង Python/PySpark អ្នកអាចប្រើ from_json() និង StructType ដើម្បីចាប់យកទិន្នន័យ និងបំបែកជួរឈរ (Columns) បានយ៉ាងងាយស្រួលជាង SQL ធម្មតា។
+គាំទ្រ Structured Streaming & Delta Lake Merge (UPSERT) ពេញលេញ
+នៅពេលទិន្នន័យមានការ UPDATE ឬ DELETE នៅក្នុង PostgreSQL អ្នកត្រូវការប្រើមុខងារ foreachBatch ជាមួយ DeltaTable.merge() ដើម្បីធ្វើបច្ចុប្បន្នភាព (Upsert/Delete) តារាងនៅក្នុង Databricks ឱ្យត្រូវតាម Postgres ភ្លាមៗ ដែល Python អាចគ្រប់គ្រង Logic ទាំងនេះបានយ៉ាងបត់បែន។
+សម្បូរ Library និងឯកសារជំនួយ (Ecosystem)
+បើអ្នកត្រូវការតភ្ជាប់ API បន្ថែម បង្កើត Schema ស្វ័យប្រវត្តិ ឬធ្វើ Data Cleaning/AI/Machine Learning បន្តទៀត Python មាន Library រាប់ពាន់ដែលអាចប្រើរួមគ្នាបានភ្លាមៗនៅក្នុង Notebook តែមួយ។
+អាចប្រើលាយជាមួយ SQL បានគ្រប់ពេល (Magic Commands)
+ទោះបីជាអ្នកជ្រើសរើស Python ជាភាសាគោលរបស់ Notebook ក៏ដោយ ក៏អ្នកនៅតែអាចសរសេរកូដ SQL ក្នុង Cell ណាមួយបានគ្រប់ពេល ដោយគ្រាន់តែវាយ %sql នៅបន្ទាត់ខាងលើបង្អស់នៃ Cell នោះ (ឧទាហរណ៍៖ %sql SELECT * FROM products)។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Transform CDC Events Using Spark
+Parse JSON
+Debezium Event មាន Structure ដូចជា៖
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+{
+  "before": null,
+  "after": {
+    "id": 1,
+    "name": "Dara",
+    "email": "dara@gmail.com",
+    "city": "Phnom Penh"
+  },
+  "op": "c"
+}
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Transform CDC Events Using Spark
+យើងត្រូវ Parse JSON ទៅជា Structured Columns។
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+from pyspark.sql.functions import col, from_json
+from pyspark.sql.types import (
+    StructType,
+    StructField,
+    IntegerType,
+    StringType
+)
+customer_schema = StructType([
+    StructField("id", IntegerType()),
+    StructField("name", StringType()),
+    StructField("email", StringType()),
+    StructField("city", StringType())
+])
+cdc_schema = StructType([
+    StructField("before", customer_schema),
+    StructField("after", customer_schema),
+    StructField("op", StringType())
+])
+parsed_df = (
+    json_df
+    .select(
+        from_json(
+            col("json_value"),
+            cdc_schema
+        ).alias("data")
+    )
+    .select("data.*")
+)
+display(parsed_df)
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Transform CDC Events Using Spark
+Extract New Data
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+from pyspark.sql.functions import col
+
+new_data_df = parsed_df.select(
+    col("after.id").alias("id"),
+    col("after.name").alias("name"),
+    col("after.email").alias("email"),
+    col("after.city").alias("city"),
+    col("op")
+)
+
+display(new_data_df)
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Transform CDC Events Using Spark
+Handle INSERT, UPDATE and DELETE
+យើងត្រូវយល់ពី Logic នេះ៖
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Operation
+Action in Delta Lake
+c
+Insert new record
+u
+Update existing record
+d
+Delete existing record
+r
+Insert snapshot record
+សំខាន់៖ ការប្រើ append ដោយផ្ទាល់មិនគ្រប់គ្រាន់ទេ ព្រោះ UPDATE និង DELETE ត្រូវការកែប្រែ Record ចាស់ មិនមែនបន្ថែម Record ថ្មីគ្រប់ពេលទេ។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Write Data into Delta Lake
+What is MERGE?
+MERGE គឺជា Operation ដែលអនុញ្ញាតឱ្យយើងធ្វើ INSERT, UPDATE និង DELETE ទៅលើ Table តែមួយ ដោយផ្អែកលើលក្ខខណ្ឌ។
+
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Delta Table នេះនឹងក្លាយជា Destination Table របស់យើង។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Write Data into Delta Lake
+ឧទាហរណ៍៖
+
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+MERGE INTO cdc_demo.customers AS target
+USING customer_updates AS source
+ON target.id = source.id
+
+WHEN MATCHED AND source.op = 'd'
+THEN DELETE
+
+WHEN MATCHED AND source.op IN ('u', 'c', 'r')
+THEN UPDATE SET *
+
+WHEN NOT MATCHED AND source.op IN ('c', 'r')
+THEN INSERT *;
+Explain MERGE
+MERGE INTO: កំណត់ Target Table។
+USING: កំណត់ Source Data។
+ON: កំណត់ Key សម្រាប់ Match។
+WHEN MATCHED: Record មានស្រាប់។
+THEN UPDATE: កែប្រែ Record។
+THEN DELETE: លុប Record។
+WHEN NOT MATCHED: Record មិនទាន់មាន។
+THEN INSERT: បញ្ចូល Record ថ្មី។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Implement CDC Processing with foreachBatch
+នេះជាផ្នែកសំខាន់បំផុតនៃ Project ព្រោះយើងត្រូវធ្វើឱ្យ Delta Lake ទទួលបានការផ្លាស់ប្តូរពី PostgreSQL។
+What is foreachBatch?
+foreachBatch() គឺជា Spark Structured Streaming Function ដែលអនុញ្ញាតឱ្យយើងយក Streaming Data មកដំណើរការជា Micro-batches។
+
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Explain MERGE
+MERGE INTO: កំណត់ Target Table។
+USING: កំណត់ Source Data។
+ON: កំណត់ Key សម្រាប់ Match។
+WHEN MATCHED: Record មានស្រាប់។
+THEN UPDATE: កែប្រែ Record។
+THEN DELETE: លុប Record។
+WHEN NOT MATCHED: Record មិនទាន់មាន។
+THEN INSERT: បញ្ចូល Record ថ្មី។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Implement CDC Processing with foreachBatch
+ហេតុអ្វីយើងត្រូវប្រើវា?
+ព្រោះយើងចង់ប្រើ Delta Lake MERGE ដើម្បីដោះស្រាយ INSERT, UPDATE និង DELETE ក្នុង Batch នីមួយៗ។
+
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Explain MERGE
+MERGE INTO: កំណត់ Target Table។
+USING: កំណត់ Source Data។
+ON: កំណត់ Key សម្រាប់ Match។
+WHEN MATCHED: Record មានស្រាប់។
+THEN UPDATE: កែប្រែ Record។
+THEN DELETE: លុប Record។
+WHEN NOT MATCHED: Record មិនទាន់មាន។
+THEN INSERT: បញ្ចូល Record ថ្មី។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Databricks PySpark - Read & Parse CDC Stream
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+កុំភ្លេចប្តូរ KAFKA_BOOTSTRAP_SERVERS ទៅជា URL Pinggy ចុងក្រោយរបស់អ្នក (ឬដាក់ <your-pinggy-url>:<port>)។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Databricks PySpark - Read & Parse CDC Stream
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+from pyspark.sql.functions import col, from_json
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType
+KAFKA_BOOTSTRAP_SERVERS = "skksi-202-79-25-250.run.pinggy-free.link:36147"
+KAFKA_TOPIC = "ecommerce.public.customers"
+customer_schema = StructType([
+    StructField("id", IntegerType()), StructField("name", StringType()),
+    StructField("email", StringType()), StructField("city", StringType()),
+    StructField("created_at", StringType())
+])
+debezium_schema = StructType([
+    StructField("payload", StructType([
+        StructField("before", customer_schema),
+        StructField("after", customer_schema),
+        StructField("op", StringType()),
+        StructField("ts_ms", StringType())
+    ]))
+])
+កុំភ្លេចប្តូរ KAFKA_BOOTSTRAP_SERVERS ទៅជា URL Pinggy ចុងក្រោយរបស់អ្នក (ឬដាក់ <your-pinggy-url>:<port>)។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Databricks PySpark - Read & Parse CDC Stream
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+raw_df = (spark.readStream.format("kafka")
+    .option("kafka.bootstrap.servers", KAFKA_BOOTSTRAP_SERVERS )
+    .option("subscribe", KAFKA_TOPIC)
+    .option("startingOffsets", "earliest").load())
+
+parsed_cdc_df = (raw_df.selectExpr("CAST(value AS STRING) as json_val")
+    .select(from_json(col("json_val"), debezium_schema).alias("data"))
+    .select("data.payload.op", "data.payload.before", "data.payload.after", "data.payload.ts_ms")
+    .filter(col("op").isNotNull()))
+
+Explain the Code
+readStream
+ប្រើសម្រាប់ Read Streaming Data។
+format("kafka")
+ប្រាប់ Spark ថា Source គឺ Kafka។
+kafka.bootstrap.servers
+កំណត់ Kafka Broker Endpoint។
+subscribe
+កំណត់ Topic ដែលយើងចង់អាន។
+startingOffsets
+កំណត់ទីតាំង Offset ដែលចាប់ផ្តើមអាន។
+earliest មានន័យថាចាប់ផ្តើមពី Earliest Available Offset នៅពេល Streaming Query ចាប់ផ្តើមថ្មី។
+load()
+ចាប់ផ្តើមបង្កើត Streaming DataFrame។
+Important: ការប្រើ startingOffsets="earliest" មិនមានន័យថារាល់ Restart នឹងអានពីដើមជានិច្ចទេ។ នៅពេលមាន Checkpoint ដែលបានរក្សាទុក Spark នឹងបន្តតាម Checkpoint។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Databricks PySpark - Delta Lake Upsert Logic
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+from delta.tables import DeltaTable
+from pyspark.sql.functions import coalesce, row_number
+from pyspark.sql.window import Window
+
+spark.sql("CREATE VOLUME IF NOT EXISTS workspace.default.cdc_checkpoints")
+spark.sql("""
+  CREATE TABLE IF NOT EXISTS workspace.default.customers_silver (
+    id INT, name STRING, email STRING, city STRING, created_at STRING, last_op STRING
+  ) USING DELTA
+""")
+
+def upsert_to_delta(micro_batch_df, batch_id):
+    if micro_batch_df.isEmpty(): return
+    win = Window.partitionBy(coalesce(col("after.id"), 
+Explain the Code
+readStream
+ប្រើសម្រាប់ Read Streaming Data។
+format("kafka")
+ប្រាប់ Spark ថា Source គឺ Kafka។
+kafka.bootstrap.servers
+កំណត់ Kafka Broker Endpoint។
+subscribe
+កំណត់ Topic ដែលយើងចង់អាន។
+startingOffsets
+កំណត់ទីតាំង Offset ដែលចាប់ផ្តើមអាន។
+earliest មានន័យថាចាប់ផ្តើមពី Earliest Available Offset នៅពេល Streaming Query ចាប់ផ្តើមថ្មី។
+load()
+ចាប់ផ្តើមបង្កើត Streaming DataFrame។
+Important: ការប្រើ startingOffsets="earliest" មិនមានន័យថារាល់ Restart នឹងអានពីដើមជានិច្ចទេ។ នៅពេលមាន Checkpoint ដែលបានរក្សាទុក Spark នឹងបន្តតាម Checkpoint។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Databricks PySpark - Delta Lake Upsert Logic
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+col("before.id"))).orderBy(col("ts_ms").desc())
+    latest_df = (micro_batch_df.withColumn("rn", row_number().over(win)).filter(col("rn") == 1)
+        .select(coalesce(col("after.id"), col("before.id")).alias("id"),
+                "after.name", "after.email", "after.city", "after.created_at", col("op").alias("last_op")))
+
+    DeltaTable.forName(spark, "workspace.default.customers_silver").alias("t").merge(
+        latest_df.alias("s"), "t.id = s.id"
+    ).whenMatchedDelete(condition="s.last_op = 'd'") \
+     .whenMatchedUpdateAll(condition="s.last_op IN ('c', 'u', 'r')") \
+     .whenNotMatchedInsertAll(condition="s.last_op IN ('c', 'u', 'r')").execute()
+Explain the Code
+readStream
+ប្រើសម្រាប់ Read Streaming Data។
+format("kafka")
+ប្រាប់ Spark ថា Source គឺ Kafka។
+kafka.bootstrap.servers
+កំណត់ Kafka Broker Endpoint។
+subscribe
+កំណត់ Topic ដែលយើងចង់អាន។
+startingOffsets
+កំណត់ទីតាំង Offset ដែលចាប់ផ្តើមអាន។
+earliest មានន័យថាចាប់ផ្តើមពី Earliest Available Offset នៅពេល Streaming Query ចាប់ផ្តើមថ្មី។
+load()
+ចាប់ផ្តើមបង្កើត Streaming DataFrame។
+Important: ការប្រើ startingOffsets="earliest" មិនមានន័យថារាល់ Restart នឹងអានពីដើមជានិច្ចទេ។ នៅពេលមាន Checkpoint ដែលបានរក្សាទុក Spark នឹងបន្តតាម Checkpoint។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Trigger Stream & Query Delta Table 
+Start Stream (Serverless Compute):
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+query = (parsed_cdc_df.writeStream
+    .foreachBatch(upsert_to_delta)
+    .option("checkpointLocation", "/Volumes/workspace/default/cdc_checkpoints/customers_cdc")
+    .trigger(availableNow=True)
+    .start())
+
+query.awaitTermination()
+Explain the Code
+readStream
+ប្រើសម្រាប់ Read Streaming Data។
+format("kafka")
+ប្រាប់ Spark ថា Source គឺ Kafka។
+kafka.bootstrap.servers
+កំណត់ Kafka Broker Endpoint។
+subscribe
+កំណត់ Topic ដែលយើងចង់អាន។
+startingOffsets
+កំណត់ទីតាំង Offset ដែលចាប់ផ្តើមអាន។
+earliest មានន័យថាចាប់ផ្តើមពី Earliest Available Offset នៅពេល Streaming Query ចាប់ផ្តើមថ្មី។
+load()
+ចាប់ផ្តើមបង្កើត Streaming DataFrame។
+Important: ការប្រើ startingOffsets="earliest" មិនមានន័យថារាល់ Restart នឹងអានពីដើមជានិច្ចទេ។ នៅពេលមាន Checkpoint ដែលបានរក្សាទុក Spark នឹងបន្តតាម Checkpoint។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Trigger Stream & Query Delta Table 
+Query Data in Databricks SQL:
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+%sql
+SELECT * FROM workspace.default.customers_silver ORDER BY id;
+Explain the Code
+readStream
+ប្រើសម្រាប់ Read Streaming Data។
+format("kafka")
+ប្រាប់ Spark ថា Source គឺ Kafka។
+kafka.bootstrap.servers
+កំណត់ Kafka Broker Endpoint។
+subscribe
+កំណត់ Topic ដែលយើងចង់អាន។
+startingOffsets
+កំណត់ទីតាំង Offset ដែលចាប់ផ្តើមអាន។
+earliest មានន័យថាចាប់ផ្តើមពី Earliest Available Offset នៅពេល Streaming Query ចាប់ផ្តើមថ្មី។
+load()
+ចាប់ផ្តើមបង្កើត Streaming DataFrame។
+Important: ការប្រើ startingOffsets="earliest" មិនមានន័យថារាល់ Restart នឹងអានពីដើមជានិច្ចទេ។ នៅពេលមាន Checkpoint ដែលបានរក្សាទុក Spark នឹងបន្តតាម Checkpoint។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Databricks Medallion Architecture
+នេះជាចំណុចបន្ថែមដែលគួរតែដឹងសម្រាប់ការធ្វើ Data Lakehouse Project។
+Databricks ប្រើ Medallion Architecture ដើម្បីរៀបចំទិន្នន័យជា 3 Layers។
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Expected Result:
+Empty Result
+
+
+Milestone 2
+អ្នកបានយល់ពីការបញ្ជូន CDC Events និងការធ្វើ INSERT, UPDATE, DELETE នៅក្នុង Delta Lake ហើយ។
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Databricks Medallion Architecture
+Bronze Layer
+ជា Layer សម្រាប់រក្សាទុក Raw Data ដែលទទួលបានពី Source System ដោយមិនទាន់ Transform ច្រើន។
+ឧទាហរណ៍៖  bronze.customer_events
+ទុក Debezium Events ទាំងអស់៖
+INSERT
+UPDATE
+DELETE
+Snapshot
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Expected Result:
+Empty Result
+
+
+Milestone 2
+អ្នកបានយល់ពីការបញ្ជូន CDC Events និងការធ្វើ INSERT, UPDATE, DELETE នៅក្នុង Delta Lake ហើយ។
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Databricks Medallion Architecture
+Silver Layer
+ជា Layer សម្រាប់សម្អាត និងរៀបចំ Data ឱ្យមានទម្រង់ត្រឹមត្រូវ។
+ឧទាហរណ៍៖ silver.customers
+Remove invalid data។
+Validate email។
+Handle duplicate records។
+Standardize city names។
+Apply CDC updates។
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Expected Result:
+Empty Result
+
+
+Milestone 2
+អ្នកបានយល់ពីការបញ្ជូន CDC Events និងការធ្វើ INSERT, UPDATE, DELETE នៅក្នុង Delta Lake ហើយ។
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Databricks Medallion Architecture
+Gold Layer
+ជា Layer សម្រាប់រក្សាទុកទិន្នន័យដែលបានវិភាគរួច ដើម្បីប្រើក្នុង Report និង Dashboard។
+ឧទាហរណ៍៖
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+CREATE OR REPLACE TABLE gold.customer_by_city AS
+SELECT
+    city,
+    COUNT(*) AS total_customers
+FROM silver.customers
+GROUP BY city;
+
+Expected Result:
+Empty Result
+
+
+Milestone 2
+អ្នកបានយល់ពីការបញ្ជូន CDC Events និងការធ្វើ INSERT, UPDATE, DELETE នៅក្នុង Delta Lake ហើយ។
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Databricks Medallion Architecture
+Why do we need Medallion Architecture?
+ងាយស្រួលគ្រប់គ្រង Data។
+បែងចែក Raw និង Clean Data។
+ងាយស្រួល Debug។
+អាចប្រើ Raw Data ដើម្បី Reprocess។
+ងាយស្រួលបង្កើត Analytics និង Dashboard។
+
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Expected Result:
+Empty Result
+
+
+Milestone 2
+អ្នកបានយល់ពីការបញ្ជូន CDC Events និងការធ្វើ INSERT, UPDATE, DELETE នៅក្នុង Delta Lake ហើយ។
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Complete End-to-End Testing
+ឥឡូវយើងធ្វើតេស្តថា PostgreSQL និង Delta Lake អាច Synchronize គ្នាបានឬអត់។
+Test 1: Initial Snapshot
+នៅ PostgreSQL៖
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+បន្ទាប់មកពិនិត្យ Delta Lake៖
+SELECT * FROM customers;
+SELECT * FROM workspace.default.customers_silver
+ទិន្នន័យគួរតែដូចគ្នា។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Complete End-to-End Testing
+Test 2: Insert
+នៅ PostgreSQL៖
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+រំពឹងថា Delta Lake នឹងមាន Customer ថ្មី។
+INSERT INTO customers
+(name, email, city)
+VALUES
+('Pisey', 'pisey@gmail.com', 'Kampot');
+ទិន្នន័យគួរតែដូចគ្នា។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Complete End-to-End Testing
+Test 3: Update
+Delta Lake៖
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+SELECT *
+FROM workspace.default.customers_silver 
+WHERE id = 4;
+
+Expected Result:
+Empty Result
+
+
+Milestone 2
+អ្នកបានយល់ពីការបញ្ជូន CDC Events និងការធ្វើ INSERT, UPDATE, DELETE នៅក្នុង Delta Lake ហើយ។
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Import CDC JSON into Databricks
+ដោយសារ Databricks Free Edition មាន Network Restrictions អ្នកអាចសាកល្បង CDC Events ដោយ Export JSON ចេញពី Kafka រួច Upload ទៅ Databricks។
+វិធីនេះអនុញ្ញាតឱ្យអ្នករៀន Spark, JSON Parsing និង Delta Lake ដោយមិនចាំបាច់ភ្ជាប់ Kafka ពី Cloud ជាមុន។
+
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Expected Result:
+Empty Result
+
+
+Milestone 2
+អ្នកបានយល់ពីការបញ្ជូន CDC Events និងការធ្វើ INSERT, UPDATE, DELETE នៅក្នុង Delta Lake ហើយ។
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Import CDC JSON into Databricks
+Create Sample CDC JSON
+Create customers-cdc.json៖
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+{"before":null,"after":{"id":1,"name":"Dara","email":"dara@gmail.com","city":"Phnom Penh"},"op":"c","ts_ms":1000}
+{"before":null,"after":{"id":2,"name":"Sophea","email":"sophea@gmail.com","city":"Siem Reap"},"op":"c","ts_ms":2000}
+{"before":{"id":1,"name":"Dara","email":"dara@gmail.com","city":"Phnom Penh"},"after":{"id":1,"name":"Dara","email":"dara@gmail.com","city":"Battambang"},"op":"u","ts_ms":3000}
+{"before":{"id":2,"name":"Sophea","email":"sophea@gmail.com","city":"Siem Reap"},"after":null,"op":"d","ts_ms":4000}
+Expected Result:
+Empty Result
+
+
+Milestone 2
+អ្នកបានយល់ពីការបញ្ជូន CDC Events និងការធ្វើ INSERT, UPDATE, DELETE នៅក្នុង Delta Lake ហើយ។
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Import CDC JSON into Databricks
+Upload to Databricks
+Open Databricks Workspace។
+Open Catalog Explorer។
+Create Schema cdc_demo។
+Create Volume cdc_files។
+Upload customers-cdc.json ទៅ Volume។
+ឧទាហរណ៍ Path៖
+/Volumes/workspace/cdc_demo/cdc_files/customers-cdc.json
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+Expected Result:
+Empty Result
+
+
+Milestone 2
+អ្នកបានយល់ពីការបញ្ជូន CDC Events និងការធ្វើ INSERT, UPDATE, DELETE នៅក្នុង Delta Lake ហើយ។
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Import CDC JSON into Databricks
+Read JSON Using Spark
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+df = spark.read.json(
+    "/Volumes/workspace/cdc_demo/cdc_files/customers-cdc.json"
+)
+
+display(df)
+Expected Result:
+Empty Result
+
+
+Milestone 2
+អ្នកបានយល់ពីការបញ្ជូន CDC Events និងការធ្វើ INSERT, UPDATE, DELETE នៅក្នុង Delta Lake ហើយ។
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Import CDC JSON into Databricks
+Process CDC Data
+
+
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+from pyspark.sql.functions import (
+    col,
+    coalesce
+)
+processed_df = df.select(
+    coalesce(
+        col("after.id"),
+        col("before.id")
+    ).alias("id"),
+
+    col("after.name").alias("name"),
+    col("after.email").alias("email"),
+    col("after.city").alias("city"),
+    col("op"),
+    col("ts_ms")
+)
+display(processed_df)
+ឥឡូវអ្នកបានបម្លែង JSON Events ទៅជា Structured Data រួចហើយ។
+
+
+Capturing Data Changes
+4.7. From PostgreSQL to Data Lakehouse - Databricks Community
+Import CDC JSON into Databricks
+Save as Delta Table
+
+
+
+ពិនិត្យ៖
+ចំណាំ៖ customer_events នៅទីនេះជាតារាង Event History មិនមែន Current Customer State ទេ។ ដើម្បីបង្កើត Current State ត្រូវប្រើ MERGE ដូចដែលបានរៀនក្នុងផ្នែកទី 14។
+រៀបរៀងដោយ៖ សន​ សុភីរ៉ាម
+(
+    processed_df.write
+    .format("delta")
+    .mode("overwrite")
+    .saveAsTable("cdc_demo.customer_events")
+)
+SELECT * FROM cdc_demo.customer_event;
+ឥឡូវអ្នកបានបម្លែង JSON Events ទៅជា Structured Data រួចហើយ។
+
+
+ឯកសារយោងក្នុងការស្រាវជ្រាវ
+https://spring.io/microservices
+Databricks
+https://debezium.io/documentation/reference/stable/connectors/
+188
+
+សមាជិកក្រុម
+Chhay
+Kongkea
+Phoeurn
+Solyta
+Sam
+Sreynich
+Sorn
+Sophiram
+Sim
+Meng Hor
+Theoun
+Seyha
+
+Vorn
+SoRoth
+
+
+Thank you
+If you don’t help yourself, teacher can’t help you..!

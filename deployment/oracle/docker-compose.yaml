@@ -1,0 +1,21 @@
+services:
+  ite-oracle:
+    image: gvenzl/oracle-free:latest
+    container_name: ite-oracle
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PASSWORD: qwerqwer
+      APP_USER: iteuser
+      APP_USER_PASSWORD: qwerqwer
+    volumes:
+      - ite-oracle-data:/opt/oracle/oradata
+    networks:
+      - ite-net
+
+volumes:
+  ite-oracle-data:
+
+networks:
+  ite-net:
+    external: true

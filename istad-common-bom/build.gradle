@@ -4,12 +4,12 @@ plugins {
 }
 
 group = 'kh.edu.istad'
-version = '1.0.2'
+version = '1.0.6'
 
 dependencies {
     constraints {
-        // Define your shared dependency versions here, for example:
-        api 'kh.edu.istad:istad-common-domain:1.0.0'
-        api 'kh.edu.istad:istad-common-restapi:1.0.0'
+
+        api 'kh.edu.istad:istad-common-domain:1.0.5'
+
     }
 }

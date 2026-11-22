@@ -1,0 +1,16 @@
+{
+  "name": "pg-source-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "plugin.name": "pgoutput",
+    "database.hostname": "ite-postgres-cdc",
+    "database.port": "5432",
+    "database.user": "iteuser",
+    "database.password": "qwerqwer",
+    "database.dbname": "cdcdb",
+    "topic.prefix": "cdc",
+    "table.include.list": "public.customers",
+    "schema.history.internal.kafka.bootstrap.servers": "istad-kafka-1:9090"
+  }
+}

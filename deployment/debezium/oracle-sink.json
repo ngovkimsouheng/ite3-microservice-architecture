@@ -1,0 +1,16 @@
+{
+  "name": "oracle-sink-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.jdbc.JdbcSinkConnector",
+    "tasks.max": "1",
+    "topics": "cdc.public.customers",
+    "connection.url": "jdbc:oracle:thin:@ite-oracle:1521/FREEPDB1",
+    "connection.username": "iteuser",
+    "connection.password": "qwerqwer",
+    "insert.mode": "upsert",
+    "primary.key.mode": "record_key",
+    "primary.key.fields": "id",
+    "schema.evolution": "basic",
+    "table.name.format": "CUSTOMERS"
+  }
+}

@@ -4,7 +4,7 @@ plugins {
 
 publishing {
     repositories {
-        // Your existing GitHub Packages config (if needed)
+        //  existing gitHub packages config
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/ngovkimsouheng/ite3-microservice-architecture")

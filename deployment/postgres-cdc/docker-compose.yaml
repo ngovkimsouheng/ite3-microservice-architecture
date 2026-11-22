@@ -1,0 +1,22 @@
+services:
+  ite-postgres-cdc:
+    image: postgres:16-alpine
+    container_name: ite-postgres-cdc
+    command: ["postgres", "-c", "wal_level=logical"]
+    ports:
+      - "5433:5432"                     # Uses port 5433 to avoid conflict with 9543
+    environment:
+      POSTGRES_USER: iteuser
+      POSTGRES_PASSWORD: qwerqwer
+      POSTGRES_DB: cdcdb
+    volumes:
+      - ite-pg-cdc-vol:/var/lib/postgresql/data
+    networks:
+      - ite-net
+
+volumes:
+  ite-pg-cdc-vol:
+
+networks:
+  ite-net:
+    external: true
