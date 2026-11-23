@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: ite-rustfs
+    restart: unless-stopped
+    ports:
+      - "9000:9000"       # S3 API & Embedded Iceberg REST Catalog
+      - "9001:9001"       # RustFS Web Console
+    environment:
+      - RUSTFS_VOLUMES=/data
+      - RUSTFS_ADDRESS=0.0.0.0:9000
+      - RUSTFS_CONSOLE_ADDRESS=0.0.0.0:9001
+      - RUSTFS_CONSOLE_ENABLE=true
+      - RUSTFS_ACCESS_KEY=admin
+      - RUSTFS_SECRET_KEY=admin123
+    volumes:
+      - rustfs_data:/data
+    networks:
+      - ite-net
+
+volumes:
+  rustfs_data:
+
+networks:
+  ite-net:
+    external: true
