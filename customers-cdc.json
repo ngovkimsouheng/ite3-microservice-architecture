@@ -1,0 +1,6 @@
+﻿{"before":null,"after":{"id":1,"name":"Chan Dara","email":"dara@istad.edu.kh","city":"Phnom Penh"},"op":"c","ts_ms":1000}
+{"before":null,"after":{"id":2,"name":"Keo Sophea","email":"sophea@istad.edu.kh","city":"Siem Reap"},"op":"c","ts_ms":2000}
+{"before":null,"after":{"id":3,"name":"Sok Piseth","email":"piseth@istad.edu.kh","city":"Battambang"},"op":"c","ts_ms":2500}
+{"before":{"id":1,"name":"Chan Dara","email":"dara@istad.edu.kh","city":"Phnom Penh"},"after":{"id":1,"name":"Chan Dara","email":"dara@istad.edu.kh","city":"Kandal"},"op":"u","ts_ms":3000}
+{"before":{"id":2,"name":"Keo Sophea","email":"sophea@istad.edu.kh","city":"Siem Reap"},"after":null,"op":"d","ts_ms":4000}
+{"before":null,"after":{"id":4,"name":"Heng Pisey","email":"pisey@istad.edu.kh","city":"Kampot"},"op":"c","ts_ms":5000}
