@@ -85,6 +85,22 @@ services:
       - istad-kafka-3-vol:/var/lib/kafka/data
     networks:
       - ite-net
+  istad-schema-registry:
+    image: confluentinc/cp-schema-registry:7.8.0
+    container_name: istad-schema-registry
+    ports:
+      - "28081:8081" # Port 28081 on host (ដើម្បីកុំឱ្យជល់ជាមួយ Nexus 8081)
+    depends_on:
+      - istad-kafka-1
+      - istad-kafka-2
+      - istad-kafka-3
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: istad-schema-registry
+      SCHEMA_REGISTRY_LISTENERS: "http://0.0.0.0:8081"
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "PLAINTEXT://istad-kafka-1:9090,PLAINTEXT://istad-kafka-2:9090,PLAINTEXT://istad-kafka-3:9090"
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 3
+    networks:
+      - ite-net
   istad-kafbat-ui:
     container_name: istad-kafbat-ui
     image: ghcr.io/kafbat/kafka-ui:latest
@@ -94,14 +110,15 @@ services:
       - istad-kafka-1
       - istad-kafka-2
       - istad-kafka-3
-#      - istad-schema-registry
-#      - istad-debezium-kafka-connect
+      - istad-schema-registry
+    #      - istad-debezium-kafka-connect
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: istad-kafka-1:9090,istad-kafka-2:9090,istad-kafka-3:9090
-#      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://istad-schema-registry:8081
-#      KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: first
-#      KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://istad-debezium-kafka-connect:8083
+      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://istad-schema-registry:8081
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: ite-connect
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://ite-connect:8083
+
       DYNAMIC_CONFIG_ENABLED: 'true'
     networks:
       ite-net:
